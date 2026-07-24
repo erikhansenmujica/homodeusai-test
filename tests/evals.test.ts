@@ -111,10 +111,10 @@ test("trusted profile resolution ignores a remapped product surface", async () =
   ));
 });
 
-test("shipped eval cases are samples, not a hidden answer key or passing benchmark", async () => {
+test("authored eval suite satisfies the submission structure", async () => {
   const input: unknown = JSON.parse(await readFile(new URL("../evals/cases.json", import.meta.url), "utf8"));
   const result = validateCandidateEvalSuite(input);
-  assert.equal(result.summary.sampleCases, 2);
-  assert.equal(result.summary.candidateCases, 0);
-  assert.ok(result.errors.includes("add at least 12 non-sample cases"));
+  assert.equal(result.summary.sampleCases, 0);
+  assert.equal(result.summary.candidateCases, 19);
+  assert.deepEqual(result.errors, []);
 });

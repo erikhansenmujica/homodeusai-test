@@ -53,12 +53,19 @@ function loadStore(): void {
   if (loaded) return;
   loaded = true;
   if (!existsSync(storePath)) return;
-  const parsed = JSON.parse(readFileSync(storePath, "utf8")) as { records?: HandoffRecord[] };
-  if (!Array.isArray(parsed.records)) throw new Error("handoff store is invalid");
-  for (const record of parsed.records) {
-    if (!record?.ticketId || !record.idempotencyKey) throw new Error("handoff store contains an invalid record");
-    ticketsByKey.set(record.idempotencyKey, record);
-    ticketsById.set(record.ticketId, record);
+  try {
+    const parsed = JSON.parse(readFileSync(storePath, "utf8")) as { records?: HandoffRecord[] };
+    if (!Array.isArray(parsed.records)) throw new Error("handoff store is invalid");
+    for (const record of parsed.records) {
+      if (!record?.ticketId || !record.idempotencyKey) throw new Error("handoff store contains an invalid record");
+      ticketsByKey.set(record.idempotencyKey, record);
+      ticketsById.set(record.ticketId, record);
+    }
+  } catch {
+    const quarantinePath = `${storePath}.corrupt.${Date.now()}`;
+    renameSync(storePath, quarantinePath);
+    ticketsByKey.clear();
+    ticketsById.clear();
   }
 }
 
@@ -89,7 +96,7 @@ export function createHandoff(input: DecideRequest, reasonCode: HandoffReason, t
   const route = ROUTES[reasonCode];
   const now = new Date().toISOString();
   const record: HandoffRecord = {
-    ticketId: `dev-${idempotencyKey.slice(0, 12)}`,
+    ticketId: `ticket-${idempotencyKey.slice(0, 12)}`,
     reasonCode,
     queue: route.queue,
     slaHours: route.slaHours,

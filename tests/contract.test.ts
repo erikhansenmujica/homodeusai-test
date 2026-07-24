@@ -30,7 +30,7 @@ test("request parser requires authoritative requester context", () => {
   });
 });
 
-test("starter returns a valid and idempotent safe decision", async () => {
+test("decision service returns a valid and idempotent safe handoff", async () => {
   resetHandoffsForTest();
   const parsed = parseDecideRequest(validRequest);
   assert.equal(parsed.ok, true);
@@ -61,7 +61,7 @@ test("handoff record survives a process restart against the same state directory
       `import { createHandoff } from ${JSON.stringify(moduleUrl)}; const record=createHandoff(${input}, "missing_source", "trace-restart"); process.stdout.write(record.ticketId);`,
     ], { encoding: "utf8", env: { ...process.env, INDEX_PATH: directory } });
     assert.equal(create.status, 0, create.stderr);
-    assert.match(create.stdout, /^dev-[a-f0-9]{12}$/u);
+    assert.match(create.stdout, /^ticket-[a-f0-9]{12}$/u);
 
     const retrieve = spawnSync(process.execPath, [
       "--input-type=module",

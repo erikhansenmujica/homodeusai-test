@@ -8,7 +8,8 @@ import { parseDecideRequest, validateDecision } from "./contract.ts";
 import { loadSourceDocuments } from "./corpus.ts";
 import { decide } from "./decide.ts";
 import { getHandoff, resolveHandoff } from "./queue.ts";
-import { getTrace, saveTrace } from "./traces.ts";
+import { lexicalIndex } from "./retrieval.ts";
+import { getTrace } from "./traces.ts";
 import { renderWorkbench } from "./ui.ts";
 
 const PORT = Number(process.env.PORT) || 8080;
@@ -53,7 +54,8 @@ const server = createServer(async (req, res) => {
 
     if (req.method === "GET" && url.pathname === "/readyz") {
       const documents = loadSourceDocuments();
-      return json(res, 200, { status: "ready", documents: documents.length });
+      const index = lexicalIndex(documents);
+      return json(res, 200, { status: "ready", documents: documents.length, passages: index.passages.length });
     }
 
     if (req.method === "GET" && url.pathname === "/") {
@@ -138,29 +140,6 @@ const server = createServer(async (req, res) => {
       if (contractErrors.length) {
         return json(res, 500, { error: "invalid_decision_contract", details: contractErrors });
       }
-      saveTrace({
-        traceId: decision.traceId,
-        requestId: parsed.value.requestId,
-        createdAt: new Date().toISOString(),
-        decisionKind: decision.kind,
-        pipelineVersion: "starter-v3",
-        indexVersion: "none",
-        stages: ["retrieval", "governance", "decision"],
-        governance: {
-          candidateCount: 0,
-          eligibleCount: 0,
-          rejectedCount: 0,
-          eligibleSources: [],
-          rejectionReasons: {},
-        },
-        route: {
-          kind: decision.kind,
-          ...(decision.kind === "defer" ? { reasonCode: decision.handoff.reasonCode } : {}),
-        },
-        provider: { status: "not_used" },
-        consideredEvidence: [],
-        notes: ["Starter policy routes every request for review."],
-      });
       return json(res, 200, decision);
     }
 

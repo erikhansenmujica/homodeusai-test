@@ -34,6 +34,59 @@ export interface SourceDocument {
   faqRows?: number;
 }
 
+export interface Passage {
+  id: string;
+  sourceId: string;
+  versionId: string;
+  domain: string;
+  title: string;
+  heading: string;
+  text: string;
+  answerText: string;
+  startCharacter: number;
+  endCharacter: number;
+  tokens: string[];
+  searchableTokens: string[];
+}
+
+export interface RetrievalCandidate {
+  document: SourceDocument;
+  passage: Passage;
+  score: number;
+  matchedTerms: string[];
+  queryCoverage: number;
+}
+
+export type EligibilityRejectionCode =
+  | "approval"
+  | "audience"
+  | "sensitivity"
+  | "future"
+  | "expired"
+  | "scope"
+  | "superseded";
+
+export interface EligibilityRejection {
+  code: EligibilityRejectionCode;
+  detail: string;
+}
+
+export type EligibilityResult =
+  | { eligible: true }
+  | { eligible: false; rejections: EligibilityRejection[] };
+
+export interface Conflict {
+  domain: string;
+  left: RetrievalCandidate;
+  right: RetrievalCandidate;
+  signals: string[];
+}
+
+export interface RetrievalRun {
+  queryTokens: string[];
+  candidates: RetrievalCandidate[];
+}
+
 export interface RequesterContext {
   subjectId: string;
   legalEntityId: string;
@@ -167,5 +220,16 @@ export interface DecisionTrace {
     status: "not_used" | "ok" | "failed" | "degraded";
   };
   consideredEvidence: TraceEvidence[];
+  timingsMs?: {
+    retrieval: number;
+    governance: number;
+    decision: number;
+    total: number;
+  };
+  conflicts?: Array<{
+    domain: string;
+    sourceIds: string[];
+    signals: string[];
+  }>;
   notes: string[];
 }

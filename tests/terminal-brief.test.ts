@@ -4,45 +4,31 @@ import test from "node:test";
 
 import { renderWorkbench } from "../src/ui.ts";
 
-test("terminal boots with only the four-line case statement and command prompt", () => {
+test("finished workbench exposes the production decision path", () => {
   const html = renderWorkbench();
-  const bootSection = html.match(/<section class="boot-copy"[\s\S]*?<\/section>/u)?.[0] ?? "";
-  const bootLines = [...bootSection.matchAll(/data-boot-text="([^"]+)"/gu)].map((match) => match[1]);
-
-  assert.deepEqual(bootLines, [
-    "GROUNDING GAUNTLET // Nexo Atlântico knowledge case",
-    "34 governed sources. one decision surface.",
-    "answer when the record supports it.",
-    "if it does not, leave a human handoff someone can work.",
-  ]);
-  assert.match(html, /placeholder="Question or command"/u);
-  assert.doesNotMatch(bootSection, /type help|awaiting question|profile|context --edit|conversation --json/iu);
+  for (const testId of [
+    "decision-workbench", "request-form", "question-input", "submit-decision",
+    "decision-history", "decision-result", "source-inventory", "source-detail", "error-state",
+  ]) {
+    assert.match(html, new RegExp(`data-testid="${testId}"`, "u"), `missing production hook: ${testId}`);
+  }
+  assert.match(html, /Respostas com <em>recibo/iu);
+  assert.match(html, /aria-busy="false"/u);
+  assert.doesNotMatch(html, /gauntlet-starter|data-starter="incomplete"/u);
 });
 
-test("terminal command tree contains the complete candidate briefing", () => {
+test("workbench implements evidence, trace, and handoff lifecycle surfaces", () => {
   const html = renderWorkbench();
-  for (const command of ["problem", "evidence", "workflow", "data", "mandate", "constraints", "evals", "deliver", "contract", "docs", "setup", "download"]) {
-    assert.match(html, new RegExp(`"${command}"`, "u"), `missing terminal command: ${command}`);
+  for (const testId of [
+    "claims-panel", "evidence-source-link", "handoff-panel", "handoff-open",
+    "handoff-record", "handoff-resolution-form", "handoff-resolution-summary",
+    "handoff-resolve", "handoff-resolved-state", "trace-trigger", "trace-panel",
+  ]) {
+    assert.match(html, new RegExp(`"${testId}"`, "u"), `missing lifecycle hook: ${testId}`);
   }
-
-  assert.match(html, /another chatbot would duplicate it and leave the operating pain intact/iu);
-  assert.match(html, /15 call artifacts \/ 13 email artifacts \/ 2 channel summaries/iu);
-  assert.match(html, /1 separate memory record \/ 27 files/iu);
-  assert.match(html, /RAG decision service and finished, deliberate browser UI/iu);
-  assert.match(html, /durable owned case with context and completion/iu);
-  assert.match(html, /existing internal assistant/iu);
-  assert.match(html, /no labeled end-to-end validation set/iu);
-  assert.match(html, /pilot scope boundary/iu);
-  assert.match(html, /one expand condition and one stop condition/iu);
-  assert.match(html, /candidate-kit\.tgz\.sha256/iu);
-  assert.match(html, /CANDIDATE_BASE_URL=http:\/\/127\.0\.0\.1:8080 npm run evals/u);
-  assert.match(html, /FINAL REVIEW \/\/ SAME COMMIT/iu);
-  assert.match(html, /1 \/ EVALS/iu);
-  assert.match(html, /2 \/ CLIENT PRESENTATION/iu);
-  assert.match(html, /3 \/ LIVE OPERATOR DESIGN CHECK/iu);
-  assert.match(html, /reviewer acts as the People Operations operator and controls the product/iu);
-  assert.match(html, /candidate observes the unaided first-use pass instead of driving/iu);
-  assert.match(html, /clear, coherent, beautiful, responsive, and operable without narration/iu);
+  assert.match(html, /requestSubmit\(\)/u);
+  assert.match(html, /sourceId \+ " · " \+ evidence.versionId/u);
+  assert.match(html, /trusted requester does not|Limite de confiança/iu);
 });
 
 test("candidate guides define the same three-part final review", async () => {
@@ -93,20 +79,6 @@ test("discovery record preserves admission access uncertainty and complete sourc
   assert.match(sourceFollowUp, /anonymized admission cases were reported as uploaded/iu);
   assert.match(sourceFollowUp, /did not establish access, validation, or agreed expected outcomes/iu);
   assert.doesNotMatch(sourceFollowUp, /no validated end-to-end admission cases or expected outcomes were supplied/iu);
-});
-
-test("deliver command exposes complete private submission logistics", () => {
-  const html = renderWorkbench();
-
-  assert.match(html, /invitation must name all four before you start/iu);
-  assert.match(html, /command: "deadline", description: "date \+ time"/iu);
-  assert.match(html, /command: "timezone", description: "deadline timezone"/iu);
-  assert.match(html, /private submission channel or thread/iu);
-  assert.match(html, /command: "reviewer", description: "identity \+ repository account"/iu);
-  assert.match(html, /private repository URL \+ exact commit SHA/iu);
-  assert.match(html, /reply to the original sender before starting/iu);
-  assert.match(html, /16-hour clock has not started/iu);
-  assert.match(html, /no submission is valid until all four are confirmed/iu);
 });
 
 test("submission guide stops the clock when invitation logistics are incomplete", async () => {
