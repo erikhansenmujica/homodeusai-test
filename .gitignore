@@ -1,6 +1,7 @@
 node_modules/
 .runtime/
 models/
+artifacts/
 dist/
 playwright-report/
 test-results/

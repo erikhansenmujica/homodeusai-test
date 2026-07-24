@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Senior FDE client case for diagnosing, building, evaluating, and presenting governed People Operations decisions.",
   "engines": {
-    "node": ">=22.18"
+    "node": ">=24"
   },
   "scripts": {
     "start": "node src/server.ts",
@@ -14,7 +14,7 @@
     "self-check": "node scripts/self-check.ts",
     "evals": "node evals/run.ts",
     "evals:matrix": "node scripts/eval-matrix.ts",
-    "test": "node --test tests/*.test.ts",
+    "test": "node --test --test-concurrency=1 tests/*.test.ts",
     "test:e2e": "playwright test",
     "typecheck": "tsc --noEmit",
     "setup:model": "node scripts/materialize-model.ts",
@@ -30,7 +30,7 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
-    "@huggingface/transformers": "^3.7.2"
+    "@huggingface/transformers": "3.7.2"
   },
   "overrides": {
     "sharp": "0.35.3"

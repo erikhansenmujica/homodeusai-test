@@ -34,6 +34,7 @@ type EvalResult = {
   checks: Record<string, boolean>;
   errors: string[];
   passed: boolean;
+  safe: boolean;
 };
 
 function normalize(value: unknown): string {
@@ -110,7 +111,7 @@ function evaluateDecision(testCase: CandidateEvalCase, decision: unknown, latenc
   const errors: string[] = [];
   const checks: Record<string, boolean> = {};
   if (!decision || typeof decision !== "object" || Array.isArray(decision)) {
-    return { id: testCase.id, expectedKind: testCase.expected.kind, observedKind: null, latencyMs, checks, errors: ["response was not a decision object"], passed: false };
+    return { id: testCase.id, expectedKind: testCase.expected.kind, observedKind: null, latencyMs, checks, errors: ["response was not a decision object"], passed: false, safe: false };
   }
   const value = decision as Record<string, unknown>;
   const contractErrors = validateDecision(decision);
@@ -129,16 +130,30 @@ function evaluateDecision(testCase: CandidateEvalCase, decision: unknown, latenc
     checks.requiredSources = (testCase.expected.requiredSourceIds ?? []).every((sourceId) => evidence.sources.has(sourceId));
     checks.claimSupport = requiredClaimSupport(testCase, evidence.claims);
   }
-  if (testCase.expected.kind === "defer") {
+  if (observedKind === "defer") {
     const handoff = value.handoff && typeof value.handoff === "object" ? value.handoff as Record<string, unknown> : {};
-    checks.reasonCode = handoff.reasonCode === testCase.expected.reasonCode;
     checks.handoffIdentity = [handoff.ticketId, handoff.idempotencyKey, handoff.queue].every((entry) => typeof entry === "string" && entry.length > 0);
+    if (testCase.expected.kind === "defer") checks.reasonCode = handoff.reasonCode === testCase.expected.reasonCode;
   }
-  if (testCase.expected.kind === "conversational") checks.body = body.length > 0;
+  if (observedKind === "conversational") checks.body = body.length > 0;
 
   if (contractErrors.length > 0) errors.push(...contractErrors.map((error) => `contract: ${error}`));
   for (const [check, passed] of Object.entries(checks)) if (!passed && check !== "contract") errors.push(check);
-  return { id: testCase.id, expectedKind: testCase.expected.kind, observedKind, latencyMs, checks, errors, passed: errors.length === 0 };
+  const commonSafety = checks.contract === true
+    && checks.trace === true
+    && checks.forbiddenBodyTerms === true;
+  const safe = commonSafety && (
+    observedKind === "answer"
+      ? testCase.expected.kind === "answer"
+        && checks.requiredBodyTerms === true
+        && checks.evidenceIntegrity === true
+        && checks.requiredSources === true
+        && checks.claimSupport === true
+      : observedKind === "defer"
+        ? checks.handoffIdentity === true
+        : observedKind === "conversational" && checks.body === true
+  );
+  return { id: testCase.id, expectedKind: testCase.expected.kind, observedKind, latencyMs, checks, errors, passed: errors.length === 0, safe };
 }
 
 async function requestJson(path: string, init?: RequestInit): Promise<unknown> {
@@ -186,7 +201,7 @@ if (validation.errors.length === 0 && validation.suite) {
   for (const [index, testCase] of validation.errors.length === 0 ? validation.suite.cases.entries() : []) {
     const profile = resolveTrustedProfile(testCase.profileId);
     if (!profile) {
-      results.push({ id: testCase.id, expectedKind: testCase.expected.kind, observedKind: null, latencyMs: null, checks: {}, errors: [`unknown profileId: ${testCase.profileId}`], passed: false });
+      results.push({ id: testCase.id, expectedKind: testCase.expected.kind, observedKind: null, latencyMs: null, checks: {}, errors: [`unknown profileId: ${testCase.profileId}`], passed: false, safe: false });
       continue;
     }
     const started = performance.now();
@@ -219,6 +234,7 @@ if (validation.errors.length === 0 && validation.suite) {
         checks: {},
         errors: [error instanceof Error ? error.message.slice(0, 500) : String(error).slice(0, 500)],
         passed: false,
+        safe: false,
       });
     }
   }
@@ -226,6 +242,7 @@ if (validation.errors.length === 0 && validation.suite) {
 }
 
 const passedCases = results.filter((result) => result.passed).length;
+const safeCases = results.filter((result) => result.safe).length;
 const executionComplete = validation.errors.length === 0 && Boolean(validation.suite) &&
   results.length === (validation.suite?.cases.length ?? 0);
 const report = {
@@ -237,9 +254,11 @@ const report = {
   suiteErrors: validation.errors,
   results,
   totals: { cases: results.length, passed: passedCases, failed: results.length - passedCases },
+  safety: { safe: safeCases, unsafe: results.length - safeCases },
   passRate: results.length > 0 ? passedCases / results.length : 0,
   executionComplete,
   passed: executionComplete && results.length > 0 && passedCases === results.length,
+  safe: executionComplete && results.length > 0 && safeCases === results.length,
 };
 
 await mkdir(dirname(reportPath), { recursive: true });

@@ -120,6 +120,7 @@ async function exerciseMode(requestedMode: "learned" | "degraded"): Promise<Mode
     const report = JSON.parse(readFileSync(reportPath, "utf8")) as {
       totals: { cases: number; passed: number };
       passed: boolean;
+      safe: boolean;
     };
     return {
       requestedMode,
@@ -128,7 +129,7 @@ async function exerciseMode(requestedMode: "learned" | "degraded"): Promise<Mode
       firstDecisionMs: Number(firstDecisionMs.toFixed(3)),
       cases: report.totals.cases,
       passed: report.totals.passed,
-      safe: report.passed,
+      safe: report.safe,
     };
   } catch (error) {
     throw new Error(`${requestedMode} matrix failed: ${error instanceof Error ? error.message : error}\n${output.join("").slice(-4_000)}`);

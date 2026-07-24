@@ -1,12 +1,12 @@
-export const E5_MODEL_ID = "Xenova/multilingual-e5-small";
-export const E5_MODEL_REVISION = "761b726dd34fb83930e26aab4e9ac3899aa1fa78";
+export const E5_MODEL_ID = "Xenova/multilingual-e5-base";
+export const E5_MODEL_REVISION = "1ec9243030a27d1a115d5c340572074c125b58b2";
 
 export const E5_MODEL_FILES = {
-  "config.json": "cb99455288675345e1a4f411438d5d0adbba5fbd3a67ea4fb03c015433b996c1",
-  "quant_config.json": "59d175f15264115f18c698d76e443b5d49fc6c8c599911c421405ef4f236e87d",
+  "config.json": "4c27930e59106027abab56f7531c1fa6b14bbf31e8229ec36d68affa4e869bcd",
+  "quant_config.json": "db4ae5eaf62fb8f29411760a56ff7e7e9954bb46353eb85b1ab291a07d0173f7",
   "sentencepiece.bpe.model": "cfc8146abe2a0488e9e2a0c56de7952f7c11ab059eca145a0a727afce0db2865",
-  "special_tokens_map.json": "d05497f1da52c5e09554c0cd874037a083e1dc1b9cfd48034d1c717f1afc07a7",
-  "tokenizer.json": "0b44a9d7b51c3c62626640cda0e2c2f70fdacdc25bbbd68038369d14ebdf4c39",
-  "tokenizer_config.json": "a1d6bc8734a6f635dc158508bef000f8e2e5a759c7d92f984b2c86e5ff53425b",
-  "onnx/model_int8.onnx": "4d24e2bc01a447951524466ef533e52944bf48509e6552810bcee1a2711cb02c",
+  "special_tokens_map.json": "06e405a36dfe4b9604f484f6a1e619af1a7f7d09e34a8555eb0b77b66318067f",
+  "tokenizer.json": "62c24cdc13d4c9952d63718d6c9fa4c287974249e16b7ade6d5a85e7bbb75626",
+  "tokenizer_config.json": "efb5c0d09722e5fe59a462cd2a9976ee216d55b037597d997cd3fe833216da15",
+  "onnx/model_int8.onnx": "9ddfd8b45086dabc59a7e1bb00463225dace8954962418b240840f2153bc87da",
 } as const;

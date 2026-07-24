@@ -9,7 +9,8 @@ Trusted HTTP request
   -> contract validation
   -> conversational / human / protected-intent checks
   -> People Operations scope + live-state boundary
-  -> passage extraction + BM25 / deterministic semantic or optional multilingual E5 + RRF
+  -> multilingual semantic-pattern classification
+  -> passage extraction + BM25 + pinned multilingual E5 + RRF
   -> source governance, trusted scope, and explicit supersession
   -> per-clause topic and answer-shape support
   -> deterministic conflict detection
@@ -18,15 +19,15 @@ Trusted HTTP request
   -> contract-valid JSON and operator UI
 ```
 
-`src/corpus.ts` remains the integrity boundary for `source-documents.json`. `src/runtime.ts` owns the explicit initialization state and refuses traffic until corpus, retrieval, model/fallback, and durable stores are ready. `src/retrieval.ts` extracts and ranks citable units with Portuguese normalization and bounded synonym expansion. `src/learned-semantic.ts` runs pinned local E5 when enabled; `src/semantic.ts` is the evaluated deterministic default. `src/governance.ts` evaluates approval, employee audience, sensitivity, inclusive validity, four trusted scope axes, and supersession before a passage can support an answer.
+`src/corpus.ts` remains the integrity boundary for `source-documents.json`. `src/runtime.ts` owns the explicit initialization state and refuses traffic until corpus, retrieval, model/fallback, and durable stores are ready. `src/retrieval.ts` extracts citable units and performs Unicode BM25-style matching with corpus-derived character features; it has no query-language synonym or stopword tables. `src/semantic-patterns.ts` loads validated, versioned intent, answer-shape, composition, and retrieval prototypes. `src/learned-semantic.ts` runs pinned local multilingual E5 by default; `src/semantic.ts` is the conservative hashed-subword degradation adapter. `src/governance.ts` evaluates approval, employee audience, sensitivity, inclusive validity, four trusted scope axes, and supersession before a passage can support an answer.
 
-`src/decide.ts` orchestrates non-bypassable stages. Conversation context, answer sufficiency/shape, versioned domain configuration, retrieval, governance, and conflict detection are separate modules. Up to three completed user turns may supply topic context; assistant text is never evidence or trusted requester context. Every material clause must independently match an eligible passage, the requested answer shape, and a 60% subject-term coverage floor. A direct answer is copied from exact eligible passages; every material body statement is also a claim.
+`src/decide.ts` orchestrates non-bypassable stages. Conversation context, answer sufficiency/shape, versioned domain configuration, retrieval, governance, and conflict detection are separate modules. Up to three completed user turns may supply topic context; assistant text is never evidence or trusted requester context. Every material clause must independently match an eligible passage and requested answer shape. Lexical-only support requires a 60% subject-term coverage floor; learned support requires calibrated topic and answer-vector alignment. A direct answer is copied from exact eligible passages; every material body statement is also a claim.
 
 `src/evidence.ts` converts JavaScript character positions to zero-based, half-open UTF-8 byte ranges and hashes the exact bytes. Repository interfaces isolate filesystem adapters for handoffs and traces. Handoff identity includes a canonical request fingerprint, conflicting reuse returns `409`, corrupt state fails readiness, and bounded trace retention preserves records used by open handoffs.
 
 ## Chosen trade-offs
 
-- Deterministic retrieval by default: the 21-case A/B matrix found no safety or coverage gain from E5, so the fast adapter is the operational default. The image still contains a checksum-verified E5/index pair for opt-in evaluation without granting semantic scores authority over governance.
+- Learned retrieval by default: multilingual E5 passed 21/21 frozen cases, while degraded mode matched 9/21 and safely abstained on the remainder. The image contains a checksum-verified model/index pair; a missing or corrupt model enters an explicit abstention-first `ready_degraded` mode.
 - No production database: a filesystem store is adequate for one process and warm concurrency of three. PostgreSQL would be the first production replacement for multi-instance locking, retention, and reporting.
 - No generative model call: source eligibility, conflict handling, citations, routing, and extractive answers remain deterministic. The trace reports learned-embedding health as `ok` or `degraded`.
 - Extractive rendering limits eloquence but prevents ungrounded connective prose. A later model may rewrite claim text only after evidence is locked and must pass a claim/evidence validator.
@@ -40,7 +41,7 @@ Production must derive tenant, subject, and operator roles from an authenticated
 
 ## Failure modes that still matter
 
-- Intent and per-clause subject detection remain heuristic and can miss novel People Operations phrasing.
+- Semantic prototypes and per-clause subject detection remain calibrated heuristics and can miss novel People Operations concepts.
 - Learned similarity can retrieve attractive but unrelated passages; deterministic subject and answer-shape gates remain the safety boundary.
 - Passage-level relationship meaning can be more specific than document-level metadata.
 - Conflict rules can miss a contradiction expressed without shared terms.

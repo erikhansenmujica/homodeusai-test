@@ -28,6 +28,9 @@ test("evaluation counts, retrieval thresholds, and provider terminology stay con
   assert.match(combined, /21\/21|21 cases/iu);
   assert.match(combined, /60%\s+(?:topic-coverage|subject-term|subject)/iu);
   assert.match(combined, /`ok`\s+or\s+`degraded`|`ok`\s+ou\s+`degraded`/iu);
+  assert.match(combined, /multilingual-e5-base/iu);
+  assert.match(combined, /learned retrieval (?:is|as) the (?:selected )?default/iu);
+  assert.doesNotMatch(combined, /multilingual-e5-small|21\/21 in both modes|deterministic retrieval (?:is|as) the default/iu);
 
   for (const document of documents) {
     assert.doesNotMatch(document.content, /provider\.status:\s*["`]?not_used/iu, document.path);

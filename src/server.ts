@@ -13,12 +13,14 @@ import { runtimeSnapshot, startRuntimeInitialization } from "./runtime.ts";
 import { getGovernedSource } from "./source-access.ts";
 import { getTrace } from "./traces.ts";
 import { renderWorkbench } from "./ui.ts";
+import type { DecideRequest } from "./types.ts";
 
 const PORT = Number(process.env.PORT) || 8080;
 const MAX_BODY_BYTES = 256 * 1024;
 const startedAt = Date.now();
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const CANDIDATE_ARCHIVE_PATH = process.env.CANDIDATE_ARCHIVE_PATH?.trim() || join(ROOT, "dist", "nexo-atlantico-knowledge-case.tgz");
+const requestFingerprints = new Map<string, string>();
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
   "script-src 'self'",
@@ -39,6 +41,29 @@ const ASSETS = new Map<string, { file: string; contentType: string; maxAge: numb
   ["/assets/workbench/session.js", { file: join(ROOT, "src", "public", "workbench", "session.js"), contentType: "text/javascript; charset=utf-8", maxAge: 300 }],
   ["/favicon.svg", { file: join(ROOT, "src", "public", "favicon.svg"), contentType: "image/svg+xml; charset=utf-8", maxAge: 86_400 }],
 ]);
+
+function canonicalJson(value: unknown): string {
+  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
+  if (value && typeof value === "object") {
+    return `{${Object.entries(value as Record<string, unknown>)
+      .sort(([left], [right]) => left.localeCompare(right))
+      .map(([key, item]) => `${JSON.stringify(key)}:${canonicalJson(item)}`)
+      .join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
+function assertRequestIdempotency(request: DecideRequest): void {
+  const fingerprint = createHash("sha256").update(canonicalJson(request), "utf8").digest("hex");
+  const prior = requestFingerprints.get(request.requestId);
+  if (prior !== undefined && prior !== fingerprint) throw new IdempotencyConflictError();
+  if (prior !== undefined) return;
+  requestFingerprints.set(request.requestId, fingerprint);
+  if (requestFingerprints.size > 10_000) {
+    const oldest = requestFingerprints.keys().next().value as string | undefined;
+    if (oldest) requestFingerprints.delete(oldest);
+  }
+}
 
 function securityHeaders(res: ServerResponse): void {
   res.setHeader("x-content-type-options", "nosniff");
@@ -247,6 +272,7 @@ const server = createServer(async (req, res) => {
       }
       const parsed = parseDecideRequest(await readJson(req));
       if (!parsed.ok) return json(res, 400, { error: "invalid_request", details: parsed.errors });
+      assertRequestIdempotency(parsed.value);
 
       const decision = await decide(parsed.value);
       const contractErrors = validateDecision(decision);

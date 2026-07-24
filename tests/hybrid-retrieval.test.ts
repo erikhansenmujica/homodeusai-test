@@ -7,11 +7,11 @@ import { loadSourceDocuments } from "../src/corpus.ts";
 const requester = { subjectId: "hybrid", legalEntityId: "NA_SERVICOS", baseId: "SUDESTE", relationship: "employee", role: "colaborador", domains: [] };
 const request = (question: string) => ({ requestId: `hybrid-${question}`, question, asOf: "2026-07-22T10:30:00.000Z", requester, history: [] });
 
-test("offline passage embeddings are reusable and retain passage identities", () => {
+test("offline fallback index is reusable, corpus-bound, and retains passage identities", () => {
   const documents = loadSourceDocuments();
   const index = semanticIndex(documents);
   assert.equal(semanticIndex(documents), index);
-  const result = index.search("retorno do intervalo no ponto", 10);
+  const result = index.search("O registro diário inclui entrada, início do intervalo, fim do intervalo e saída.", 20);
   assert.ok(result.some((candidate) => candidate.document.sourceId === "na-timekeeping-policy-v4"));
   assert.ok(result.every((candidate) => candidate.passage.id.startsWith(candidate.document.sourceId)));
 });

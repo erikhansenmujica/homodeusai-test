@@ -63,5 +63,5 @@ test("source usage and diagnostics are backward-compatible additions", async () 
   assert.ok(result.claims[0]?.evidenceUsage?.[0]?.citation.quote);
   const trace = getTrace(result.traceId);
   assert.ok((trace?.retrievalDiagnostics?.concepts ?? []).includes("overtime_compensation"));
-  assert.ok((trace?.retrievalDiagnostics?.expandedTerms.length ?? 0) > 0);
+  assert.deepEqual(trace?.retrievalDiagnostics?.expandedTerms, []);
 });

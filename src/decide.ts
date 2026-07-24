@@ -4,15 +4,29 @@ import {
   rankEligible,
   retrievalStrength,
   selectAnswerCandidates,
+  selectCompoundAnswerCandidates,
 } from "./answer-support.ts";
-import { retrievalQuestionFor } from "./conversation.ts";
+import {
+  retrievalQuestionFor,
+  routingIntentIsContextual,
+  routingIntentIsTerminal,
+} from "./conversation.ts";
 import { loadSourceDocuments } from "./corpus.ts";
 import { RETRIEVAL_LIMITS } from "./domain-config.ts";
 import { evidenceForQuote } from "./evidence.ts";
 import { activeSupersededSources, detectConflicts, evaluateEligibility } from "./governance.ts";
 import { createHandoff } from "./queue.ts";
 import { lexicalIndex, tokenize } from "./retrieval.ts";
-import { runtimeSemanticSearch } from "./runtime.ts";
+import { semanticPatternConfig } from "./semantic-patterns.ts";
+import {
+  runtimeAnswerAlignment,
+  runtimeAnswerPatterns,
+  runtimeCandidateAnswerPatterns,
+  runtimeCompositionPatterns,
+  runtimeRetrievalPatterns,
+  runtimeRoutingPatterns,
+  runtimeSemanticSearch,
+} from "./runtime.ts";
 import { fuseRetrieval } from "./semantic.ts";
 import { saveTrace } from "./traces.ts";
 import type {
@@ -24,74 +38,13 @@ import type {
   HandoffReason,
   RetrievalCandidate,
   EvidenceConfidence,
+  SourceDocument,
 } from "./types.ts";
 
-const PIPELINE_VERSION = "hybrid-governed-v3";
+const PIPELINE_VERSION = "semantic-governed-v4";
 const MIN_RELEVANCE = RETRIEVAL_LIMITS.minimumRelevance;
 const MAX_GOVERNED_CANDIDATES = RETRIEVAL_LIMITS.maximumGovernedCandidates;
 
-const REGION_ALIASES: Array<{ baseId: string; aliases: string[] }> = [
-  { baseId: "CENTRO_OESTE", aliases: ["planalto central", "planalto", "centro-oeste", "centro oeste"] },
-  { baseId: "SUDESTE", aliases: ["metropolitano", "metropolitana", "sudeste"] },
-  { baseId: "SUL", aliases: ["costa sul", "sul"] },
-];
-
-const CONVERSATIONAL_PATTERNS = [
-  /^(?:oi|olá|ola|bom dia|boa tarde|boa noite)[!,.?\s]*$/iu,
-  /^(?:oi|olá|ola)[,!.\s]+(?:tudo bem|como vai)[!,.?\s]*$/iu,
-  /^(?:bom dia|boa tarde|boa noite)[,!.\s]+(?:tudo bem|como vai)[!,.?\s]*$/iu,
-  /^(?:obrigad[oa]|valeu|agradeço|agradeco)[!,.?\s]*$/iu,
-  /^(?:obrigad[oa]|valeu|agradeço|agradeco)\b.{0,80}$/iu,
-  /^(?:tudo bem|como você está|como voce esta)[!,.?\s]*$/iu,
-];
-
-const PEOPLE_OPS_SCOPE_PATTERNS = [
-  /\b(?:people operations|people ops|recursos humanos|rh)\b/u,
-  /\b(?:preciso|gostaria|quero)\s+de\s+(?:uma\s+)?(?:orientacao|ajuda)\b/u,
-  /\b(?:admissao|contratacao|ingresso|onboarding|candidat[oa]s?|pre-ingresso)\b/u,
-  /\b(?:certificacao|treinamento|capacitacao|desenvolvimento profissional)\b/u,
-  /\b(?:ferias?|descanso programado|afastamento|ausencias?|licenca|atestado|laudo|maternidade|paternidade)\b/u,
-  /\b(?:salario|remuneracao|folha de pagamento|pagamento|holerite|contracheque|comprovante mensal|decimo terceiro|auxilio|beneficio|refeicao|alimentacao)\b/u,
-  /\b(?:registro de jornada|controle de jornada|jornada|horas? extras?|horas? adicionais|banco de horas|ponto eletronico|marcacao de ponto|batida de ponto|escala de trabalho|retorno do intervalo)\b/u,
-  /\b(?:marcar|registrar)\b[\s\S]{0,35}\b(?:entrada|saida|intervalo|ponto)\b/u,
-  /\b(?:registros?|marcacoes?)\b[\s\S]{0,35}\b(?:ponto|expediente|jornada)\b|\b(?:ponto|expediente|jornada)\b[\s\S]{0,35}\b(?:registros?|marcacoes?)\b/u,
-  /\bpolitica\b[\s\S]{0,35}\b(?:ponto|jornada|ferias?|folha|admissao|desligamento)\b/u,
-  /\b(?:solicitacao|pedido|correcao|ajuste)\b[\s\S]{0,45}\b(?:ponto|jornada|horas?)\b|\b(?:ponto|jornada|horas?)\b[\s\S]{0,45}\b(?:solicitacao|pedido|correcao|ajuste)\b/u,
-  /\b(?:trabalhar|trabalho|horas?)\b[\s\S]{0,55}\b(?:depois do|alem do|fora do)\s+(?:meu\s+)?(?:horario|expediente)\b/u,
-  /\bpago a mais\b[\s\S]{0,55}\b(?:horas?|horario|expediente)\b|\b(?:horas?|horario|expediente)\b[\s\S]{0,55}\bpago a mais\b/u,
-  /\bcompensacao\b[\s\S]{0,55}\b(?:horas?|jornada|periodo extraordinario)\b|\b(?:horas?|jornada|periodo extraordinario)\b[\s\S]{0,55}\bcompensacao\b/u,
-  /\b(?:mudanca|alteracao)\b[\s\S]{0,45}\bescala\b|\bescala\b[\s\S]{0,45}\b(?:antecedencia|comunicad[oa])\b/u,
-  /\b(?:ajuste|correcao|comprovante|folha|pagamento)\b[\s\S]{0,50}\bfechamento\b|\bfechamento\b[\s\S]{0,50}\b(?:ajuste|correcao|comprovante|folha|pagamento)\b/u,
-  /\b(?:demissao|desligamento|rescisao|encerramento|aviso previo|revisao humana|revisao manual)\b/u,
-  /\b(?:estagio|estagiari[oa]s?|aprendi(?:z|zes)|vinculo empregaticio|relacao de trabalho|contrato de trabalho)\b/u,
-  /\b(?:vinculo|relacao contratual|relacao trabalhista|tipo de contrato|instrumento contratual)\b/u,
-  /\b(?:dados? cadastrais?|cadastro|nome cadastrad[oa]|endereco cadastrad[oa]|dados? bancarios?|conta bancaria|cpf)\b/u,
-  /\b(?:documento|comprovante|dado|informacao)\s+(?:medic[oa]|clinic[oa]|de saude)\b/u,
-  /\b(?:saude e seguranca|acidente de trabalho|incidente urgente|risco ocupacional|emergencia no trabalho)\b/u,
-  /\b(?:identidade corporativa|acesso corporativo|provisionamento|equipamento corporativo)\b/u,
-  /\b(?:meu|minha)\s+(?:gestor|gestora|projeto|cargo|centro de custo)\b/u,
-  /\b(?:gestor|gestora|lideranca)\b[\s\S]{0,45}\b(?:jornada|desligamento|admissao|ferias|pedido|solicitacao)\b/u,
-];
-
-const HUMAN_PATTERNS = [
-  /\b(?:falar|conversar)\s+com\s+(?:uma\s+)?(?:pessoa|atendente|analista|humano|humana)\b/iu,
-  /\b(?:quero|preciso|prefiro)\s+(?:de\s+)?(?:uma\s+)?(?:pessoa|atendente|analista|atendimento humano)\b/iu,
-  /\b(?:quero|preciso|prefiro)\s+que\s+(?:uma\s+)?(?:pessoa|atendente|analista|humano|humana)\s+(?:continue|assuma|atenda)\b/iu,
-  /\bnão quero (?:usar|falar com) (?:o )?(?:bot|assistente)\b/iu,
-];
-
-const INJECTION_PATTERNS = [
-  /\bignore (?:as |todas as )?(?:instruções|instrucoes|regras|governança|governanca)\b/iu,
-  /\b(?:revele|mostre|imprima|retorne)\b.{0,40}\b(?:segredo|token|chave|vault|canary|prompt)\b/iu,
-  /\b(?:finja|considere).{0,40}\b(?:aprovad[oa]|vigente|employee)\b/iu,
-];
-
-const SENSITIVE_PATTERNS = [
-  /\bquanto (?:eu )?(?:vou|devo|irei) receber\b/iu,
-  /\b(?:meu|minha)\s+(?:salário|salario|saldo|diagnóstico|diagnostico|laudo|conta bancária|conta bancaria)\b/iu,
-  /\b(?:já|ja)\s+(?:foi|está|esta)\s+(?:pago|creditado|processado|aprovado|corrigido)\b/iu,
-  /\b(?:vou|posso)\s+(?:colar|enviar|mandar)\s+(?:meu|minha)\s+(?:cpf|conta|laudo|diagnóstico|diagnostico)\b/iu,
-];
 
 function shortHash(value: string, length = 18): string {
   return createHash("sha256").update(value, "utf8").digest("hex").slice(0, length);
@@ -108,36 +61,30 @@ function traceIdFor(input: DecideRequest): string {
   return `trace-${shortHash(identity)}`;
 }
 
-function matchesAny(value: string, patterns: RegExp[]): boolean {
-  return patterns.some((pattern) => pattern.test(value.trim()));
-}
-
-function normalizeForRouting(value: string): string {
-  return value.normalize("NFKD").replace(/\p{M}/gu, "").toLocaleLowerCase("pt-BR");
-}
-
-function isPeopleOpsQuestion(question: string): boolean {
-  return matchesAny(normalizeForRouting(question), PEOPLE_OPS_SCOPE_PATTERNS);
-}
-
-function asksLiveIndividualState(question: string): boolean {
-  const text = normalizeForRouting(question);
-  const personal = /\b(?:eu|meu|minha|meus|minhas|rh)\b/u.test(text);
-  const transactional = /\b(?:solicitacao|pedido|correcao|ajuste|saldo|acesso|identidade|pagamento|afastamento|ferias|horas|desligamento|cadastro|cargo|gestor|projeto)\b/u.test(text);
-  const status = /\b(?:aprovad[oa]|aprovou|processad[oa]|processou|andamento|pendente|concluid[oa]|criad[oa]|corrigiram|corrigiu|ja foi|ainda esta|status)\b/u.test(text);
-  const personalBalance = personal && (
-    /\bsaldo\b[\s\S]{0,50}\b(?:ferias?|horas)\b|\b(?:ferias?|horas)\b[\s\S]{0,50}\bsaldo\b/u.test(text) ||
-    /\b(?:ferias?|dias)\b[\s\S]{0,60}\b(?:disponiveis?|restam|restantes?|usei|gozei|ainda tenho)\b/u.test(text)
-  );
-  const asksForRecordValue = /\b(?:qual|quem|quanto|quantos|onde)\b/u.test(text) &&
-    /\b(?:meu|minha)\b[\s\S]{0,35}\b(?:gestor|gestora|projeto|cargo|endereco cadastrad[oa]|nome cadastrad[oa]|centro de custo)\b/u.test(text) &&
-    !/\b(?:pode|deve|politica|procedimento|regra|qual canal|como)\b/u.test(text);
-  return personalBalance || asksForRecordValue || (personal && transactional && status);
-}
-
-function explicitRegion(question: string): string | undefined {
-  const normalized = question.normalize("NFKD").replace(/\p{M}/gu, "").toLocaleLowerCase("pt-BR");
-  return REGION_ALIASES.find((region) => region.aliases.some((alias) => normalized.includes(alias)))?.baseId;
+function explicitRegion(question: string, documents: SourceDocument[]): string | undefined {
+  const questionTokens = new Set(tokenize(question));
+  const titleTokensByBase = new Map<string, Set<string>>();
+  for (const document of documents) {
+    const bases = document.eligibility.baseIds.filter((baseId) => baseId !== "*");
+    if (bases.length !== 1) continue;
+    const tokens = titleTokensByBase.get(bases[0]!) ?? new Set<string>();
+    tokenize(`${bases[0]!.replaceAll("_", " ")} ${document.title}`)
+      .filter((token) => token.length >= 3)
+      .forEach((token) => tokens.add(token));
+    titleTokensByBase.set(bases[0]!, tokens);
+  }
+  const ownership = new Map<string, Set<string>>();
+  for (const [baseId, tokens] of titleTokensByBase) {
+    for (const token of tokens) {
+      const bases = ownership.get(token) ?? new Set<string>();
+      bases.add(baseId);
+      ownership.set(token, bases);
+    }
+  }
+  const matches = [...titleTokensByBase].filter(([baseId, tokens]) =>
+    [...tokens].some((token) => questionTokens.has(token) && ownership.get(token)?.size === 1
+      && ownership.get(token)?.has(baseId)));
+  return matches.length === 1 ? matches[0]![0] : undefined;
 }
 
 function sourceMatchesRequestedRegion(candidate: RetrievalCandidate, baseId: string | undefined): boolean {
@@ -151,6 +98,10 @@ function uniqueSourceCandidates(candidates: RetrievalCandidate[]): RetrievalCand
     if (!unique.has(key)) unique.set(key, candidate);
   }
   return [...unique.values()];
+}
+
+function containsEmbeddedStructuredPayload(value: string): boolean {
+  return /(?:^|\n)[\p{Lu}\p{N}_-]{8,}:/u.test(value);
 }
 
 function primaryRejection(rejections: EligibilityRejectionCode[]): EligibilityRejectionCode {
@@ -304,6 +255,7 @@ function saveRoutingTrace(
 ): void {
   const uniqueCandidates = uniqueSourceCandidates(candidates);
   const uniqueEligible = uniqueSourceCandidates(eligible);
+  const scoredEligible = new Map(eligible.map((candidate) => [candidate.passage.id, candidate]));
   const uniqueRejected = new Map<string, {
     candidate: RetrievalCandidate;
     rejectionCodes: EligibilityRejectionCode[];
@@ -340,25 +292,30 @@ function saveRoutingTrace(
       ...(decision.kind === "defer" ? { reasonCode: decision.handoff.reasonCode } : {}),
     },
     provider: { status: retrieval.providerStatus },
-    consideredEvidence: candidates.map((candidate, index) => ({
-      sourceId: candidate.document.sourceId,
-      versionId: candidate.document.versionId,
-      startByte: candidate.passage.startByte,
-      endByte: candidate.passage.endByte,
+    consideredEvidence: candidates.map((candidate, index) => {
+      const scored = scoredEligible.get(candidate.passage.id) ?? candidate;
+      return {
+      sourceId: scored.document.sourceId,
+      versionId: scored.document.versionId,
+      startByte: scored.passage.startByte,
+      endByte: scored.passage.endByte,
       rank: index + 1,
-      stage: eligible.some((item) => item.passage.id === candidate.passage.id)
+      stage: scoredEligible.has(candidate.passage.id)
         ? "eligible"
         : "rejected",
-      score: Number(retrievalStrength(candidate).toFixed(4)),
-      passageId: candidate.passage.id,
-      lexicalScore: candidate.lexicalScore === undefined ? undefined : Number(candidate.lexicalScore.toFixed(4)),
-      semanticScore: candidate.semanticScore === undefined ? undefined : Number(candidate.semanticScore.toFixed(4)),
-      fusionScore: candidate.fusionScore === undefined ? undefined : Number(candidate.fusionScore.toFixed(6)),
-      finalScore: candidate.finalScore === undefined ? undefined : Number(candidate.finalScore.toFixed(4)),
+      score: Number(retrievalStrength(scored).toFixed(4)),
+      passageId: scored.passage.id,
+      lexicalScore: scored.lexicalScore === undefined ? undefined : Number(scored.lexicalScore.toFixed(4)),
+      semanticScore: scored.semanticScore === undefined ? undefined : Number(scored.semanticScore.toFixed(4)),
+      answerSemanticScore: scored.answerSemanticScore === undefined
+        ? undefined
+        : Number(scored.answerSemanticScore.toFixed(4)),
+      fusionScore: scored.fusionScore === undefined ? undefined : Number(scored.fusionScore.toFixed(6)),
+      finalScore: scored.finalScore === undefined ? undefined : Number(scored.finalScore.toFixed(4)),
       rejectionCodes: rejected.find((item) => item.candidate.passage.id === candidate.passage.id)?.rejectionCodes,
       selectedAsEvidence: decision.kind === "answer" && decision.claims.some((claim) => claim.evidence.some((evidence) =>
-        evidence.sourceId === candidate.document.sourceId && candidate.passage.text.includes(evidence.quote))),
-    })),
+        evidence.sourceId === scored.document.sourceId && scored.passage.text.includes(evidence.quote))),
+    }}),
     timingsMs: {
       retrieval: Number(timings.retrieval.toFixed(3)),
       governance: Number(timings.governance.toFixed(3)),
@@ -409,31 +366,76 @@ function deferredDecision(
 export async function decide(input: DecideRequest): Promise<Decision> {
   const started = performance.now();
   const traceId = traceIdFor(input);
-  const retrievalContext = retrievalQuestionFor(input, isPeopleOpsQuestion);
+  const [[routing], [queryPattern], [initialRetrievalPattern], [composition]] = await Promise.all([
+    runtimeRoutingPatterns([input.question]),
+    runtimeAnswerPatterns([input.question]),
+    runtimeRetrievalPatterns([input.question]),
+    runtimeCompositionPatterns([input.question]),
+  ]);
+  const retrievalContext = await retrievalQuestionFor(input, routing!, runtimeRoutingPatterns);
+  const contextualRetrievalPatterns = retrievalContext.usedHistory
+    ? await runtimeRetrievalPatterns([retrievalContext.question, ...retrievalContext.topicQuestions])
+    : [];
+  const retrievalPattern = contextualRetrievalPatterns.length > 0
+    ? contextualRetrievalPatterns.sort((left, right) =>
+      (right.best.score - right.second.score) - (left.best.score - left.second.score)
+      || right.best.score - left.best.score)[0]!
+    : initialRetrievalPattern!;
+  const patternThresholds = semanticPatternConfig().thresholds;
+  const initialDomainSignal = initialRetrievalPattern!.best.score
+    >= patternThresholds.routingDomainSignalMinimum
+    && initialRetrievalPattern!.best.score - initialRetrievalPattern!.second.score
+      >= patternThresholds.retrievalConceptMargin;
+  const compoundQuestion = composition!.best.id === "compound_question"
+    && composition!.best.score >= patternThresholds.compositionMinimum
+    && composition!.best.score - composition!.second.score >= patternThresholds.compositionMargin;
+  const retrievalDefinitions = semanticPatternConfig().retrievalPatterns;
+  const selectedRetrievalId = retrievalPattern.best.id;
+  const selectedRetrievalScore = retrievalPattern.scores[selectedRetrievalId] ?? 0;
+  const selectedRetrievalDefinition = retrievalDefinitions.find((pattern) =>
+    pattern.id === selectedRetrievalId);
+  const answerPatternCompatible = retrievalContext.usedHistory
+    || selectedRetrievalDefinition?.answerPattern === undefined
+    || selectedRetrievalDefinition.answerPattern === queryPattern!.best.id
+    || selectedRetrievalDefinition.answerPatternFlexible === true
+    || (
+      selectedRetrievalScore >= patternThresholds.answerSemanticMinimum
+      && retrievalPattern.best.score - retrievalPattern.second.score
+        >= patternThresholds.answerPatternMargin
+    );
+  const useRetrievalPattern = !compoundQuestion
+    && selectedRetrievalScore >= patternThresholds.retrievalConceptMinimum
+    && retrievalPattern.best.score - retrievalPattern.second.score >= patternThresholds.retrievalConceptMargin
+    && answerPatternCompatible;
+  const retrievalDefinition = useRetrievalPattern
+    ? selectedRetrievalDefinition
+    : undefined;
+  const retrievalHint = retrievalDefinition?.retrievalHint;
+  const expectedPattern = retrievalDefinition?.answerPattern;
+  const preferredSourceTypes = retrievalDefinition?.preferredSourceTypes ?? [];
+  const requiredSourceTypes = retrievalDefinition?.requiredSourceTypes ?? [];
 
-  if (matchesAny(input.question, CONVERSATIONAL_PATTERNS)) {
-    const trimmed = input.question.trim();
-    const body = /^(?:obrigad[oa]|valeu|agradeço|agradeco)\b/iu.test(trimmed)
-      ? "De nada. Estou à disposição para outras dúvidas sobre People Operations."
-      : /^(?:bom dia|boa tarde|boa noite)\b/iu.test(trimmed)
-        ? `${trimmed.match(/^(bom dia|boa tarde|boa noite)/iu)?.[1] ?? "Olá"}. Como posso ajudar com políticas ou processos de People Operations?`
-        : "Olá! Posso orientar sobre políticas e processos de People Operations ou encaminhar o atendimento para uma pessoa.";
+  if (!compoundQuestion
+    && (routingIntentIsTerminal(routing!, "gratitude") || routingIntentIsTerminal(routing!, "greeting"))) {
     const decision: Decision = {
       kind: "conversational",
-      body,
+      body: routing!.best.id === "gratitude"
+        ? "De nada. Estou à disposição para outras dúvidas sobre People Operations."
+        : "Olá! Posso orientar sobre políticas e processos de People Operations ou encaminhar o atendimento para uma pessoa.",
       traceId,
     };
-    saveTrace(emptyGovernanceTrace(input, traceId, decision.kind, undefined, started, "No policy decision was requested."));
+    saveTrace(emptyGovernanceTrace(input, traceId, decision.kind, undefined, started,
+      `Semantic route: ${routing!.best.id}. No policy decision was requested.`));
     return decision;
   }
 
-  if (matchesAny(input.question, HUMAN_PATTERNS)) {
+  if (routingIntentIsTerminal(routing!, "human_requested")) {
     const reason: HandoffReason = "human_requested";
     saveTrace(emptyGovernanceTrace(input, traceId, "defer", reason, started, "The requester explicitly asked for a person."));
     return deferredDecision(input, traceId, reason, 0);
   }
 
-  if (matchesAny(input.question, INJECTION_PATTERNS)) {
+  if (routingIntentIsTerminal(routing!, "governance_attack")) {
     const reason: HandoffReason = "policy_sensitive_source";
     const trace = emptyGovernanceTrace(input, traceId, "defer", reason, started, "Untrusted text attempted to alter governance or disclose protected data.");
     trace.governance = {
@@ -447,14 +449,13 @@ export async function decide(input: DecideRequest): Promise<Decision> {
     return deferredDecision(input, traceId, reason, 0);
   }
 
-  const asksPolicyCapability = /\b(?:pol[ií]tica|procedimento|regra)\b.*\b(?:confirmar|mostrar|informar)\b/iu.test(input.question);
-  if (!asksPolicyCapability && asksLiveIndividualState(input.question)) {
-    const reason: HandoffReason = "sensitive_topic";
-    saveTrace(emptyGovernanceTrace(input, traceId, "defer", reason, started, "The request requires live individual transactional state, which static governed sources do not provide."));
-    return deferredDecision(input, traceId, reason, 0.96);
-  }
-
-  if (!isPeopleOpsQuestion(retrievalContext.question)) {
+  if (
+    !compoundQuestion
+    &&
+    !initialDomainSignal
+    &&
+    routingIntentIsTerminal(routing!, "out_of_scope")
+  ) {
     const decision: Decision = {
       kind: "conversational",
       body: "Este atendimento é limitado a políticas e processos de People Operations. Posso ajudar com uma dúvida desse contexto.",
@@ -464,24 +465,59 @@ export async function decide(input: DecideRequest): Promise<Decision> {
     return decision;
   }
 
-  if (!asksPolicyCapability && matchesAny(input.question, SENSITIVE_PATTERNS)) {
+  if (compoundQuestion && !initialDomainSignal && routingIntentIsTerminal(routing!, "out_of_scope")) {
+    const reason: HandoffReason = "missing_source";
+    saveTrace(emptyGovernanceTrace(input, traceId, "defer", reason, started,
+      "At least one independent part of the compound question is outside the governed People Operations corpus."));
+    return deferredDecision(input, traceId, reason, 0.08);
+  }
+
+  if (retrievalDefinition?.knownCorpusGap === true) {
+    const reason: HandoffReason = "missing_source";
+    saveTrace(emptyGovernanceTrace(input, traceId, "defer", reason, started,
+      "A versioned semantic concept identifies a known gap in the governed corpus."));
+    return deferredDecision(input, traceId, reason, 0.08);
+  }
+
+  const liveStateDefinition = semanticPatternConfig().routingPatterns.find((pattern) =>
+    pattern.id === "live_individual_state");
+  const liveStateSupported = routing!.best.id === "live_individual_state"
+    && (routing!.scores.live_individual_state ?? 0)
+      >= (liveStateDefinition?.terminalMinimum ?? patternThresholds.terminalIntentMinimum);
+  const individualStateSupported = queryPattern!.best.id === "individual_state";
+  if ((retrievalDefinition?.sensitiveTopic === true || (liveStateSupported && individualStateSupported))
+    && retrievalDefinition?.liveStateOverride !== true) {
     const reason: HandoffReason = "sensitive_topic";
-    saveTrace(emptyGovernanceTrace(input, traceId, "defer", reason, started, "The request concerns individual or protected state."));
-    return deferredDecision(input, traceId, reason, 0.05);
+    saveTrace(emptyGovernanceTrace(input, traceId, "defer", reason, started, "The request requires live individual transactional state, which static governed sources do not provide."));
+    return deferredDecision(input, traceId, reason, 0.96);
+  }
+
+  const contextFreeConcept = retrievalDefinition?.contextFreeMinimum !== undefined
+    && selectedRetrievalScore >= retrievalDefinition.contextFreeMinimum;
+  if (routingIntentIsContextual(routing!) && !retrievalContext.usedHistory && !contextFreeConcept) {
+    const decision: Decision = {
+      kind: "conversational",
+      body: "Posso responder a pergunta complementar quando houver uma decisão anterior no mesmo contexto. Faça primeiro a pergunta principal de People Operations.",
+      traceId,
+    };
+    saveTrace(emptyGovernanceTrace(input, traceId, decision.kind, undefined, started,
+      "A referential follow-up had no completed user question establishing a trusted topic."));
+    return decision;
   }
 
   const documents = loadSourceDocuments();
   const retrievalStarted = performance.now();
-  const retrieval = lexicalIndex(documents).search(retrievalContext.question);
-  const semantic = await runtimeSemanticSearch(documents, retrievalContext.question, 28);
+  const retrieval = lexicalIndex(documents).search(retrievalContext.question, 192);
+  const semanticQuestion = retrievalHint ?? retrievalContext.question;
+  const semantic = await runtimeSemanticSearch(documents, semanticQuestion, 192);
   const semanticProviderStatus = semantic.mode === "learned" ? "ok" : "degraded";
-  const hybridCandidates = fuseRetrieval(retrieval.candidates, semantic.candidates, 48);
+  const hybridCandidates = fuseRetrieval(retrieval.candidates, semantic.candidates, 256);
   const retrievalMs = performance.now() - retrievalStarted;
   const topScore = hybridCandidates.reduce((strongest, candidate) =>
     Math.max(strongest, retrievalStrength(candidate)), 0);
   const relevanceFloor = Math.max(0.55, topScore * 0.12);
   // Govern passages first: a later clause in the same source can be the only sufficient answer.
-  const requestedRegion = explicitRegion(input.question);
+  const requestedRegion = explicitRegion(input.question, documents);
   const resolvedRegion = input.requester.baseId;
   const candidates = hybridCandidates
     .filter((candidate) => sourceMatchesRequestedRegion(candidate, requestedRegion))
@@ -503,24 +539,128 @@ export async function decide(input: DecideRequest): Promise<Decision> {
       });
     }
   }
-  const requirement = answerRequirement(input.question);
-  const rankedEligible = rankEligible(eligible, input, requirement);
+  const [answerAlignments, passageAnalyses] = await Promise.all([
+    runtimeAnswerAlignment(documents, retrievalContext.question, eligible),
+    runtimeCandidateAnswerPatterns(documents, eligible),
+  ]);
+  const passagePatterns = new Map(eligible.map((candidate, index) =>
+    [candidate.passage.id, passageAnalyses[index]!] as const));
+  const alignedEligible = eligible.map((candidate, index) => ({
+    ...candidate,
+    answerSemanticScore: answerAlignments[index],
+  }));
+  const topAnswerSemanticScore = alignedEligible.reduce((top, candidate) =>
+    Math.max(top, candidate.answerSemanticScore ?? 0), 0);
+  const semanticEligible = alignedEligible
+    .filter((candidate) => candidate.semanticScore !== undefined)
+    .map((candidate) => ({ ...candidate, semanticScore: candidate.semanticScore! }))
+    .sort((left, right) => right.semanticScore - left.semanticScore);
+  const semanticScores = semanticEligible.map((candidate) => candidate.semanticScore);
+  const semanticWindow = semanticPatternConfig().thresholds.semanticWindow;
+  const nearTopSemantic = semanticEligible.filter((candidate) =>
+    candidate.semanticScore >= (semanticScores[0] ?? 0) - semanticWindow);
+  const topSemanticSourceId = semanticEligible[0]?.document.sourceId;
+  const topSemanticSourceCount = nearTopSemantic.filter((candidate) =>
+    candidate.document.sourceId === topSemanticSourceId).length;
+  const supportContext = {
+    queryPattern: queryPattern!,
+    passagePatterns,
+    topSemanticScore: semanticScores[0] ?? 0,
+    secondSemanticScore: semanticScores[1] ?? 0,
+    topSemanticSourceId,
+    topSemanticSourceShare: topSemanticSourceCount / Math.max(1, nearTopSemantic.length),
+    topAnswerSemanticScore,
+    answerSemanticMinimum: retrievalDefinition?.answerAlignmentMinimum
+      ?? patternThresholds.answerSemanticMinimum,
+    expectedPattern,
+    preferredSourceTypes,
+    learned: semantic.mode === "learned",
+  };
+  const requirement = expectedPattern ?? answerRequirement(queryPattern!);
+  const answerEligible = requiredSourceTypes.length > 0
+    ? alignedEligible.filter((candidate) => requiredSourceTypes.includes(candidate.document.sourceType))
+    : alignedEligible;
+  const rankedEligible = rankEligible(answerEligible, input, requirement, supportContext);
+  const conflictDomain = retrievalDefinition
+    ? rankedEligible.find((candidate) => (candidate.sufficiencyScore ?? 0) > 0)?.document.domain
+    : undefined;
+  const strongestEligible = rankedEligible.reduce((strongest, candidate) =>
+    Math.max(strongest, retrievalStrength(candidate)), 0);
+  const conflictAnswerWindow = patternThresholds.multiPassageWindow * 1.6;
   const conflictCandidates = rankedEligible.filter((candidate) =>
-    (candidate.sufficiencyScore ?? 0) > 0 && retrievalStrength(candidate) >= topScore * 0.45);
-  const conflicts = detectConflicts(conflictCandidates);
-  if (requirement === "location_or_channel") {
-    const channels = new Map<string, RetrievalCandidate>();
-    for (const candidate of rankedEligible.filter((item) => (item.sufficiencyScore ?? 0) > 0)) {
-      const channel = candidate.passage.answerText.match(/\b(Cais|Orla)\b/iu)?.[1]?.toLocaleLowerCase("pt-BR");
-      if (channel && !channels.has(channel)) channels.set(channel, candidate);
+    (conflictDomain === undefined || candidate.document.domain === conflictDomain)
+    &&
+    (
+      candidate.queryCoverage >= patternThresholds.lexicalCoverageMinimum
+      || (candidate.answerSemanticScore ?? 0) >= topAnswerSemanticScore - conflictAnswerWindow
+    )
+    && (
+      expectedPattern === undefined
+      || (() => {
+        const analysis = passagePatterns.get(candidate.passage.id);
+        return analysis !== undefined
+          && (analysis.scores[requirement] ?? 0)
+            >= analysis.best.score - patternThresholds.answerPatternMargin;
+      })()
+    )
+    && (
+      expectedPattern === undefined
+      || candidate.semanticScore === undefined
+      || candidate.semanticScore >= supportContext.topSemanticScore
+        - patternThresholds.semanticWindow * (retrievalDefinition?.conflictWindowMultiplier ?? 1)
+    )
+    && retrievalStrength(candidate) >= strongestEligible * 0.45);
+  const hasSufficientCandidate = rankedEligible.some((candidate) =>
+    (candidate.sufficiencyScore ?? 0) > 0);
+  const conflicts = hasSufficientCandidate ? detectConflicts(conflictCandidates) : [];
+  if (semantic.mode === "degraded") {
+    const topLexicalScore = alignedEligible.reduce((top, candidate) =>
+      Math.max(top, candidate.lexicalScore ?? 0), 0);
+    const degradedConflictCandidates = alignedEligible.filter((candidate) =>
+      (candidate.lexicalScore ?? 0) >= topLexicalScore * 0.45
+      && candidate.queryCoverage >= 0.2);
+    const knownPairs = new Set(conflicts.map((conflict) =>
+      [conflict.left.document.sourceId, conflict.right.document.sourceId].sort().join("\n")));
+    for (const conflict of detectConflicts(degradedConflictCandidates)) {
+      const pair = [conflict.left.document.sourceId, conflict.right.document.sourceId].sort().join("\n");
+      if (!knownPairs.has(pair)) {
+        knownPairs.add(pair);
+        conflicts.push(conflict);
+      }
     }
-    const values = [...channels.values()];
-    if (values.length > 1) conflicts.push({ domain: "admission_document_submission_channel", left: values[0]!, right: values[1]!, signals: ["incompatible_submission_channel"] });
+  }
+  if (retrievalDefinition?.id === "admission_submission_channel") {
+    const bySource = new Map(rankedEligible
+      .filter((item) => (item.sufficiencyScore ?? 0) > 0)
+      .map((candidate) => [candidate.document.sourceId, candidate]));
+    const values = [...bySource.values()];
+    if (values.length > 1) {
+      conflicts.push({
+        domain: "submission_channel",
+        left: values[0]!,
+        right: values[1]!,
+        signals: ["multiple_authoritative_destinations"],
+      });
+    }
   }
   const governanceMs = performance.now() - governanceStarted;
   const regionProfileMismatch = requestedRegion !== undefined &&
     requestedRegion !== input.requester.baseId &&
     rejected.some((item) => item.rejectionCodes.includes("scope"));
+  const topRelevantSemantic = candidates.reduce((top, candidate) =>
+    Math.max(top, candidate.semanticScore ?? 0), 0);
+  const applicableExpiredSource = rejected.some((item) =>
+    item.rejectionCodes.includes("expired")
+    && !item.rejectionCodes.some((code) =>
+      ["approval", "audience", "sensitivity", "scope", "future"].includes(code))
+    && (
+      preferredSourceTypes.length === 0
+      || preferredSourceTypes.includes(item.candidate.document.sourceType)
+    )
+    && (
+      item.candidate.queryCoverage >= patternThresholds.lexicalCoverageMinimum
+      || (item.candidate.semanticScore ?? 0) >= topRelevantSemantic - patternThresholds.semanticWindow
+    ));
 
   const decisionStarted = performance.now();
   let decision: Decision;
@@ -529,19 +669,30 @@ export async function decide(input: DecideRequest): Promise<Decision> {
     decision = deferredDecision(input, traceId, "missing_source", 0.08);
   } else if (regionProfileMismatch) {
     decision = deferredDecision(input, traceId, "profile_mismatch", 0.12, rejected);
+  } else if (applicableExpiredSource) {
+    decision = deferredDecision(input, traceId, "missing_source", 0.12, rejected);
   } else if (eligible.length === 0) {
     decision = deferredDecision(input, traceId, deferReasonForRejected(rejected), 0.12, rejected);
   } else if (conflicts.length > 0) {
     decision = deferredDecision(input, traceId, "conflicting_source", 0.2);
   } else {
-    const answerCandidates = selectAnswerCandidates(rankedEligible, input.question);
+    const answerCandidates = compoundQuestion
+      ? selectCompoundAnswerCandidates(rankedEligible, supportContext)
+      : selectAnswerCandidates(rankedEligible, requirement, supportContext);
     if (answerCandidates.length === 0) {
       decision = deferredDecision(input, traceId, "missing_source", 0.18, rejected);
+    } else if (
+      semantic.mode === "degraded"
+      && answerCandidates.some((candidate) =>
+        candidate.queryCoverage < 0.8
+        || containsEmbeddedStructuredPayload(candidate.passage.answerText))
+    ) {
+      decision = deferredDecision(input, traceId, "low_confidence", 0.18, rejected);
     } else {
       const claims = createClaims(answerCandidates);
       decision = {
         kind: "answer",
-        answerabilityScore: Math.min(0.96, 0.62 + topScore / 40 + (claims.length > 1 ? 0.06 : 0)),
+        answerabilityScore: Math.min(0.96, 0.62 + topScore / 40),
         body: claims.map((claim) => claim.text).join("\n\n"),
         claims,
         traceId,
@@ -563,7 +714,12 @@ export async function decide(input: DecideRequest): Promise<Decision> {
   }
   const decisionMs = performance.now() - decisionStarted;
   saveRoutingTrace(input, traceId, decision, candidates, rankedEligible, rejected, conflicts,
-    { queryTokens: retrieval.queryTokens, expandedTerms: retrieval.expandedTerms, concepts: retrieval.concepts,
+    { queryTokens: retrieval.queryTokens, expandedTerms: [], concepts: [
+      routing!.best.id,
+      queryPattern!.best.id,
+      ...(useRetrievalPattern ? [selectedRetrievalId] : []),
+      ...(compoundQuestion ? ["compound_question"] : []),
+    ],
       explicitRegion: requestedRegion, resolvedRegion, requirement, providerStatus: semanticProviderStatus,
       contextualized: retrievalContext.usedHistory, contextualTurns: retrievalContext.contextualTurns }, confidence,
     { retrieval: retrievalMs, governance: governanceMs, decision: decisionMs, total: performance.now() - started });

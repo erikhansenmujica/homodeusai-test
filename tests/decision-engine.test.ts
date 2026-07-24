@@ -4,7 +4,6 @@ import { loadSourceDocuments } from "../src/corpus.ts";
 import { decide } from "../src/decide.ts";
 import { resolveEvidence } from "../src/evidence.ts";
 import { evaluateEligibility } from "../src/governance.ts";
-import { lexicalIndex } from "../src/retrieval.ts";
 import { getTrace } from "../src/traces.ts";
 
 const requester = {
@@ -20,10 +19,36 @@ function request(requestId: string, question: string, asOf = "2026-07-22T10:30:0
   return { requestId, question, asOf, requester, history: [] };
 }
 
-test("lexical retrieval expands Portuguese payroll synonyms", () => {
-  const run = lexicalIndex(loadSourceDocuments()).search("Em que momento o holerite é publicado?");
-  assert.equal(run.candidates[0]?.document.sourceId, "na-faq-payroll-v1");
-  assert.match(run.candidates[0]?.passage.answerText ?? "", /comprovante.*12h/iu);
+test("semantic retrieval resolves a payroll paraphrase without language-specific synonym tables", async () => {
+  const decision = await decide(request("multilingual-payroll", "When does my monthly payslip become available?"));
+  assert.equal(decision.kind, "answer");
+  if (decision.kind !== "answer") return;
+  assert.match(decision.body, /comprovante.*12h/iu);
+  assert.equal(decision.claims[0]?.evidence[0]?.sourceId, "na-faq-payroll-v1");
+});
+
+test("multilingual semantic patterns preserve governed answers and open-set deferral", async () => {
+  for (const [question, expectedBody, expectedSource] of [
+    ["¿Cuál es el valor diario de la ayuda para comidas?", /R\$ 47,30/u, "na-agreement-metropolitan-2025"],
+    ["Combien de temps à l’avance dois-je demander mes vacances ?", /35 dias corridos/iu, "na-faq-vacation-v1"],
+    ["Wie hoch ist der Zuschlag für die ersten genehmigten Überstunden?", /62%/u, "na-agreement-metropolitan-2025"],
+  ] as const) {
+    const decision = await decide(request(`multilingual-${question}`, question));
+    assert.equal(decision.kind, "answer", question);
+    if (decision.kind !== "answer") continue;
+    assert.match(decision.body, expectedBody, question);
+    assert.ok(
+      decision.claims.flatMap((claim) => claim.evidence)
+        .some((evidence) => evidence.sourceId === expectedSource),
+      question,
+    );
+  }
+  const unsupported = await decide(request(
+    "multilingual-unsupported",
+    "Gibt es einen Zuschuss für das Internet?",
+  ));
+  assert.equal(unsupported.kind, "defer");
+  if (unsupported.kind === "defer") assert.equal(unsupported.handoff.reasonCode, "missing_source");
 });
 
 test("governance treats a date-only effectiveTo as inclusive", () => {

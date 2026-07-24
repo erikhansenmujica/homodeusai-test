@@ -21,7 +21,7 @@ export default defineConfig({
   webServer: process.env.PLAYWRIGHT_BASE_URL
     ? undefined
     : {
-        command: `PORT=${port} LEARNED_SEMANTIC_ENABLED=false RUNTIME_STATE_PATH=/tmp/nexo-playwright-${port} node src/server.ts`,
+        command: `PORT=${port} LEARNED_SEMANTIC_ENABLED=true RUNTIME_STATE_PATH=/tmp/nexo-playwright-${port} node src/server.ts`,
         url: `${baseURL}/readyz`,
         timeout: 180_000,
         reuseExistingServer: !process.env.CI,

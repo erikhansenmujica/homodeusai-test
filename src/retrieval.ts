@@ -1,24 +1,10 @@
 import type { Passage, RetrievalCandidate, RetrievalRun, SourceDocument } from "./types.ts";
-import { QUERY_CONCEPTS, SYNONYM_GROUPS } from "./domain-config.ts";
-
-const PORTUGUESE_STOPWORDS = new Set([
-  "a", "ao", "aos", "as", "com", "como", "da", "das", "de", "do", "dos", "e", "em", "eu",
-  "existe", "foi", "me", "meu", "minha", "na", "nas", "no", "nos", "o", "os", "ou", "para", "por",
-  "precisa", "qual", "quais", "que", "se", "sem", "ser", "sou", "um", "uma", "meus", "minhas", "isso", "esta", "vale",
-  "este", "essa", "esse", "já", "ja", "the", "is", "what", "how", "when", "where", "my",
-]);
-
-const synonymMap = new Map<string, string[]>();
-for (const group of SYNONYM_GROUPS) {
-  const normalized = [...new Set(group.map((term) => normalizeToken(term)))];
-  for (const term of normalized) synonymMap.set(term, normalized);
-}
 
 function normalizeToken(value: string): string {
   return value
     .normalize("NFKD")
     .replace(/\p{M}/gu, "")
-    .toLocaleLowerCase("pt-BR")
+    .toLocaleLowerCase("und")
     .replace(/[^\p{L}\p{N}_-]+/gu, "");
 }
 
@@ -26,28 +12,27 @@ export function tokenize(value: string): string[] {
   return value
     .split(/[^\p{L}\p{N}_-]+/u)
     .map(normalizeToken)
-    .filter((term) => term.length > 1 && !PORTUGUESE_STOPWORDS.has(term));
+    .filter((term) => term.length > 1);
 }
 
-function expandTokens(tokens: string[]): string[] {
-  const expanded = new Set(tokens);
-  for (const token of tokens) {
-    for (const synonym of synonymMap.get(token) ?? []) expanded.add(synonym);
+function characterFeatures(term: string): string[] {
+  const characters = [...term];
+  if (characters.length < 4) return [];
+  const padded = ["^", ...characters, "$"];
+  const features: string[] = [];
+  for (let index = 0; index <= padded.length - 3; index += 1) {
+    features.push(`~${padded.slice(index, index + 3).join("")}`);
   }
-  return [...expanded];
+  return features;
+}
+
+function tokenFeatures(term: string): string[] {
+  return [term, ...characterFeatures(term)];
 }
 
 export function queryExpansion(question: string): { original: string[]; expanded: string[]; concepts: string[] } {
   const original = tokenize(question);
-  const expanded = new Set(expandTokens(original));
-  const concepts: string[] = [];
-  for (const [name, definition] of Object.entries(QUERY_CONCEPTS)) {
-    if (definition.triggers.some((term) => original.includes(normalizeToken(term)))) {
-      concepts.push(name);
-      for (const term of definition.terms) expanded.add(normalizeToken(term));
-    }
-  }
-  return { original, expanded: [...expanded], concepts };
+  return { original, expanded: [...new Set(original.flatMap(tokenFeatures))], concepts: [] };
 }
 
 function cleanAnswer(text: string): string {
@@ -70,9 +55,9 @@ function passage(
   sequence: number,
 ): Passage {
   const answerText = cleanAnswer(text);
-  const titleTokens = tokenize(`${document.title} ${document.domain}`);
-  const headingTokens = tokenize(heading);
-  const contentTokens = tokenize(text);
+  const titleTokens = tokenize(`${document.title} ${document.domain}`).flatMap(tokenFeatures);
+  const headingTokens = tokenize(heading).flatMap(tokenFeatures);
+  const contentTokens = tokenize(text).flatMap(tokenFeatures);
   return {
     id: `${document.sourceId}:${sequence}`,
     sourceId: document.sourceId,
@@ -94,7 +79,9 @@ function passage(
 }
 
 function extractFaqPassages(document: SourceDocument): Passage[] {
-  const matches = [...document.content.matchAll(/^FAQ_ROW\|[^\n]+[\s\S]*?(?=^FAQ_ROW\||(?![\s\S]))/gmu)];
+  const marker = document.content.search(/^CENÁRIO_OPERACIONAL\|/mu);
+  const useful = marker >= 0 ? document.content.slice(0, marker) : document.content;
+  const matches = [...useful.matchAll(/^FAQ_ROW\|[^\n]+[\s\S]*?(?=^FAQ_ROW\||(?![\s\S]))/gmu)];
   return matches
     .filter((match) => /\|status=publicada(?:\n|$)/u.test(match[0]))
     .map((match, index) => passage(
@@ -178,7 +165,7 @@ export class LexicalIndex {
   search(question: string, limit = 48): RetrievalRun {
     const expansion = queryExpansion(question);
     const rawTokens = expansion.original;
-    const queryTokens = expansion.expanded;
+    const queryTokens = [...new Set(expansion.expanded)];
     const candidates: RetrievalCandidate[] = [];
     const passageCount = this.passages.length;
     for (const item of this.passages) {
@@ -192,32 +179,43 @@ export class LexicalIndex {
       let titleScore = 0;
       let headingScore = 0;
       let bodyScore = 0;
-      const matchedTerms: string[] = [];
+      const matchedFeatures = new Set<string>();
       for (const token of queryTokens) {
         const frequency = frequencies.get(token) ?? 0;
         const titleFrequency = titleFrequencies.get(token) ?? 0;
         const headingFrequency = headingFrequencies.get(token) ?? 0;
         if (frequency + titleFrequency + headingFrequency === 0) continue;
-        matchedTerms.push(token);
+        matchedFeatures.add(token);
         const documentFrequency = this.documentFrequency.get(token) ?? 0;
         const inverseFrequency = Math.log(1 + (passageCount - documentFrequency + 0.5) / (documentFrequency + 0.5));
         const normalization = frequency + 1.2 * (1 - 0.75 + 0.75 * item.tokens.length / this.averageLength);
-        const expansionWeight = rawTokens.includes(token) ? 1 : 0.42;
-        const body = inverseFrequency * (frequency * 2.2 / Math.max(1, normalization)) * expansionWeight;
-        const title = inverseFrequency * titleFrequency * 1.1 * expansionWeight;
-        const heading = inverseFrequency * headingFrequency * 1.8 * expansionWeight;
+        const featureWeight = token.startsWith("~") ? 0.18 : 1;
+        const body = inverseFrequency * (frequency * 2.2 / Math.max(1, normalization)) * featureWeight;
+        const title = inverseFrequency * titleFrequency * 1.1 * featureWeight;
+        const heading = inverseFrequency * headingFrequency * 1.8 * featureWeight;
         bodyScore += body;
         titleScore += title;
         headingScore += heading;
         score += body + title + heading;
       }
-      const rawMatched = rawTokens.filter((token) =>
-        frequencies.has(token) || titleFrequencies.has(token) || headingFrequencies.has(token)).length;
-      score += rawMatched * 0.55;
-      const coveredConcepts = rawTokens.filter((token) =>
-        (synonymMap.get(token) ?? [token]).some((term) =>
-          frequencies.has(term) || titleFrequencies.has(term) || headingFrequencies.has(term))).length;
-      const queryCoverage = coveredConcepts / Math.max(1, rawTokens.length);
+      const coverageWeights = rawTokens.map((token) => {
+        const frequencies = tokenFeatures(token).map((feature) => this.documentFrequency.get(feature) ?? 0);
+        const frequency = Math.max(...frequencies);
+        return Math.log(1 + (passageCount - frequency + 0.5) / (frequency + 0.5));
+      });
+      const matchedTerms: string[] = [];
+      const coveredWeight = rawTokens.reduce((sum, token, index) => {
+        const features = tokenFeatures(token);
+        const exact = matchedFeatures.has(token);
+        const character = features.slice(1);
+        const ratio = character.length === 0 ? 0
+          : character.filter((feature) => matchedFeatures.has(feature)).length / character.length;
+        const support = exact ? 1 : ratio >= 0.55 ? ratio * 0.65 : 0;
+        if (support > 0) matchedTerms.push(token);
+        return sum + coverageWeights[index]! * support;
+      }, 0);
+      const queryCoverage = coveredWeight / Math.max(Number.EPSILON,
+        coverageWeights.reduce((sum, weight) => sum + weight, 0));
       const normalizedQuestion = normalizeToken(question.replace(/\s+/gu, " "));
       const normalizedAnswer = normalizeToken(item.answerText.replace(/\s+/gu, " "));
       if (normalizedQuestion.length > 8 && normalizedAnswer.includes(normalizedQuestion)) score += 3;
@@ -231,7 +229,7 @@ export class LexicalIndex {
       right.score - left.score ||
       right.document.authorityTier - left.document.authorityTier ||
       left.passage.id.localeCompare(right.passage.id));
-    return { queryTokens: rawTokens, expandedTerms: queryTokens.filter((term) => !rawTokens.includes(term)), concepts: expansion.concepts, candidates: candidates.slice(0, limit) };
+    return { queryTokens: rawTokens, expandedTerms: [], concepts: [], candidates: candidates.slice(0, limit) };
   }
 }
 

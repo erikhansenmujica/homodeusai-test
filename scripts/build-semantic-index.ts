@@ -11,7 +11,7 @@ process.env.RUNTIME_STATE_PATH = artifactDirectory;
 mkdirSync(artifactDirectory, { recursive: true, mode: 0o700 });
 
 const documents = loadSourceDocuments();
-const results = await learnedSemanticIndex(documents).search("políticas e processos de People Operations", 1);
+const results = await learnedSemanticIndex(documents).search("general employee policy guidance", 1);
 if (results.length === 0) throw new Error("semantic index warm-up returned no candidates");
 
 console.log(`Built learned semantic index for ${documents.length} documents at ${artifactDirectory}`);

@@ -33,6 +33,7 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - run: npm run setup:model
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
       - uses: actions/upload-artifact@v4
@@ -53,7 +54,7 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - name: Run deterministic candidate evals
+      - name: Run degraded safety baseline
         run: |
           PORT=8080 LEARNED_SEMANTIC_ENABLED=false RUNTIME_STATE_PATH=/tmp/nexo-ci-evals node src/server.ts > /tmp/nexo-ci-server.log 2>&1 &
           server_pid=$!
@@ -66,6 +67,7 @@ jobs:
           done
           curl -fsS http://127.0.0.1:8080/readyz
           CANDIDATE_BASE_URL=http://127.0.0.1:8080 npm run evals
+          node --input-type=module -e "import report from '/tmp/candidate-eval-report.json' with { type: 'json' }; if (!report.safe) process.exit(1)"
       - run: npm run setup:model
       - run: npm run evals:matrix
 

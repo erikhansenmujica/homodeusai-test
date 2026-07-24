@@ -95,18 +95,16 @@ function overlap(left: Set<string>, right: Set<string>): number {
 
 export function detectConflicts(candidates: RetrievalCandidate[]): Conflict[] {
   const conflicts: Conflict[] = [];
-  const strongestBySource = new Map<string, RetrievalCandidate>();
-  for (const candidate of candidates) {
-    if (!strongestBySource.has(candidate.document.sourceId)) {
-      strongestBySource.set(candidate.document.sourceId, candidate);
-    }
-  }
-  const distinct = [...strongestBySource.values()].slice(0, 8);
+  const distinct = candidates.slice(0, 24);
+  const conflictingSourcePairs = new Set<string>();
   for (let leftIndex = 0; leftIndex < distinct.length; leftIndex += 1) {
     for (let rightIndex = leftIndex + 1; rightIndex < distinct.length; rightIndex += 1) {
       const left = distinct[leftIndex];
       const right = distinct[rightIndex];
+      if (left.document.sourceId === right.document.sourceId) continue;
       if (left.document.domain !== right.document.domain) continue;
+      const sourcePair = [left.document.sourceId, right.document.sourceId].sort().join("\n");
+      if (conflictingSourcePairs.has(sourcePair)) continue;
       const textOverlap = overlap(contentTerms(left.passage.answerText), contentTerms(right.passage.answerText));
       if (textOverlap < 0.28) continue;
       const signals: string[] = [];
@@ -123,13 +121,10 @@ export function detectConflicts(candidates: RetrievalCandidate[]): Conflict[] {
       if (textOverlap >= 0.24 && hasOpposedTiming(left.passage.answerText, right.passage.answerText)) {
         signals.push("incompatible_timing");
       }
-      const leftChannel = left.passage.answerText.match(/\b(Cais|Orla)\b/iu)?.[1]?.toLocaleLowerCase("pt-BR");
-      const rightChannel = right.passage.answerText.match(/\b(Cais|Orla)\b/iu)?.[1]?.toLocaleLowerCase("pt-BR");
-      const channelTopic = /\b(?:document|pacote|ingresso|convite)\b/iu;
-      if (leftChannel && rightChannel && leftChannel !== rightChannel && channelTopic.test(left.passage.answerText) && channelTopic.test(right.passage.answerText)) {
-        signals.push("incompatible_submission_channel");
+      if (signals.length > 0) {
+        conflictingSourcePairs.add(sourcePair);
+        conflicts.push({ domain: left.document.domain, left, right, signals });
       }
-      if (signals.length > 0) conflicts.push({ domain: left.document.domain, left, right, signals });
     }
   }
   return conflicts;

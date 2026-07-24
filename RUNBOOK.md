@@ -2,13 +2,15 @@
 
 ## Build and start
 
-The evaluated default is deterministic retrieval. It starts quickly, requires no model files, and preserves every governance and evidence gate.
+The evaluated default is pinned multilingual E5 retrieval. The container includes the verified model and prebuilt corpus index, so startup and requests do not need Internet access.
 
 ```bash
 npm ci
 npm run typecheck
 npm test
-LEARNED_SEMANTIC_ENABLED=false RUNTIME_STATE_PATH=/tmp/nexo-state npm start
+npm run setup:model
+npm run build:index
+LEARNED_SEMANTIC_ENABLED=true RUNTIME_STATE_PATH=/tmp/nexo-state npm start
 ```
 
 The service listens on `0.0.0.0:8080`. Liveness does not imply readiness:
@@ -23,7 +25,7 @@ curl -fsS http://127.0.0.1:8080/metrics
 
 ## Learned-model lifecycle
 
-The optional learned adapter is pinned to `Xenova/multilingual-e5-small` revision `761b726dd34fb83930e26aab4e9ac3899aa1fa78`. It is never downloaded at startup or request time.
+The learned adapter is pinned to `Xenova/multilingual-e5-base` revision `1ec9243030a27d1a115d5c340572074c125b58b2`. It is never downloaded at startup or request time.
 
 ```bash
 npm run setup:model
@@ -34,7 +36,7 @@ LEARNED_SEMANTIC_ENABLED=true RUNTIME_STATE_PATH=/tmp/nexo-learned npm start
 
 `setup:model` verifies every tokenizer, configuration, SentencePiece, and int8 ONNX checksum. `build:index` records the model revision and every passage hash. A stale or incompatible index is rebuilt. If the model is missing or invalid, readiness completes as `ready_degraded`; traces expose provider state only as `ok` or `degraded`.
 
-The multi-stage Docker build downloads and verifies the pinned assets without relying on ignored local files. The runtime defaults to deterministic mode because the frozen 21-case A/B suite showed no safety or coverage improvement from E5. Operators can opt in with `-e LEARNED_SEMANTIC_ENABLED=true`.
+The multi-stage Docker build downloads and verifies the pinned assets without relying on ignored local files. The runtime defaults to learned mode because the frozen suite passed 21/21 there versus 9/21 exact outcomes in degraded mode. When model initialization fails, `ready_degraded` remains available as a safe, abstention-first fallback; it is not advertised as multilingual semantic equivalence.
 
 ## Test and evaluate
 
@@ -47,7 +49,7 @@ CANDIDATE_BASE_URL=http://127.0.0.1:8080 npm run evals
 npm run evals:matrix
 ```
 
-The candidate suite has 21 authored cases. The matrix runs both deterministic and learned configurations, records startup/first-decision latency, and fails if either mode produces an unsafe result or misses the operational ceilings.
+The candidate suite has 21 authored cases. The matrix runs both degraded and learned configurations, records exact outcome coverage, unsupported-answer safety, startup, and first-decision latency. It fails if either mode produces an unsafe autonomous answer or misses the operational ceilings; learned mode must also improve coverage to remain the default.
 
 ## Candidate artifact
 

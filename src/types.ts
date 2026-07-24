@@ -59,6 +59,7 @@ export interface RetrievalCandidate {
   score: number;
   lexicalScore?: number;
   semanticScore?: number;
+  answerSemanticScore?: number;
   fusionScore?: number;
   titleScore?: number;
   headingScore?: number;
@@ -235,6 +236,7 @@ export interface TraceEvidence {
   passageId?: string;
   lexicalScore?: number;
   semanticScore?: number;
+  answerSemanticScore?: number;
   fusionScore?: number;
   finalScore?: number;
   rejectionCodes?: EligibilityRejectionCode[];
