@@ -2,7 +2,7 @@
 
 ## 1. Executive summary
 
-The implemented first version is an offline-capable, deterministic governed decision service. It uses citable passage extraction, an in-memory BM25-style lexical index, source eligibility rules, explicit conflict checks, template answers, exact UTF-8 citations, and durable filesystem handoffs/traces. An LLM is not a critical dependency.
+The implemented first version is an offline-capable, deterministic governed decision service. It uses citable passage extraction, hybrid BM25 and learned multilingual E5 retrieval, source eligibility rules, explicit conflict checks, extractive source-backed answers, exact UTF-8 citations, and durable filesystem handoffs/traces. A generative LLM is not a critical dependency.
 
 ## 2. Goals
 
@@ -14,7 +14,7 @@ The implemented first version is an offline-capable, deterministic governed deci
 
 ## 3. Non-goals
 
-Embeddings, a vector database, microservices, write integrations, admission decisions, live personal state, clinical or financial calculation, production multi-tenancy, and autonomous model judgment are excluded.
+A vector database, microservices, write integrations, admission decisions, live personal state, clinical or financial calculation, production multi-tenancy, and autonomous generative-model judgment are excluded.
 
 ## 4. Current repository assessment
 
@@ -31,8 +31,8 @@ Startup is under 180 seconds; normal decisions are expected under 10 seconds; re
 ## 7. Proposed architecture
 
 ```text
-HTTP -> validation -> intent boundary -> lexical retrieval
-     -> governance -> supersession -> conflicts
+HTTP -> validation -> intent boundary -> BM25 + local E5 retrieval -> RRF
+     -> governance -> topic/claim sufficiency -> supersession -> conflicts
      -> answer | defer + handoff | conversational
      -> trace persistence -> JSON/UI
 ```
@@ -49,9 +49,11 @@ Existing `Decision`, `DecideRequest`, `SourceDocument`, evidence, handoff, and t
 
 ## 10. Retrieval design
 
-FAQ rows, Markdown paragraphs under headings, collective clauses, and process blocks are citation units with stable character and UTF-8 byte ranges. Synthetic `CENÁRIO_OPERACIONAL` records are excluded because they are generated test noise rather than approved guidance. Text is NFKD-normalized, diacritics removed for matching, lowercased, tokenized, and filtered through a small Portuguese/English stopword list. No stemming is used; bounded synonym groups cover high-value corpus language. Titles, headings, and bodies receive distinct BM25-style weights. After governance, deterministic requirement checks (percentage, currency, duration, list, event, boolean, individual-state, or general rule) plus authority and scope specificity rerank candidates. The index is small enough to build in memory.
+FAQ rows, Markdown paragraphs under headings, collective clauses, and process blocks are citation units with stable character and UTF-8 byte ranges. Synthetic `CENÁRIO_OPERACIONAL` records are excluded because they are generated test noise rather than approved guidance. Text is NFKD-normalized, diacritics removed for matching, lowercased, tokenized, and filtered through a small Portuguese/English stopword list. No stemming is used; bounded synonym groups cover high-value corpus language. Titles, headings, and bodies receive distinct BM25-style weights. After governance, deterministic requirement checks (percentage, currency, duration, entitlement, list, event, boolean, individual-state, or general rule) plus topic-anchor alignment, authority, and scope specificity rerank candidates. The index is small enough to build in memory.
 
-Controlled query concepts add downweighted terms for timekeeping marks, overtime compensation, internship instruments, termination initiation, mandatory human review, and meal support. Explicit query-region aliases take precedence over the requester base for source lookup (`question → profile → source metadata`); that lookup scope does not assert personal applicability. The trace records the resolved scope and any rejected regional source.
+Controlled query concepts add downweighted terms for timekeeping marks, overtime compensation, internship instruments, termination initiation, mandatory human review, and meal support. Explicit query-region aliases may narrow source discovery, but they never replace the base supplied by the trusted requester boundary. A source for a different named region therefore remains ineligible and produces a profile-mismatch handoff instead of an answer under an invented profile. The trace records both the query alias and the trusted resolved scope.
+
+Hybrid retrieval uses local learned multilingual E5 embeddings through Transformers.js 3.7.2 (`Xenova/multilingual-e5-small`, revision `761b726dd34fb83930e26aab4e9ac3899aa1fa78`, `model_int8.onnx`). Model assets live under `models/Xenova/multilingual-e5-small`; remote model loading is disabled before the pipeline is initialized. Queries use `query:` and title-plus-heading-plus-passage inputs use `passage:` prefixes, mean pooling, and normalized 384-dimensional vectors. The persisted learned index under `RUNTIME_STATE_PATH` reuses vectors when the passage hash and pinned model identity match. BM25 and semantic top results are fused with reciprocal-rank fusion (`k=60`) while lexical, semantic, and fusion scores remain separate in the trace. If learned initialization fails, the system explicitly falls back to the deterministic hashed-subword adapter and records a degraded provider state. Semantic rank broadens and reranks candidates but can never override topic/claim sufficiency, governance, authority, conflict handling, or exact citations.
 
 ## 11. Governance design
 
@@ -63,7 +65,7 @@ An effective approved source’s explicit `supersedes` list removes the older re
 
 ## 13. Decision logic
 
-`answer` requires sufficient score, query-concept coverage, an answer passage that satisfies the requested answer type, eligible evidence, no conflict, and valid citations. Source deduplication happens only after passage reranking. A second source is included only for explicit compound language. `defer` handles human request, missing/low evidence, scope mismatch, pending/stale source, protected source, conflict, sensitive individual state, and injection; expired applicable sources produce an explained missing-source defer. `conversational` is limited to greetings and thanks without a policy request.
+`answer` requires sufficient hybrid strength, query-concept coverage, subject alignment, an answer passage that supports the requested claim type, eligible evidence, no conflict, and valid citations. A numeric duration cannot satisfy an unrelated duration question, and a process deadline cannot satisfy an entitlement question. Policy answer text is copied only from selected source passages; fixed UI text is limited to conversational and handoff states. Source deduplication happens only after passage reranking. A second source is included only for explicit compound language. `defer` handles human request, missing/low evidence, scope mismatch, pending/stale source, protected source, conflict, sensitive individual state, and injection; expired applicable sources produce an explained missing-source defer. `conversational` is limited to greetings and thanks without a policy request.
 
 ## 14. Evidence and citations
 
@@ -81,9 +83,9 @@ All required routes and schemas are implemented unchanged: `/`, `/healthz`, `/re
 
 The “decision ledger” is an operator workbench rather than chat. It exposes trusted context, date, request composer, decision state, score, claims, exact evidence, source metadata, trace counts, history, handoff receipt, preserved work record, and resolution. Every locked `data-testid` is present in its relevant state. Layout collapses without horizontal overflow at 390 px.
 
-## 18. Optional model integration
+## 18. Optional generative-model integration
 
-A future `ModelProvider.generate()` may rewrite already-approved claim text under a short timeout and circuit breaker. It may never choose sources, eligibility, conflict outcome, reason code, citation, or route. 401/429/5xx/network/malformed output falls back to the deterministic body. This version intentionally reports `not_used`.
+A future `ModelProvider.generate()` may rewrite already-approved claim text under a short timeout and circuit breaker. It may never choose sources, eligibility, conflict outcome, reason code, citation, or route. 401/429/5xx/network/malformed output falls back to the deterministic body. This version does not use a generative model; the trace provider state currently describes the learned embedding provider.
 
 ## 19. Security
 
@@ -94,6 +96,8 @@ User and source text are data, never instructions. Trusted requester axes are se
 Each trace stores request/trace IDs, versions, ordered stages, exact candidate/eligible/rejected counts, source/version identities, rejection aggregates, rank/offset/score metadata, conflict signals, provider state, route, and stage timings. It excludes raw text and hidden reasoning.
 
 Successful claims include backward-compatible evidence usage metadata (`primary` or `supporting`) and a deterministic evidence-quality confidence score. The score is not a probability of truth: it combines explicit answer sufficiency, current eligible authority, exact citations, resolved region, and conflict penalties. Defer confidence describes confidence in the inability to safely answer from governed evidence.
+
+Questions combining a personal reference, transactional object, and completion/status language are routed as live individual-state requests. Static policies are not sufficient evidence for approval, pending, processed, balance, or provisioning state; the service defers with an explanation instead of rendering a normative policy as a live answer.
 
 ## 21. Testing strategy
 
@@ -109,11 +113,11 @@ Completed in vertical slices: contract/types; passage/index; governance/conflict
 
 ## 24. Risks and trade-offs
 
-Lexical recall, passage-specific scope, incomplete metadata, heuristic conflict detection, template rigidity, and filesystem multi-process concurrency remain limitations. The deterministic design favors auditable safety and feasible 16-hour delivery over broad semantic coverage.
+Passage-specific scope, incomplete metadata, heuristic intent/claim detection, heuristic conflict detection, embedding calibration on synthetic text, and filesystem multi-process concurrency remain limitations. The deterministic design favors auditable safety over unconstrained semantic answering.
 
 ## 25. Future extensions
 
-Add a local embedding adapter behind the retriever, reciprocal-rank hybrid fusion, reranking after governance, declarative governance/authority configuration, PostgreSQL transactional stores, queue delivery, tenant-scoped authorization, resolution feedback, and offline precision/recall dashboards.
+Add declarative topic/claim schemas, a calibrated cross-encoder reranker, PostgreSQL transactional stores, queue delivery, tenant-scoped authorization, resolution feedback, and offline precision/recall dashboards.
 
 ## 26. Open questions
 

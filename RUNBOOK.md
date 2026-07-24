@@ -7,6 +7,18 @@ npm ci
 npm run typecheck
 npm test
 RUNTIME_STATE_PATH=/tmp/nexo-state npm start
+
+## Learned-model lifecycle
+
+The learned embedding model is a build/setup asset, never a startup or request-time download. Before running the learned hybrid path or building Docker, materialize and verify the pinned local assets:
+
+```bash
+npm run setup:model
+npm run verify:model
+docker build -t nexo-atlantico-knowledge-case .
+```
+
+`setup:model` downloads `Xenova/multilingual-e5-small` at the pinned revision into `models/Xenova/multilingual-e5-small`, then verifies the int8 ONNX checksum. The directory is gitignored but remains in the Docker build context and is copied into `/app/models`. Runtime remote model loading is disabled; a missing or invalid local model falls back to the documented retrievers.
 ```
 
 The service listens on `0.0.0.0:8080`. Check:

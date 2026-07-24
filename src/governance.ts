@@ -123,6 +123,12 @@ export function detectConflicts(candidates: RetrievalCandidate[]): Conflict[] {
       if (textOverlap >= 0.24 && hasOpposedTiming(left.passage.answerText, right.passage.answerText)) {
         signals.push("incompatible_timing");
       }
+      const leftChannel = left.passage.answerText.match(/\b(Cais|Orla)\b/iu)?.[1]?.toLocaleLowerCase("pt-BR");
+      const rightChannel = right.passage.answerText.match(/\b(Cais|Orla)\b/iu)?.[1]?.toLocaleLowerCase("pt-BR");
+      const channelTopic = /\b(?:document|pacote|ingresso|convite)\b/iu;
+      if (leftChannel && rightChannel && leftChannel !== rightChannel && channelTopic.test(left.passage.answerText) && channelTopic.test(right.passage.answerText)) {
+        signals.push("incompatible_submission_channel");
+      }
       if (signals.length > 0) conflicts.push({ domain: left.document.domain, left, right, signals });
     }
   }

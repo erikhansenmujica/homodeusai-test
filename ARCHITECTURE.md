@@ -2,32 +2,34 @@
 
 ## System shape
 
-The submission is one dependency-light Node.js 24 process and one container. It loads the immutable normalized corpus, creates citable passages, builds an in-memory lexical index, applies governance deterministically, renders a typed decision, and persists traces and human work under `RUNTIME_STATE_PATH`.
+The submission is one Node.js 24 process and one container. It loads the immutable normalized corpus, creates citable passages, builds lexical and local learned-semantic indexes, applies governance deterministically, renders a typed decision, and persists indexes, traces, and human work under `RUNTIME_STATE_PATH`.
 
 ```text
 Trusted HTTP request
   -> contract validation
   -> conversational / human / protected-intent checks
-  -> passage extraction + lexical retrieval
-  -> source governance and explicit supersession
+  -> People Operations scope + live-state boundary
+  -> passage extraction + BM25 / multilingual E5 retrieval + RRF
+  -> source governance, trusted scope, and explicit supersession
+  -> per-clause topic and answer-shape support
   -> deterministic conflict detection
   -> answer | defer + durable handoff | conversational
   -> durable redacted trace
   -> contract-valid JSON and operator UI
 ```
 
-`src/corpus.ts` remains the integrity boundary for `source-documents.json`. `src/retrieval.ts` extracts FAQ rows, Markdown sections, clauses, and process blocks and ranks them using an in-memory BM25-style score with Portuguese normalization and bounded synonym expansion. `src/governance.ts` evaluates approval, employee audience, sensitivity, inclusive validity, four trusted scope axes, and supersession before a passage can support an answer.
+`src/corpus.ts` remains the integrity boundary for `source-documents.json`. `src/retrieval.ts` extracts FAQ rows, Markdown sections, clauses, and process blocks and ranks them using an in-memory BM25-style score with Portuguese normalization and bounded synonym expansion. `src/learned-semantic.ts` runs a pinned local multilingual E5 model; `src/semantic.ts` fuses lexical and semantic ranks and provides a deterministic degraded fallback. `src/governance.ts` evaluates approval, employee audience, sensitivity, inclusive validity, four trusted scope axes, and supersession before a passage can support an answer.
 
-`src/decide.ts` owns routing. It never lets retrieved text modify governance. A direct answer is template-rendered from one or two exact eligible passages; every material body statement is also a claim. Conflicts are detected from incompatible values, polarity, and timing signals across relevant eligible sources. Authority affects retrieval ordering but never silently resolves a contradiction.
+`src/decide.ts` owns routing. It separates out-of-scope conversation from unsupported People Operations requests, sends live individual state to a protected handoff, and never lets question or retrieved text modify the trusted requester. Every material clause must independently match an eligible passage, the requested answer shape, and a 60% subject-term coverage floor. A direct answer is copied from exact eligible passages; every material body statement is also a claim. Conflicts are detected from incompatible values, polarity, and timing signals across relevant eligible sources. Authority affects retrieval ordering but never silently resolves a contradiction.
 
 `src/evidence.ts` converts JavaScript character positions to zero-based, half-open UTF-8 byte ranges and hashes the exact bytes. `src/queue.ts` persists idempotent handoffs with atomic replacement. `src/traces.ts` writes one redacted JSON record per trace using temporary-file-plus-rename.
 
 ## Chosen trade-offs
 
-- No embeddings or vector service: 34 sources fit comfortably in memory, deterministic lexical behavior works offline, and the main risk is governance rather than semantic recall. The index interface is separable so a hybrid retriever can be added later.
+- Local embeddings instead of a vector service: 34 sources fit comfortably in memory, the pinned model works offline, and reciprocal-rank fusion improves paraphrase recall without granting the embedding score authority over governance or claim support.
 - No production database: a filesystem store is adequate for one process and warm concurrency of three. PostgreSQL would be the first production replacement for multi-instance locking, retention, and reporting.
-- No required model call: the optional proxy is never necessary for source eligibility, conflict handling, citations, or routing. When absent, every trace reports `not_used` and behavior is unchanged.
-- Template rendering limits eloquence but prevents ungrounded connective prose. A later model may rewrite claim text only after evidence is locked and must pass a claim/evidence validator.
+- No generative model call: source eligibility, conflict handling, citations, routing, and extractive answers remain deterministic. The trace reports learned-embedding health as `ok` or `degraded`.
+- Extractive rendering limits eloquence but prevents ungrounded connective prose. A later model may rewrite claim text only after evidence is locked and must pass a claim/evidence validator.
 - Conflict detection is deliberately conservative and lexical. It covers the known numeric, polarity, and temporal contradictions but is not a general natural-language theorem prover.
 
 ## Trust, authorization, and isolation
@@ -38,7 +40,8 @@ Production must derive tenant, subject, and operator roles from an authenticated
 
 ## Failure modes that still matter
 
-- Lexical retrieval can miss novel paraphrases or over-weight repeated synthetic language.
+- Intent and per-clause subject detection remain heuristic and can miss novel People Operations phrasing.
+- Learned similarity can retrieve attractive but unrelated passages; deterministic subject and answer-shape gates remain the safety boundary.
 - Passage-level relationship meaning can be more specific than document-level metadata.
 - Conflict rules can miss a contradiction expressed without shared terms.
 - A corrupt or unavailable state mount prevents durable handoff guarantees and must fail readiness in production.

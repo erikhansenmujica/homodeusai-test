@@ -42,18 +42,19 @@ test("controlled overtime and meal paraphrases retain regional values", async ()
   ] as const) assert.match((await answer(question, profile)).body, expected, question);
 });
 
-test("explicit Planalto region overrides a conflicting profile only for source lookup", async () => {
-  const result = await decide({ requestId: "planalto-expired", question: "Qual é o acréscimo aplicável às duas primeiras horas adicionais no Planalto Central?",
-    asOf: "2026-08-01T10:00:00.000Z", requester: { subjectId: "test", domains: [], ...profiles.sudeste }, history: [] });
+test("question text cannot override the trusted requester region", async () => {
+  const result = await decide({ requestId: "planalto-profile-mismatch", question: "Qual é o acréscimo aplicável às duas primeiras horas adicionais no Planalto Central?",
+    asOf: "2026-07-22T10:00:00.000Z", requester: { subjectId: "test", domains: [], ...profiles.sudeste }, history: [] });
   assert.equal(result.kind, "defer");
   if (result.kind !== "defer") return;
-  assert.equal(result.handoff.reasonCode, "missing_source");
-  assert.match(result.userMessage, /Planalto.*fora do período de vigência/iu);
+  assert.equal(result.handoff.reasonCode, "profile_mismatch");
+  assert.match(result.userMessage, /não cobrem.*perfil/iu);
   const trace = getTrace(result.traceId);
   assert.equal(trace?.retrievalDiagnostics?.explicitRegion, "CENTRO_OESTE");
-  assert.ok(trace?.consideredEvidence.some((item) => item.sourceId === "na-agreement-planalto-2025" && item.rejectionCodes?.includes("expired")));
+  assert.equal(trace?.retrievalDiagnostics?.resolvedRegion, "SUDESTE");
+  assert.ok(trace?.consideredEvidence.some((item) => item.sourceId === "na-agreement-planalto-2025" && item.rejectionCodes?.includes("scope")));
   assert.ok(!trace?.consideredEvidence.some((item) => item.selectedAsEvidence && item.sourceId === "na-agreement-metropolitan-2025"));
-  assert.equal(trace?.confidence?.level, "high");
+  assert.equal(trace?.confidence?.level, "low");
 });
 
 test("source usage and diagnostics are backward-compatible additions", async () => {

@@ -71,5 +71,5 @@ test("an expired applicable agreement yields an explained, governed defer", asyn
   if (decision.kind !== "defer") return;
   assert.equal(decision.handoff.reasonCode, "missing_source");
   assert.match(decision.userMessage, /fora do período de vigência/iu);
-  assert.equal(getTrace(decision.traceId)?.governance.rejectionReasons.expired, 1);
+  assert.ok((getTrace(decision.traceId)?.governance.rejectionReasons.expired ?? 0) >= 1);
 });

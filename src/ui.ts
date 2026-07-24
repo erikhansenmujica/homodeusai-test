@@ -519,6 +519,8 @@ export function renderWorkbench(): string {
       <section class="profile-card">
         <label for="profile-select">Perfil do solicitante</label>
         <select id="profile-select" aria-label="Perfil confiável"></select>
+        <label for="effective-date" style="margin-top:.9rem">Data de vigência</label>
+        <input id="effective-date" data-testid="effective-date" type="date" aria-label="Data de vigência">
         <div id="profile-meta" class="profile-meta"></div>
       </section>
       <nav class="rail-nav" aria-label="Atalhos">
@@ -636,6 +638,8 @@ export function renderWorkbench(): string {
         var preferred = profiles.find(function (profile) { return profile.profileId === "employee-na-servicos-sudeste"; });
         if (preferred) select.value = preferred.profileId;
         renderProfile();
+        var date = byId("effective-date");
+        if (!date.value) date.value = new Date().toISOString().slice(0, 10);
       }
       function sourceSummary(doc) {
         return doc.domain + " · " + doc.approval + " · tier " + doc.authorityTier;
@@ -941,7 +945,8 @@ export function renderWorkbench(): string {
         var profile = selectedProfile();
         if (!profile) throw new Error("O perfil confiável ainda não está disponível.");
         currentQuestion = question;
-        var now = new Date();
+        var selectedDate = byId("effective-date").value;
+        var now = selectedDate ? new Date(selectedDate + "T12:00:00.000Z") : new Date();
         var requestId = "desk-" + (crypto.randomUUID ? crypto.randomUUID() : Date.now() + "-" + Math.random().toString(16).slice(2));
         return request("/v1/decide", {
           method: "POST",
@@ -998,6 +1003,12 @@ export function renderWorkbench(): string {
         });
       });
       byId("profile-select").addEventListener("change", renderProfile);
+      byId("effective-date").addEventListener("change", function () {
+        var value = byId("effective-date").value;
+        byId("as-of-label").textContent = value
+          ? new Intl.DateTimeFormat("pt-BR", { dateStyle: "medium" }).format(new Date(value + "T12:00:00Z"))
+          : "agora";
+      });
       byId("source-search").addEventListener("input", function (event) { renderSources(event.target.value); });
       byId("as-of-label").textContent = new Intl.DateTimeFormat("pt-BR", { dateStyle: "medium" }).format(new Date());
 

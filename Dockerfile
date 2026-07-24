@@ -5,6 +5,7 @@ COPY --chown=65532:65532 package.json package-lock.json ./
 RUN npm ci --omit=dev --ignore-scripts && npm cache clean --force
 COPY --chown=65532:65532 src ./src
 COPY --chown=65532:65532 case-data ./case-data
+COPY --chown=65532:65532 models ./models
 RUN mkdir -p /state && chown 65532:65532 /state && chmod 0700 /state
 
 ENV NODE_ENV=production
