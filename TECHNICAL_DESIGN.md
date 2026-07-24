@@ -51,6 +51,8 @@ Existing `Decision`, `DecideRequest`, `SourceDocument`, evidence, handoff, and t
 
 FAQ rows, Markdown paragraphs under headings, collective clauses, and process blocks are citation units with stable character and UTF-8 byte ranges. Synthetic `CENÁRIO_OPERACIONAL` records are excluded because they are generated test noise rather than approved guidance. Text is NFKD-normalized, diacritics removed for matching, lowercased, tokenized, and filtered through a small Portuguese/English stopword list. No stemming is used; bounded synonym groups cover high-value corpus language. Titles, headings, and bodies receive distinct BM25-style weights. After governance, deterministic requirement checks (percentage, currency, duration, list, event, boolean, individual-state, or general rule) plus authority and scope specificity rerank candidates. The index is small enough to build in memory.
 
+Controlled query concepts add downweighted terms for timekeeping marks, overtime compensation, internship instruments, termination initiation, mandatory human review, and meal support. Explicit query-region aliases take precedence over the requester base for source lookup (`question → profile → source metadata`); that lookup scope does not assert personal applicability. The trace records the resolved scope and any rejected regional source.
+
 ## 11. Governance design
 
 `evaluateEligibility(source, request, activeSuperseders)` checks, in order: approval, employee audience, high sensitivity, future validity, inclusive end validity, legal entity, base, relationship, role, and active supersession. Rejections are traceable codes. Rejected/internal/high/pending sources may affect routing but never claims.
@@ -90,6 +92,8 @@ User and source text are data, never instructions. Trusted requester axes are se
 ## 20. Observability
 
 Each trace stores request/trace IDs, versions, ordered stages, exact candidate/eligible/rejected counts, source/version identities, rejection aggregates, rank/offset/score metadata, conflict signals, provider state, route, and stage timings. It excludes raw text and hidden reasoning.
+
+Successful claims include backward-compatible evidence usage metadata (`primary` or `supporting`) and a deterministic evidence-quality confidence score. The score is not a probability of truth: it combines explicit answer sufficiency, current eligible authority, exact citations, resolved region, and conflict penalties. Defer confidence describes confidence in the inability to safely answer from governed evidence.
 
 ## 21. Testing strategy
 

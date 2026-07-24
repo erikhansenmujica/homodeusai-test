@@ -95,6 +95,8 @@ export interface Conflict {
 
 export interface RetrievalRun {
   queryTokens: string[];
+  expandedTerms?: string[];
+  concepts?: string[];
   candidates: RetrievalCandidate[];
 }
 
@@ -133,6 +135,27 @@ export interface Claim {
   id: string;
   text: string;
   evidence: EvidenceRef[];
+  supportType?: string;
+  evidenceUsage?: EvidenceUsage[];
+  confidence?: EvidenceConfidence;
+}
+
+export interface EvidenceUsage {
+  sourceId: string;
+  passageId: string;
+  title: string;
+  role: "primary" | "supporting";
+  supports: string[];
+  citation: EvidenceRef;
+}
+
+export type EvidenceConfidenceLevel = "high" | "medium" | "low";
+
+export interface EvidenceConfidence {
+  level: EvidenceConfidenceLevel;
+  score: number;
+  reasons: string[];
+  penalties: string[];
 }
 
 export type HandoffReason =
@@ -248,4 +271,13 @@ export interface DecisionTrace {
     signals: string[];
   }>;
   notes: string[];
+  retrievalDiagnostics?: {
+    queryTokens: string[];
+    expandedTerms: string[];
+    concepts: string[];
+    explicitRegion?: string;
+    resolvedRegion?: string;
+    answerRequirement?: string;
+  };
+  confidence?: EvidenceConfidence;
 }

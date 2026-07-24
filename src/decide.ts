@@ -13,11 +13,18 @@ import type {
   EligibilityRejectionCode,
   HandoffReason,
   RetrievalCandidate,
+  EvidenceConfidence,
 } from "./types.ts";
 
 const PIPELINE_VERSION = "lexical-governed-v2";
 const MIN_RELEVANCE = 2.35;
 const MAX_GOVERNED_CANDIDATES = 28;
+
+const REGION_ALIASES: Array<{ baseId: string; aliases: string[] }> = [
+  { baseId: "CENTRO_OESTE", aliases: ["planalto central", "planalto", "centro-oeste", "centro oeste"] },
+  { baseId: "SUDESTE", aliases: ["metropolitano", "metropolitana", "sudeste"] },
+  { baseId: "SUL", aliases: ["costa sul", "sul"] },
+];
 
 type AnswerRequirement = "percentage" | "currency" | "duration" | "list" | "event" | "boolean" | "individual_state" | "general_rule";
 
@@ -66,6 +73,15 @@ function matchesAny(value: string, patterns: RegExp[]): boolean {
   return patterns.some((pattern) => pattern.test(value.trim()));
 }
 
+function explicitRegion(question: string): string | undefined {
+  const normalized = question.normalize("NFKD").replace(/\p{M}/gu, "").toLocaleLowerCase("pt-BR");
+  return REGION_ALIASES.find((region) => region.aliases.some((alias) => normalized.includes(alias)))?.baseId;
+}
+
+function sourceMatchesRequestedRegion(candidate: RetrievalCandidate, baseId: string | undefined): boolean {
+  return !baseId || candidate.document.eligibility.baseIds.includes("*") || candidate.document.eligibility.baseIds.includes(baseId);
+}
+
 function uniqueSourceCandidates(candidates: RetrievalCandidate[]): RetrievalCandidate[] {
   const unique = new Map<string, RetrievalCandidate>();
   for (const candidate of candidates) {
@@ -78,10 +94,15 @@ function uniqueSourceCandidates(candidates: RetrievalCandidate[]): RetrievalCand
 function answerRequirement(question: string): AnswerRequirement {
   const normalized = tokenize(question).join(" ");
   if (/\b(?:saldo|estado solicitacao|estado solicitação|espelho individual|ao vivo)\b/iu.test(normalized)) return "individual_state";
+  if (/\b(?:extra|extras|horas adicionais|hora adicional|al[eé]m jornada|compensa[cç][aã]o|extraordin[aá]rio)\b/iu.test(question)) return "percentage";
   if (/\b(?:percentual|acrescimo|acréscimo|porcentagem)\b/iu.test(normalized)) return "percentage";
   if (/\b(?:valor|quanto|r\$|apoio|refeicao|refeição)\b/iu.test(normalized)) return "currency";
   if (/\b(?:quantos|dias|prazo|antecedencia|antecedência)\b/iu.test(normalized)) return "duration";
   if (/\b(?:quais|documentos|marcacoes|marcações)\b/iu.test(normalized)) return "list";
+  if (/\b(?:ponto|marcacao|marcação|batida|registro|expediente|jornada)\b/iu.test(normalized)) return "list";
+  if (/\b(?:revisao|revisão|humana|manual|analista|escalonamento)\b/iu.test(normalized)) return "list";
+  if (/\b(?:conversa|gestor|chefe|lideran[cç]a|verbal|informal)\b/iu.test(normalized)) return "boolean";
+  if (/\b(?:estagio|estágio|estagiario|estagiário|instrumento|termo)\b/iu.test(normalized)) return "event";
   if (/\b(?:qual evento|antes que|antes de)\b/iu.test(question)) return "event";
   if (/\b(?:suficiente|pode confirmar|consegue confirmar|obrigatoria|obrigatório|obrigatoria|obrigatório)\b/iu.test(question)) return "boolean";
   return "general_rule";
@@ -93,8 +114,8 @@ function sufficiency(candidate: RetrievalCandidate, requirement: AnswerRequireme
   const hasPercent = /\b\d+(?:[,.]\d+)?\s*%/u.test(text);
   const hasCurrency = /R\$\s*\d+(?:[.,]\d+)?/u.test(text);
   const hasDuration = /\b\d+\s+dias?\b|\b(?:primeiro|segundo|terceiro|quarto|quatro|quinto|cinco|sexto|seis) dias?\b/iu.test(text);
-  const hasList = /(?:\bdocument\w*\b|\bitens?\b|\bcomprovante\b).*[;,]|\bidentidade\b.*\bcomprovante\b|\bentrada\b.*\bsa[ií]da\b/iu.test(text);
-  const hasEvent = /formaliza[cç][aã]o_confirmada|evento|ap[oó]s.*formaliza/iu.test(text);
+  const hasList = /(?:\bdocument\w*\b|\bitens?\b|\bcomprovante\b|\bcasos?\b).*[;,]|\bidentidade\b.*\bcomprovante\b|\bentrada\b.*\bsa[ií]da\b/iu.test(text);
+  const hasEvent = /formaliza[cç][aã]o_confirmada|evento|ap[oó]s.*formaliza|instrumento educacional/iu.test(text);
   const hasBoolean = /\b(?:n[aã]o|sim|suficiente|insuficiente|exige|obrigat)/iu.test(text);
   const hasIndividualStateLimit = /saldo ao vivo|espelho individual|estado de solicita[cç][aã]o/iu.test(text);
   const supported = {
@@ -222,7 +243,7 @@ function selectAnswerCandidates(
 ): RetrievalCandidate[] {
   const strongest = uniqueSourceCandidates(eligible.filter((candidate) => (candidate.sufficiencyScore ?? -1) > 0));
   const top = strongest[0];
-  const coverageFloor = requirement === "general_rule" ? 0.52 : 0.25;
+  const coverageFloor = requirement === "general_rule" ? 0.52 : 0;
   if (!top || top.score < MIN_RELEVANCE || top.queryCoverage < coverageFloor) return [];
   const selected = [top];
   const asksCompound = /\b(?:e|também|tambem|além disso|alem disso)\b/iu.test(question);
@@ -248,7 +269,33 @@ function createClaims(candidates: RetrievalCandidate[]): Claim[] {
         candidate.passage.startCharacter,
       ),
     ],
+    supportType: index === 0 ? "primary" : "supporting",
+    evidenceUsage: (() => {
+      const citation = evidenceForQuote(candidate.document, candidate.passage.answerText, candidate.passage.startCharacter);
+      return [{ sourceId: candidate.document.sourceId, passageId: candidate.passage.id, title: candidate.document.title,
+        role: index === 0 ? "primary" as const : "supporting" as const, supports: [candidate.document.domain], citation }];
+    })(),
   }));
+}
+
+function evidenceConfidence(
+  decision: Decision,
+  selected: RetrievalCandidate[],
+  conflicts: ReturnType<typeof detectConflicts>,
+  region: string | undefined,
+): EvidenceConfidence {
+  if (decision.kind === "defer") {
+    const highConfidenceDefer = decision.handoff.reasonCode === "missing_source" || decision.handoff.reasonCode === "sensitive_topic";
+    return { level: highConfidenceDefer ? "high" : "low", score: highConfidenceDefer ? 0.9 : 0.3,
+      reasons: highConfidenceDefer ? ["governance_prevents_supported_answer"] : ["insufficient_or_conflicting_evidence"],
+      penalties: conflicts.length > 0 ? ["conflicting_eligible_sources"] : [] };
+  }
+  const primary = selected[0];
+  const explicit = (primary?.sufficiencyScore ?? 0) > 0;
+  const score = Math.min(0.96, 0.55 + (explicit ? 0.18 : 0) + (primary?.document.authorityTier ?? 0) / 500 + (region ? 0.04 : 0));
+  return { level: score >= 0.85 ? "high" : score >= 0.65 ? "medium" : "low", score,
+    reasons: ["eligible_current_source", "exact_citation", explicit ? "answer_type_sufficient" : "indirect_evidence", ...(region ? ["explicit_region_resolved"] : [])],
+    penalties: conflicts.length ? ["conflicting_eligible_sources"] : [] };
 }
 
 function saveRoutingTrace(
@@ -259,6 +306,8 @@ function saveRoutingTrace(
   eligible: RetrievalCandidate[],
   rejected: Array<{ candidate: RetrievalCandidate; rejectionCodes: EligibilityRejectionCode[] }>,
   conflicts: ReturnType<typeof detectConflicts>,
+  retrieval: { queryTokens: string[]; expandedTerms?: string[]; concepts?: string[]; explicitRegion?: string; resolvedRegion?: string; requirement?: string },
+  confidence: EvidenceConfidence,
   timings: { retrieval: number; governance: number; decision: number; total: number },
 ): void {
   const uniqueEligible = uniqueSourceCandidates(eligible);
@@ -322,6 +371,15 @@ function saveRoutingTrace(
       `${tokenize(input.question).length} normalized query terms; source and requester text treated as untrusted data.`,
       "Governance was applied deterministically before response rendering.",
     ],
+    retrievalDiagnostics: {
+      queryTokens: retrieval.queryTokens,
+      expandedTerms: retrieval.expandedTerms ?? [],
+      concepts: retrieval.concepts ?? [],
+      explicitRegion: retrieval.explicitRegion,
+      resolvedRegion: retrieval.resolvedRegion,
+      answerRequirement: retrieval.requirement,
+    },
+    confidence,
   };
   saveTrace(trace);
 }
@@ -390,16 +448,20 @@ export async function decide(input: DecideRequest): Promise<Decision> {
   const topScore = retrieval.candidates[0]?.score ?? 0;
   const relevanceFloor = Math.max(0.55, topScore * 0.12);
   // Govern passages first: a later clause in the same source can be the only sufficient answer.
+  const requestedRegion = explicitRegion(input.question);
+  const resolvedRegion = requestedRegion ?? input.requester.baseId;
   const candidates = retrieval.candidates
+    .filter((candidate) => sourceMatchesRequestedRegion(candidate, requestedRegion))
     .filter((candidate) => candidate.score >= relevanceFloor)
     .slice(0, MAX_GOVERNED_CANDIDATES);
 
   const governanceStarted = performance.now();
-  const superseded = activeSupersededSources(documents, input);
+  const scopedInput = requestedRegion ? { ...input, requester: { ...input.requester, baseId: requestedRegion } } : input;
+  const superseded = activeSupersededSources(documents, scopedInput);
   const eligible: RetrievalCandidate[] = [];
   const rejected: Array<{ candidate: RetrievalCandidate; rejectionCodes: EligibilityRejectionCode[] }> = [];
   for (const candidate of candidates) {
-    const result = evaluateEligibility(candidate.document, input, superseded);
+    const result = evaluateEligibility(candidate.document, scopedInput, superseded);
     if (result.eligible) {
       eligible.push(candidate);
     } else {
@@ -410,25 +472,19 @@ export async function decide(input: DecideRequest): Promise<Decision> {
     }
   }
   const requirement = answerRequirement(input.question);
-  const rankedEligible = rankEligible(eligible, input, requirement);
-  const conflictCandidates = rankedEligible.filter((candidate) => (candidate.sufficiencyScore ?? 0) > 0);
+  const rankedEligible = rankEligible(eligible, scopedInput, requirement);
+  const conflictCandidates = rankedEligible.filter((candidate) =>
+    (candidate.sufficiencyScore ?? 0) > 0 && candidate.score >= topScore * 0.45);
   const conflicts = detectConflicts(conflictCandidates);
   const governanceMs = performance.now() - governanceStarted;
 
   const decisionStarted = performance.now();
   let decision: Decision;
-  const strongestRejected = rejected.find((item) =>
-    item.candidate.document.sourceId === candidates[0]?.document.sourceId);
-  const rejectedDominates = Boolean(
-    strongestRejected &&
-    (!rankedEligible[0] || rankedEligible[0].score < topScore * 0.75),
-  );
+  let confidence: EvidenceConfidence;
   if (candidates.length === 0 || topScore < MIN_RELEVANCE) {
     decision = deferredDecision(input, traceId, "missing_source", 0.08);
   } else if (eligible.length === 0) {
     decision = deferredDecision(input, traceId, deferReasonForRejected(rejected), 0.12, rejected);
-  } else if (rejectedDominates && strongestRejected) {
-    decision = deferredDecision(input, traceId, deferReasonForRejected([strongestRejected]), 0.16, [strongestRejected]);
   } else if (conflicts.length > 0) {
     decision = deferredDecision(input, traceId, "conflicting_source", 0.2);
   } else {
@@ -446,12 +502,18 @@ export async function decide(input: DecideRequest): Promise<Decision> {
       };
     }
   }
+  const selectedForConfidence = decision.kind === "answer"
+    ? rankedEligible.filter((candidate) => decision.claims.some((claim) => claim.evidence.some((evidence) =>
+      evidence.sourceId === candidate.document.sourceId && candidate.passage.text.includes(evidence.quote))))
+    : [];
+  confidence = evidenceConfidence(decision, selectedForConfidence, conflicts, requestedRegion);
+  if (decision.kind === "answer") {
+    decision.claims = decision.claims.map((claim) => ({ ...claim, confidence }));
+  }
   const decisionMs = performance.now() - decisionStarted;
-  saveRoutingTrace(input, traceId, decision, candidates, rankedEligible, rejected, conflicts, {
-    retrieval: retrievalMs,
-    governance: governanceMs,
-    decision: decisionMs,
-    total: performance.now() - started,
-  });
+  saveRoutingTrace(input, traceId, decision, candidates, rankedEligible, rejected, conflicts,
+    { queryTokens: retrieval.queryTokens, expandedTerms: retrieval.expandedTerms, concepts: retrieval.concepts,
+      explicitRegion: requestedRegion, resolvedRegion, requirement }, confidence,
+    { retrieval: retrievalMs, governance: governanceMs, decision: decisionMs, total: performance.now() - started });
   return decision;
 }
