@@ -1,4 +1,5 @@
 import type { Passage, RetrievalCandidate, RetrievalRun, SourceDocument } from "./types.ts";
+import { QUERY_CONCEPTS, SYNONYM_GROUPS } from "./domain-config.ts";
 
 const PORTUGUESE_STOPWORDS = new Set([
   "a", "ao", "aos", "as", "com", "como", "da", "das", "de", "do", "dos", "e", "em", "eu",
@@ -6,47 +7,6 @@ const PORTUGUESE_STOPWORDS = new Set([
   "precisa", "qual", "quais", "que", "se", "sem", "ser", "sou", "um", "uma", "meus", "minhas", "isso", "esta", "vale",
   "este", "essa", "esse", "já", "ja", "the", "is", "what", "how", "when", "where", "my",
 ]);
-
-const SYNONYM_GROUPS = [
-  ["comprovante", "holerite", "contracheque", "recibo"],
-  ["folha", "pagamento", "salario", "salário", "credito", "crédito"],
-  ["feria", "ferias", "férias", "descanso", "folga"],
-  ["demissao", "demissão", "desligamento", "rescisao", "rescisão", "encerramento"],
-  ["admissao", "admissão", "admission", "ingresso", "contratacao", "contratação", "onboarding"],
-  ["candidato", "candidata", "candidatos", "candidatas"],
-  ["ponto", "jornada", "marcacao", "marcação", "registro"],
-  ["marca", "marcas", "marcacao", "marcação", "registro", "registros"],
-  ["hora", "horas", "extra", "extras", "adicional", "adicionais"],
-  ["atestado", "laudo", "documento", "medico", "médico", "clinico", "clínico"],
-  ["chat", "mensagem", "whatsapp", "email", "e-mail"],
-  ["pessoa", "humano", "humana", "atendente", "analista"],
-  ["vale", "auxilio", "auxílio", "apoio", "beneficio", "benefício"],
-  ["percentual", "percentuais", "acrescimo", "acréscimo", "acrescenta"],
-  ["alimentacao", "alimentação", "refeicao", "refeição"],
-  ["prazo", "quando", "data", "antecedencia", "antecedência"],
-  ["documentos", "documento", "instrumento", "formalizacao", "formalização"],
-  ["corrigir", "correcao", "correção", "ajustar", "ajuste"],
-  ["estagiario", "estagiário", "estagiaria", "estagiária", "estagiarios", "estagiárias", "estagio", "estágio", "intern"],
-  ["aprendiz", "apprentice"],
-  ["prestador", "contratado", "contractor"],
-  ["dados", "cadastro", "cadastral", "endereco", "endereço"],
-  ["incidente", "acidente", "emergencia", "emergência", "urgente", "urgencia", "urgência"],
-  ["formaliza", "formalizar", "formalizacao", "formalização"],
-  ["autorizado", "autorizada", "autorizados", "autorizadas", "autorizacao", "autorização"],
-  ["solicitacao", "solicitação", "pedido", "requerimento"],
-  ["envio", "enviar", "submissao", "submissão", "submeter"],
-  ["aprovacao", "aprovação", "aprovado", "aprovada", "aprovar"],
-] as const;
-
-const QUERY_CONCEPTS = {
-  timekeeping_marks: { triggers: ["ponto", "marcacao", "registro", "batida", "expediente", "jornada", "marcar", "retorno", "intervalo"], terms: ["entrada", "inicio", "fim", "intervalo", "saida", "registram"] },
-  overtime_compensation: { triggers: ["extra", "extras", "adicional", "acrescimo", "recebo", "horario", "compensacao", "extraordinario", "pago", "expediente"], terms: ["horas", "adicionais", "autorizadas", "percentual"] },
-  internship_instrument: { triggers: ["estagio", "estagiario", "estagiaria", "instrumento", "termo", "acordo"], terms: ["instrumento", "educacional", "assinado", "formalizacao"] },
-  intern_time_bank: { triggers: ["estagio", "estagiario", "estagiaria", "intern", "banco"], terms: ["estagiarios", "presenca", "sem", "banco", "horas"] },
-  termination_start: { triggers: ["desligamento", "encerramento", "rescisao", "saida", "offboarding", "gestor", "chefe", "conversa", "verbal"], terms: ["decisao", "formal", "registrada", "responsavel"] },
-  mandatory_human_review: { triggers: ["revisao", "humana", "manual", "analista", "escalonamento", "excecao", "intervencao", "automaticamente", "automacao", "processado"], terms: ["estabilidade", "afastamento", "conflito", "documental", "dado", "pessoal", "revisao"] },
-  meal_support: { triggers: ["refeicao", "alimentacao", "auxilio", "beneficio", "apoio"], terms: ["apoio", "diario", "elegivel", "r$"] },
-} as const;
 
 const synonymMap = new Map<string, string[]>();
 for (const group of SYNONYM_GROUPS) {

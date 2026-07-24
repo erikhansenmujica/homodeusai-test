@@ -8,7 +8,7 @@ export function renderWorkbench(): string {
   <title>Mesa de decisões · Nexo Atlântico</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/workbench.css?v=20260724d">
-  <script src="/assets/workbench.js?v=20260724d" defer></script>
+  <script src="/assets/workbench.js?v=20260724e" type="module"></script>
 </head>
 <body>
   <a class="skip-link" href="#request-form">Ir para a consulta</a>
@@ -53,70 +53,72 @@ export function renderWorkbench(): string {
     </aside>
 
     <section class="main-stage" aria-label="Área de decisão">
-      <header id="hero" class="hero">
-        <p class="eyebrow">Decisão governada · não apenas busca</p>
-        <h1>Respostas com <em>recibo.</em></h1>
-        <p>Decida com a fonte certa, no contexto certo. Quando a evidência não basta, a mesa preserva o caso e encaminha o próximo passo.</p>
-      </header>
+      <div id="query-zone" class="query-zone">
+        <header id="hero" class="hero">
+          <p class="eyebrow">Decisão governada · não apenas busca</p>
+          <h1>Respostas com <em>recibo.</em></h1>
+          <p>Decida com a fonte certa, no contexto certo. Quando a evidência não basta, a mesa preserva o caso e encaminha o próximo passo.</p>
+        </header>
 
-      <form id="request-form" class="composer" data-testid="request-form">
-        <div class="composer-top">
-          <div>
-            <span class="composer-index">01</span>
-            <strong>Nova consulta</strong>
+        <form id="request-form" class="composer" data-testid="request-form">
+          <div class="composer-top">
+            <div>
+              <span class="composer-index">01</span>
+              <strong>Nova consulta</strong>
+            </div>
+            <span id="as-of-label">agora</span>
           </div>
-          <span id="as-of-label">agora</span>
-        </div>
-        <label class="sr-only" for="question-input">Pergunta de People Operations</label>
-        <textarea
-          id="question-input"
-          class="question-input"
-          data-testid="question-input"
-          rows="3"
-          required
-          maxlength="12000"
-          placeholder="O que você precisa decidir?"
-        ></textarea>
-        <div class="composer-actions">
-          <span class="composer-hint">Enter envia · Shift + Enter quebra a linha</span>
-          <button id="submit-decision" class="primary-button" data-testid="submit-decision" type="submit" aria-busy="false">
-            Analisar consulta
-          </button>
-        </div>
-      </form>
+          <label class="sr-only" for="question-input">Pergunta de People Operations</label>
+          <textarea
+            id="question-input"
+            class="question-input"
+            data-testid="question-input"
+            rows="3"
+            required
+            maxlength="12000"
+            placeholder="O que você precisa decidir?"
+          ></textarea>
+          <div class="composer-actions">
+            <span class="composer-hint">Enter envia · Shift + Enter quebra a linha</span>
+            <button id="submit-decision" class="primary-button" data-testid="submit-decision" type="submit" aria-busy="false">
+              Analisar consulta
+            </button>
+          </div>
+        </form>
 
-      <section id="submitted-question" class="submitted-question" hidden aria-label="Consulta submetida">
-        <div>
-          <p class="eyebrow">Consulta em foco</p>
-          <h2 id="submitted-question-text"></h2>
-        </div>
-        <div class="inline-actions">
-          <button id="edit-question" class="text-button" type="button">Editar consulta</button>
-          <button class="secondary-button" type="button" data-new-decision>Nova decisão</button>
-        </div>
-      </section>
+        <section id="submitted-question" class="submitted-question" hidden aria-label="Consulta submetida">
+          <div>
+            <p class="eyebrow">Consulta em foco</p>
+            <h2 id="submitted-question-text"></h2>
+          </div>
+          <div class="inline-actions">
+            <button id="edit-question" class="text-button" type="button">Editar consulta</button>
+            <button class="secondary-button" type="button" data-new-decision>Nova decisão</button>
+          </div>
+        </section>
 
-      <section id="progress-state" class="progress-card" aria-live="polite" hidden>
-        <div class="progress-orbit" aria-hidden="true"><span></span></div>
-        <div>
-          <p class="eyebrow">Análise em andamento</p>
-          <h2>Conferindo a decisão</h2>
-          <ol id="progress-stages" class="progress-stages">
-            <li>Procurando fontes aplicáveis</li>
-            <li>Verificando escopo e vigência</li>
-            <li>Validando conflitos</li>
-            <li>Preparando decisão</li>
-          </ol>
-          <p id="slow-message" class="slow-message" hidden>A análise está levando um pouco mais de tempo. Você pode continuar nesta página; o pedido não será duplicado.</p>
+        <section id="progress-state" class="progress-card" aria-live="polite" hidden>
+          <div class="progress-orbit" aria-hidden="true"><span></span></div>
+          <div>
+            <p class="eyebrow">Análise em andamento</p>
+            <h2>Conferindo a decisão</h2>
+            <ol id="progress-stages" class="progress-stages">
+              <li>Procurando fontes aplicáveis</li>
+              <li>Verificando escopo e vigência</li>
+              <li>Validando conflitos</li>
+              <li>Preparando decisão</li>
+            </ol>
+            <p id="slow-message" class="slow-message" hidden>A análise está levando um pouco mais de tempo. Você pode continuar nesta página; o pedido não será duplicado.</p>
+          </div>
+        </section>
+
+        <section id="error-state" class="error-state" data-testid="error-state" role="alert" hidden></section>
+
+        <div id="examples" class="examples" aria-label="Consultas de exemplo">
+          <button class="example" type="button">Quando o comprovante fica disponível?</button>
+          <button class="example" type="button">Posso enviar dados bancários no chat?</button>
+          <button class="example" type="button">Quero falar com uma pessoa.</button>
         </div>
-      </section>
-
-      <section id="error-state" class="error-state" data-testid="error-state" role="alert" hidden></section>
-
-      <div id="examples" class="examples" aria-label="Consultas de exemplo">
-        <button class="example" type="button">Quando o comprovante fica disponível?</button>
-        <button class="example" type="button">Posso enviar dados bancários no chat?</button>
-        <button class="example" type="button">Quero falar com uma pessoa.</button>
       </div>
 
       <section id="decision-result" class="decision-timeline" data-testid="decision-result" aria-live="polite">

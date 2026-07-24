@@ -41,12 +41,57 @@ const EVIDENCE_GAPS: Record<HandoffReason, string[]> = {
 
 const storeDirectory = resolve(process.env.RUNTIME_STATE_PATH ?? process.env.INDEX_PATH ?? "/tmp/nexo-index");
 const storePath = join(storeDirectory, "handoffs.json");
-const ticketsByKey = new Map<string, HandoffRecord>();
-const ticketsById = new Map<string, HandoffRecord>();
+interface StoredHandoffRecord extends HandoffRecord {
+  requestFingerprint?: string;
+}
+
+export interface HandoffRepository {
+  create(input: DecideRequest, reasonCode: HandoffReason, traceId: string): Handoff;
+  get(ticketId: string): HandoffRecord | undefined;
+  resolve(ticketId: string, actorId: string, summary: string): HandoffRecord | undefined;
+  assertHealthy(): void;
+  activeTraceIds(): Set<string>;
+}
+
+export class IdempotencyConflictError extends Error {
+  constructor() {
+    super("requestId and handoff reason were reused with different request content");
+    this.name = "IdempotencyConflictError";
+  }
+}
+
+const ticketsByKey = new Map<string, StoredHandoffRecord>();
+const ticketsById = new Map<string, StoredHandoffRecord>();
 let loaded = false;
+let storeFailure: Error | undefined;
 
 function shortHash(value: string): string {
   return createHash("sha256").update(value).digest("hex").slice(0, 20);
+}
+
+function fingerprint(input: DecideRequest): string {
+  return createHash("sha256").update(JSON.stringify({
+    requestId: input.requestId,
+    question: input.question,
+    asOf: input.asOf,
+    requester: input.requester,
+    history: input.history ?? [],
+  }), "utf8").digest("hex");
+}
+
+function fingerprintForRecord(record: HandoffRecord): string {
+  return fingerprint({
+    requestId: record.request.requestId,
+    question: record.request.question,
+    asOf: record.request.asOf,
+    requester: record.request.requester,
+    history: record.request.history,
+  });
+}
+
+function publicRecord(record: StoredHandoffRecord): HandoffRecord {
+  const { requestFingerprint: _requestFingerprint, ...visible } = record;
+  return visible;
 }
 
 function loadStore(): void {
@@ -54,22 +99,27 @@ function loadStore(): void {
   loaded = true;
   if (!existsSync(storePath)) return;
   try {
-    const parsed = JSON.parse(readFileSync(storePath, "utf8")) as { records?: HandoffRecord[] };
+    const parsed = JSON.parse(readFileSync(storePath, "utf8")) as { records?: StoredHandoffRecord[] };
     if (!Array.isArray(parsed.records)) throw new Error("handoff store is invalid");
     for (const record of parsed.records) {
       if (!record?.ticketId || !record.idempotencyKey) throw new Error("handoff store contains an invalid record");
       ticketsByKey.set(record.idempotencyKey, record);
       ticketsById.set(record.ticketId, record);
     }
-  } catch {
-    const quarantinePath = `${storePath}.corrupt.${Date.now()}`;
-    renameSync(storePath, quarantinePath);
+  } catch (error) {
+    storeFailure = error instanceof Error ? error : new Error("handoff store is invalid");
     ticketsByKey.clear();
     ticketsById.clear();
   }
 }
 
+function ensureHealthy(): void {
+  loadStore();
+  if (storeFailure) throw new Error(`handoff state is unavailable: ${storeFailure.message}`);
+}
+
 function persistStore(): void {
+  ensureHealthy();
   mkdirSync(storeDirectory, { recursive: true });
   const temporaryPath = `${storePath}.${process.pid}.tmp`;
   const records = [...ticketsById.values()].sort((left, right) => left.createdAt.localeCompare(right.createdAt));
@@ -88,14 +138,20 @@ function toReceipt(record: HandoffRecord): Handoff {
 }
 
 export function createHandoff(input: DecideRequest, reasonCode: HandoffReason, traceId: string): Handoff {
-  loadStore();
+  ensureHealthy();
   const idempotencyKey = shortHash(`${input.requestId}:${reasonCode}`);
+  const requestFingerprint = fingerprint(input);
   const prior = ticketsByKey.get(idempotencyKey);
-  if (prior) return toReceipt(prior);
+  if (prior) {
+    if ((prior.requestFingerprint ?? fingerprintForRecord(prior)) !== requestFingerprint) {
+      throw new IdempotencyConflictError();
+    }
+    return toReceipt(prior);
+  }
 
   const route = ROUTES[reasonCode];
   const now = new Date().toISOString();
-  const record: HandoffRecord = {
+  const record: StoredHandoffRecord = {
     ticketId: `ticket-${idempotencyKey.slice(0, 12)}`,
     reasonCode,
     queue: route.queue,
@@ -114,6 +170,7 @@ export function createHandoff(input: DecideRequest, reasonCode: HandoffReason, t
     },
     evidenceGaps: EVIDENCE_GAPS[reasonCode],
     nextAction: NEXT_ACTIONS[reasonCode],
+    requestFingerprint,
   };
   ticketsByKey.set(idempotencyKey, record);
   ticketsById.set(record.ticketId, record);
@@ -122,15 +179,16 @@ export function createHandoff(input: DecideRequest, reasonCode: HandoffReason, t
 }
 
 export function getHandoff(ticketId: string): HandoffRecord | undefined {
-  loadStore();
-  return ticketsById.get(ticketId);
+  ensureHealthy();
+  const record = ticketsById.get(ticketId);
+  return record ? publicRecord(record) : undefined;
 }
 
 export function resolveHandoff(ticketId: string, actorId: string, summary: string): HandoffRecord | undefined {
-  loadStore();
+  ensureHealthy();
   const prior = ticketsById.get(ticketId);
   if (!prior) return undefined;
-  if (prior.status === "resolved") return prior;
+  if (prior.status === "resolved") return publicRecord(prior);
   const resolvedAt = new Date().toISOString();
   const record: HandoffRecord = {
     ...prior,
@@ -141,12 +199,36 @@ export function resolveHandoff(ticketId: string, actorId: string, summary: strin
   ticketsByKey.set(record.idempotencyKey, record);
   ticketsById.set(record.ticketId, record);
   persistStore();
-  return record;
+  return publicRecord(record);
 }
+
+export function assertHandoffStoreHealthy(): void {
+  ensureHealthy();
+  mkdirSync(storeDirectory, { recursive: true, mode: 0o700 });
+  const probe = join(storeDirectory, `.handoff-health-${process.pid}`);
+  writeFileSync(probe, "ok", { encoding: "utf8", mode: 0o600 });
+  rmSync(probe, { force: true });
+}
+
+export function activeHandoffTraceIds(): Set<string> {
+  ensureHealthy();
+  return new Set([...ticketsById.values()]
+    .filter((record) => record.status === "open")
+    .map((record) => record.traceId));
+}
+
+export const fileHandoffRepository: HandoffRepository = {
+  create: createHandoff,
+  get: getHandoff,
+  resolve: resolveHandoff,
+  assertHealthy: assertHandoffStoreHealthy,
+  activeTraceIds: activeHandoffTraceIds,
+};
 
 export function resetHandoffsForTest(): void {
   ticketsByKey.clear();
   ticketsById.clear();
   loaded = true;
+  storeFailure = undefined;
   rmSync(storePath, { force: true });
 }

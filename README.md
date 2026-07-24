@@ -72,3 +72,11 @@ SUBMISSION.md                        handoff and client presentation
 ```
 
 The package is synthetic and anonymized. Its source envelope preserves the production-shaped delivery: 22 files normalized into 34 governed sources, including 13 FAQ categories and 269 rows. It does not distribute client text, identities, vendor topology, source-file lengths, or recoverable transcript language.
+
+## Implemented submission
+
+The finished desk preserves the locked API and browser hooks while adding truthful runtime readiness, deterministic-by-default retrieval with an optional checksum-pinned E5 adapter, exact extractive evidence, three-turn user-only follow-up context, durable idempotent handoffs, bounded redacted traces, metrics/logging, accessible internal source navigation, and real Playwright coverage.
+
+The authored evaluation has **21 cases** (12 answers, 8 deferrals, 1 conversation) and the answer gate requires at least **60% subject-term coverage**. The final local A/B passed 21/21 in both modes: deterministic readiness/first decision measured 659/50 ms; learned measured 34.2 s/89 ms. The final prebuilt restricted image measured 846/114 ms in deterministic mode and 2.78 s/154 ms in learned mode. Because E5 added no frozen-suite coverage, deterministic retrieval is the default. Provider state is reported as `ok` or `degraded`.
+
+See [RUNBOOK.md](./RUNBOOK.md) for startup, readiness, model, restricted-container, and incident procedures. `npm run export:candidate` refuses a dirty tree and archives only the exact tracked commit.

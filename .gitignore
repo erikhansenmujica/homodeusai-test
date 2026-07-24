@@ -1,4 +1,8 @@
 node_modules/
 .runtime/
 models/
+dist/
+playwright-report/
+test-results/
+evals/matrix-report.json
 .DS_Store

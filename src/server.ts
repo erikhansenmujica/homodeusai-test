@@ -1,14 +1,15 @@
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import { Buffer } from "node:buffer";
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseDecideRequest, validateDecision } from "./contract.ts";
 import { loadSourceDocuments } from "./corpus.ts";
 import { decide } from "./decide.ts";
-import { getHandoff, resolveHandoff } from "./queue.ts";
-import { lexicalIndex } from "./retrieval.ts";
+import { renderMetrics, recordDecision, recordRequest, routeLabel } from "./metrics.ts";
+import { getHandoff, IdempotencyConflictError, resolveHandoff } from "./queue.ts";
+import { runtimeSnapshot, startRuntimeInitialization } from "./runtime.ts";
 import { getGovernedSource } from "./source-access.ts";
 import { getTrace } from "./traces.ts";
 import { renderWorkbench } from "./ui.ts";
@@ -18,13 +19,40 @@ const MAX_BODY_BYTES = 256 * 1024;
 const startedAt = Date.now();
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const CANDIDATE_ARCHIVE_PATH = process.env.CANDIDATE_ARCHIVE_PATH?.trim() || join(ROOT, "dist", "nexo-atlantico-knowledge-case.tgz");
+const CONTENT_SECURITY_POLICY = [
+  "default-src 'self'",
+  "script-src 'self'",
+  "style-src 'self'",
+  "img-src 'self' data:",
+  "connect-src 'self'",
+  "font-src 'self'",
+  "object-src 'none'",
+  "base-uri 'none'",
+  "frame-ancestors 'none'",
+  "form-action 'self'",
+].join("; ");
+
+const ASSETS = new Map<string, { file: string; contentType: string; maxAge: number }>([
+  ["/assets/workbench.css", { file: join(ROOT, "src", "public", "workbench.css"), contentType: "text/css; charset=utf-8", maxAge: 300 }],
+  ["/assets/workbench.js", { file: join(ROOT, "src", "public", "workbench.js"), contentType: "text/javascript; charset=utf-8", maxAge: 300 }],
+  ["/assets/workbench/api.js", { file: join(ROOT, "src", "public", "workbench", "api.js"), contentType: "text/javascript; charset=utf-8", maxAge: 300 }],
+  ["/assets/workbench/session.js", { file: join(ROOT, "src", "public", "workbench", "session.js"), contentType: "text/javascript; charset=utf-8", maxAge: 300 }],
+  ["/favicon.svg", { file: join(ROOT, "src", "public", "favicon.svg"), contentType: "image/svg+xml; charset=utf-8", maxAge: 86_400 }],
+]);
+
+function securityHeaders(res: ServerResponse): void {
+  res.setHeader("x-content-type-options", "nosniff");
+  res.setHeader("x-frame-options", "DENY");
+  res.setHeader("referrer-policy", "no-referrer");
+  res.setHeader("permissions-policy", "camera=(), microphone=(), geolocation=(), payment=(), usb=()");
+  res.setHeader("content-security-policy", CONTENT_SECURITY_POLICY);
+}
 
 function json(res: ServerResponse, status: number, value: unknown): void {
   const body = JSON.stringify(value, null, 2);
   res.writeHead(status, {
     "content-type": "application/json; charset=utf-8",
     "cache-control": "no-store",
-    "x-content-type-options": "nosniff",
   });
   res.end(body);
 }
@@ -47,46 +75,70 @@ async function readJson(req: IncomingMessage): Promise<unknown> {
 }
 
 const server = createServer(async (req, res) => {
+  const requestStarted = performance.now();
+  let loggedDecisionKind = "none";
+  let loggedReasonCode = "none";
+  const correlationId = /^[a-zA-Z0-9._:-]{8,128}$/u.test(String(req.headers["x-request-id"] ?? ""))
+    ? String(req.headers["x-request-id"])
+    : randomUUID();
+  const requestUrl = new URL(req.url ?? "/", "http://localhost");
+  const normalizedRoute = routeLabel(req.method, requestUrl.pathname);
+  securityHeaders(res);
+  res.setHeader("x-request-id", correlationId);
+  res.once("finish", () => {
+    const durationMs = performance.now() - requestStarted;
+    recordRequest(normalizedRoute, res.statusCode, durationMs);
+    console.log(JSON.stringify({
+      level: "info",
+      event: "http_request",
+      correlationId,
+      method: req.method,
+      route: normalizedRoute,
+      status: res.statusCode,
+      durationMs: Number(durationMs.toFixed(3)),
+      decisionKind: loggedDecisionKind,
+      reasonCode: loggedReasonCode,
+      retrievalMode: runtimeSnapshot().retrievalMode ?? "none",
+    }));
+  });
   try {
-    const url = new URL(req.url ?? "/", "http://localhost");
+    const url = requestUrl;
     if (req.method === "GET" && url.pathname === "/healthz") {
       return json(res, 200, { status: "ok", uptimeSeconds: Math.floor((Date.now() - startedAt) / 1000) });
     }
 
     if (req.method === "GET" && url.pathname === "/readyz") {
-      const documents = loadSourceDocuments();
-      const index = lexicalIndex(documents);
-      return json(res, 200, { status: "ready", documents: documents.length, passages: index.passages.length });
+      const state = runtimeSnapshot();
+      const ready = state.status === "ready_learned" || state.status === "ready_degraded";
+      return json(res, ready ? 200 : 503, {
+        status: state.status,
+        retrievalMode: state.retrievalMode ?? null,
+        corpusVersion: state.corpusVersion ?? null,
+        documents: state.documents ?? 0,
+        passages: state.passages ?? 0,
+        initializationMs: state.initializationMs ?? null,
+        ...(state.status === "failed" ? { error: "runtime_initialization_failed" } : {}),
+      });
     }
 
-    if (req.method === "GET" && url.pathname === "/assets/workbench.css") {
-      const stylesheet = readFileSync(join(ROOT, "src", "public", "workbench.css"));
+    if (req.method === "GET" && url.pathname === "/metrics") {
+      const state = runtimeSnapshot();
+      const body = renderMetrics(state.status, state.retrievalMode);
       res.writeHead(200, {
-        "content-type": "text/css; charset=utf-8",
-        "cache-control": "public, max-age=300",
-        "x-content-type-options": "nosniff",
+        "content-type": "text/plain; version=0.0.4; charset=utf-8",
+        "cache-control": "no-store",
       });
-      return res.end(stylesheet);
+      return res.end(body);
     }
 
-    if (req.method === "GET" && url.pathname === "/favicon.svg") {
-      const favicon = readFileSync(join(ROOT, "src", "public", "favicon.svg"));
+    const asset = req.method === "GET" ? ASSETS.get(url.pathname) : undefined;
+    if (asset) {
+      const content = readFileSync(asset.file);
       res.writeHead(200, {
-        "content-type": "image/svg+xml; charset=utf-8",
-        "cache-control": "public, max-age=86400",
-        "x-content-type-options": "nosniff",
+        "content-type": asset.contentType,
+        "cache-control": `public, max-age=${asset.maxAge}`,
       });
-      return res.end(favicon);
-    }
-
-    if (req.method === "GET" && url.pathname === "/assets/workbench.js") {
-      const script = readFileSync(join(ROOT, "src", "public", "workbench.js"));
-      res.writeHead(200, {
-        "content-type": "text/javascript; charset=utf-8",
-        "cache-control": "public, max-age=300",
-        "x-content-type-options": "nosniff",
-      });
-      return res.end(script);
+      return res.end(content);
     }
 
     if (
@@ -100,7 +152,6 @@ const server = createServer(async (req, res) => {
       res.writeHead(200, {
         "content-type": "text/html; charset=utf-8",
         "cache-control": "no-store",
-        "x-content-type-options": "nosniff",
       });
       return res.end(renderWorkbench());
     }
@@ -115,7 +166,6 @@ const server = createServer(async (req, res) => {
         "content-length": String(archive.byteLength),
         "content-disposition": 'attachment; filename="nexo-atlantico-knowledge-case.tgz"',
         "cache-control": "public, max-age=300",
-        "x-content-type-options": "nosniff",
       });
       return res.end(archive);
     }
@@ -128,7 +178,6 @@ const server = createServer(async (req, res) => {
       res.writeHead(200, {
         "content-type": "text/plain; charset=utf-8",
         "cache-control": "public, max-age=300",
-        "x-content-type-options": "nosniff",
       });
       return res.end(`${digest}  nexo-atlantico-knowledge-case.tgz\n`);
     }
@@ -189,6 +238,13 @@ const server = createServer(async (req, res) => {
     }
 
     if (req.method === "POST" && url.pathname === "/v1/decide") {
+      const state = runtimeSnapshot();
+      if (state.status !== "ready_learned" && state.status !== "ready_degraded") {
+        return json(res, 503, {
+          error: state.status === "failed" ? "runtime_unavailable" : "runtime_initializing",
+          status: state.status,
+        });
+      }
       const parsed = parseDecideRequest(await readJson(req));
       if (!parsed.ok) return json(res, 400, { error: "invalid_request", details: parsed.errors });
 
@@ -197,6 +253,9 @@ const server = createServer(async (req, res) => {
       if (contractErrors.length) {
         return json(res, 500, { error: "invalid_decision_contract", details: contractErrors });
       }
+      loggedDecisionKind = decision.kind;
+      loggedReasonCode = decision.kind === "defer" ? decision.handoff.reasonCode : "none";
+      recordDecision(decision);
       return json(res, 200, decision);
     }
 
@@ -233,6 +292,9 @@ const server = createServer(async (req, res) => {
       paths: ["/", "/sources", "/sources/:sourceId/:versionId", "/healthz", "/readyz", "/api/corpus", "/api/profiles", "/api/sources/:sourceId/:versionId", "POST /v1/decide", "/v1/traces/:traceId", "/v1/handoffs/:ticketId", "POST /v1/handoffs/:ticketId/resolve"],
     });
   } catch (error) {
+    if (error instanceof IdempotencyConflictError) {
+      return json(res, 409, { error: "idempotency_conflict", message: error.message });
+    }
     const message = error instanceof Error ? error.message : "unexpected error";
     const status = message.includes("request body") ? 400 : 500;
     return json(res, status, status === 400
@@ -246,5 +308,17 @@ server.on("clientError", (_error, socket) => {
 });
 
 server.listen(PORT, "0.0.0.0", () => {
-  console.log(`Nexo knowledge case listening on http://0.0.0.0:${PORT}`);
+  console.log(JSON.stringify({
+    level: "info",
+    event: "server_listening",
+    address: `http://0.0.0.0:${PORT}`,
+  }));
+  void startRuntimeInitialization().then((state) => {
+    console.log(JSON.stringify({
+      level: state.status === "failed" ? "error" : "info",
+      event: "runtime_initialized",
+      ...state,
+      error: state.status === "failed" ? "runtime_initialization_failed" : undefined,
+    }));
+  });
 });

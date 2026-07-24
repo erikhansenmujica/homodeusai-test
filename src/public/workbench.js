@@ -1,8 +1,14 @@
+import { safeRequest, waitForReadiness } from "/assets/workbench/api.js";
+import {
+  MAX_HISTORY,
+  loadSessionEntries,
+  makeId,
+  persistSessionEntries
+} from "/assets/workbench/session.js";
+
 (function () {
   "use strict";
 
-  var STORAGE_KEY = "nexo-atlantico-decision-history-v2";
-  var MAX_HISTORY = 24;
   var profiles = [];
   var documents = [];
   var corpusTotals = { documents: 0, deliveries: 0 };
@@ -146,13 +152,6 @@
     return element;
   }
 
-  function makeId(prefix) {
-    var suffix = window.crypto && typeof window.crypto.randomUUID === "function"
-      ? window.crypto.randomUUID()
-      : Date.now() + "-" + Math.random().toString(16).slice(2);
-    return prefix + "-" + suffix;
-  }
-
   function formatDate(value, withTime) {
     if (!value) return "—";
     try {
@@ -190,22 +189,8 @@
       candidato: "Candidato",
       gestor_contrato: "Gestão de contrato"
     }[profile.role] || humanize(profile.role);
-    return role + " · " + humanize(profile.baseId);
-  }
-
-  function safeRequest(path, options) {
-    return fetch(path, options).then(function (response) {
-      return response.text().then(function (raw) {
-        var payload = {};
-        try {
-          payload = raw ? JSON.parse(raw) : {};
-        } catch (_error) {
-          throw new Error("invalid_response");
-        }
-        if (!response.ok) throw new Error("request_failed");
-        return payload;
-      });
-    });
+    var relationship = RELATIONSHIP_LABELS[profile.relationship] || humanize(profile.relationship);
+    return role + " · " + relationship + " · " + humanize(profile.baseId);
   }
 
   function selectedProfile() {
@@ -276,9 +261,11 @@
 
   function startNewThread(message, prefill) {
     currentThreadId = makeId("thread");
+    byId("query-zone").style.minHeight = "";
     activeDecisionId = null;
     selectedSource = null;
     closeSourcePanel(false);
+    window.history.replaceState({ sourceOverlay: false }, "", "/");
     byId("hero").hidden = false;
     byId("request-form").hidden = false;
     byId("submitted-question").hidden = true;
@@ -308,51 +295,11 @@
   }
 
   function persistEntries() {
-    try {
-      var safeEntries = entries.slice(0, MAX_HISTORY).map(function (entry) {
-        return {
-          id: entry.id,
-          requestId: entry.requestId,
-          threadId: entry.threadId,
-          parentId: entry.parentId || null,
-          question: entry.question,
-          submittedAt: entry.submittedAt,
-          asOf: entry.asOf,
-          profile: entry.profile,
-          decision: entry.decision,
-          trace: entry.trace || null,
-          traceExpanded: Boolean(entry.traceExpanded),
-          handoffRecord: entry.handoffRecord || null,
-          handoffOpen: Boolean(entry.handoffOpen),
-          selectedSource: entry.selectedSource || null
-        };
-      });
-      window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
-        schemaVersion: 2,
-        entries: safeEntries
-      }));
-    } catch (_error) {
-      byId("a11y-status").textContent = "O histórico continuará disponível nesta página, mas não pôde ser salvo nesta sessão.";
-    }
+    persistSessionEntries(entries, byId("a11y-status"));
   }
 
   function loadEntries() {
-    try {
-      var raw = window.sessionStorage.getItem(STORAGE_KEY);
-      if (!raw) return;
-      var parsed = JSON.parse(raw);
-      if (!parsed || parsed.schemaVersion !== 2 || !Array.isArray(parsed.entries)) return;
-      entries = parsed.entries.filter(function (entry) {
-        return entry
-          && typeof entry.id === "string"
-          && typeof entry.threadId === "string"
-          && typeof entry.question === "string"
-          && entry.profile
-          && entry.decision;
-      }).slice(0, MAX_HISTORY);
-    } catch (_error) {
-      entries = [];
-    }
+    entries = loadSessionEntries();
   }
 
   function updateEntry(entry) {
@@ -387,7 +334,7 @@
       .sort(function (left, right) {
         return left.submittedAt.localeCompare(right.submittedAt);
       })
-      .slice(-2)
+      .slice(-3)
       .flatMap(function (entry) {
         var assistant = visibleAssistantText(entry.decision);
         return assistant
@@ -418,6 +365,22 @@
     byId("submitted-question-text").textContent = question;
   }
 
+  function preserveViewport(callback) {
+    var left = window.scrollX;
+    var top = window.scrollY;
+    callback();
+    window.requestAnimationFrame(function () {
+      window.scrollTo({ left: left, top: top, behavior: "instant" });
+    });
+  }
+
+  function lockQueryZoneHeight() {
+    var zone = byId("query-zone");
+    if (!zone.style.minHeight) {
+      zone.style.minHeight = Math.ceil(zone.getBoundingClientRect().height) + "px";
+    }
+  }
+
   function setBusy(isBusy, sourceButton) {
     pending = isBusy;
     var submit = byId("submit-decision");
@@ -431,8 +394,11 @@
   }
 
   function startProgress(question) {
-    setComposerCollapsed(question);
-    byId("progress-state").hidden = false;
+    lockQueryZoneHeight();
+    preserveViewport(function () {
+      setComposerCollapsed(question);
+      byId("progress-state").hidden = false;
+    });
     byId("slow-message").hidden = true;
     var stages = Array.from(byId("progress-stages").children);
     var stageIndex = 0;
@@ -536,10 +502,13 @@
         handoffOpen: false,
         selectedSource: null
       };
-      activeDecisionId = entry.id;
-      updateEntry(entry);
-      renderTimeline();
-      renderHistory();
+      preserveViewport(function () {
+        activeDecisionId = entry.id;
+        updateEntry(entry);
+        window.history.replaceState({ decisionId: entry.id }, "", "/#decision-" + entry.id);
+        renderTimeline();
+        renderHistory();
+      });
       byId("a11y-status").textContent = decision.kind === "answer"
         ? "Nova resposta sustentada disponível."
         : decision.kind === "defer"
@@ -563,17 +532,23 @@
         handoffOpen: false,
         selectedSource: null
       };
-      activeDecisionId = failedEntry.id;
-      updateEntry(failedEntry);
-      renderTimeline();
-      renderHistory();
+      preserveViewport(function () {
+        activeDecisionId = failedEntry.id;
+        updateEntry(failedEntry);
+        window.history.replaceState({ decisionId: failedEntry.id }, "", "/#decision-" + failedEntry.id);
+        renderTimeline();
+        renderHistory();
+      });
       showError(function () {
         submitDecision(lastSubmission.question, lastSubmission.followup, byId("submit-decision"));
       });
     }).finally(function () {
-      stopProgress();
-      setBusy(false, sourceButton);
-      renderTimeline();
+      preserveViewport(function () {
+        stopProgress();
+        byId("query-zone").style.minHeight = "";
+        setBusy(false, sourceButton);
+        renderTimeline();
+      });
     });
   }
 
@@ -628,6 +603,7 @@
     if (!entry) return;
     activeDecisionId = entry.id;
     currentThreadId = entry.threadId;
+    window.history.replaceState({ decisionId: entry.id }, "", "/#decision-" + entry.id);
     var knownProfile = profiles.find(function (profile) {
       return profile.profileId === entry.profile.profileId;
     });
@@ -654,7 +630,31 @@
         null
       );
     }
-    byId("decision-result").scrollIntoView({ behavior: "smooth", block: "start" });
+    if (entry.traceExpanded && !entry.trace) hydrateTrace(entry, false);
+    if (entry.handoffOpen && !entry.handoffRecord && entry.decision.kind === "defer") {
+      openHandoff(entry, false);
+    }
+  }
+
+  function restoreInitialEntry() {
+    var params = new URLSearchParams(window.location.search);
+    var routeDecisionId = params.get("decisionId");
+    var hashDecisionId = window.location.hash.match(/^#decision-(.+)$/u)?.[1];
+    var entry = entries.find(function (candidate) {
+      return candidate.id === (routeDecisionId || hashDecisionId);
+    });
+    if (!entry) return;
+    activeDecisionId = entry.id;
+    currentThreadId = entry.threadId;
+    if (profiles.some(function (profile) { return profile.profileId === entry.profile.profileId; })) {
+      byId("profile-select").value = entry.profile.profileId;
+    }
+    byId("effective-date").value = new Date(entry.asOf).toISOString().slice(0, 10);
+    renderEffectiveDate();
+    renderProfile();
+    setComposerCollapsed(entry.question);
+    if (entry.traceExpanded) hydrateTrace(entry, false);
+    if (entry.handoffOpen && entry.decision.kind === "defer") openHandoff(entry, false);
   }
 
   function threadEntries() {
@@ -696,10 +696,16 @@
     outcome.appendChild(copy);
     if (typeof score === "number") {
       var scoreBlock = node("div", "score-block");
+      var band = score >= 0.75 ? "Evidência forte" : score >= 0.6 ? "Evidência suficiente" : "Evidência limitada";
       scoreBlock.append(
-        node("span", "", "Indicador de sustentação"),
+        node("span", "", band),
         node("strong", "", Math.round(score * 100) + "%")
       );
+      scoreBlock.appendChild(node(
+        "small",
+        "score-explanation",
+        "Suficiência da evidência elegível; não é probabilidade de verdade."
+      ));
       var meter = node("meter");
       meter.min = 0;
       meter.max = 1;
@@ -1081,7 +1087,7 @@
     return panel;
   }
 
-  function openHandoff(entry) {
+  function openHandoff(entry, focusRecord) {
     hideError();
     safeRequest("/v1/handoffs/" + encodeURIComponent(entry.decision.handoff.ticketId))
       .then(function (record) {
@@ -1091,7 +1097,7 @@
         renderTimeline();
         renderHistory();
         var recordPanel = document.querySelector("[data-testid='handoff-record']");
-        if (recordPanel) {
+        if (recordPanel && focusRecord !== false) {
           recordPanel.focus();
           recordPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
         }
@@ -1398,6 +1404,55 @@
       + "?" + params.toString();
   }
 
+  function sourceApiPathForEntry(entry, sourceId, versionId) {
+    var params = new URLSearchParams();
+    params.set("profileId", entry.profile.profileId);
+    params.set("legalEntityId", entry.profile.legalEntityId);
+    params.set("baseId", entry.profile.baseId);
+    params.set("relationship", entry.profile.relationship);
+    params.set("role", entry.profile.role);
+    params.set("asOf", entry.asOf);
+    return "/api/sources/" + encodeURIComponent(sourceId) + "/" + encodeURIComponent(versionId)
+      + "?" + params.toString();
+  }
+
+  function utf8Slice(content, startByte, endByte) {
+    var bytes = new TextEncoder().encode(content);
+    if (
+      !Number.isInteger(startByte)
+      || !Number.isInteger(endByte)
+      || startByte < 0
+      || endByte <= startByte
+      || endByte > bytes.length
+    ) return "";
+    return new TextDecoder("utf-8", { fatal: false }).decode(bytes.slice(startByte, endByte));
+  }
+
+  function hydrateStoredEvidence() {
+    var requests = [];
+    entries.forEach(function (entry) {
+      if (entry.decision.kind !== "answer") return;
+      (entry.decision.claims || []).forEach(function (claim) {
+        (claim.evidence || []).forEach(function (reference) {
+          if (reference.quote) return;
+          requests.push(
+            safeRequest(sourceApiPathForEntry(
+              entry,
+              reference.sourceId,
+              reference.versionId
+            )).then(function (payload) {
+              if (payload.access !== "available" || typeof payload.content !== "string") return;
+              reference.quote = utf8Slice(payload.content, reference.startByte, reference.endByte);
+            })
+          );
+        });
+      });
+    });
+    return Promise.allSettled(requests).then(function () {
+      renderTimeline();
+    });
+  }
+
   function renderSourceMetadata(panel, metadata) {
     var metadataList = node("dl", "source-metadata");
     [
@@ -1463,6 +1518,37 @@
     return activeEntry() ? "/#decision-" + activeEntry().id : "/";
   }
 
+  function setBackgroundInert(inert) {
+    [
+      document.querySelector(".masthead"),
+      document.querySelector(".left-rail"),
+      document.querySelector(".main-stage"),
+      byId("mobile-source-trigger")
+    ].filter(Boolean).forEach(function (element) {
+      if (inert) element.setAttribute("inert", "");
+      else element.removeAttribute("inert");
+    });
+  }
+
+  function configureSourceAccessibility(open) {
+    var rail = byId("source-inventory");
+    var drawerMode = window.matchMedia("(max-width: 1120px)").matches;
+    if (drawerMode) {
+      rail.setAttribute("role", "dialog");
+      rail.setAttribute("aria-modal", "true");
+      rail.setAttribute("aria-hidden", open ? "false" : "true");
+      if (!open) rail.setAttribute("inert", "");
+      else rail.removeAttribute("inert");
+      setBackgroundInert(open);
+    } else {
+      rail.removeAttribute("role");
+      rail.removeAttribute("aria-modal");
+      rail.removeAttribute("aria-hidden");
+      rail.removeAttribute("inert");
+      setBackgroundInert(false);
+    }
+  }
+
   function renderSourceDetail(payload, span) {
     var panel = byId("source-detail");
     clear(panel);
@@ -1501,6 +1587,7 @@
     rail.classList.add("is-expanded");
     byId("source-backdrop").hidden = !drawerMode;
     document.body.classList.toggle("source-drawer-open", drawerMode);
+    configureSourceAccessibility(true);
     if (focusPanel) {
       window.setTimeout(function () {
         if (drawerMode) byId("source-close").focus();
@@ -1514,6 +1601,7 @@
     rail.classList.remove("is-expanded");
     byId("source-backdrop").hidden = true;
     document.body.classList.remove("source-drawer-open");
+    configureSourceAccessibility(false);
     if (useHistory && window.location.pathname.startsWith("/sources")) {
       window.history.replaceState({ sourceOverlay: false }, "", sourceBackHref());
     }
@@ -1713,22 +1801,31 @@
         closeSourcePanel(false);
       }
     });
+    window.matchMedia("(max-width: 1120px)").addEventListener("change", function () {
+      configureSourceAccessibility(byId("source-inventory").classList.contains("is-expanded"));
+    });
   }
 
   function initialize() {
     loadEntries();
     bindEvents();
+    byId("submit-decision").disabled = true;
+    configureSourceAccessibility(false);
     Promise.all([
-      safeRequest("/healthz"),
+      waitForReadiness({ timeoutMs: 180000 }),
       safeRequest("/api/profiles"),
       safeRequest("/api/corpus")
     ]).then(function (payloads) {
       renderProfiles(payloads[1]);
+      restoreInitialEntry();
       renderCorpus(payloads[2]);
       renderHistory();
       renderTimeline();
+      hydrateStoredEvidence();
+      byId("submit-decision").disabled = false;
       byId("service-state").setAttribute("data-state", "ok");
-      byId("service-label").textContent = payloads[2].totals.documents + " fontes prontas";
+      byId("service-label").textContent = payloads[2].totals.documents + " fontes · "
+        + (payloads[0].retrievalMode === "learned" ? "semântica ativa" : "modo determinístico");
     }).catch(function () {
       byId("service-state").setAttribute("data-state", "error");
       byId("service-label").textContent = "Serviço indisponível";

@@ -34,9 +34,9 @@ Handoff path: ask to speak with a person; open the durable ticket, verify the pr
 
 # Evaluation evidence
 
-The candidate run completed 19/19 cases: 10 answers, 8 deferrals, and 1 conversational case across six domains. It includes two multi-source answers, both deliberate source conflicts, privacy/injection, unsupported benefits, paraphrases, and a relationship-only answer/defer twin.
+The candidate run completed **21/21 cases**: 12 answers, 8 deferrals, and 1 conversational case across six answer domains. It includes two multi-source answers, both deliberate source conflicts, privacy/injection, unsupported benefits, paraphrases, a relationship-only answer/defer twin, and contextual follow-ups that never treat assistant text as evidence.
 
-An early probe incorrectly borrowed meal support for an internet allowance. Adding concept coverage fixed it and created two permanent missing-evidence regressions. That failure is why exact lexical relevance—not merely a high passage score—is a rollout gate.
+An early probe incorrectly borrowed meal support for an internet allowance. Adding a 60% topic-coverage floor fixed it and created two permanent missing-evidence regressions. That failure is why subject coverage—not merely a high passage score—is a rollout gate.
 
 # Baseline and pilot measures
 

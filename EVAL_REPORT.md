@@ -8,9 +8,9 @@ Command:
 CANDIDATE_BASE_URL=http://127.0.0.1:8080 npm run evals
 ```
 
-Authoritative local run on 2026-07-24: **20 cases, 20 passed, 0 failed, 100% pass rate, execution complete**. This does not predict the sealed score.
+Authoritative local run on 2026-07-24: **21 cases, 21 passed, 0 failed, 100% pass rate, execution complete**. This does not predict the sealed score.
 
-The suite contains 11 answers, 8 deferrals, and 1 conversational case. It covers seven answer sources across payroll, vacation, personal data, admission, health and safety, and collective rules. Six clusters repeat or paraphrase facts.
+The suite contains 12 answers, 8 deferrals, and 1 conversational case. It covers seven answer sources across payroll, vacation, personal data, admission, health and safety, and collective rules. Six clusters repeat or paraphrase facts.
 
 ## Risk design
 
@@ -27,10 +27,11 @@ The final authored run had no failed cases, observed false answers, or observed 
 Development also exposed:
 
 - a relationship-specific admission question initially selected the apprentice paragraph; Markdown headings are now weighted and kept with their paragraphs;
+- a referential meal-support follow-up was split incorrectly at the adverb “também”; contextual matching now preserves that sentence and maps work-status wording to the cited eligibility condition;
 - the starter stored traces only in memory; traces are now atomic durable files;
 - timekeeping and termination questions initially risked choosing one approved source; numeric, polarity, and timing conflict checks now force `conflicting_source`.
 
-Thresholds are intentionally conservative: a passage needs a BM25-style score of at least 2.35 and at least 52% query-concept coverage. A second claim is allowed only for an explicit compound question, a distinct source, sufficient relative score, and at least 25% coverage. A dominant ineligible source prevents a weaker generic source from answering.
+Thresholds are intentionally conservative: a passage needs a BM25-style score of at least 2.35 and at least 60% subject-term coverage. A second claim is allowed only for an explicit compound question, a distinct source, sufficient relative score, and at least 25% coverage. A dominant ineligible source prevents a weaker generic source from answering.
 
 ## Handoff lifecycle evidence
 
@@ -45,10 +46,16 @@ Automated tests and the real browser flow verify:
 
 No duplicate work record was observed.
 
-## Provider-unavailable behavior
+## Retrieval-mode matrix
 
-The optional provider was absent. The service started, became ready, and completed every case deterministically. Traces reported `provider.status: "not_used"`. No provider output is needed for eligibility, conflicts, claims, citations, routing, or handoffs, so an absent or failing proxy cannot produce a 500 in this version.
+The frozen suite is run in both learned and deterministic modes with `npm run evals:matrix`. Both modes must complete all 21 cases without unsafe answers, start within 180 seconds, and return the first post-readiness decision within 10 seconds. Learned retrieval is selected only when it improves frozen paraphrase coverage without reducing safety. Otherwise the runtime defaults to deterministic retrieval and keeps E5 as an opt-in adapter.
+
+Measured locally on 2026-07-24: deterministic readiness took **659 ms** and its first post-readiness decision took **50 ms**; learned readiness, including model warm-up, took **34.2 s** and its first post-readiness decision took **89 ms**. Both modes passed 21/21. Learned retrieval added no frozen-suite coverage, so deterministic retrieval is the selected default.
+
+The final prebuilt restricted image separately reached `ready_degraded` in **846 ms** with a **114 ms** first decision, and `ready_learned` in **2.78 s** with a **154 ms** first decision. Those container measurements include index validation and model warm-up against the immutable bundled artifacts.
+
+The trace exposes learned-provider state as `ok` or `degraded`. Model absence or corruption produces `ready_degraded`; governance, conflicts, claims, citations, routing, and handoffs remain available.
 
 ## Next cases
 
-Before production feedback, add typo-heavy Portuguese, longer conversation history, compound questions with exactly one unsupported part, more date-only/timestamp boundaries, explicit supersession fixtures, corrupt-state recovery, concurrent container processes, and labeled admission journeys. Keep any failures; do not delete them to improve a headline rate.
+Before production feedback, add typo-heavy Portuguese, compound questions with exactly one unsupported part, more date-only/timestamp boundaries, explicit supersession fixtures, concurrent container processes, and labeled admission journeys. Corrupt-state recovery, three-turn context, assistant-history injection, and real-browser operational flows are now permanent regressions. Keep any future failures; do not delete them to improve a headline rate.

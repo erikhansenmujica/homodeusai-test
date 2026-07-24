@@ -1,0 +1,115 @@
+name: Verify submission
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm audit --omit=dev
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run self-check
+
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+
+  evaluations:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Run deterministic candidate evals
+        run: |
+          PORT=8080 LEARNED_SEMANTIC_ENABLED=false RUNTIME_STATE_PATH=/tmp/nexo-ci-evals node src/server.ts > /tmp/nexo-ci-server.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 180); do
+            if curl -fsS http://127.0.0.1:8080/readyz > /tmp/nexo-ready.json; then
+              break
+            fi
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:8080/readyz
+          CANDIDATE_BASE_URL=http://127.0.0.1:8080 npm run evals
+      - run: npm run setup:model
+      - run: npm run evals:matrix
+
+  submission:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run verify:submission
+      - run: npm run export:candidate
+      - run: cd dist && sha256sum --check nexo-atlantico-knowledge-case.tgz.sha256
+
+  container:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build without ignored local assets
+        run: docker build --tag nexo-atlantico-knowledge-case:ci .
+      - name: Start restricted container and verify readiness/latency
+        run: |
+          docker run --detach --name nexo-ci \
+            --read-only \
+            --tmpfs /tmp:rw,noexec,nosuid,nodev \
+            --tmpfs /state:rw,noexec,nosuid,nodev,uid=65532,gid=65532,mode=0700 \
+            --user 65532:65532 \
+            --cap-drop ALL \
+            --security-opt no-new-privileges \
+            --pids-limit 256 \
+            --memory 4g \
+            --cpus 2 \
+            --publish 8080:8080 \
+            nexo-atlantico-knowledge-case:ci
+          trap 'docker rm --force nexo-ci >/dev/null 2>&1 || true' EXIT
+          for attempt in $(seq 1 180); do
+            if curl -fsS http://127.0.0.1:8080/readyz > /tmp/nexo-container-ready.json; then
+              break
+            fi
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:8080/readyz
+          node scripts/verify-first-decision.ts http://127.0.0.1:8080 10000

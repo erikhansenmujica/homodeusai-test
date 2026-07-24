@@ -191,6 +191,42 @@
       }
     },
     {
+      "id": "meal-support-contextual-followup",
+      "objective": "Verify a referential value follow-up retains the prior meal-support topic and its worked-day eligibility condition.",
+      "clusterId": "meal-support-followup",
+      "profileId": "employee-na-servicos-sudeste",
+      "question": "Esse valor também é pago em dias em que eu não trabalho?",
+      "history": [
+        {
+          "role": "user",
+          "content": "Qual é o valor diário do apoio de refeição aplicável a mim?"
+        },
+        {
+          "role": "assistant",
+          "content": "O apoio diário elegível é de R$ 47,30 por dia efetivamente trabalhado. Ausência integral não gera o lançamento."
+        }
+      ],
+      "asOf": "2026-07-22T10:30:00.000Z",
+      "tags": ["answer"],
+      "expected": {
+        "kind": "answer",
+        "requiredSourceIds": ["na-agreement-metropolitan-2025"],
+        "requiredBodyTerms": ["R$ 47,30", "Ausência integral não gera o lançamento"],
+        "requiredClaims": [
+          {
+            "bodyTerm": "R$ 47,30",
+            "sourceIds": ["na-agreement-metropolitan-2025"],
+            "quoteTerms": ["R$ 47,30", "dia efetivamente trabalhado"]
+          },
+          {
+            "bodyTerm": "Ausência integral não gera o lançamento",
+            "sourceIds": ["na-agreement-metropolitan-2025"],
+            "quoteTerms": ["Ausência integral não gera o lançamento"]
+          }
+        ]
+      }
+    },
+    {
       "id": "health-urgent-compound",
       "objective": "Verify a compound safety question is fully supported by two eligible sources rather than partially answered.",
       "clusterId": "health-urgent-compound",

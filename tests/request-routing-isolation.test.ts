@@ -53,7 +53,28 @@ test("an elliptical follow-up uses the latest completed user question for retrie
   assert.ok(decision.claims.flatMap((claim) => claim.evidence).some((evidence) =>
     evidence.sourceId === "na-faq-vacation-v1"));
   assert.ok(getTrace(decision.traceId)?.notes.some((note) =>
-    /latest completed user question.*assistant history was not treated as evidence/iu.test(note)));
+    /completed user question.*assistant history was not treated as evidence/iu.test(note)));
+});
+
+test("a referential value follow-up resolves the prior meal-support topic", async () => {
+  const decision = await decide(request(
+    "contextual-meal-absence",
+    "Esse valor também é pago em dias em que eu não trabalho?",
+    [
+      { role: "user", content: "Qual é o valor diário do apoio de refeição aplicável a mim?" },
+      {
+        role: "assistant",
+        content: "O apoio diário elegível é de R$ 47,30 por dia efetivamente trabalhado. Ausência integral não gera o lançamento.",
+      },
+    ],
+  ));
+
+  assert.equal(decision.kind, "answer");
+  if (decision.kind !== "answer") return;
+  assert.match(decision.body, /R\$ 47,30 por dia efetivamente trabalhado/iu);
+  assert.match(decision.body, /Ausência integral não gera o lançamento/iu);
+  assert.ok(decision.claims.flatMap((claim) => claim.evidence).some((evidence) =>
+    evidence.sourceId === "na-agreement-metropolitan-2025"));
 });
 
 test("ambiguous and unrelated questions do not inherit authority from assistant history", async () => {

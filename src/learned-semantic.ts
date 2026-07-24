@@ -3,12 +3,16 @@ import { existsSync, readFileSync, renameSync, writeFileSync, mkdirSync } from "
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { extractPassages } from "./retrieval.ts";
+import { E5_MODEL_FILES, E5_MODEL_ID, E5_MODEL_REVISION } from "./model-manifest.ts";
 import type { Passage, SourceDocument } from "./types.ts";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const MODEL_ID = "Xenova/multilingual-e5-small";
-const MODEL_REVISION = "761b726dd34fb83930e26aab4e9ac3899aa1fa78";
-const MODEL_PATH = join(ROOT, "models", "Xenova", "multilingual-e5-small");
+const MODEL_ID = E5_MODEL_ID;
+const MODEL_REVISION = E5_MODEL_REVISION;
+const MODEL_PATH = resolve(
+  process.env.LEARNED_SEMANTIC_MODEL_PATH?.trim()
+    || join(ROOT, "models", "Xenova", "multilingual-e5-small"),
+);
 const INDEX_SCHEMA = 2;
 
 type Extractor = (inputs: string[], options: Record<string, unknown>) => Promise<{ data: Float32Array | number[]; dims: number[] }>;
@@ -32,7 +36,12 @@ export class TransformersLocalE5EmbeddingProvider {
   readonly modelPath = MODEL_PATH;
   private extractorPromise: Promise<Extractor> | undefined;
 
-  async isAvailable(): Promise<boolean> { return existsSync(join(MODEL_PATH, "onnx", "model_int8.onnx")); }
+  async isAvailable(): Promise<boolean> {
+    return Object.entries(E5_MODEL_FILES).every(([file, expected]) => {
+      const path = join(MODEL_PATH, file);
+      return existsSync(path) && createHash("sha256").update(readFileSync(path)).digest("hex") === expected;
+    });
+  }
   async extractor(): Promise<Extractor> {
     if (!this.extractorPromise) this.extractorPromise = (async () => {
       if (!await this.isAvailable()) throw new Error(`local E5 model is missing at ${MODEL_PATH}`);
@@ -69,9 +78,20 @@ export class LearnedSemanticIndex {
     return this.readyPromise;
   }
   private async build(): Promise<void> {
-    const path = process.env.RUNTIME_STATE_PATH ? join(process.env.RUNTIME_STATE_PATH, "learned-semantic-index.json") : join(ROOT, ".runtime", "learned-semantic-index.json");
+    const path = process.env.RUNTIME_STATE_PATH
+      ? join(process.env.RUNTIME_STATE_PATH, "learned-semantic-index.json")
+      : join(ROOT, ".runtime", "learned-semantic-index.json");
+    const bundledPath = process.env.BUNDLED_SEMANTIC_INDEX_PATH?.trim()
+      || join(ROOT, "artifacts", "learned-semantic-index.json");
     let prior: StoredIndex | undefined;
-    try { prior = JSON.parse(readFileSync(path, "utf8")) as StoredIndex; } catch { prior = undefined; }
+    for (const candidate of [path, bundledPath]) {
+      try {
+        prior = JSON.parse(readFileSync(candidate, "utf8")) as StoredIndex;
+        break;
+      } catch {
+        prior = undefined;
+      }
+    }
     const reusable = new Map((prior?.schemaVersion === INDEX_SCHEMA && prior.modelId === MODEL_ID && prior.revision === MODEL_REVISION ? prior.entries : []).map((entry) => [entry.passageId, entry]));
     const passages = this.documents.flatMap((document) => extractPassages(document).map((passage) => ({ document, passage, hash: passageHash(document, passage) })));
     const missing = passages.filter((entry) => reusable.get(entry.passage.id)?.passageHash !== entry.hash);

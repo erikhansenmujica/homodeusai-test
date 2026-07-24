@@ -359,6 +359,11 @@ button:disabled {
 
 .main-stage {
   padding: clamp(2rem, 5vw, 4.5rem) clamp(1.25rem, 4vw, 4.25rem) 5rem;
+  overflow-anchor: none;
+}
+
+.query-zone {
+  min-width: 0;
 }
 
 .hero {
@@ -847,7 +852,8 @@ button:disabled {
 }
 
 .score-block {
-  min-width: 130px;
+  width: min(220px, 34%);
+  min-width: 170px;
   text-align: right;
 }
 
@@ -857,7 +863,15 @@ button:disabled {
   font-size: 10px;
 }
 
+.score-block .score-explanation {
+  max-width: 220px;
+  margin-top: .2rem;
+  line-height: 1.35;
+}
+
 .score-block strong {
+  display: block;
+  margin-top: .2rem;
   font: 600 22px/1 var(--serif);
 }
 
@@ -1514,6 +1528,10 @@ button:disabled {
   backdrop-filter: blur(2px);
 }
 
+.source-backdrop[hidden] {
+  display: none !important;
+}
+
 .mobile-source-trigger {
   display: none;
 }
@@ -1712,6 +1730,7 @@ button:disabled {
   }
 
   .score-block {
+    width: 100%;
     text-align: left;
   }
 

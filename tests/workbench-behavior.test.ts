@@ -4,6 +4,7 @@ import test from "node:test";
 import { renderWorkbench } from "../src/ui.ts";
 
 const clientUrl = new URL("../src/public/workbench.js", import.meta.url);
+const sessionUrl = new URL("../src/public/workbench/session.js", import.meta.url);
 const styleUrl = new URL("../src/public/workbench.css", import.meta.url);
 
 test("answer evidence uses stable source routes and byte-exact highlighting", async () => {
@@ -31,7 +32,7 @@ test("defer recommendations are derived from trace and corpus metadata", async (
 
 test("follow-ups send bounded visible history while requester remains registry-derived", async () => {
   const client = await readFile(clientUrl, "utf8");
-  assert.match(client, /\.slice\(-2\)/u);
+  assert.match(client, /\.slice\(-3\)/u);
   assert.match(client, /visibleAssistantText\(entry\.decision\)/u);
   assert.match(client, /history: history/u);
   assert.match(client, /requester: requesterFor\(profile\)/u);
@@ -39,15 +40,21 @@ test("follow-ups send bounded visible history while requester remains registry-d
   assert.doesNotMatch(client, /requester:\s*history/u);
 });
 
-test("trusted context changes separate conversation state and session history restores operational state", async () => {
-  const client = await readFile(clientUrl, "utf8");
+test("trusted context changes separate conversation state and session history restores only bounded identifiers", async () => {
+  const [client, session] = await Promise.all([
+    readFile(clientUrl, "utf8"),
+    readFile(sessionUrl, "utf8"),
+  ]);
   assert.match(client, /function changeTrustedContext\(\)/u);
   assert.match(client, /Uma nova linha de decisão foi iniciada/u);
   assert.match(client, /currentThreadId = makeId\("thread"\)/u);
-  assert.match(client, /window\.sessionStorage\.setItem/u);
-  for (const field of ["trace", "handoffRecord", "handoffOpen", "selectedSource"]) {
-    assert.match(client, new RegExp(`${field}:`, "u"));
-  }
+  assert.match(session, /window\.sessionStorage\.setItem/u);
+  assert.match(session, /handoffOpen:/u);
+  assert.match(session, /selectedSource:/u);
+  assert.match(session, /trace: null/u);
+  assert.match(session, /handoffRecord: null/u);
+  assert.doesNotMatch(session, /trace: entry\.trace/u);
+  assert.doesNotMatch(session, /handoffRecord: entry\.handoffRecord/u);
   assert.match(client, /renderHistory\(\);[\s\S]{0,200}Caso resolvido e histórico atualizado/u);
 });
 
@@ -68,9 +75,10 @@ test("completed decisions announce their result without forcing a viewport jump"
   assert.match(client, /Nova resposta sustentada disponível/u);
   assert.equal(
     client.match(/byId\("decision-result"\)\.scrollIntoView/gu)?.length ?? 0,
-    1,
-    "only explicit history restoration may scroll to the decision timeline",
+    0,
+    "result rendering and history restoration must not scroll the decision timeline",
   );
+  assert.match(client, /function preserveViewport/u);
 });
 
 test("responsive source drawer prevents overflow and manages keyboard focus", async () => {

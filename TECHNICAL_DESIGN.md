@@ -2,7 +2,7 @@
 
 ## 1. Executive summary
 
-The implemented first version is an offline-capable, deterministic governed decision service. It uses citable passage extraction, hybrid BM25 and learned multilingual E5 retrieval, source eligibility rules, explicit conflict checks, extractive source-backed answers, exact UTF-8 citations, and durable filesystem handoffs/traces. A generative LLM is not a critical dependency.
+The implemented version is an offline-capable governed decision service. It uses citable passage extraction, deterministic retrieval by default, optional pinned multilingual E5 retrieval, source eligibility rules, explicit conflict checks, extractive source-backed answers, exact UTF-8 citations, and durable repository-backed handoffs/traces. A generative LLM is not a critical dependency.
 
 ## 2. Goals
 
@@ -26,7 +26,7 @@ The service validates trusted context, classifies non-policy conversation, retri
 
 ## 6. Non-functional requirements
 
-Startup is under 180 seconds; normal decisions are expected under 10 seconds; responses stay below 256 KiB; state survives container recreation; the process runs as `65532:65532`; and no required path depends on Internet or the optional provider.
+Startup is under 180 seconds; the first local decision after readiness targets under 1 second and the restricted-container ceiling is 10 seconds; responses stay below 256 KiB; state survives container recreation; the process runs as `65532:65532`; and no required path depends on Internet or the optional learned provider. The final local matrix measured deterministic readiness/first decision at 714/53 ms and learned at 34.2 s/105 ms.
 
 ## 7. Proposed architecture
 
@@ -37,7 +37,7 @@ HTTP -> validation -> intent boundary -> BM25 + local E5 retrieval -> RRF
      -> trace persistence -> JSON/UI
 ```
 
-Modules are `contract`, `corpus`, `retrieval`, `governance`, `decide`, `evidence`, `queue`, `traces`, `server`, and `ui`.
+Modules are `contract`, `corpus`, `runtime`, `domain-config`, `conversation`, `retrieval`, `answer-support`, `governance`, `conflicts`, `decide`, `evidence`, `queue`, `traces`, `metrics`, `server`, and `ui`.
 
 ## 8. Request lifecycle
 
@@ -53,7 +53,7 @@ FAQ rows, Markdown paragraphs under headings, collective clauses, and process bl
 
 Controlled query concepts add downweighted terms for timekeeping marks, overtime compensation, internship instruments, termination initiation, mandatory human review, and meal support. Explicit query-region aliases may narrow source discovery, but they never replace the base supplied by the trusted requester boundary. A source for a different named region therefore remains ineligible and produces a profile-mismatch handoff instead of an answer under an invented profile. The trace records both the query alias and the trusted resolved scope.
 
-Hybrid retrieval uses local learned multilingual E5 embeddings through Transformers.js 3.7.2 (`Xenova/multilingual-e5-small`, revision `761b726dd34fb83930e26aab4e9ac3899aa1fa78`, `model_int8.onnx`). Model assets live under `models/Xenova/multilingual-e5-small`; remote model loading is disabled before the pipeline is initialized. Queries use `query:` and title-plus-heading-plus-passage inputs use `passage:` prefixes, mean pooling, and normalized 384-dimensional vectors. The persisted learned index under `RUNTIME_STATE_PATH` reuses vectors when the passage hash and pinned model identity match. BM25 and semantic top results are fused with reciprocal-rank fusion (`k=60`) while lexical, semantic, and fusion scores remain separate in the trace. If learned initialization fails, the system explicitly falls back to the deterministic hashed-subword adapter and records a degraded provider state. Semantic rank broadens and reranks candidates but can never override topic/claim sufficiency, governance, authority, conflict handling, or exact citations.
+Hybrid retrieval can use local learned multilingual E5 embeddings through Transformers.js 3.7.2 (`Xenova/multilingual-e5-small`, revision `761b726dd34fb83930e26aab4e9ac3899aa1fa78`, `model_int8.onnx`). The multi-stage image build downloads every pinned asset, verifies every checksum, and prebuilds a corpus-specific index. Startup validates model identity and passage hashes before reuse. Remote loading is disabled. If learned initialization fails, the runtime explicitly becomes `ready_degraded` and uses the deterministic hashed-subword adapter. The frozen 21-case A/B currently recommends deterministic retrieval as default because E5 does not improve coverage. Neither semantic adapter can override topic/claim sufficiency, governance, authority, conflicts, or exact citations.
 
 ## 11. Governance design
 
@@ -73,15 +73,15 @@ The selected answer substring is located inside exact corpus content. The prefix
 
 ## 15. Persistence
 
-`RUNTIME_STATE_PATH` contains `handoffs.json` and `traces/<traceId>.json`. Writes use mode `0600`, a same-directory temporary file, and atomic rename. Handoff identity is SHA-256 of request ID plus public reason. Synchronous single-process mutation makes warm concurrency deterministic; the first resolution is canonical.
+`RUNTIME_STATE_PATH` contains `handoffs.json`, `traces/<traceId>.json`, and optional derived indexes. Filesystem adapters implement explicit handoff/trace repository interfaces. Writes use mode `0600`, a same-directory temporary file, and atomic rename. Handoff identity is SHA-256 of request ID plus public reason; a separate canonical fingerprint prevents reuse with different request content. Synchronous single-process mutation makes warm concurrency deterministic; the first resolution is canonical. Trace retention is bounded while open-handoff traces are preserved. Corrupt state fails readiness.
 
 ## 16. API design
 
-All required routes and schemas are implemented unchanged: `/`, `/healthz`, `/readyz`, `/api/profiles`, `/api/corpus`, `/v1/decide`, trace GET, handoff GET, and resolution POST. Unknown resources return `404`; malformed request/resolution returns `400`.
+All required routes and schemas are implemented unchanged: `/`, `/healthz`, `/readyz`, `/api/profiles`, `/api/corpus`, `/v1/decide`, trace GET, handoff GET, and resolution POST. `/readyz` adds runtime diagnostics and returns `503` until warm-up succeeds. `/metrics` adds redacted counters and latency buckets. Unknown resources return `404`; malformed input returns `400`; idempotency-content conflict returns `409`.
 
 ## 17. UI design
 
-The “decision ledger” is an operator workbench rather than chat. It exposes trusted context, date, request composer, decision state, score, claims, exact evidence, source metadata, trace counts, history, handoff receipt, preserved work record, and resolution. Every locked `data-testid` is present in its relevant state. Layout collapses without horizontal overflow at 390 px.
+The “decision ledger” is an operator workbench rather than chat. It exposes trusted context, date, request composer, decision state, qualitative evidence band plus contract score, claims, exact evidence, source metadata, trace counts, history, handoff receipt, preserved work record, and resolution. The score is explicitly evidence sufficiency, not truth probability. Result rendering preserves the viewport. Source routes use internal history and `replaceState`; the small-screen drawer is a focus-trapped modal with inert background, Escape/backdrop close, and focus return. Browser storage keeps bounded decision summaries and identifiers, then refetches evidence, traces, and handoffs.
 
 ## 18. Optional generative-model integration
 
@@ -89,11 +89,11 @@ A future `ModelProvider.generate()` may rewrite already-approved claim text unde
 
 ## 19. Security
 
-User and source text are data, never instructions. Trusted requester axes are separate fields. Inputs and response sizes are bounded; IDs are path-safe; UI rendering uses `textContent`; traces omit raw questions/history/source text/secrets/personal data; source contents never appear in inventory responses.
+User and source text are data, never instructions. Trusted requester axes are separate fields. Inputs and response sizes are bounded; IDs are path-safe; UI rendering uses `textContent`; traces omit raw questions/history/source text/secrets/personal data; source contents never appear in inventory responses. Assets use an explicit path/MIME allowlist. CSP, frame denial, no-referrer, permissions policy, `nosniff`, correlation IDs, and `no-store` protect sensitive responses.
 
 ## 20. Observability
 
-Each trace stores request/trace IDs, versions, ordered stages, exact candidate/eligible/rejected counts, source/version identities, rejection aggregates, rank/offset/score metadata, conflict signals, provider state, route, and stage timings. It excludes raw text and hidden reasoning.
+Each trace stores request/trace IDs, versions, ordered stages, exact candidate/eligible/rejected counts, source/version identities, rejection aggregates, rank/offset/score metadata, conflict signals, provider state (`ok` or `degraded`), route, and stage timings. It excludes raw text and hidden reasoning. Structured logs and metrics use normalized routes and public codes only.
 
 Successful claims include backward-compatible evidence usage metadata (`primary` or `supporting`) and a deterministic evidence-quality confidence score. The score is not a probability of truth: it combines explicit answer sufficiency, current eligible authority, exact citations, resolved region, and conflict penalties. Defer confidence describes confidence in the inability to safely answer from governed evidence.
 
@@ -101,11 +101,11 @@ Questions combining a personal reference, transactional object, and completion/s
 
 ## 21. Testing strategy
 
-Unit tests cover parser limits, UTF-8 citations, token expansion, inclusive dates, injection, unsupported near-matches, conflict routing, contract validation, 20 named governed-retrieval regressions, and expired-agreement explanation. Integration tests cover API/eval runner and handoff restart/idempotency/resolution. Browser verification covers answer, evidence, trace, defer, open, resolve, history, responsive overflow, and console errors.
+Unit tests cover parser limits, UTF-8 citations, token expansion, inclusive dates, injection, unsupported near-matches, conflict routing, contract validation, named governed-retrieval regressions, follow-up ambiguity/injection, state corruption, fallback, security headers, readiness, and idempotency conflicts. Integration tests cover API/eval runner and handoff restart/idempotency/resolution. Real Playwright tests cover answer, follow-up, evidence/highlight, refresh/close routing, trace, defer/open/resolve, slow/error/retry, no-scroll rendering, 390 px overflow, modal focus, restricted-content privacy, and axe accessibility.
 
 ## 22. Candidate eval suite
 
-Nineteen cases cover ten answers, eight deferrals, one conversation, two multi-source cases, two conflicts, two missing-evidence cases, two privacy/injection cases, six repeated clusters, a one-axis counterfactual, and the candidate-defined workflow-state risk.
+Twenty-one cases cover twelve answers, eight deferrals, one conversation, two multi-source cases, two conflicts, two missing-evidence cases, privacy/injection, six repeated clusters, a one-axis counterfactual, contextual follow-ups, and the candidate-defined workflow-state risk.
 
 ## 23. Implementation plan
 
