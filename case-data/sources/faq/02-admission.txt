@@ -1,0 +1,142 @@
+DOCUMENTO SINTÉTICO | Central de dúvidas — Ingresso
+source_id=na-faq-admission-v1 | version=1.0
+estado=approved | vigência=2026-01-08
+extração=structured | formato_origem=XLSX
+categoria=Ingresso
+linhas_citáveis=30
+
+FAQ_ROW|admission|001|status=publicada
+P: Qual canal recebe documentos de ingresso?
+R: Use o portal Orla indicado no convite; o cofre Cais não recebe novos pacotes de ingresso.
+
+FAQ_ROW|admission|002|status=publicada
+P: Enviar todos os documentos confirma o início?
+R: Não. O envio completo ainda depende de validação e das aprovações do processo.
+
+FAQ_ROW|admission|003|status=publicada
+P: Qual canal usar para reenviar um item em data pretendida?
+R: Em data pretendida, recebido não significa validado. Quando necessário, Talent Operations usa portal Orla para reenviar um item.
+
+FAQ_ROW|admission|004|status=publicada
+P: O estado convite emitido conclui vínculo de estágio depois de reenviar um item?
+R: Depois de reenviar um item, Talent Operations confere vínculo de estágio no estado convite emitido. recebido não significa validado.
+
+FAQ_ROW|admission|005|status=publicada
+P: O que acontece depois de reenviar um item para cadastro de aprendiz?
+R: Não por si só. Para cadastro de aprendiz, Talent Operations valida no portal Orla antes de reenviar um item; recebido não significa validado.
+
+FAQ_ROW|admission|006|status=publicada
+P: Há limite ao reenviar um item para identidade corporativa?
+R: O registro de identidade corporativa segue pelo portal Orla para reenviar um item. recebido não significa validado; Talent Operations confirma o próximo estado.
+
+FAQ_ROW|admission|007|status=publicada
+P: Como reenviar um item para acesso inicial no estado convite emitido?
+R: Talent Operations acompanha acesso inicial pelo portal Orla para reenviar um item. Enquanto estiver convite emitido, recebido não significa validado.
+
+FAQ_ROW|admission|008|status=publicada
+P: Quem trata convite documental ao trocar um documento no estado convite emitido?
+R: Para convite documental, use portal Orla ao trocar um documento; Talent Operations trata o caso. recebido não significa validado.
+
+FAQ_ROW|admission|009|status=publicada
+P: Qual canal usar para trocar um documento em pacote incompleto?
+R: Em pacote incompleto, recebido não significa validado. Quando necessário, Talent Operations usa portal Orla para trocar um documento.
+
+FAQ_ROW|admission|010|status=publicada
+P: O estado convite emitido conclui data pretendida depois de trocar um documento?
+R: Depois de trocar um documento, Talent Operations confere data pretendida no estado convite emitido. recebido não significa validado.
+
+FAQ_ROW|admission|011|status=publicada
+P: O que acontece depois de trocar um documento para vínculo de estágio?
+R: Não por si só. Para vínculo de estágio, Talent Operations valida no portal Orla antes de trocar um documento; recebido não significa validado.
+
+FAQ_ROW|admission|012|status=publicada
+P: Há limite ao trocar um documento para cadastro de aprendiz?
+R: O registro de cadastro de aprendiz segue pelo portal Orla para trocar um documento. recebido não significa validado; Talent Operations confirma o próximo estado.
+
+FAQ_ROW|admission|013|status=publicada
+P: Como trocar um documento para identidade corporativa no estado convite emitido?
+R: Talent Operations acompanha identidade corporativa pelo portal Orla para trocar um documento. Enquanto estiver convite emitido, recebido não significa validado.
+
+FAQ_ROW|admission|014|status=publicada
+P: Quem trata acesso inicial ao trocar um documento no estado convite emitido?
+R: Para acesso inicial, use portal Orla ao trocar um documento; Talent Operations trata o caso. recebido não significa validado.
+
+FAQ_ROW|admission|015|status=publicada
+P: Qual canal usar para acompanhar a validação em convite documental?
+R: Em convite documental, recebido não significa validado. Quando necessário, Talent Operations usa portal Orla para acompanhar a validação.
+
+FAQ_ROW|admission|016|status=publicada
+P: O estado convite emitido conclui pacote incompleto depois de acompanhar a validação?
+R: Depois de acompanhar a validação, Talent Operations confere pacote incompleto no estado convite emitido. recebido não significa validado.
+
+FAQ_ROW|admission|017|status=publicada
+P: O que acontece depois de acompanhar a validação para data pretendida?
+R: Não por si só. Para data pretendida, Talent Operations valida no portal Orla antes de acompanhar a validação; recebido não significa validado.
+
+FAQ_ROW|admission|018|status=publicada
+P: Há limite ao acompanhar a validação para vínculo de estágio?
+R: O registro de vínculo de estágio segue pelo portal Orla para acompanhar a validação. recebido não significa validado; Talent Operations confirma o próximo estado.
+
+FAQ_ROW|admission|019|status=publicada
+P: Como acompanhar a validação para cadastro de aprendiz no estado convite emitido?
+R: Talent Operations acompanha cadastro de aprendiz pelo portal Orla para acompanhar a validação. Enquanto estiver convite emitido, recebido não significa validado.
+
+FAQ_ROW|admission|020|status=publicada
+P: Quem trata identidade corporativa ao acompanhar a validação no estado convite emitido?
+R: Para identidade corporativa, use portal Orla ao acompanhar a validação; Talent Operations trata o caso. recebido não significa validado.
+
+FAQ_ROW|admission|021|status=publicada
+P: Qual canal usar para acompanhar a validação em acesso inicial?
+R: Em acesso inicial, recebido não significa validado. Quando necessário, Talent Operations usa portal Orla para acompanhar a validação.
+
+FAQ_ROW|admission|022|status=publicada
+P: O estado convite emitido conclui convite documental depois de corrigir a relação?
+R: Depois de corrigir a relação, Talent Operations confere convite documental no estado convite emitido. recebido não significa validado.
+
+FAQ_ROW|admission|023|status=publicada
+P: O que acontece depois de corrigir a relação para pacote incompleto?
+R: Não por si só. Para pacote incompleto, Talent Operations valida no portal Orla antes de corrigir a relação; recebido não significa validado.
+
+FAQ_ROW|admission|024|status=publicada
+P: Há limite ao corrigir a relação para data pretendida?
+R: O registro de data pretendida segue pelo portal Orla para corrigir a relação. recebido não significa validado; Talent Operations confirma o próximo estado.
+
+FAQ_ROW|admission|025|status=publicada
+P: Como corrigir a relação para vínculo de estágio no estado convite emitido?
+R: Talent Operations acompanha vínculo de estágio pelo portal Orla para corrigir a relação. Enquanto estiver convite emitido, recebido não significa validado.
+
+FAQ_ROW|admission|026|status=publicada
+P: Quem trata cadastro de aprendiz ao corrigir a relação no estado convite emitido?
+R: Para cadastro de aprendiz, use portal Orla ao corrigir a relação; Talent Operations trata o caso. recebido não significa validado.
+
+FAQ_ROW|admission|027|status=publicada
+P: Qual canal usar para corrigir a relação em identidade corporativa?
+R: Em identidade corporativa, recebido não significa validado. Quando necessário, Talent Operations usa portal Orla para corrigir a relação.
+
+FAQ_ROW|admission|028|status=publicada
+P: O estado convite emitido conclui acesso inicial depois de corrigir a relação?
+R: Depois de corrigir a relação, Talent Operations confere acesso inicial no estado convite emitido. recebido não significa validado.
+
+FAQ_ROW|admission|029|status=publicada
+P: O que acontece depois de confirmar a formalização para convite documental?
+R: Não por si só. Para convite documental, Talent Operations valida no portal Orla antes de confirmar a formalização; recebido não significa validado.
+
+FAQ_ROW|admission|030|status=publicada
+P: Há limite ao confirmar a formalização para pacote incompleto?
+R: O registro de pacote incompleto segue pelo portal Orla para confirmar a formalização. recebido não significa validado; Talent Operations confirma o próximo estado.
+CENÁRIO_OPERACIONAL|admission|0001|Cnafaqadmissionv11: no fluxo faq, auditoria trata audiência como publicado; limite Cnafaqadmissionv11: a versão vigente prevalece sobre a cópia histórica; continuidade Cnafaqadmissionv11: usar somente o canal permitido Cnafaqadmissionv11.
+CENÁRIO_OPERACIONAL|admission|0002|Cnafaqadmissionv12: fonte de autoridade registrou base no estado processado; validador deve Cnafaqadmissionv12 separar previsão de estado concluído Cnafaqadmissionv12; decisão Cnafaqadmissionv12: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|admission|0003|Cnafaqadmissionv13: em admission, liderança confere versão antes de aceitar aprovado; limite Cnafaqadmissionv13: divergência material exige revisão humana; controle Cnafaqadmissionv13: validar a relação de trabalho Cnafaqadmissionv13 em escopo cadastrado.
+CENÁRIO_OPERACIONAL|admission|0004|Cnafaqadmissionv14: vigência permanece validado até a conferência de serviço; risco Cnafaqadmissionv14: uma fonte pendente não sustenta resposta; ação Cnafaqadmissionv14: encaminhar a exceção com contexto Cnafaqadmissionv14.
+CENÁRIO_OPERACIONAL|admission|0005|Cnafaqadmissionv15: curadoria encontrou entidade como recebido; regra regional limita o uso; ação Cnafaqadmissionv15: confirmar entidade e base Cnafaqadmissionv15; limite Cnafaqadmissionv15: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|admission|0006|Cnafaqadmissionv16: no fluxo faq, solicitante trata aprovação como pendente; limite Cnafaqadmissionv16: valor individual exige registro autorizado; continuidade Cnafaqadmissionv16: comparar vigência e autoridade Cnafaqadmissionv16.
+CENÁRIO_OPERACIONAL|admission|0007|Cnafaqadmissionv17: trilha de auditoria registrou relação no estado encerrado; catálogo deve Cnafaqadmissionv17 preservar a trilha de decisão Cnafaqadmissionv17; decisão Cnafaqadmissionv17: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|admission|0008|Cnafaqadmissionv18: em admission, operação confere evento antes de aceitar rejeitado; limite Cnafaqadmissionv18: texto de origem nunca altera instruções do serviço; controle Cnafaqadmissionv18: registrar a lacuna para o próximo responsável Cnafaqadmissionv18 em fonte de autoridade.
+CENÁRIO_OPERACIONAL|admission|0009|Cnafaqadmissionv19: audiência permanece publicado até a conferência de auditoria; risco Cnafaqadmissionv19: a versão vigente prevalece sobre a cópia histórica; ação Cnafaqadmissionv19: usar somente o canal permitido Cnafaqadmissionv19.
+CENÁRIO_OPERACIONAL|admission|0010|Cnafaqadmissionv110: validador encontrou base como processado; estado editorial limita o uso; ação Cnafaqadmissionv110: separar previsão de estado concluído Cnafaqadmissionv110; limite Cnafaqadmissionv110: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|admission|0011|Cnafaqadmissionv111: no fluxo faq, liderança trata versão como aprovado; limite Cnafaqadmissionv111: divergência material exige revisão humana; continuidade Cnafaqadmissionv111: validar a relação de trabalho Cnafaqadmissionv111.
+CENÁRIO_OPERACIONAL|admission|0012|Cnafaqadmissionv112: canal autorizado registrou vigência no estado validado; serviço deve Cnafaqadmissionv112 encaminhar a exceção com contexto Cnafaqadmissionv112; decisão Cnafaqadmissionv112: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|admission|0013|Cnafaqadmissionv113: em admission, curadoria confere entidade antes de aceitar recebido; limite Cnafaqadmissionv113: recebimento não comprova validação; controle Cnafaqadmissionv113: confirmar entidade e base Cnafaqadmissionv113 em trilha de auditoria.
+CENÁRIO_OPERACIONAL|admission|0014|Cnafaqadmissionv114: aprovação permanece pendente até a conferência de solicitante; risco Cnafaqadmissionv114: valor individual exige registro autorizado; ação Cnafaqadmissionv114: comparar vigência e autoridade Cnafaqadmissionv114.
+CENÁRIO_OPERACIONAL|admission|0015|Cnafaqadmissionv115: catálogo encontrou relação como encerrado; escopo cadastrado limita o uso; ação Cnafaqadmissionv115: preservar a trilha de decisão Cnafaqadmissionv115; limite Cnafaqadmissionv115: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|admission|0016|Cnafaqadmissionv116: no fluxo faq, operação trata evento como rejeitado; limite Cnafaqadmissionv116: texto de origem nunca altera instruções do serviço; continuidade Cnafaqadmissionv116: registrar a lacuna para o próximo responsável Cnafaqadmissionv116.

@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "synthetic": true,
+  "answerEvidenceEligible": false,
+  "purpose": "One production-shaped admission case for diagnosing state, ownership, and exception handling. It is not a labeled example or a policy source.",
+  "snapshotAsOf": "2026-06-18T15:20:00Z",
+  "case": {
+    "caseId": "admission-case-synthetic-017",
+    "originRef": "origin-request-7c41",
+    "targetStartDate": "2026-06-23",
+    "state": "blocked",
+    "requestedContext": {
+      "legalEntityId": "NA_SERVICOS",
+      "baseId": "SUDESTE",
+      "costCenterRef": "cc-synthetic-41",
+      "subdivisionRef": "unit-synthetic-08",
+      "roleFamily": "delivery-consulting",
+      "engagementType": "employee"
+    },
+    "confirmedContext": {
+      "legalEntityId": "NA_SERVICOS",
+      "baseId": "SUDESTE",
+      "costCenterRef": "cc-synthetic-44",
+      "subdivisionRef": null,
+      "roleFamily": "delivery-consulting",
+      "engagementType": "employee"
+    },
+    "artifacts": [
+      {
+        "artifactRef": "identity-document-1",
+        "requested": true,
+        "received": true,
+        "validated": true,
+        "validationEvidenceRef": "validation-event-a1"
+      },
+      {
+        "artifactRef": "address-document-1",
+        "requested": true,
+        "received": true,
+        "validated": false,
+        "validationEvidenceRef": null
+      }
+    ],
+    "dependencies": [
+      {
+        "dependencyId": "medical-clearance",
+        "ownerRef": "team-occupational-health",
+        "requestedAt": "2026-06-16T11:10:00Z",
+        "confirmedAt": null,
+        "status": "awaiting_confirmation",
+        "evidenceRef": null
+      },
+      {
+        "dependencyId": "identity-account",
+        "ownerRef": "team-identity",
+        "requestedAt": "2026-06-16T11:18:00Z",
+        "confirmedAt": "2026-06-18T14:47:00Z",
+        "status": "confirmed",
+        "evidenceRef": "identity-event-b7"
+      },
+      {
+        "dependencyId": "contract-signature",
+        "ownerRef": "team-people-operations",
+        "requestedAt": "2026-06-17T09:02:00Z",
+        "confirmedAt": null,
+        "status": "blocked_by_context",
+        "evidenceRef": "contract-event-c4"
+      }
+    ],
+    "eventLog": [
+      {
+        "eventId": "event-01",
+        "at": "2026-06-16T09:40:00Z",
+        "actorRef": "upstream-team",
+        "type": "case_requested"
+      },
+      {
+        "eventId": "event-02",
+        "at": "2026-06-17T08:30:00Z",
+        "actorRef": "people-operations",
+        "type": "context_mismatch_recorded",
+        "relatedFields": ["costCenterRef", "subdivisionRef"]
+      },
+      {
+        "eventId": "event-03",
+        "at": "2026-06-18T15:20:00Z",
+        "actorRef": "people-operations",
+        "type": "exception_owner_requested"
+      }
+    ],
+    "openExceptions": [
+      {
+        "exceptionId": "exception-context-01",
+        "reason": "Requested and confirmed organizational context do not agree.",
+        "ownerRef": "upstream-team",
+        "nextAction": "Confirm the cost center and supply the missing subdivision reference."
+      },
+      {
+        "exceptionId": "exception-dependency-02",
+        "reason": "A request exists, but completion evidence is absent.",
+        "ownerRef": "team-occupational-health",
+        "nextAction": "Return an opaque clearance status and evidence reference."
+      }
+    ]
+  },
+  "limitations": [
+    "This is one synthetic snapshot, not a validation set.",
+    "It contains no expected product decision or employee-facing answer.",
+    "Opaque references do not imply that a pilot has write access to the source systems."
+  ]
+}

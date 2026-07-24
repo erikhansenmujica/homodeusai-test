@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "synthetic": true,
+  "measurementWindow": {
+    "from": "2026-05-04",
+    "to": "2026-06-28",
+    "weeks": 8
+  },
+  "peopleOperationsService": {
+    "requestsObserved": 5318,
+    "monthlyEquivalentRequests": 2659,
+    "monthlyEquivalentAnalystHours": 503.2,
+    "medianSearchMinutes": 6.4,
+    "medianValidationMinutes": 5.1,
+    "medianFirstUsefulResponseHours": 19.3,
+    "reassignedRequestRate": 0.186,
+    "genericHandoffReopenRate": 0.314
+  },
+  "prototypePilot": {
+    "reviewedQuestions": 198,
+    "topFiveContainedPlausiblePassage": 174,
+    "reviewerJudgedAnswerReady": 102,
+    "unsupportedOrUnsafeAnswers": 7,
+    "safeActionableHandoffs": 29
+  },
+  "measurementNotes": [
+    "Analyst hours combine search, applicability checks, evidence validation, and routing.",
+    "A plausible passage was not necessarily current, approved, complete, or applicable.",
+    "A safe actionable handoff named an owner, reason, expected response time, and durable ticket.",
+    "The sample does not estimate demand growth or downstream employee productivity loss."
+  ]
+}

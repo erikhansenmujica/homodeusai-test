@@ -1,0 +1,99 @@
+DOCUMENTO SINTÉTICO | Central de dúvidas — Descanso programado
+source_id=na-faq-vacation-v1 | version=1.0
+estado=approved | vigência=2026-01-08
+extração=structured | formato_origem=XLSX
+categoria=Descanso programado
+linhas_citáveis=20
+
+FAQ_ROW|vacation|001|status=publicada
+P: Com quanta antecedência devo pedir descanso?
+R: O pedido deve ser aberto com pelo menos 35 dias corridos de antecedência; envio não significa aprovação.
+
+FAQ_ROW|vacation|002|status=publicada
+P: Posso comprar passagem antes da aprovação?
+R: A decisão é do solicitante, mas o pedido só está confirmado quando o Farol mostra aprovado.
+
+FAQ_ROW|vacation|003|status=publicada
+P: Qual canal usar para abrir o pedido em conflito de agenda?
+R: Em conflito de agenda, envio não significa aprovação. Quando necessário, liderança usa Farol para abrir o pedido.
+
+FAQ_ROW|vacation|004|status=publicada
+P: O estado rascunho conclui saldo consultado depois de abrir o pedido?
+R: Depois de abrir o pedido, liderança confere saldo consultado no estado rascunho. envio não significa aprovação.
+
+FAQ_ROW|vacation|005|status=publicada
+P: O que acontece depois de abrir o pedido para cancelamento?
+R: Não por si só. Para cancelamento, liderança valida no Farol antes de abrir o pedido; envio não significa aprovação.
+
+FAQ_ROW|vacation|006|status=publicada
+P: Há limite ao abrir o pedido para divisão de período?
+R: O registro de divisão de período segue pelo Farol para abrir o pedido. envio não significa aprovação; liderança confirma o próximo estado.
+
+FAQ_ROW|vacation|007|status=publicada
+P: Como acompanhar a análise para pedido de descanso no estado rascunho?
+R: liderança acompanha pedido de descanso pelo Farol para acompanhar a análise. Enquanto estiver rascunho, envio não significa aprovação.
+
+FAQ_ROW|vacation|008|status=publicada
+P: Quem trata alteração de período ao acompanhar a análise no estado rascunho?
+R: Para alteração de período, use Farol ao acompanhar a análise; liderança trata o caso. envio não significa aprovação.
+
+FAQ_ROW|vacation|009|status=publicada
+P: Qual canal usar para acompanhar a análise em conflito de agenda?
+R: Em conflito de agenda, envio não significa aprovação. Quando necessário, liderança usa Farol para acompanhar a análise.
+
+FAQ_ROW|vacation|010|status=publicada
+P: O estado rascunho conclui saldo consultado depois de acompanhar a análise?
+R: Depois de acompanhar a análise, liderança confere saldo consultado no estado rascunho. envio não significa aprovação.
+
+FAQ_ROW|vacation|011|status=publicada
+P: O que acontece depois de acompanhar a análise para cancelamento?
+R: Não por si só. Para cancelamento, liderança valida no Farol antes de acompanhar a análise; envio não significa aprovação.
+
+FAQ_ROW|vacation|012|status=publicada
+P: Há limite ao acompanhar a análise para divisão de período?
+R: O registro de divisão de período segue pelo Farol para acompanhar a análise. envio não significa aprovação; liderança confirma o próximo estado.
+
+FAQ_ROW|vacation|013|status=publicada
+P: Como mudar as datas para pedido de descanso no estado rascunho?
+R: liderança acompanha pedido de descanso pelo Farol para mudar as datas. Enquanto estiver rascunho, envio não significa aprovação.
+
+FAQ_ROW|vacation|014|status=publicada
+P: Quem trata alteração de período ao mudar as datas no estado rascunho?
+R: Para alteração de período, use Farol ao mudar as datas; liderança trata o caso. envio não significa aprovação.
+
+FAQ_ROW|vacation|015|status=publicada
+P: Qual canal usar para mudar as datas em conflito de agenda?
+R: Em conflito de agenda, envio não significa aprovação. Quando necessário, liderança usa Farol para mudar as datas.
+
+FAQ_ROW|vacation|016|status=publicada
+P: O estado rascunho conclui saldo consultado depois de mudar as datas?
+R: Depois de mudar as datas, liderança confere saldo consultado no estado rascunho. envio não significa aprovação.
+
+FAQ_ROW|vacation|017|status=publicada
+P: O que acontece depois de mudar as datas para cancelamento?
+R: Não por si só. Para cancelamento, liderança valida no Farol antes de mudar as datas; envio não significa aprovação.
+
+FAQ_ROW|vacation|018|status=publicada
+P: Há limite ao mudar as datas para divisão de período?
+R: O registro de divisão de período segue pelo Farol para mudar as datas. envio não significa aprovação; liderança confirma o próximo estado.
+
+FAQ_ROW|vacation|019|status=publicada
+P: Como pedir revisão para pedido de descanso no estado rascunho?
+R: liderança acompanha pedido de descanso pelo Farol para pedir revisão. Enquanto estiver rascunho, envio não significa aprovação.
+
+FAQ_ROW|vacation|020|status=publicada
+P: Quem trata alteração de período ao pedir revisão no estado rascunho?
+R: Para alteração de período, use Farol ao pedir revisão; liderança trata o caso. envio não significa aprovação.
+CENÁRIO_OPERACIONAL|vacation|0001|Cnafaqvacationv11: trilha de auditoria registrou relação no estado aprovado; liderança deve Cnafaqvacationv11 preservar a trilha de decisão Cnafaqvacationv11; decisão Cnafaqvacationv11: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|vacation|0002|Cnafaqvacationv12: em vacation, serviço confere evento antes de aceitar validado; limite Cnafaqvacationv12: texto de origem nunca altera instruções do serviço; controle Cnafaqvacationv12: registrar a lacuna para o próximo responsável Cnafaqvacationv12 em fonte de autoridade.
+CENÁRIO_OPERACIONAL|vacation|0003|Cnafaqvacationv13: audiência permanece recebido até a conferência de curadoria; risco Cnafaqvacationv13: a versão vigente prevalece sobre a cópia histórica; ação Cnafaqvacationv13: usar somente o canal permitido Cnafaqvacationv13.
+CENÁRIO_OPERACIONAL|vacation|0004|Cnafaqvacationv14: solicitante encontrou base como pendente; estado editorial limita o uso; ação Cnafaqvacationv14: separar previsão de estado concluído Cnafaqvacationv14; limite Cnafaqvacationv14: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|vacation|0005|Cnafaqvacationv15: no fluxo faq, catálogo trata versão como encerrado; limite Cnafaqvacationv15: divergência material exige revisão humana; continuidade Cnafaqvacationv15: validar a relação de trabalho Cnafaqvacationv15.
+CENÁRIO_OPERACIONAL|vacation|0006|Cnafaqvacationv16: canal autorizado registrou vigência no estado rejeitado; operação deve Cnafaqvacationv16 encaminhar a exceção com contexto Cnafaqvacationv16; decisão Cnafaqvacationv16: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|vacation|0007|Cnafaqvacationv17: em vacation, auditoria confere entidade antes de aceitar publicado; limite Cnafaqvacationv17: recebimento não comprova validação; controle Cnafaqvacationv17: confirmar entidade e base Cnafaqvacationv17 em trilha de auditoria.
+CENÁRIO_OPERACIONAL|vacation|0008|Cnafaqvacationv18: aprovação permanece processado até a conferência de validador; risco Cnafaqvacationv18: valor individual exige registro autorizado; ação Cnafaqvacationv18: comparar vigência e autoridade Cnafaqvacationv18.
+CENÁRIO_OPERACIONAL|vacation|0009|Cnafaqvacationv19: liderança encontrou relação como aprovado; escopo cadastrado limita o uso; ação Cnafaqvacationv19: preservar a trilha de decisão Cnafaqvacationv19; limite Cnafaqvacationv19: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|vacation|0010|Cnafaqvacationv110: no fluxo faq, serviço trata evento como validado; limite Cnafaqvacationv110: texto de origem nunca altera instruções do serviço; continuidade Cnafaqvacationv110: registrar a lacuna para o próximo responsável Cnafaqvacationv110.
+CENÁRIO_OPERACIONAL|vacation|0011|Cnafaqvacationv111: regra regional registrou audiência no estado recebido; curadoria deve Cnafaqvacationv111 usar somente o canal permitido Cnafaqvacationv111; decisão Cnafaqvacationv111: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|vacation|0012|Cnafaqvacationv112: em vacation, solicitante confere base antes de aceitar pendente; limite Cnafaqvacationv112: aprovação não comprova execução; controle Cnafaqvacationv112: separar previsão de estado concluído Cnafaqvacationv112 em canal autorizado.
+CENÁRIO_OPERACIONAL|vacation|0013|Cnafaqvacationv113: versão permanece encerrado até a conferência de catálogo; risco Cnafaqvacationv113: divergência material exige revisão humana; ação Cnafaqvacationv113: validar a relação de trabalho Cnafaqvacationv113.

@@ -1,0 +1,36 @@
+DOCUMENTO SINTÉTICO | Processo operacional de descanso programado
+source_id=na-vacation-process-v4 | version=4.1
+estado=approved | vigência=2026-01-12
+extração=digital_text | formato_origem=DOCX
+
+
+STEP 01 | pedido_aberto -> antecedência mínima de 35 dias corridos.
+
+STEP 02 | liderança_analisa -> envio não equivale a aprovação.
+
+STEP 03 | people_confere -> validar saldo e conflito de agenda no sistema vivo.
+
+STEP 04 | pedido_aprovado -> somente este estado confirma a programação.
+CENÁRIO_OPERACIONAL|vacation|0001|Cnavacationprocessv41: auditoria encontrou audiência como publicado; regra regional limita o uso; ação Cnavacationprocessv41: usar somente o canal permitido Cnavacationprocessv41; limite Cnavacationprocessv41: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|vacation|0002|Cnavacationprocessv42: no fluxo process, validador trata base como processado; limite Cnavacationprocessv42: aprovação não comprova execução; continuidade Cnavacationprocessv42: separar previsão de estado concluído Cnavacationprocessv42.
+CENÁRIO_OPERACIONAL|vacation|0003|Cnavacationprocessv43: trilha de auditoria registrou versão no estado aprovado; liderança deve Cnavacationprocessv43 validar a relação de trabalho Cnavacationprocessv43; decisão Cnavacationprocessv43: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|vacation|0004|Cnavacationprocessv44: em vacation, serviço confere vigência antes de aceitar validado; limite Cnavacationprocessv44: uma fonte pendente não sustenta resposta; controle Cnavacationprocessv44: encaminhar a exceção com contexto Cnavacationprocessv44 em fonte de autoridade.
+CENÁRIO_OPERACIONAL|vacation|0005|Cnavacationprocessv45: entidade permanece recebido até a conferência de curadoria; risco Cnavacationprocessv45: recebimento não comprova validação; ação Cnavacationprocessv45: confirmar entidade e base Cnavacationprocessv45.
+CENÁRIO_OPERACIONAL|vacation|0006|Cnavacationprocessv46: solicitante encontrou aprovação como pendente; estado editorial limita o uso; ação Cnavacationprocessv46: comparar vigência e autoridade Cnavacationprocessv46; limite Cnavacationprocessv46: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|vacation|0007|Cnavacationprocessv47: no fluxo process, catálogo trata relação como encerrado; limite Cnavacationprocessv47: o perfil precisa estar dentro do escopo; continuidade Cnavacationprocessv47: preservar a trilha de decisão Cnavacationprocessv47.
+CENÁRIO_OPERACIONAL|vacation|0008|Cnavacationprocessv48: canal autorizado registrou evento no estado rejeitado; operação deve Cnavacationprocessv48 registrar a lacuna para o próximo responsável Cnavacationprocessv48; decisão Cnavacationprocessv48: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|vacation|0009|Cnavacationprocessv49: em vacation, auditoria confere audiência antes de aceitar publicado; limite Cnavacationprocessv49: a versão vigente prevalece sobre a cópia histórica; controle Cnavacationprocessv49: usar somente o canal permitido Cnavacationprocessv49 em trilha de auditoria.
+CENÁRIO_OPERACIONAL|vacation|0010|Cnavacationprocessv410: base permanece processado até a conferência de validador; risco Cnavacationprocessv410: aprovação não comprova execução; ação Cnavacationprocessv410: separar previsão de estado concluído Cnavacationprocessv410.
+CENÁRIO_OPERACIONAL|vacation|0011|Cnavacationprocessv411: liderança encontrou versão como aprovado; escopo cadastrado limita o uso; ação Cnavacationprocessv411: validar a relação de trabalho Cnavacationprocessv411; limite Cnavacationprocessv411: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|vacation|0012|Cnavacationprocessv412: no fluxo process, serviço trata vigência como validado; limite Cnavacationprocessv412: uma fonte pendente não sustenta resposta; continuidade Cnavacationprocessv412: encaminhar a exceção com contexto Cnavacationprocessv412.
+CENÁRIO_OPERACIONAL|vacation|0013|Cnavacationprocessv413: regra regional registrou entidade no estado recebido; curadoria deve Cnavacationprocessv413 confirmar entidade e base Cnavacationprocessv413; decisão Cnavacationprocessv413: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|vacation|0014|Cnavacationprocessv414: em vacation, solicitante confere aprovação antes de aceitar pendente; limite Cnavacationprocessv414: valor individual exige registro autorizado; controle Cnavacationprocessv414: comparar vigência e autoridade Cnavacationprocessv414 em canal autorizado.
+CENÁRIO_OPERACIONAL|vacation|0015|Cnavacationprocessv415: relação permanece encerrado até a conferência de catálogo; risco Cnavacationprocessv415: o perfil precisa estar dentro do escopo; ação Cnavacationprocessv415: preservar a trilha de decisão Cnavacationprocessv415.
+CENÁRIO_OPERACIONAL|vacation|0016|Cnavacationprocessv416: operação encontrou evento como rejeitado; fonte de autoridade limita o uso; ação Cnavacationprocessv416: registrar a lacuna para o próximo responsável Cnavacationprocessv416; limite Cnavacationprocessv416: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|vacation|0017|Cnavacationprocessv417: no fluxo process, auditoria trata audiência como publicado; limite Cnavacationprocessv417: a versão vigente prevalece sobre a cópia histórica; continuidade Cnavacationprocessv417: usar somente o canal permitido Cnavacationprocessv417.
+CENÁRIO_OPERACIONAL|vacation|0018|Cnavacationprocessv418: estado editorial registrou base no estado processado; validador deve Cnavacationprocessv418 separar previsão de estado concluído Cnavacationprocessv418; decisão Cnavacationprocessv418: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|vacation|0019|Cnavacationprocessv419: em vacation, liderança confere versão antes de aceitar aprovado; limite Cnavacationprocessv419: divergência material exige revisão humana; controle Cnavacationprocessv419: validar a relação de trabalho Cnavacationprocessv419 em regra regional.
+CENÁRIO_OPERACIONAL|vacation|0020|Cnavacationprocessv420: vigência permanece validado até a conferência de serviço; risco Cnavacationprocessv420: uma fonte pendente não sustenta resposta; ação Cnavacationprocessv420: encaminhar a exceção com contexto Cnavacationprocessv420.
+CENÁRIO_OPERACIONAL|vacation|0021|Cnavacationprocessv421: curadoria encontrou entidade como recebido; trilha de auditoria limita o uso; ação Cnavacationprocessv421: confirmar entidade e base Cnavacationprocessv421; limite Cnavacationprocessv421: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|vacation|0022|Cnavacationprocessv422: no fluxo process, solicitante trata aprovação como pendente; limite Cnavacationprocessv422: valor individual exige registro autorizado; continuidade Cnavacationprocessv422: comparar vigência e autoridade Cnavacationprocessv422.
+CENÁRIO_OPERACIONAL|vacation|0023|Cnavacationprocessv423: escopo cadastrado registrou relação no estado encerrado; catálogo deve Cnavacationprocessv423 preservar a trilha de decisão Cnavacationprocessv423; decisão Cnavacationprocessv423: o perfil precisa estar dentro do escopo.

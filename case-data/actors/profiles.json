@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "profiles": [
+    {
+      "profileId": "employee-na-servicos-sudeste",
+      "legalEntityId": "NA_SERVICOS",
+      "baseId": "SUDESTE",
+      "role": "colaborador",
+      "relationship": "employee",
+      "audiences": ["employee"]
+    },
+    {
+      "profileId": "leader-na-servicos-sudeste",
+      "legalEntityId": "NA_SERVICOS",
+      "baseId": "SUDESTE",
+      "role": "lider",
+      "relationship": "employee",
+      "audiences": ["employee"]
+    },
+    {
+      "profileId": "employee-na-servicos-centro-oeste",
+      "legalEntityId": "NA_SERVICOS",
+      "baseId": "CENTRO_OESTE",
+      "role": "colaborador",
+      "relationship": "employee",
+      "audiences": ["employee"]
+    },
+    {
+      "profileId": "employee-na-sul",
+      "legalEntityId": "NA_SUL",
+      "baseId": "SUL",
+      "role": "colaborador",
+      "relationship": "employee",
+      "audiences": ["employee"]
+    },
+    {
+      "profileId": "apprentice-na-sul",
+      "legalEntityId": "NA_SUL",
+      "baseId": "SUL",
+      "role": "colaborador",
+      "relationship": "apprentice",
+      "audiences": ["employee"]
+    },
+    {
+      "profileId": "intern-na-norte",
+      "legalEntityId": "NA_NORTE",
+      "baseId": "NORTE",
+      "role": "colaborador",
+      "relationship": "intern",
+      "audiences": ["employee"]
+    },
+    {
+      "profileId": "contract-manager-na-norte",
+      "legalEntityId": "NA_NORTE",
+      "baseId": "NORTE",
+      "role": "gestor_contrato",
+      "relationship": "contractor",
+      "audiences": ["employee"]
+    },
+    {
+      "profileId": "people-ops-analyst",
+      "legalEntityId": "NA_SERVICOS",
+      "baseId": "SUDESTE",
+      "role": "people_ops",
+      "relationship": "employee",
+      "audiences": ["employee", "internal"]
+    },
+    {
+      "profileId": "privacy-specialist",
+      "legalEntityId": "NA_SERVICOS",
+      "baseId": "SUDESTE",
+      "role": "privacy",
+      "relationship": "employee",
+      "audiences": ["employee", "internal", "restricted"]
+    },
+    {
+      "profileId": "external-candidate",
+      "legalEntityId": "NA_SERVICOS",
+      "baseId": "SUDESTE",
+      "role": "candidato",
+      "relationship": "candidate",
+      "audiences": ["employee"]
+    }
+  ]
+}

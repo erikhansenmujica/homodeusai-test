@@ -1,0 +1,1399 @@
+{
+  "schemaVersion": 2,
+  "datasetId": "nexo-atlantico-people-ops-v2",
+  "snapshotAsOf": "2026-07-22T12:00:00Z",
+  "synthetic": true,
+  "parityContract": "22-deliveries-34-sources",
+  "expectedDeliveryFileCount": 22,
+  "expectedSourceCount": 34,
+  "expectedSourceCharacters": 613592,
+  "expectedFaqCategories": 13,
+  "expectedFaqRows": 269,
+  "expectedOcrReviewedFiles": 3,
+  "generatedArtifact": "source-documents.json",
+  "supportFiles": {
+    "deliveryFiles": "delivery-files.json",
+    "profiles": "actors/profiles.json",
+    "handoffPolicy": "operations/human-handoff-policy.json",
+    "partialRegistry": "registry/source-registry.partial.csv",
+    "discoverySessions": "client-discovery/discovery-sessions.json",
+    "admissionCaseSnapshot": "client-discovery/admission-case-snapshot.json"
+  },
+  "sources": [
+    {
+      "sourceId": "na-compensation-professional-2025",
+      "versionId": "2025.10",
+      "title": "Referência interna de remuneração — trilhas profissionais",
+      "sourceType": "salary_table",
+      "domain": "compensation",
+      "audience": "internal",
+      "approval": "approved",
+      "authorityTier": 70,
+      "effectiveFrom": "2025-10-01",
+      "policySensitivity": "high",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "people_ops",
+          "privacy"
+        ],
+        "relationships": [
+          "employee"
+        ]
+      },
+      "contentFile": "sources/compensation/professional-reference-2025.txt",
+      "deliveryFileId": "delivery-01",
+      "originalFormat": "PDF",
+      "extractionMode": "ocr",
+      "ocrReviewed": true,
+      "expectedCharacters": 4534
+    },
+    {
+      "sourceId": "na-agreement-metropolitan-2025",
+      "versionId": "2025.2",
+      "title": "Instrumento coletivo Horizonte Metropolitano 2025–2026",
+      "sourceType": "collective_agreement",
+      "domain": "collective_rules",
+      "audience": "employee",
+      "approval": "approved",
+      "authorityTier": 100,
+      "effectiveFrom": "2025-09-01",
+      "effectiveTo": "2026-08-31",
+      "policySensitivity": "medium",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS"
+        ],
+        "baseIds": [
+          "SUDESTE"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice"
+        ]
+      },
+      "contentFile": "sources/agreements/metropolitan-2025-2026.txt",
+      "deliveryFileId": "delivery-02",
+      "originalFormat": "PDF",
+      "extractionMode": "ocr",
+      "ocrReviewed": true,
+      "expectedCharacters": 43884
+    },
+    {
+      "sourceId": "na-faq-thirteenth-pay-v1",
+      "versionId": "1.0",
+      "title": "Central de dúvidas — Décimo terceiro",
+      "sourceType": "faq",
+      "domain": "payroll",
+      "audience": "employee",
+      "approval": "approved",
+      "authorityTier": 60,
+      "effectiveFrom": "2026-01-08",
+      "policySensitivity": "low",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice",
+          "intern"
+        ]
+      },
+      "contentFile": "sources/faq/01-thirteenth-pay.txt",
+      "deliveryFileId": "delivery-03",
+      "originalFormat": "XLSX",
+      "extractionMode": "structured",
+      "ocrReviewed": false,
+      "expectedCharacters": 7998,
+      "faqCategory": "thirteenth-pay",
+      "faqRows": 10
+    },
+    {
+      "sourceId": "na-faq-admission-v1",
+      "versionId": "1.0",
+      "title": "Central de dúvidas — Ingresso",
+      "sourceType": "faq",
+      "domain": "admission",
+      "audience": "employee",
+      "approval": "approved",
+      "authorityTier": 80,
+      "effectiveFrom": "2026-01-08",
+      "policySensitivity": "low",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops",
+          "candidato"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice",
+          "intern",
+          "candidate"
+        ]
+      },
+      "contentFile": "sources/faq/02-admission.txt",
+      "deliveryFileId": "delivery-03",
+      "originalFormat": "XLSX",
+      "extractionMode": "structured",
+      "ocrReviewed": false,
+      "expectedCharacters": 12274,
+      "faqCategory": "admission",
+      "faqRows": 30
+    },
+    {
+      "sourceId": "na-faq-absence-leave-v1",
+      "versionId": "1.0",
+      "title": "Central de dúvidas — Ausências e afastamentos",
+      "sourceType": "faq",
+      "domain": "leave",
+      "audience": "employee",
+      "approval": "approved",
+      "authorityTier": 60,
+      "effectiveFrom": "2026-01-08",
+      "policySensitivity": "low",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice",
+          "intern"
+        ]
+      },
+      "contentFile": "sources/faq/03-absence-leave.txt",
+      "deliveryFileId": "delivery-03",
+      "originalFormat": "XLSX",
+      "extractionMode": "structured",
+      "ocrReviewed": false,
+      "expectedCharacters": 12766,
+      "faqCategory": "absence-leave",
+      "faqRows": 20
+    },
+    {
+      "sourceId": "na-faq-employment-contract-v1",
+      "versionId": "1.0",
+      "title": "Central de dúvidas — Contrato de trabalho",
+      "sourceType": "faq",
+      "domain": "employment",
+      "audience": "employee",
+      "approval": "approved",
+      "authorityTier": 60,
+      "effectiveFrom": "2026-01-08",
+      "policySensitivity": "low",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice",
+          "intern"
+        ]
+      },
+      "contentFile": "sources/faq/04-employment-contract.txt",
+      "deliveryFileId": "delivery-03",
+      "originalFormat": "XLSX",
+      "extractionMode": "structured",
+      "ocrReviewed": false,
+      "expectedCharacters": 8198,
+      "faqCategory": "employment-contract",
+      "faqRows": 30
+    },
+    {
+      "sourceId": "na-faq-personal-data-v1",
+      "versionId": "1.0",
+      "title": "Central de dúvidas — Alterações cadastrais",
+      "sourceType": "faq",
+      "domain": "personal_data",
+      "audience": "employee",
+      "approval": "approved",
+      "authorityTier": 60,
+      "effectiveFrom": "2026-01-08",
+      "policySensitivity": "medium",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice",
+          "intern"
+        ]
+      },
+      "contentFile": "sources/faq/05-personal-data.txt",
+      "deliveryFileId": "delivery-03",
+      "originalFormat": "XLSX",
+      "extractionMode": "structured",
+      "ocrReviewed": false,
+      "expectedCharacters": 8421,
+      "faqCategory": "personal-data",
+      "faqRows": 10
+    },
+    {
+      "sourceId": "na-faq-termination-v1",
+      "versionId": "1.0",
+      "title": "Central de dúvidas — Encerramento do vínculo",
+      "sourceType": "faq",
+      "domain": "termination",
+      "audience": "employee",
+      "approval": "approved",
+      "authorityTier": 80,
+      "effectiveFrom": "2026-01-08",
+      "policySensitivity": "medium",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice",
+          "intern"
+        ]
+      },
+      "contentFile": "sources/faq/06-termination.txt",
+      "deliveryFileId": "delivery-03",
+      "originalFormat": "XLSX",
+      "extractionMode": "structured",
+      "ocrReviewed": false,
+      "expectedCharacters": 12825,
+      "faqCategory": "termination",
+      "faqRows": 20
+    },
+    {
+      "sourceId": "na-faq-vacation-v1",
+      "versionId": "1.0",
+      "title": "Central de dúvidas — Descanso programado",
+      "sourceType": "faq",
+      "domain": "vacation",
+      "audience": "employee",
+      "approval": "approved",
+      "authorityTier": 60,
+      "effectiveFrom": "2026-01-08",
+      "policySensitivity": "low",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice",
+          "intern"
+        ]
+      },
+      "contentFile": "sources/faq/07-vacation.txt",
+      "deliveryFileId": "delivery-03",
+      "originalFormat": "XLSX",
+      "extractionMode": "structured",
+      "ocrReviewed": false,
+      "expectedCharacters": 8296,
+      "faqCategory": "vacation",
+      "faqRows": 20
+    },
+    {
+      "sourceId": "na-faq-social-contributions-v1",
+      "versionId": "1.0",
+      "title": "Central de dúvidas — Contribuições e recolhimentos",
+      "sourceType": "faq",
+      "domain": "payroll",
+      "audience": "employee",
+      "approval": "approved",
+      "authorityTier": 60,
+      "effectiveFrom": "2026-01-08",
+      "policySensitivity": "low",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice",
+          "intern"
+        ]
+      },
+      "contentFile": "sources/faq/08-social-contributions.txt",
+      "deliveryFileId": "delivery-03",
+      "originalFormat": "XLSX",
+      "extractionMode": "structured",
+      "ocrReviewed": false,
+      "expectedCharacters": 7538,
+      "faqCategory": "social-contributions",
+      "faqRows": 9
+    },
+    {
+      "sourceId": "na-faq-payroll-v1",
+      "versionId": "1.0",
+      "title": "Central de dúvidas — Fechamento e comprovantes",
+      "sourceType": "faq",
+      "domain": "payroll",
+      "audience": "employee",
+      "approval": "approved",
+      "authorityTier": 60,
+      "effectiveFrom": "2026-01-08",
+      "policySensitivity": "low",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice",
+          "intern"
+        ]
+      },
+      "contentFile": "sources/faq/09-payroll.txt",
+      "deliveryFileId": "delivery-03",
+      "originalFormat": "XLSX",
+      "extractionMode": "structured",
+      "ocrReviewed": false,
+      "expectedCharacters": 14098,
+      "faqCategory": "payroll",
+      "faqRows": 34
+    },
+    {
+      "sourceId": "na-faq-overtime-v1",
+      "versionId": "1.0",
+      "title": "Central de dúvidas — Horas adicionais",
+      "sourceType": "faq",
+      "domain": "timekeeping",
+      "audience": "employee",
+      "approval": "approved",
+      "authorityTier": 80,
+      "effectiveFrom": "2026-01-08",
+      "policySensitivity": "low",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice",
+          "intern"
+        ]
+      },
+      "contentFile": "sources/faq/10-overtime.txt",
+      "deliveryFileId": "delivery-03",
+      "originalFormat": "XLSX",
+      "extractionMode": "structured",
+      "ocrReviewed": false,
+      "expectedCharacters": 15077,
+      "faqCategory": "overtime",
+      "faqRows": 30
+    },
+    {
+      "sourceId": "na-faq-timekeeping-v1",
+      "versionId": "1.0",
+      "title": "Central de dúvidas — Registro de jornada",
+      "sourceType": "faq",
+      "domain": "timekeeping",
+      "audience": "employee",
+      "approval": "approved",
+      "authorityTier": 80,
+      "effectiveFrom": "2026-01-08",
+      "policySensitivity": "low",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice",
+          "intern"
+        ]
+      },
+      "contentFile": "sources/faq/11-timekeeping.txt",
+      "deliveryFileId": "delivery-03",
+      "originalFormat": "XLSX",
+      "extractionMode": "structured",
+      "ocrReviewed": false,
+      "expectedCharacters": 16788,
+      "faqCategory": "timekeeping",
+      "faqRows": 29
+    },
+    {
+      "sourceId": "na-faq-other-topics-v1",
+      "versionId": "1.0",
+      "title": "Central de dúvidas — Outros temas",
+      "sourceType": "faq",
+      "domain": "people_operations",
+      "audience": "employee",
+      "approval": "approved",
+      "authorityTier": 60,
+      "effectiveFrom": "2026-01-08",
+      "policySensitivity": "low",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice",
+          "intern"
+        ]
+      },
+      "contentFile": "sources/faq/12-other-topics.txt",
+      "deliveryFileId": "delivery-03",
+      "originalFormat": "XLSX",
+      "extractionMode": "structured",
+      "ocrReviewed": false,
+      "expectedCharacters": 5451,
+      "faqCategory": "other-topics",
+      "faqRows": 7
+    },
+    {
+      "sourceId": "na-faq-health-safety-v1",
+      "versionId": "1.0",
+      "title": "Central de dúvidas — Saúde e segurança",
+      "sourceType": "faq",
+      "domain": "health_safety",
+      "audience": "employee",
+      "approval": "approved",
+      "authorityTier": 60,
+      "effectiveFrom": "2026-01-08",
+      "policySensitivity": "medium",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice",
+          "intern"
+        ]
+      },
+      "contentFile": "sources/faq/13-health-safety.txt",
+      "deliveryFileId": "delivery-03",
+      "originalFormat": "XLSX",
+      "extractionMode": "structured",
+      "ocrReviewed": false,
+      "expectedCharacters": 12759,
+      "faqCategory": "health-safety",
+      "faqRows": 20
+    },
+    {
+      "sourceId": "na-agreement-planalto-2025",
+      "versionId": "2025.1",
+      "title": "Instrumento coletivo Planalto Central 2025–2026",
+      "sourceType": "collective_agreement",
+      "domain": "collective_rules",
+      "audience": "employee",
+      "approval": "approved",
+      "authorityTier": 100,
+      "effectiveFrom": "2025-08-01",
+      "effectiveTo": "2026-07-31",
+      "policySensitivity": "medium",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS"
+        ],
+        "baseIds": [
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops"
+        ],
+        "relationships": [
+          "employee"
+        ]
+      },
+      "contentFile": "sources/agreements/planalto-2025-2026.txt",
+      "deliveryFileId": "delivery-04",
+      "originalFormat": "PDF",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "expectedCharacters": 48958
+    },
+    {
+      "sourceId": "na-people-ops-process-map-r7",
+      "versionId": "7-extract",
+      "title": "Mapa operacional de People Operations — extração parcial",
+      "sourceType": "process_map",
+      "domain": "people_operations",
+      "audience": "internal",
+      "approval": "pending",
+      "authorityTier": 45,
+      "effectiveFrom": "2026-02-04",
+      "policySensitivity": "high",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "people_ops",
+          "privacy"
+        ],
+        "relationships": [
+          "employee"
+        ]
+      },
+      "contentFile": "sources/operations/process-map-extraction.txt",
+      "deliveryFileId": "delivery-05",
+      "originalFormat": "XLSX",
+      "extractionMode": "structured",
+      "ocrReviewed": false,
+      "expectedCharacters": 62684
+    },
+    {
+      "sourceId": "na-company-rules-matrix-v6",
+      "versionId": "6.4",
+      "title": "Matriz de particularidades organizacionais",
+      "sourceType": "company_particularities",
+      "domain": "corporate_governance",
+      "audience": "internal",
+      "approval": "approved",
+      "authorityTier": 85,
+      "effectiveFrom": "2026-01-15",
+      "policySensitivity": "high",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "people_ops",
+          "privacy"
+        ],
+        "relationships": [
+          "employee"
+        ]
+      },
+      "contentFile": "sources/operations/company-rules.csv",
+      "deliveryFileId": "delivery-06",
+      "originalFormat": "XLSX",
+      "extractionMode": "structured",
+      "ocrReviewed": false,
+      "expectedCharacters": 48052
+    },
+    {
+      "sourceId": "na-timekeeping-policy-v4",
+      "versionId": "4.0",
+      "title": "Política de jornada e registro",
+      "sourceType": "policy",
+      "domain": "timekeeping",
+      "audience": "employee",
+      "approval": "approved",
+      "authorityTier": 80,
+      "effectiveFrom": "2026-01-05",
+      "policySensitivity": "low",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice",
+          "intern"
+        ]
+      },
+      "contentFile": "sources/policies/timekeeping-policy.md",
+      "deliveryFileId": "delivery-07",
+      "originalFormat": "DOCX",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "expectedCharacters": 8017
+    },
+    {
+      "sourceId": "na-termination-policy-v3",
+      "versionId": "3.1",
+      "title": "Política de encerramento do vínculo",
+      "sourceType": "policy",
+      "domain": "termination",
+      "audience": "employee",
+      "approval": "approved",
+      "authorityTier": 80,
+      "effectiveFrom": "2026-01-10",
+      "policySensitivity": "medium",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice",
+          "intern"
+        ]
+      },
+      "contentFile": "sources/policies/termination-policy.md",
+      "deliveryFileId": "delivery-08",
+      "originalFormat": "PDF",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "expectedCharacters": 12719
+    },
+    {
+      "sourceId": "na-admission-policy-v5",
+      "versionId": "5.2",
+      "title": "Política de ingresso e formalização",
+      "sourceType": "policy",
+      "domain": "admission",
+      "audience": "employee",
+      "approval": "approved",
+      "authorityTier": 80,
+      "effectiveFrom": "2026-02-03",
+      "policySensitivity": "medium",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops",
+          "candidato"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice",
+          "intern",
+          "candidate"
+        ]
+      },
+      "contentFile": "sources/policies/admission-policy.md",
+      "deliveryFileId": "delivery-09",
+      "originalFormat": "PDF",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "expectedCharacters": 11850
+    },
+    {
+      "sourceId": "na-hiring-process-v4",
+      "versionId": "4.3",
+      "title": "Processo operacional de contratação",
+      "sourceType": "process",
+      "domain": "admission",
+      "audience": "internal",
+      "approval": "approved",
+      "authorityTier": 70,
+      "effectiveFrom": "2026-02-03",
+      "policySensitivity": "high",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "people_ops",
+          "privacy"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice",
+          "intern"
+        ]
+      },
+      "contentFile": "sources/processes/hiring-process.txt",
+      "deliveryFileId": "delivery-10",
+      "originalFormat": "DOCX",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "expectedCharacters": 6925
+    },
+    {
+      "sourceId": "na-time-control-process-v3",
+      "versionId": "3.7",
+      "title": "Processo operacional de controle de jornada",
+      "sourceType": "process",
+      "domain": "timekeeping",
+      "audience": "internal",
+      "approval": "approved",
+      "authorityTier": 70,
+      "effectiveFrom": "2026-01-05",
+      "policySensitivity": "high",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "people_ops",
+          "privacy"
+        ],
+        "relationships": [
+          "employee"
+        ]
+      },
+      "contentFile": "sources/processes/time-control-process.txt",
+      "deliveryFileId": "delivery-11",
+      "originalFormat": "DOCX",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "expectedCharacters": 10909
+    },
+    {
+      "sourceId": "na-termination-process-v5",
+      "versionId": "5.0",
+      "title": "Processo operacional de encerramento",
+      "sourceType": "process",
+      "domain": "termination",
+      "audience": "internal",
+      "approval": "approved",
+      "authorityTier": 70,
+      "effectiveFrom": "2026-01-10",
+      "policySensitivity": "high",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "people_ops",
+          "privacy"
+        ],
+        "relationships": [
+          "employee"
+        ]
+      },
+      "contentFile": "sources/processes/termination-process.txt",
+      "deliveryFileId": "delivery-12",
+      "originalFormat": "DOCX",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "expectedCharacters": 5421
+    },
+    {
+      "sourceId": "na-vacation-process-v4",
+      "versionId": "4.1",
+      "title": "Processo operacional de descanso programado",
+      "sourceType": "process",
+      "domain": "vacation",
+      "audience": "internal",
+      "approval": "approved",
+      "authorityTier": 70,
+      "effectiveFrom": "2026-01-12",
+      "policySensitivity": "high",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "people_ops",
+          "privacy"
+        ],
+        "relationships": [
+          "employee"
+        ]
+      },
+      "contentFile": "sources/processes/vacation-process.txt",
+      "deliveryFileId": "delivery-13",
+      "originalFormat": "DOCX",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "expectedCharacters": 7076
+    },
+    {
+      "sourceId": "na-payroll-process-v6",
+      "versionId": "6.2",
+      "title": "Processo operacional de fechamento mensal",
+      "sourceType": "process",
+      "domain": "payroll",
+      "audience": "internal",
+      "approval": "approved",
+      "authorityTier": 70,
+      "effectiveFrom": "2026-01-08",
+      "policySensitivity": "high",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "people_ops",
+          "privacy"
+        ],
+        "relationships": [
+          "employee"
+        ]
+      },
+      "contentFile": "sources/processes/payroll-process.txt",
+      "deliveryFileId": "delivery-14",
+      "originalFormat": "DOCX",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "expectedCharacters": 7376
+    },
+    {
+      "sourceId": "na-safety-process-v2",
+      "versionId": "2.0",
+      "title": "Processo resumido de saúde e segurança",
+      "sourceType": "process",
+      "domain": "health_safety",
+      "audience": "employee",
+      "approval": "approved",
+      "authorityTier": 75,
+      "effectiveFrom": "2026-01-16",
+      "policySensitivity": "medium",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice",
+          "intern"
+        ]
+      },
+      "contentFile": "sources/processes/safety-process.txt",
+      "deliveryFileId": "delivery-15",
+      "originalFormat": "DOCX",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "expectedCharacters": 4817
+    },
+    {
+      "sourceId": "na-agreement-serra-2025",
+      "versionId": "2025.3",
+      "title": "Instrumento coletivo Serra Norte 2025–2026",
+      "sourceType": "collective_agreement",
+      "domain": "collective_rules",
+      "audience": "employee",
+      "approval": "approved",
+      "authorityTier": 100,
+      "effectiveFrom": "2025-10-01",
+      "effectiveTo": "2026-09-30",
+      "policySensitivity": "medium",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_NORTE"
+        ],
+        "baseIds": [
+          "NORTE"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice"
+        ]
+      },
+      "contentFile": "sources/agreements/serra-2025-2026.txt",
+      "deliveryFileId": "delivery-16",
+      "originalFormat": "PDF",
+      "extractionMode": "ocr",
+      "ocrReviewed": true,
+      "expectedCharacters": 69188
+    },
+    {
+      "sourceId": "na-agreement-coast-2025",
+      "versionId": "2025.2",
+      "title": "Instrumento coletivo Costa Sul 2025–2026",
+      "sourceType": "collective_agreement",
+      "domain": "collective_rules",
+      "audience": "employee",
+      "approval": "approved",
+      "authorityTier": 100,
+      "effectiveFrom": "2025-11-01",
+      "effectiveTo": "2026-10-31",
+      "policySensitivity": "medium",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUL"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops"
+        ],
+        "relationships": [
+          "employee"
+        ]
+      },
+      "contentFile": "sources/agreements/coast-2025-2026.txt",
+      "deliveryFileId": "delivery-17",
+      "originalFormat": "PDF",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "expectedCharacters": 44646
+    },
+    {
+      "sourceId": "na-compensation-projects-2026",
+      "versionId": "2026.03",
+      "title": "Referência interna de remuneração — alocação em projetos",
+      "sourceType": "salary_table",
+      "domain": "compensation",
+      "audience": "internal",
+      "approval": "approved",
+      "authorityTier": 70,
+      "effectiveFrom": "2026-03-01",
+      "policySensitivity": "high",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "people_ops",
+          "privacy"
+        ],
+        "relationships": [
+          "employee"
+        ]
+      },
+      "contentFile": "sources/compensation/project-reference-2026.txt",
+      "deliveryFileId": "delivery-18",
+      "originalFormat": "PDF",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "expectedCharacters": 8576
+    },
+    {
+      "sourceId": "na-admission-checklist-v8",
+      "versionId": "8.0",
+      "title": "Checklist operacional de ingresso",
+      "sourceType": "checklist",
+      "domain": "admission",
+      "audience": "internal",
+      "approval": "approved",
+      "authorityTier": 72,
+      "effectiveFrom": "2026-02-03",
+      "policySensitivity": "high",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "people_ops",
+          "privacy"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice",
+          "intern"
+        ]
+      },
+      "contentFile": "sources/admission/admission-checklist.csv",
+      "deliveryFileId": "delivery-19",
+      "originalFormat": "XLSX",
+      "extractionMode": "structured",
+      "ocrReviewed": false,
+      "expectedCharacters": 40208
+    },
+    {
+      "sourceId": "na-admission-documents-v6",
+      "versionId": "6.1",
+      "title": "Documentos necessários por relação",
+      "sourceType": "reference",
+      "domain": "admission",
+      "audience": "employee",
+      "approval": "approved",
+      "authorityTier": 78,
+      "effectiveFrom": "2026-02-03",
+      "policySensitivity": "medium",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops",
+          "candidato"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice",
+          "intern",
+          "candidate"
+        ]
+      },
+      "contentFile": "sources/admission/required-documents.md",
+      "deliveryFileId": "delivery-20",
+      "originalFormat": "DOCX",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "expectedCharacters": 6510
+    },
+    {
+      "sourceId": "na-onboarding-briefing-v7",
+      "versionId": "7-draft",
+      "title": "Apresentação de boas-vindas — extração de slides",
+      "sourceType": "onboarding_deck",
+      "domain": "admission",
+      "audience": "employee",
+      "approval": "rejected",
+      "authorityTier": 35,
+      "effectiveFrom": "2025-06-12",
+      "policySensitivity": "medium",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "colaborador",
+          "lider",
+          "people_ops"
+        ],
+        "relationships": [
+          "employee",
+          "apprentice",
+          "intern"
+        ]
+      },
+      "contentFile": "sources/admission/onboarding-slides.txt",
+      "deliveryFileId": "delivery-21",
+      "originalFormat": "PPTX",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "expectedCharacters": 6433
+    },
+    {
+      "sourceId": "na-systems-access-matrix-v9",
+      "versionId": "9.4",
+      "title": "Matriz de sistemas e acessos por perfil",
+      "sourceType": "systems_matrix",
+      "domain": "identity_access",
+      "audience": "internal",
+      "approval": "approved",
+      "authorityTier": 75,
+      "effectiveFrom": "2026-02-19",
+      "policySensitivity": "high",
+      "eligibility": {
+        "legalEntityIds": [
+          "NA_SERVICOS",
+          "NA_NORTE",
+          "NA_SUL"
+        ],
+        "baseIds": [
+          "SUDESTE",
+          "NORTE",
+          "SUL",
+          "CENTRO_OESTE"
+        ],
+        "roles": [
+          "people_ops",
+          "privacy"
+        ],
+        "relationships": [
+          "employee"
+        ]
+      },
+      "contentFile": "sources/access/systems-access-matrix.csv",
+      "deliveryFileId": "delivery-22",
+      "originalFormat": "XLSX",
+      "extractionMode": "structured",
+      "ocrReviewed": false,
+      "expectedCharacters": 12320
+    }
+  ]
+}

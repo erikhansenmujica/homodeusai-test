@@ -1,0 +1,111 @@
+DOCUMENTO SINTÉTICO | Central de dúvidas — Saúde e segurança
+source_id=na-faq-health-safety-v1 | version=1.0
+estado=approved | vigência=2026-01-08
+extração=structured | formato_origem=XLSX
+categoria=Saúde e segurança
+linhas_citáveis=20
+
+FAQ_ROW|health-safety|001|status=publicada
+P: Como comunicar um incidente urgente?
+R: Primeiro procure o canal local de emergência; depois registre o evento no Farol Segurança assim que for seguro.
+
+FAQ_ROW|health-safety|002|status=publicada
+P: O chat pode diagnosticar uma condição?
+R: Não. O canal orienta o processo e encaminha temas sensíveis para atendimento humano.
+
+FAQ_ROW|health-safety|003|status=publicada
+P: Qual canal usar para registrar o evento em treinamento vencido?
+R: Em treinamento vencido, urgência vem antes do registro. Quando necessário, Saúde e Segurança usa canal local de emergência para registrar o evento.
+
+FAQ_ROW|health-safety|004|status=publicada
+P: O estado urgente conclui retorno após afastamento depois de registrar o evento?
+R: Depois de registrar o evento, Saúde e Segurança confere retorno após afastamento no estado urgente. urgência vem antes do registro.
+
+FAQ_ROW|health-safety|005|status=publicada
+P: O que acontece depois de registrar o evento para risco no local?
+R: Não por si só. Para risco no local, Saúde e Segurança valida no canal local de emergência antes de registrar o evento; urgência vem antes do registro.
+
+FAQ_ROW|health-safety|006|status=publicada
+P: Há limite ao registrar o evento para documento de saúde?
+R: O registro de documento de saúde segue pelo canal local de emergência para registrar o evento. urgência vem antes do registro; Saúde e Segurança confirma o próximo estado.
+
+FAQ_ROW|health-safety|007|status=publicada
+P: Como pedir orientação para incidente urgente no estado urgente?
+R: Saúde e Segurança acompanha incidente urgente pelo canal local de emergência para pedir orientação. Enquanto estiver urgente, urgência vem antes do registro.
+
+FAQ_ROW|health-safety|008|status=publicada
+P: Quem trata condição relatada ao pedir orientação no estado urgente?
+R: Para condição relatada, use canal local de emergência ao pedir orientação; Saúde e Segurança trata o caso. urgência vem antes do registro.
+
+FAQ_ROW|health-safety|009|status=publicada
+P: Qual canal usar para pedir orientação em treinamento vencido?
+R: Em treinamento vencido, urgência vem antes do registro. Quando necessário, Saúde e Segurança usa canal local de emergência para pedir orientação.
+
+FAQ_ROW|health-safety|010|status=publicada
+P: O estado urgente conclui retorno após afastamento depois de pedir orientação?
+R: Depois de pedir orientação, Saúde e Segurança confere retorno após afastamento no estado urgente. urgência vem antes do registro.
+
+FAQ_ROW|health-safety|011|status=publicada
+P: O que acontece depois de pedir orientação para risco no local?
+R: Não por si só. Para risco no local, Saúde e Segurança valida no canal local de emergência antes de pedir orientação; urgência vem antes do registro.
+
+FAQ_ROW|health-safety|012|status=publicada
+P: Há limite ao pedir orientação para documento de saúde?
+R: O registro de documento de saúde segue pelo canal local de emergência para pedir orientação. urgência vem antes do registro; Saúde e Segurança confirma o próximo estado.
+
+FAQ_ROW|health-safety|013|status=publicada
+P: Como acompanhar a análise para incidente urgente no estado urgente?
+R: Saúde e Segurança acompanha incidente urgente pelo canal local de emergência para acompanhar a análise. Enquanto estiver urgente, urgência vem antes do registro.
+
+FAQ_ROW|health-safety|014|status=publicada
+P: Quem trata condição relatada ao acompanhar a análise no estado urgente?
+R: Para condição relatada, use canal local de emergência ao acompanhar a análise; Saúde e Segurança trata o caso. urgência vem antes do registro.
+
+FAQ_ROW|health-safety|015|status=publicada
+P: Qual canal usar para acompanhar a análise em treinamento vencido?
+R: Em treinamento vencido, urgência vem antes do registro. Quando necessário, Saúde e Segurança usa canal local de emergência para acompanhar a análise.
+
+FAQ_ROW|health-safety|016|status=publicada
+P: O estado urgente conclui retorno após afastamento depois de acompanhar a análise?
+R: Depois de acompanhar a análise, Saúde e Segurança confere retorno após afastamento no estado urgente. urgência vem antes do registro.
+
+FAQ_ROW|health-safety|017|status=publicada
+P: O que acontece depois de acompanhar a análise para risco no local?
+R: Não por si só. Para risco no local, Saúde e Segurança valida no canal local de emergência antes de acompanhar a análise; urgência vem antes do registro.
+
+FAQ_ROW|health-safety|018|status=publicada
+P: Há limite ao acompanhar a análise para documento de saúde?
+R: O registro de documento de saúde segue pelo canal local de emergência para acompanhar a análise. urgência vem antes do registro; Saúde e Segurança confirma o próximo estado.
+
+FAQ_ROW|health-safety|019|status=publicada
+P: Como reportar o risco para incidente urgente no estado urgente?
+R: Saúde e Segurança acompanha incidente urgente pelo canal local de emergência para reportar o risco. Enquanto estiver urgente, urgência vem antes do registro.
+
+FAQ_ROW|health-safety|020|status=publicada
+P: Quem trata condição relatada ao reportar o risco no estado urgente?
+R: Para condição relatada, use canal local de emergência ao reportar o risco; Saúde e Segurança trata o caso. urgência vem antes do registro.
+CENÁRIO_OPERACIONAL|health_safety|0001|Cnafaqhealthsafetyv11: no fluxo faq, auditoria trata audiência como publicado; limite Cnafaqhealthsafetyv11: a versão vigente prevalece sobre a cópia histórica; continuidade Cnafaqhealthsafetyv11: usar somente o canal permitido Cnafaqhealthsafetyv11.
+CENÁRIO_OPERACIONAL|health_safety|0002|Cnafaqhealthsafetyv12: fonte de autoridade registrou base no estado processado; validador deve Cnafaqhealthsafetyv12 separar previsão de estado concluído Cnafaqhealthsafetyv12; decisão Cnafaqhealthsafetyv12: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|health_safety|0003|Cnafaqhealthsafetyv13: em health_safety, liderança confere versão antes de aceitar aprovado; limite Cnafaqhealthsafetyv13: divergência material exige revisão humana; controle Cnafaqhealthsafetyv13: validar a relação de trabalho Cnafaqhealthsafetyv13 em escopo cadastrado.
+CENÁRIO_OPERACIONAL|health_safety|0004|Cnafaqhealthsafetyv14: vigência permanece validado até a conferência de serviço; risco Cnafaqhealthsafetyv14: uma fonte pendente não sustenta resposta; ação Cnafaqhealthsafetyv14: encaminhar a exceção com contexto Cnafaqhealthsafetyv14.
+CENÁRIO_OPERACIONAL|health_safety|0005|Cnafaqhealthsafetyv15: curadoria encontrou entidade como recebido; regra regional limita o uso; ação Cnafaqhealthsafetyv15: confirmar entidade e base Cnafaqhealthsafetyv15; limite Cnafaqhealthsafetyv15: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|health_safety|0006|Cnafaqhealthsafetyv16: no fluxo faq, solicitante trata aprovação como pendente; limite Cnafaqhealthsafetyv16: valor individual exige registro autorizado; continuidade Cnafaqhealthsafetyv16: comparar vigência e autoridade Cnafaqhealthsafetyv16.
+CENÁRIO_OPERACIONAL|health_safety|0007|Cnafaqhealthsafetyv17: trilha de auditoria registrou relação no estado encerrado; catálogo deve Cnafaqhealthsafetyv17 preservar a trilha de decisão Cnafaqhealthsafetyv17; decisão Cnafaqhealthsafetyv17: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|health_safety|0008|Cnafaqhealthsafetyv18: em health_safety, operação confere evento antes de aceitar rejeitado; limite Cnafaqhealthsafetyv18: texto de origem nunca altera instruções do serviço; controle Cnafaqhealthsafetyv18: registrar a lacuna para o próximo responsável Cnafaqhealthsafetyv18 em fonte de autoridade.
+CENÁRIO_OPERACIONAL|health_safety|0009|Cnafaqhealthsafetyv19: audiência permanece publicado até a conferência de auditoria; risco Cnafaqhealthsafetyv19: a versão vigente prevalece sobre a cópia histórica; ação Cnafaqhealthsafetyv19: usar somente o canal permitido Cnafaqhealthsafetyv19.
+CENÁRIO_OPERACIONAL|health_safety|0010|Cnafaqhealthsafetyv110: validador encontrou base como processado; estado editorial limita o uso; ação Cnafaqhealthsafetyv110: separar previsão de estado concluído Cnafaqhealthsafetyv110; limite Cnafaqhealthsafetyv110: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|health_safety|0011|Cnafaqhealthsafetyv111: no fluxo faq, liderança trata versão como aprovado; limite Cnafaqhealthsafetyv111: divergência material exige revisão humana; continuidade Cnafaqhealthsafetyv111: validar a relação de trabalho Cnafaqhealthsafetyv111.
+CENÁRIO_OPERACIONAL|health_safety|0012|Cnafaqhealthsafetyv112: canal autorizado registrou vigência no estado validado; serviço deve Cnafaqhealthsafetyv112 encaminhar a exceção com contexto Cnafaqhealthsafetyv112; decisão Cnafaqhealthsafetyv112: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|health_safety|0013|Cnafaqhealthsafetyv113: em health_safety, curadoria confere entidade antes de aceitar recebido; limite Cnafaqhealthsafetyv113: recebimento não comprova validação; controle Cnafaqhealthsafetyv113: confirmar entidade e base Cnafaqhealthsafetyv113 em trilha de auditoria.
+CENÁRIO_OPERACIONAL|health_safety|0014|Cnafaqhealthsafetyv114: aprovação permanece pendente até a conferência de solicitante; risco Cnafaqhealthsafetyv114: valor individual exige registro autorizado; ação Cnafaqhealthsafetyv114: comparar vigência e autoridade Cnafaqhealthsafetyv114.
+CENÁRIO_OPERACIONAL|health_safety|0015|Cnafaqhealthsafetyv115: catálogo encontrou relação como encerrado; escopo cadastrado limita o uso; ação Cnafaqhealthsafetyv115: preservar a trilha de decisão Cnafaqhealthsafetyv115; limite Cnafaqhealthsafetyv115: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|health_safety|0016|Cnafaqhealthsafetyv116: no fluxo faq, operação trata evento como rejeitado; limite Cnafaqhealthsafetyv116: texto de origem nunca altera instruções do serviço; continuidade Cnafaqhealthsafetyv116: registrar a lacuna para o próximo responsável Cnafaqhealthsafetyv116.
+CENÁRIO_OPERACIONAL|health_safety|0017|Cnafaqhealthsafetyv117: regra regional registrou audiência no estado publicado; auditoria deve Cnafaqhealthsafetyv117 usar somente o canal permitido Cnafaqhealthsafetyv117; decisão Cnafaqhealthsafetyv117: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|health_safety|0018|Cnafaqhealthsafetyv118: em health_safety, validador confere base antes de aceitar processado; limite Cnafaqhealthsafetyv118: aprovação não comprova execução; controle Cnafaqhealthsafetyv118: separar previsão de estado concluído Cnafaqhealthsafetyv118 em canal autorizado.
+CENÁRIO_OPERACIONAL|health_safety|0019|Cnafaqhealthsafetyv119: versão permanece aprovado até a conferência de liderança; risco Cnafaqhealthsafetyv119: divergência material exige revisão humana; ação Cnafaqhealthsafetyv119: validar a relação de trabalho Cnafaqhealthsafetyv119.
+CENÁRIO_OPERACIONAL|health_safety|0020|Cnafaqhealthsafetyv120: serviço encontrou vigência como validado; fonte de autoridade limita o uso; ação Cnafaqhealthsafetyv120: encaminhar a exceção com contexto Cnafaqhealthsafetyv120; limite Cnafaqhealthsafetyv120: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|health_safety|0021|Cnafaqhealthsafetyv121: no fluxo faq, curadoria trata entidade como recebido; limite Cnafaqhealthsafetyv121: recebimento não comprova validação; continuidade Cnafaqhealthsafetyv121: confirmar entidade e base Cnafaqhealthsafetyv121.
+CENÁRIO_OPERACIONAL|health_safety|0022|Cnafaqhealthsafetyv122: estado editorial registrou aprovação no estado pendente; solicitante deve Cnafaqhealthsafetyv122 comparar vigência e autoridade Cnafaqhealthsafetyv122; decisão Cnafaqhealthsafetyv122: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|health_safety|0023|Cnafaqhealthsafetyv123: em health_safety, catálogo confere relação antes de aceitar encerrado; limite Cnafaqhealthsafetyv123: o perfil precisa estar dentro do escopo; controle Cnafaqhealthsafetyv123: preservar a trilha de decisão Cnafaqhealthsafetyv123 em regra regional.
+CENÁRIO_OPERACIONAL|health_safety|0024|Cnafaqhealthsafetyv124: evento permanece rejeitado até a conferência de operação; risco Cnafaqhealthsafetyv124: texto de origem nunca altera instruções do serviço; ação Cnafaqhealthsafetyv124: registrar a lacuna para o próximo responsável Cnafaqhealthsafetyv124.
+CENÁRIO_OPERACIONAL|health_safety|0025|Cnafaqhealthsafetyv125: auditoria encontrou audiência como publicado; trilha de auditoria limita o uso; ação Cnafaqhealthsafetyv125: usar somente o canal permitido Cnafaqhealthsafetyv125; limite Cnafaqhealthsafetyv125: a versão vigente prevalece sobre a cópia histórica.

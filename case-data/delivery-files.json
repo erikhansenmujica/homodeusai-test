@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 1,
+  "synthetic": true,
+  "expectedDeliveryFileCount": 22,
+  "expectedNormalizedSourceCount": 34,
+  "deliveryFiles": [
+    {
+      "deliveryFileId": "delivery-01",
+      "syntheticFilename": "referencia-remuneracao-profissional-2025.pdf",
+      "sourceFormat": "PDF",
+      "extractionMode": "ocr",
+      "ocrReviewed": true,
+      "normalizedSourceIds": [
+        "na-compensation-professional-2025"
+      ]
+    },
+    {
+      "deliveryFileId": "delivery-02",
+      "syntheticFilename": "instrumento-metropolitano-2025-2026.pdf",
+      "sourceFormat": "PDF",
+      "extractionMode": "ocr",
+      "ocrReviewed": true,
+      "normalizedSourceIds": [
+        "na-agreement-metropolitan-2025"
+      ]
+    },
+    {
+      "deliveryFileId": "delivery-03",
+      "syntheticFilename": "central-de-duvidas-people.xlsx",
+      "sourceFormat": "XLSX",
+      "extractionMode": "structured",
+      "ocrReviewed": false,
+      "normalizedSourceIds": [
+        "na-faq-thirteenth-pay-v1",
+        "na-faq-admission-v1",
+        "na-faq-absence-leave-v1",
+        "na-faq-employment-contract-v1",
+        "na-faq-personal-data-v1",
+        "na-faq-termination-v1",
+        "na-faq-vacation-v1",
+        "na-faq-social-contributions-v1",
+        "na-faq-payroll-v1",
+        "na-faq-overtime-v1",
+        "na-faq-timekeeping-v1",
+        "na-faq-other-topics-v1",
+        "na-faq-health-safety-v1"
+      ]
+    },
+    {
+      "deliveryFileId": "delivery-04",
+      "syntheticFilename": "instrumento-planalto-2025-2026.pdf",
+      "sourceFormat": "PDF",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "normalizedSourceIds": [
+        "na-agreement-planalto-2025"
+      ]
+    },
+    {
+      "deliveryFileId": "delivery-05",
+      "syntheticFilename": "mapa-operacional-people.xlsx",
+      "sourceFormat": "XLSX",
+      "extractionMode": "structured",
+      "ocrReviewed": false,
+      "normalizedSourceIds": [
+        "na-people-ops-process-map-r7"
+      ]
+    },
+    {
+      "deliveryFileId": "delivery-06",
+      "syntheticFilename": "particularidades-organizacionais.xlsx",
+      "sourceFormat": "XLSX",
+      "extractionMode": "structured",
+      "ocrReviewed": false,
+      "normalizedSourceIds": [
+        "na-company-rules-matrix-v6"
+      ]
+    },
+    {
+      "deliveryFileId": "delivery-07",
+      "syntheticFilename": "politica-registro-jornada.docx",
+      "sourceFormat": "DOCX",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "normalizedSourceIds": [
+        "na-timekeeping-policy-v4"
+      ]
+    },
+    {
+      "deliveryFileId": "delivery-08",
+      "syntheticFilename": "politica-encerramento-vinculo.pdf",
+      "sourceFormat": "PDF",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "normalizedSourceIds": [
+        "na-termination-policy-v3"
+      ]
+    },
+    {
+      "deliveryFileId": "delivery-09",
+      "syntheticFilename": "politica-ingresso.pdf",
+      "sourceFormat": "PDF",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "normalizedSourceIds": [
+        "na-admission-policy-v5"
+      ]
+    },
+    {
+      "deliveryFileId": "delivery-10",
+      "syntheticFilename": "processo-contratacao.docx",
+      "sourceFormat": "DOCX",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "normalizedSourceIds": [
+        "na-hiring-process-v4"
+      ]
+    },
+    {
+      "deliveryFileId": "delivery-11",
+      "syntheticFilename": "processo-controle-jornada.docx",
+      "sourceFormat": "DOCX",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "normalizedSourceIds": [
+        "na-time-control-process-v3"
+      ]
+    },
+    {
+      "deliveryFileId": "delivery-12",
+      "syntheticFilename": "processo-encerramento.docx",
+      "sourceFormat": "DOCX",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "normalizedSourceIds": [
+        "na-termination-process-v5"
+      ]
+    },
+    {
+      "deliveryFileId": "delivery-13",
+      "syntheticFilename": "processo-descanso-programado.docx",
+      "sourceFormat": "DOCX",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "normalizedSourceIds": [
+        "na-vacation-process-v4"
+      ]
+    },
+    {
+      "deliveryFileId": "delivery-14",
+      "syntheticFilename": "processo-fechamento-mensal.docx",
+      "sourceFormat": "DOCX",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "normalizedSourceIds": [
+        "na-payroll-process-v6"
+      ]
+    },
+    {
+      "deliveryFileId": "delivery-15",
+      "syntheticFilename": "processo-saude-seguranca.docx",
+      "sourceFormat": "DOCX",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "normalizedSourceIds": [
+        "na-safety-process-v2"
+      ]
+    },
+    {
+      "deliveryFileId": "delivery-16",
+      "syntheticFilename": "instrumento-serra-2025-2026.pdf",
+      "sourceFormat": "PDF",
+      "extractionMode": "ocr",
+      "ocrReviewed": true,
+      "normalizedSourceIds": [
+        "na-agreement-serra-2025"
+      ]
+    },
+    {
+      "deliveryFileId": "delivery-17",
+      "syntheticFilename": "instrumento-costa-2025-2026.pdf",
+      "sourceFormat": "PDF",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "normalizedSourceIds": [
+        "na-agreement-coast-2025"
+      ]
+    },
+    {
+      "deliveryFileId": "delivery-18",
+      "syntheticFilename": "referencia-remuneracao-projetos-2026.pdf",
+      "sourceFormat": "PDF",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "normalizedSourceIds": [
+        "na-compensation-projects-2026"
+      ]
+    },
+    {
+      "deliveryFileId": "delivery-19",
+      "syntheticFilename": "checklist-ingresso.xlsx",
+      "sourceFormat": "XLSX",
+      "extractionMode": "structured",
+      "ocrReviewed": false,
+      "normalizedSourceIds": [
+        "na-admission-checklist-v8"
+      ]
+    },
+    {
+      "deliveryFileId": "delivery-20",
+      "syntheticFilename": "documentos-por-relacao.docx",
+      "sourceFormat": "DOCX",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "normalizedSourceIds": [
+        "na-admission-documents-v6"
+      ]
+    },
+    {
+      "deliveryFileId": "delivery-21",
+      "syntheticFilename": "boas-vindas-operacionais.pptx",
+      "sourceFormat": "PPTX",
+      "extractionMode": "digital_text",
+      "ocrReviewed": false,
+      "normalizedSourceIds": [
+        "na-onboarding-briefing-v7"
+      ]
+    },
+    {
+      "deliveryFileId": "delivery-22",
+      "syntheticFilename": "matriz-sistemas-acessos.xlsx",
+      "sourceFormat": "XLSX",
+      "extractionMode": "structured",
+      "ocrReviewed": false,
+      "normalizedSourceIds": [
+        "na-systems-access-matrix-v9"
+      ]
+    }
+  ]
+}

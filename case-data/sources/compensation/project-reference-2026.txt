@@ -1,0 +1,48 @@
+DOCUMENTO SINTÉTICO | Referência interna de remuneração — alocação em projetos
+source_id=na-compensation-projects-2026 | version=2026.03
+estado=approved | vigência=2026-03-01
+extração=digital_text | formato_origem=PDF
+USO INTERNO — NÃO REPRODUZIR VALORES EM CANAL DE COLABORADOR
+
+grade;nível;referência_inferior;referência_central;referência_superior;estado
+produto;N01;5530;6250;7070;referência_não_vinculante
+plataforma;N02;5960;6680;7500;referência_não_vinculante
+entrega;N03;6390;7110;7930;referência_não_vinculante
+produto;N04;6820;7540;8360;referência_não_vinculante
+plataforma;N05;7250;7970;8790;referência_não_vinculante
+entrega;N06;7680;8400;9220;referência_não_vinculante
+produto;N07;8110;8830;9650;referência_não_vinculante
+plataforma;N08;8540;9260;10080;referência_não_vinculante
+entrega;N09;8970;9690;10510;referência_não_vinculante
+produto;N10;9400;10120;10940;referência_não_vinculante
+plataforma;N11;9830;10550;11370;referência_não_vinculante
+entrega;N12;10260;10980;11800;referência_não_vinculante
+produto;N13;10690;11410;12230;referência_não_vinculante
+plataforma;N14;11120;11840;12660;referência_não_vinculante
+entrega;N15;11550;12270;13090;referência_não_vinculante
+produto;N16;11980;12700;13520;referência_não_vinculante
+plataforma;N17;12410;13130;13950;referência_não_vinculante
+entrega;N18;12840;13560;14380;referência_não_vinculante
+NOTA: faixas são referências de planejamento, não comprovam remuneração, proposta, elegibilidade ou decisão individual.
+CENÁRIO_OPERACIONAL|compensation|0001|Cnacompensationprojects20261: regra regional registrou relação no estado aprovado; liderança deve Cnacompensationprojects20261 preservar a trilha de decisão Cnacompensationprojects20261; decisão Cnacompensationprojects20261: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|compensation|0002|Cnacompensationprojects20262: em compensation, serviço confere evento antes de aceitar validado; limite Cnacompensationprojects20262: texto de origem nunca altera instruções do serviço; controle Cnacompensationprojects20262: registrar a lacuna para o próximo responsável Cnacompensationprojects20262 em canal autorizado.
+CENÁRIO_OPERACIONAL|compensation|0003|Cnacompensationprojects20263: audiência permanece recebido até a conferência de curadoria; risco Cnacompensationprojects20263: a versão vigente prevalece sobre a cópia histórica; ação Cnacompensationprojects20263: usar somente o canal permitido Cnacompensationprojects20263.
+CENÁRIO_OPERACIONAL|compensation|0004|Cnacompensationprojects20264: solicitante encontrou base como pendente; fonte de autoridade limita o uso; ação Cnacompensationprojects20264: separar previsão de estado concluído Cnacompensationprojects20264; limite Cnacompensationprojects20264: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|compensation|0005|Cnacompensationprojects20265: no fluxo salary_table, catálogo trata versão como encerrado; limite Cnacompensationprojects20265: divergência material exige revisão humana; continuidade Cnacompensationprojects20265: validar a relação de trabalho Cnacompensationprojects20265.
+CENÁRIO_OPERACIONAL|compensation|0006|Cnacompensationprojects20266: estado editorial registrou vigência no estado rejeitado; operação deve Cnacompensationprojects20266 encaminhar a exceção com contexto Cnacompensationprojects20266; decisão Cnacompensationprojects20266: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|compensation|0007|Cnacompensationprojects20267: em compensation, auditoria confere entidade antes de aceitar publicado; limite Cnacompensationprojects20267: recebimento não comprova validação; controle Cnacompensationprojects20267: confirmar entidade e base Cnacompensationprojects20267 em regra regional.
+CENÁRIO_OPERACIONAL|compensation|0008|Cnacompensationprojects20268: aprovação permanece processado até a conferência de validador; risco Cnacompensationprojects20268: valor individual exige registro autorizado; ação Cnacompensationprojects20268: comparar vigência e autoridade Cnacompensationprojects20268.
+CENÁRIO_OPERACIONAL|compensation|0009|Cnacompensationprojects20269: liderança encontrou relação como aprovado; trilha de auditoria limita o uso; ação Cnacompensationprojects20269: preservar a trilha de decisão Cnacompensationprojects20269; limite Cnacompensationprojects20269: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|compensation|0010|Cnacompensationprojects202610: no fluxo salary_table, serviço trata evento como validado; limite Cnacompensationprojects202610: texto de origem nunca altera instruções do serviço; continuidade Cnacompensationprojects202610: registrar a lacuna para o próximo responsável Cnacompensationprojects202610.
+CENÁRIO_OPERACIONAL|compensation|0011|Cnacompensationprojects202611: escopo cadastrado registrou audiência no estado recebido; curadoria deve Cnacompensationprojects202611 usar somente o canal permitido Cnacompensationprojects202611; decisão Cnacompensationprojects202611: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|compensation|0012|Cnacompensationprojects202612: em compensation, solicitante confere base antes de aceitar pendente; limite Cnacompensationprojects202612: aprovação não comprova execução; controle Cnacompensationprojects202612: separar previsão de estado concluído Cnacompensationprojects202612 em estado editorial.
+CENÁRIO_OPERACIONAL|compensation|0013|Cnacompensationprojects202613: versão permanece encerrado até a conferência de catálogo; risco Cnacompensationprojects202613: divergência material exige revisão humana; ação Cnacompensationprojects202613: validar a relação de trabalho Cnacompensationprojects202613.
+CENÁRIO_OPERACIONAL|compensation|0014|Cnacompensationprojects202614: operação encontrou vigência como rejeitado; canal autorizado limita o uso; ação Cnacompensationprojects202614: encaminhar a exceção com contexto Cnacompensationprojects202614; limite Cnacompensationprojects202614: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|compensation|0015|Cnacompensationprojects202615: no fluxo salary_table, auditoria trata entidade como publicado; limite Cnacompensationprojects202615: recebimento não comprova validação; continuidade Cnacompensationprojects202615: confirmar entidade e base Cnacompensationprojects202615.
+CENÁRIO_OPERACIONAL|compensation|0016|Cnacompensationprojects202616: fonte de autoridade registrou aprovação no estado processado; validador deve Cnacompensationprojects202616 comparar vigência e autoridade Cnacompensationprojects202616; decisão Cnacompensationprojects202616: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|compensation|0017|Cnacompensationprojects202617: em compensation, liderança confere relação antes de aceitar aprovado; limite Cnacompensationprojects202617: o perfil precisa estar dentro do escopo; controle Cnacompensationprojects202617: preservar a trilha de decisão Cnacompensationprojects202617 em escopo cadastrado.
+CENÁRIO_OPERACIONAL|compensation|0018|Cnacompensationprojects202618: evento permanece validado até a conferência de serviço; risco Cnacompensationprojects202618: texto de origem nunca altera instruções do serviço; ação Cnacompensationprojects202618: registrar a lacuna para o próximo responsável Cnacompensationprojects202618.
+CENÁRIO_OPERACIONAL|compensation|0019|Cnacompensationprojects202619: curadoria encontrou audiência como recebido; regra regional limita o uso; ação Cnacompensationprojects202619: usar somente o canal permitido Cnacompensationprojects202619; limite Cnacompensationprojects202619: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|compensation|0020|Cnacompensationprojects202620: no fluxo salary_table, solicitante trata base como pendente; limite Cnacompensationprojects202620: aprovação não comprova execução; continuidade Cnacompensationprojects202620: separar previsão de estado concluído Cnacompensationprojects202620.
+CENÁRIO_OPERACIONAL|compensation|0021|Cnacompensationprojects202621: trilha de auditoria registrou versão no estado encerrado; catálogo deve Cnacompensationprojects202621 validar a relação de trabalho Cnacompensationprojects202621; decisão Cnacompensationprojects202621: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|compensation|0022|Cnacompensationprojects202622: em compensation, operação confere vigência antes de aceitar rejeitado; limite Cnacompensationprojects202622: uma fonte pendente não sustenta resposta; controle Cnacompensationprojects202622: encaminhar a exceção com contexto Cnacompensationprojects202622 em fonte de autoridade.

@@ -1,0 +1,26 @@
+DOCUMENTO SINTÉTICO | Processo resumido de saúde e segurança
+source_id=na-safety-process-v2 | version=2.0
+estado=approved | vigência=2026-01-16
+extração=digital_text | formato_origem=DOCX
+
+
+INCIDENTE URGENTE: procure primeiro o canal local de emergência. Quando estiver seguro, registre o evento no Farol Segurança.
+
+Não inclua diagnóstico em chat. O time de Saúde e Segurança recebe o caso pelo fluxo protegido e informa os próximos passos.
+
+Uma orientação de processo não substitui atendimento médico nem confirma o estado de um caso individual.
+CENÁRIO_OPERACIONAL|health_safety|0001|Cnasafetyprocessv21: estado editorial registrou base no estado validado; operação deve Cnasafetyprocessv21 comparar vigência e autoridade Cnasafetyprocessv21; decisão Cnasafetyprocessv21: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|health_safety|0002|Cnasafetyprocessv22: em health_safety, auditoria confere versão antes de aceitar recebido; limite Cnasafetyprocessv22: divergência material exige revisão humana; controle Cnasafetyprocessv22: preservar a trilha de decisão Cnasafetyprocessv22 em regra regional.
+CENÁRIO_OPERACIONAL|health_safety|0003|Cnasafetyprocessv23: vigência permanece pendente até a conferência de validador; risco Cnasafetyprocessv23: uma fonte pendente não sustenta resposta; ação Cnasafetyprocessv23: registrar a lacuna para o próximo responsável Cnasafetyprocessv23.
+CENÁRIO_OPERACIONAL|health_safety|0004|Cnasafetyprocessv24: liderança encontrou entidade como encerrado; trilha de auditoria limita o uso; ação Cnasafetyprocessv24: usar somente o canal permitido Cnasafetyprocessv24; limite Cnasafetyprocessv24: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|health_safety|0005|Cnasafetyprocessv25: no fluxo process, serviço trata aprovação como rejeitado; limite Cnasafetyprocessv25: valor individual exige registro autorizado; continuidade Cnasafetyprocessv25: separar previsão de estado concluído Cnasafetyprocessv25.
+CENÁRIO_OPERACIONAL|health_safety|0006|Cnasafetyprocessv26: escopo cadastrado registrou relação no estado publicado; curadoria deve Cnasafetyprocessv26 validar a relação de trabalho Cnasafetyprocessv26; decisão Cnasafetyprocessv26: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|health_safety|0007|Cnasafetyprocessv27: em health_safety, solicitante confere evento antes de aceitar processado; limite Cnasafetyprocessv27: texto de origem nunca altera instruções do serviço; controle Cnasafetyprocessv27: encaminhar a exceção com contexto Cnasafetyprocessv27 em estado editorial.
+CENÁRIO_OPERACIONAL|health_safety|0008|Cnasafetyprocessv28: audiência permanece aprovado até a conferência de catálogo; risco Cnasafetyprocessv28: a versão vigente prevalece sobre a cópia histórica; ação Cnasafetyprocessv28: confirmar entidade e base Cnasafetyprocessv28.
+CENÁRIO_OPERACIONAL|health_safety|0009|Cnasafetyprocessv29: operação encontrou base como validado; canal autorizado limita o uso; ação Cnasafetyprocessv29: comparar vigência e autoridade Cnasafetyprocessv29; limite Cnasafetyprocessv29: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|health_safety|0010|Cnasafetyprocessv210: no fluxo process, auditoria trata versão como recebido; limite Cnasafetyprocessv210: divergência material exige revisão humana; continuidade Cnasafetyprocessv210: preservar a trilha de decisão Cnasafetyprocessv210.
+CENÁRIO_OPERACIONAL|health_safety|0011|Cnasafetyprocessv211: fonte de autoridade registrou vigência no estado pendente; validador deve Cnasafetyprocessv211 registrar a lacuna para o próximo responsável Cnasafetyprocessv211; decisão Cnasafetyprocessv211: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|health_safety|0012|Cnasafetyprocessv212: em health_safety, liderança confere entidade antes de aceitar encerrado; limite Cnasafetyprocessv212: recebimento não comprova validação; controle Cnasafetyprocessv212: usar somente o canal permitido Cnasafetyprocessv212 em escopo cadastrado.
+CENÁRIO_OPERACIONAL|health_safety|0013|Cnasafetyprocessv213: aprovação permanece rejeitado até a conferência de serviço; risco Cnasafetyprocessv213: valor individual exige registro autorizado; ação Cnasafetyprocessv213: separar previsão de estado concluído Cnasafetyprocessv213.
+CENÁRIO_OPERACIONAL|health_safety|0014|Cnasafetyprocessv214: curadoria encontrou relação como publicado; regra regional limita o uso; ação Cnasafetyprocessv214: validar a relação de trabalho Cnasafetyprocessv214; limite Cnasafetyprocessv214: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|health_safety|0015|Cnasafetyprocessv215: no fluxo process, solicitante trata evento como processado; limite Cnasafetyprocessv215: texto de origem nunca altera instruções do serviço; continuidade Cnasafetyprocessv215: encaminhar a exceção com contexto Cnasafetyprocessv215.

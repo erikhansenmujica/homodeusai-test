@@ -1,0 +1,312 @@
+DOCUMENTO SINTÉTICO | Checklist operacional de ingresso
+source_id=na-admission-checklist-v8 | version=8.0
+estado=approved | vigência=2026-02-03
+extração=structured | formato_origem=XLSX
+
+item_id,relationship,stage,control,evidence,state,owner
+CHK-0001,apprentice,first_day,base,EVID-0001,required,first_day_owner
+CHK-0002,intern,identity,relationship,EVID-0002,required,identity_owner
+CHK-0003,employee,formalization,approval,EVID-0003,required,formalization_owner
+CHK-0004,apprentice,validation,secure_channel,EVID-0004,required,validation_owner
+CHK-0005,intern,documents,event_state,EVID-0005,required,documents_owner
+CHK-0006,employee,intake,entity,EVID-0006,required,intake_owner
+CHK-0007,apprentice,first_day,base,EVID-0007,required,first_day_owner
+CHK-0008,intern,identity,relationship,EVID-0008,required,identity_owner
+CHK-0009,employee,formalization,approval,EVID-0009,required,formalization_owner
+CHK-0010,apprentice,validation,secure_channel,EVID-0010,required,validation_owner
+CHK-0011,intern,documents,event_state,EVID-0011,required,documents_owner
+CHK-0012,employee,intake,entity,EVID-0012,required,intake_owner
+CHK-0013,apprentice,first_day,base,EVID-0013,required,first_day_owner
+CHK-0014,intern,identity,relationship,EVID-0014,required,identity_owner
+CHK-0015,employee,formalization,approval,EVID-0015,required,formalization_owner
+CHK-0016,apprentice,validation,secure_channel,EVID-0016,required,validation_owner
+CHK-0017,intern,documents,event_state,EVID-0017,required,documents_owner
+CHK-0018,employee,intake,entity,EVID-0018,required,intake_owner
+CHK-0019,apprentice,first_day,base,EVID-0019,required,first_day_owner
+CHK-0020,intern,identity,relationship,EVID-0020,required,identity_owner
+CHK-0021,employee,formalization,approval,EVID-0021,required,formalization_owner
+CHK-0022,apprentice,validation,secure_channel,EVID-0022,required,validation_owner
+CHK-0023,intern,documents,event_state,EVID-0023,manual_review,documents_owner
+CHK-0024,employee,intake,entity,EVID-0024,required,intake_owner
+CHK-0025,apprentice,first_day,base,EVID-0025,required,first_day_owner
+CHK-0026,intern,identity,relationship,EVID-0026,required,identity_owner
+CHK-0027,employee,formalization,approval,EVID-0027,required,formalization_owner
+CHK-0028,apprentice,validation,secure_channel,EVID-0028,required,validation_owner
+CHK-0029,intern,documents,event_state,EVID-0029,required,documents_owner
+CHK-0030,employee,intake,entity,EVID-0030,required,intake_owner
+CHK-0031,apprentice,first_day,base,EVID-0031,required,first_day_owner
+CHK-0032,intern,identity,relationship,EVID-0032,required,identity_owner
+CHK-0033,employee,formalization,approval,EVID-0033,required,formalization_owner
+CHK-0034,apprentice,validation,secure_channel,EVID-0034,required,validation_owner
+CHK-0035,intern,documents,event_state,EVID-0035,required,documents_owner
+CHK-0036,employee,intake,entity,EVID-0036,required,intake_owner
+CHK-0037,apprentice,first_day,base,EVID-0037,required,first_day_owner
+CHK-0038,intern,identity,relationship,EVID-0038,required,identity_owner
+CHK-0039,employee,formalization,approval,EVID-0039,required,formalization_owner
+CHK-0040,apprentice,validation,secure_channel,EVID-0040,required,validation_owner
+CHK-0041,intern,documents,event_state,EVID-0041,required,documents_owner
+CHK-0042,employee,intake,entity,EVID-0042,required,intake_owner
+CHK-0043,apprentice,first_day,base,EVID-0043,required,first_day_owner
+CHK-0044,intern,identity,relationship,EVID-0044,required,identity_owner
+CHK-0045,employee,formalization,approval,EVID-0045,required,formalization_owner
+CHK-0046,apprentice,validation,secure_channel,EVID-0046,manual_review,validation_owner
+CHK-0047,intern,documents,event_state,EVID-0047,required,documents_owner
+CHK-0048,employee,intake,entity,EVID-0048,required,intake_owner
+CHK-0049,apprentice,first_day,base,EVID-0049,required,first_day_owner
+CHK-0050,intern,identity,relationship,EVID-0050,required,identity_owner
+CHK-0051,employee,formalization,approval,EVID-0051,required,formalization_owner
+CHK-0052,apprentice,validation,secure_channel,EVID-0052,required,validation_owner
+CHK-0053,intern,documents,event_state,EVID-0053,required,documents_owner
+CHK-0054,employee,intake,entity,EVID-0054,required,intake_owner
+CHK-0055,apprentice,first_day,base,EVID-0055,required,first_day_owner
+CHK-0056,intern,identity,relationship,EVID-0056,required,identity_owner
+CHK-0057,employee,formalization,approval,EVID-0057,required,formalization_owner
+CHK-0058,apprentice,validation,secure_channel,EVID-0058,required,validation_owner
+CHK-0059,intern,documents,event_state,EVID-0059,required,documents_owner
+CHK-0060,employee,intake,entity,EVID-0060,required,intake_owner
+CHK-0061,apprentice,first_day,base,EVID-0061,required,first_day_owner
+CHK-0062,intern,identity,relationship,EVID-0062,required,identity_owner
+CHK-0063,employee,formalization,approval,EVID-0063,required,formalization_owner
+CHK-0064,apprentice,validation,secure_channel,EVID-0064,required,validation_owner
+CHK-0065,intern,documents,event_state,EVID-0065,required,documents_owner
+CHK-0066,employee,intake,entity,EVID-0066,required,intake_owner
+CHK-0067,apprentice,first_day,base,EVID-0067,required,first_day_owner
+CHK-0068,intern,identity,relationship,EVID-0068,required,identity_owner
+CHK-0069,employee,formalization,approval,EVID-0069,manual_review,formalization_owner
+CHK-0070,apprentice,validation,secure_channel,EVID-0070,required,validation_owner
+CHK-0071,intern,documents,event_state,EVID-0071,required,documents_owner
+CHK-0072,employee,intake,entity,EVID-0072,required,intake_owner
+CHK-0073,apprentice,first_day,base,EVID-0073,required,first_day_owner
+CHK-0074,intern,identity,relationship,EVID-0074,required,identity_owner
+CHK-0075,employee,formalization,approval,EVID-0075,required,formalization_owner
+CHK-0076,apprentice,validation,secure_channel,EVID-0076,required,validation_owner
+CHK-0077,intern,documents,event_state,EVID-0077,required,documents_owner
+CHK-0078,employee,intake,entity,EVID-0078,required,intake_owner
+CHK-0079,apprentice,first_day,base,EVID-0079,required,first_day_owner
+CHK-0080,intern,identity,relationship,EVID-0080,required,identity_owner
+CHK-0081,employee,formalization,approval,EVID-0081,required,formalization_owner
+CHK-0082,apprentice,validation,secure_channel,EVID-0082,required,validation_owner
+CHK-0083,intern,documents,event_state,EVID-0083,required,documents_owner
+CHK-0084,employee,intake,entity,EVID-0084,required,intake_owner
+CHK-0085,apprentice,first_day,base,EVID-0085,required,first_day_owner
+CHK-0086,intern,identity,relationship,EVID-0086,required,identity_owner
+CHK-0087,employee,formalization,approval,EVID-0087,required,formalization_owner
+CHK-0088,apprentice,validation,secure_channel,EVID-0088,required,validation_owner
+CHK-0089,intern,documents,event_state,EVID-0089,required,documents_owner
+CHK-0090,employee,intake,entity,EVID-0090,required,intake_owner
+CHK-0091,apprentice,first_day,base,EVID-0091,required,first_day_owner
+CHK-0092,intern,identity,relationship,EVID-0092,manual_review,identity_owner
+CHK-0093,employee,formalization,approval,EVID-0093,required,formalization_owner
+CHK-0094,apprentice,validation,secure_channel,EVID-0094,required,validation_owner
+CHK-0095,intern,documents,event_state,EVID-0095,required,documents_owner
+CHK-0096,employee,intake,entity,EVID-0096,required,intake_owner
+CHK-0097,apprentice,first_day,base,EVID-0097,required,first_day_owner
+CHK-0098,intern,identity,relationship,EVID-0098,required,identity_owner
+CHK-0099,employee,formalization,approval,EVID-0099,required,formalization_owner
+CHK-0100,apprentice,validation,secure_channel,EVID-0100,required,validation_owner
+CHK-0101,intern,documents,event_state,EVID-0101,required,documents_owner
+CHK-0102,employee,intake,entity,EVID-0102,required,intake_owner
+CHK-0103,apprentice,first_day,base,EVID-0103,required,first_day_owner
+CHK-0104,intern,identity,relationship,EVID-0104,required,identity_owner
+CHK-0105,employee,formalization,approval,EVID-0105,required,formalization_owner
+CHK-0106,apprentice,validation,secure_channel,EVID-0106,required,validation_owner
+CHK-0107,intern,documents,event_state,EVID-0107,required,documents_owner
+CHK-0108,employee,intake,entity,EVID-0108,required,intake_owner
+CHK-0109,apprentice,first_day,base,EVID-0109,required,first_day_owner
+CHK-0110,intern,identity,relationship,EVID-0110,required,identity_owner
+CHK-0111,employee,formalization,approval,EVID-0111,required,formalization_owner
+CHK-0112,apprentice,validation,secure_channel,EVID-0112,required,validation_owner
+CHK-0113,intern,documents,event_state,EVID-0113,required,documents_owner
+CHK-0114,employee,intake,entity,EVID-0114,required,intake_owner
+CHK-0115,apprentice,first_day,base,EVID-0115,manual_review,first_day_owner
+CHK-0116,intern,identity,relationship,EVID-0116,required,identity_owner
+CHK-0117,employee,formalization,approval,EVID-0117,required,formalization_owner
+CHK-0118,apprentice,validation,secure_channel,EVID-0118,required,validation_owner
+CHK-0119,intern,documents,event_state,EVID-0119,required,documents_owner
+CHK-0120,employee,intake,entity,EVID-0120,required,intake_owner
+CHK-0121,apprentice,first_day,base,EVID-0121,required,first_day_owner
+CHK-0122,intern,identity,relationship,EVID-0122,required,identity_owner
+CHK-0123,employee,formalization,approval,EVID-0123,required,formalization_owner
+CHK-0124,apprentice,validation,secure_channel,EVID-0124,required,validation_owner
+CHK-0125,intern,documents,event_state,EVID-0125,required,documents_owner
+CHK-0126,employee,intake,entity,EVID-0126,required,intake_owner
+CHK-0127,apprentice,first_day,base,EVID-0127,required,first_day_owner
+CHK-0128,intern,identity,relationship,EVID-0128,required,identity_owner
+CHK-0129,employee,formalization,approval,EVID-0129,required,formalization_owner
+CHK-0130,apprentice,validation,secure_channel,EVID-0130,required,validation_owner
+CHK-0131,intern,documents,event_state,EVID-0131,required,documents_owner
+CHK-0132,employee,intake,entity,EVID-0132,required,intake_owner
+CHK-0133,apprentice,first_day,base,EVID-0133,required,first_day_owner
+CHK-0134,intern,identity,relationship,EVID-0134,required,identity_owner
+CHK-0135,employee,formalization,approval,EVID-0135,required,formalization_owner
+CHK-0136,apprentice,validation,secure_channel,EVID-0136,required,validation_owner
+CHK-0137,intern,documents,event_state,EVID-0137,required,documents_owner
+CHK-0138,employee,intake,entity,EVID-0138,manual_review,intake_owner
+CHK-0139,apprentice,first_day,base,EVID-0139,required,first_day_owner
+CHK-0140,intern,identity,relationship,EVID-0140,required,identity_owner
+CHK-0141,employee,formalization,approval,EVID-0141,required,formalization_owner
+CHK-0142,apprentice,validation,secure_channel,EVID-0142,required,validation_owner
+CHK-0143,intern,documents,event_state,EVID-0143,required,documents_owner
+CHK-0144,employee,intake,entity,EVID-0144,required,intake_owner
+CHK-0145,apprentice,first_day,base,EVID-0145,required,first_day_owner
+CHK-0146,intern,identity,relationship,EVID-0146,required,identity_owner
+CHK-0147,employee,formalization,approval,EVID-0147,required,formalization_owner
+CHK-0148,apprentice,validation,secure_channel,EVID-0148,required,validation_owner
+CHK-0149,intern,documents,event_state,EVID-0149,required,documents_owner
+CHK-0150,employee,intake,entity,EVID-0150,required,intake_owner
+CHK-0151,apprentice,first_day,base,EVID-0151,required,first_day_owner
+CHK-0152,intern,identity,relationship,EVID-0152,required,identity_owner
+CHK-0153,employee,formalization,approval,EVID-0153,required,formalization_owner
+CHK-0154,apprentice,validation,secure_channel,EVID-0154,required,validation_owner
+CHK-0155,intern,documents,event_state,EVID-0155,required,documents_owner
+CHK-0156,employee,intake,entity,EVID-0156,required,intake_owner
+CHK-0157,apprentice,first_day,base,EVID-0157,required,first_day_owner
+CHK-0158,intern,identity,relationship,EVID-0158,required,identity_owner
+CHK-0159,employee,formalization,approval,EVID-0159,required,formalization_owner
+CHK-0160,apprentice,validation,secure_channel,EVID-0160,required,validation_owner
+CHK-0161,intern,documents,event_state,EVID-0161,manual_review,documents_owner
+CHK-0162,employee,intake,entity,EVID-0162,required,intake_owner
+CHK-0163,apprentice,first_day,base,EVID-0163,required,first_day_owner
+CHK-0164,intern,identity,relationship,EVID-0164,required,identity_owner
+CHK-0165,employee,formalization,approval,EVID-0165,required,formalization_owner
+CHK-0166,apprentice,validation,secure_channel,EVID-0166,required,validation_owner
+CHK-0167,intern,documents,event_state,EVID-0167,required,documents_owner
+CHK-0168,employee,intake,entity,EVID-0168,required,intake_owner
+CHK-0169,apprentice,first_day,base,EVID-0169,required,first_day_owner
+CHK-0170,intern,identity,relationship,EVID-0170,required,identity_owner
+CHK-0171,employee,formalization,approval,EVID-0171,required,formalization_owner
+CHK-0172,apprentice,validation,secure_channel,EVID-0172,required,validation_owner
+CHK-0173,intern,documents,event_state,EVID-0173,required,documents_owner
+CHK-0174,employee,intake,entity,EVID-0174,required,intake_owner
+CHK-0175,apprentice,first_day,base,EVID-0175,required,first_day_owner
+CHK-0176,intern,identity,relationship,EVID-0176,required,identity_owner
+CHK-0177,employee,formalization,approval,EVID-0177,required,formalization_owner
+CHK-0178,apprentice,validation,secure_channel,EVID-0178,required,validation_owner
+CHK-0179,intern,documents,event_state,EVID-0179,required,documents_owner
+CHK-0180,employee,intake,entity,EVID-0180,required,intake_owner
+CHK-0181,apprentice,first_day,base,EVID-0181,required,first_day_owner
+CHK-0182,intern,identity,relationship,EVID-0182,required,identity_owner
+CHK-0183,employee,formalization,approval,EVID-0183,required,formalization_owner
+CHK-0184,apprentice,validation,secure_channel,EVID-0184,manual_review,validation_owner
+CHK-0185,intern,documents,event_state,EVID-0185,required,documents_owner
+CHK-0186,employee,intake,entity,EVID-0186,required,intake_owner
+CHK-0187,apprentice,first_day,base,EVID-0187,required,first_day_owner
+CHK-0188,intern,identity,relationship,EVID-0188,required,identity_owner
+CHK-0189,employee,formalization,approval,EVID-0189,required,formalization_owner
+CHK-0190,apprentice,validation,secure_channel,EVID-0190,required,validation_owner
+CHK-0191,intern,documents,event_state,EVID-0191,required,documents_owner
+CHK-0192,employee,intake,entity,EVID-0192,required,intake_owner
+CHK-0193,apprentice,first_day,base,EVID-0193,required,first_day_owner
+CHK-0194,intern,identity,relationship,EVID-0194,required,identity_owner
+CHK-0195,employee,formalization,approval,EVID-0195,required,formalization_owner
+CHK-0196,apprentice,validation,secure_channel,EVID-0196,required,validation_owner
+CHK-0197,intern,documents,event_state,EVID-0197,required,documents_owner
+CHK-0198,employee,intake,entity,EVID-0198,required,intake_owner
+CHK-0199,apprentice,first_day,base,EVID-0199,required,first_day_owner
+CHK-0200,intern,identity,relationship,EVID-0200,required,identity_owner
+CHK-0201,employee,formalization,approval,EVID-0201,required,formalization_owner
+CHK-0202,apprentice,validation,secure_channel,EVID-0202,required,validation_owner
+CHK-0203,intern,documents,event_state,EVID-0203,required,documents_owner
+CHK-0204,employee,intake,entity,EVID-0204,required,intake_owner
+CHK-0205,apprentice,first_day,base,EVID-0205,required,first_day_owner
+CHK-0206,intern,identity,relationship,EVID-0206,required,identity_owner
+CHK-0207,employee,formalization,approval,EVID-0207,manual_review,formalization_owner
+CHK-0208,apprentice,validation,secure_channel,EVID-0208,required,validation_owner
+CHK-0209,intern,documents,event_state,EVID-0209,required,documents_owner
+CHK-0210,employee,intake,entity,EVID-0210,required,intake_owner
+CHK-0211,apprentice,first_day,base,EVID-0211,required,first_day_owner
+CHK-0212,intern,identity,relationship,EVID-0212,required,identity_owner
+CHK-0213,employee,formalization,approval,EVID-0213,required,formalization_owner
+CHK-0214,apprentice,validation,secure_channel,EVID-0214,required,validation_owner
+CHK-0215,intern,documents,event_state,EVID-0215,required,documents_owner
+CHK-0216,employee,intake,entity,EVID-0216,required,intake_owner
+CHK-0217,apprentice,first_day,base,EVID-0217,required,first_day_owner
+CHK-0218,intern,identity,relationship,EVID-0218,required,identity_owner
+CHK-0219,employee,formalization,approval,EVID-0219,required,formalization_owner
+CHK-0220,apprentice,validation,secure_channel,EVID-0220,required,validation_owner
+CHK-0221,intern,documents,event_state,EVID-0221,required,documents_owner
+CHK-0222,employee,intake,entity,EVID-0222,required,intake_owner
+CHK-0223,apprentice,first_day,base,EVID-0223,required,first_day_owner
+CHK-0224,intern,identity,relationship,EVID-0224,required,identity_owner
+CHK-0225,employee,formalization,approval,EVID-0225,required,formalization_owner
+CHK-0226,apprentice,validation,secure_channel,EVID-0226,required,validation_owner
+CHK-0227,intern,documents,event_state,EVID-0227,required,documents_owner
+CHK-0228,employee,intake,entity,EVID-0228,required,intake_owner
+CHK-0229,apprentice,first_day,base,EVID-0229,required,first_day_owner
+CHK-0230,intern,identity,relationship,EVID-0230,manual_review,identity_owner
+CENÁRIO_OPERACIONAL|admission|0001|Cnaadmissionchecklistv81: serviço encontrou aprovação como rejeitado; canal autorizado limita o uso; ação Cnaadmissionchecklistv81: separar previsão de estado concluído Cnaadmissionchecklistv81; limite Cnaadmissionchecklistv81: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|admission|0002|Cnaadmissionchecklistv82: no fluxo checklist, curadoria trata relação como publicado; limite Cnaadmissionchecklistv82: o perfil precisa estar dentro do escopo; continuidade Cnaadmissionchecklistv82: validar a relação de trabalho Cnaadmissionchecklistv82.
+CENÁRIO_OPERACIONAL|admission|0003|Cnaadmissionchecklistv83: fonte de autoridade registrou evento no estado processado; solicitante deve Cnaadmissionchecklistv83 encaminhar a exceção com contexto Cnaadmissionchecklistv83; decisão Cnaadmissionchecklistv83: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|admission|0004|Cnaadmissionchecklistv84: em admission, catálogo confere audiência antes de aceitar aprovado; limite Cnaadmissionchecklistv84: a versão vigente prevalece sobre a cópia histórica; controle Cnaadmissionchecklistv84: confirmar entidade e base Cnaadmissionchecklistv84 em escopo cadastrado.
+CENÁRIO_OPERACIONAL|admission|0005|Cnaadmissionchecklistv85: base permanece validado até a conferência de operação; risco Cnaadmissionchecklistv85: aprovação não comprova execução; ação Cnaadmissionchecklistv85: comparar vigência e autoridade Cnaadmissionchecklistv85.
+CENÁRIO_OPERACIONAL|admission|0006|Cnaadmissionchecklistv86: auditoria encontrou versão como recebido; regra regional limita o uso; ação Cnaadmissionchecklistv86: preservar a trilha de decisão Cnaadmissionchecklistv86; limite Cnaadmissionchecklistv86: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|admission|0007|Cnaadmissionchecklistv87: no fluxo checklist, validador trata vigência como pendente; limite Cnaadmissionchecklistv87: uma fonte pendente não sustenta resposta; continuidade Cnaadmissionchecklistv87: registrar a lacuna para o próximo responsável Cnaadmissionchecklistv87.
+CENÁRIO_OPERACIONAL|admission|0008|Cnaadmissionchecklistv88: trilha de auditoria registrou entidade no estado encerrado; liderança deve Cnaadmissionchecklistv88 usar somente o canal permitido Cnaadmissionchecklistv88; decisão Cnaadmissionchecklistv88: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|admission|0009|Cnaadmissionchecklistv89: em admission, serviço confere aprovação antes de aceitar rejeitado; limite Cnaadmissionchecklistv89: valor individual exige registro autorizado; controle Cnaadmissionchecklistv89: separar previsão de estado concluído Cnaadmissionchecklistv89 em fonte de autoridade.
+CENÁRIO_OPERACIONAL|admission|0010|Cnaadmissionchecklistv810: relação permanece publicado até a conferência de curadoria; risco Cnaadmissionchecklistv810: o perfil precisa estar dentro do escopo; ação Cnaadmissionchecklistv810: validar a relação de trabalho Cnaadmissionchecklistv810.
+CENÁRIO_OPERACIONAL|admission|0011|Cnaadmissionchecklistv811: solicitante encontrou evento como processado; estado editorial limita o uso; ação Cnaadmissionchecklistv811: encaminhar a exceção com contexto Cnaadmissionchecklistv811; limite Cnaadmissionchecklistv811: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|admission|0012|Cnaadmissionchecklistv812: no fluxo checklist, catálogo trata audiência como aprovado; limite Cnaadmissionchecklistv812: a versão vigente prevalece sobre a cópia histórica; continuidade Cnaadmissionchecklistv812: confirmar entidade e base Cnaadmissionchecklistv812.
+CENÁRIO_OPERACIONAL|admission|0013|Cnaadmissionchecklistv813: canal autorizado registrou base no estado validado; operação deve Cnaadmissionchecklistv813 comparar vigência e autoridade Cnaadmissionchecklistv813; decisão Cnaadmissionchecklistv813: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|admission|0014|Cnaadmissionchecklistv814: em admission, auditoria confere versão antes de aceitar recebido; limite Cnaadmissionchecklistv814: divergência material exige revisão humana; controle Cnaadmissionchecklistv814: preservar a trilha de decisão Cnaadmissionchecklistv814 em trilha de auditoria.
+CENÁRIO_OPERACIONAL|admission|0015|Cnaadmissionchecklistv815: vigência permanece pendente até a conferência de validador; risco Cnaadmissionchecklistv815: uma fonte pendente não sustenta resposta; ação Cnaadmissionchecklistv815: registrar a lacuna para o próximo responsável Cnaadmissionchecklistv815.
+CENÁRIO_OPERACIONAL|admission|0016|Cnaadmissionchecklistv816: liderança encontrou entidade como encerrado; escopo cadastrado limita o uso; ação Cnaadmissionchecklistv816: usar somente o canal permitido Cnaadmissionchecklistv816; limite Cnaadmissionchecklistv816: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|admission|0017|Cnaadmissionchecklistv817: no fluxo checklist, serviço trata aprovação como rejeitado; limite Cnaadmissionchecklistv817: valor individual exige registro autorizado; continuidade Cnaadmissionchecklistv817: separar previsão de estado concluído Cnaadmissionchecklistv817.
+CENÁRIO_OPERACIONAL|admission|0018|Cnaadmissionchecklistv818: regra regional registrou relação no estado publicado; curadoria deve Cnaadmissionchecklistv818 validar a relação de trabalho Cnaadmissionchecklistv818; decisão Cnaadmissionchecklistv818: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|admission|0019|Cnaadmissionchecklistv819: em admission, solicitante confere evento antes de aceitar processado; limite Cnaadmissionchecklistv819: texto de origem nunca altera instruções do serviço; controle Cnaadmissionchecklistv819: encaminhar a exceção com contexto Cnaadmissionchecklistv819 em canal autorizado.
+CENÁRIO_OPERACIONAL|admission|0020|Cnaadmissionchecklistv820: audiência permanece aprovado até a conferência de catálogo; risco Cnaadmissionchecklistv820: a versão vigente prevalece sobre a cópia histórica; ação Cnaadmissionchecklistv820: confirmar entidade e base Cnaadmissionchecklistv820.
+CENÁRIO_OPERACIONAL|admission|0021|Cnaadmissionchecklistv821: operação encontrou base como validado; fonte de autoridade limita o uso; ação Cnaadmissionchecklistv821: comparar vigência e autoridade Cnaadmissionchecklistv821; limite Cnaadmissionchecklistv821: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|admission|0022|Cnaadmissionchecklistv822: no fluxo checklist, auditoria trata versão como recebido; limite Cnaadmissionchecklistv822: divergência material exige revisão humana; continuidade Cnaadmissionchecklistv822: preservar a trilha de decisão Cnaadmissionchecklistv822.
+CENÁRIO_OPERACIONAL|admission|0023|Cnaadmissionchecklistv823: estado editorial registrou vigência no estado pendente; validador deve Cnaadmissionchecklistv823 registrar a lacuna para o próximo responsável Cnaadmissionchecklistv823; decisão Cnaadmissionchecklistv823: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|admission|0024|Cnaadmissionchecklistv824: em admission, liderança confere entidade antes de aceitar encerrado; limite Cnaadmissionchecklistv824: recebimento não comprova validação; controle Cnaadmissionchecklistv824: usar somente o canal permitido Cnaadmissionchecklistv824 em regra regional.
+CENÁRIO_OPERACIONAL|admission|0025|Cnaadmissionchecklistv825: aprovação permanece rejeitado até a conferência de serviço; risco Cnaadmissionchecklistv825: valor individual exige registro autorizado; ação Cnaadmissionchecklistv825: separar previsão de estado concluído Cnaadmissionchecklistv825.
+CENÁRIO_OPERACIONAL|admission|0026|Cnaadmissionchecklistv826: curadoria encontrou relação como publicado; trilha de auditoria limita o uso; ação Cnaadmissionchecklistv826: validar a relação de trabalho Cnaadmissionchecklistv826; limite Cnaadmissionchecklistv826: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|admission|0027|Cnaadmissionchecklistv827: no fluxo checklist, solicitante trata evento como processado; limite Cnaadmissionchecklistv827: texto de origem nunca altera instruções do serviço; continuidade Cnaadmissionchecklistv827: encaminhar a exceção com contexto Cnaadmissionchecklistv827.
+CENÁRIO_OPERACIONAL|admission|0028|Cnaadmissionchecklistv828: escopo cadastrado registrou audiência no estado aprovado; catálogo deve Cnaadmissionchecklistv828 confirmar entidade e base Cnaadmissionchecklistv828; decisão Cnaadmissionchecklistv828: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|admission|0029|Cnaadmissionchecklistv829: em admission, operação confere base antes de aceitar validado; limite Cnaadmissionchecklistv829: aprovação não comprova execução; controle Cnaadmissionchecklistv829: comparar vigência e autoridade Cnaadmissionchecklistv829 em estado editorial.
+CENÁRIO_OPERACIONAL|admission|0030|Cnaadmissionchecklistv830: versão permanece recebido até a conferência de auditoria; risco Cnaadmissionchecklistv830: divergência material exige revisão humana; ação Cnaadmissionchecklistv830: preservar a trilha de decisão Cnaadmissionchecklistv830.
+CENÁRIO_OPERACIONAL|admission|0031|Cnaadmissionchecklistv831: validador encontrou vigência como pendente; canal autorizado limita o uso; ação Cnaadmissionchecklistv831: registrar a lacuna para o próximo responsável Cnaadmissionchecklistv831; limite Cnaadmissionchecklistv831: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|admission|0032|Cnaadmissionchecklistv832: no fluxo checklist, liderança trata entidade como encerrado; limite Cnaadmissionchecklistv832: recebimento não comprova validação; continuidade Cnaadmissionchecklistv832: usar somente o canal permitido Cnaadmissionchecklistv832.
+CENÁRIO_OPERACIONAL|admission|0033|Cnaadmissionchecklistv833: fonte de autoridade registrou aprovação no estado rejeitado; serviço deve Cnaadmissionchecklistv833 separar previsão de estado concluído Cnaadmissionchecklistv833; decisão Cnaadmissionchecklistv833: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|admission|0034|Cnaadmissionchecklistv834: em admission, curadoria confere relação antes de aceitar publicado; limite Cnaadmissionchecklistv834: o perfil precisa estar dentro do escopo; controle Cnaadmissionchecklistv834: validar a relação de trabalho Cnaadmissionchecklistv834 em escopo cadastrado.
+CENÁRIO_OPERACIONAL|admission|0035|Cnaadmissionchecklistv835: evento permanece processado até a conferência de solicitante; risco Cnaadmissionchecklistv835: texto de origem nunca altera instruções do serviço; ação Cnaadmissionchecklistv835: encaminhar a exceção com contexto Cnaadmissionchecklistv835.
+CENÁRIO_OPERACIONAL|admission|0036|Cnaadmissionchecklistv836: catálogo encontrou audiência como aprovado; regra regional limita o uso; ação Cnaadmissionchecklistv836: confirmar entidade e base Cnaadmissionchecklistv836; limite Cnaadmissionchecklistv836: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|admission|0037|Cnaadmissionchecklistv837: no fluxo checklist, operação trata base como validado; limite Cnaadmissionchecklistv837: aprovação não comprova execução; continuidade Cnaadmissionchecklistv837: comparar vigência e autoridade Cnaadmissionchecklistv837.
+CENÁRIO_OPERACIONAL|admission|0038|Cnaadmissionchecklistv838: trilha de auditoria registrou versão no estado recebido; auditoria deve Cnaadmissionchecklistv838 preservar a trilha de decisão Cnaadmissionchecklistv838; decisão Cnaadmissionchecklistv838: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|admission|0039|Cnaadmissionchecklistv839: em admission, validador confere vigência antes de aceitar pendente; limite Cnaadmissionchecklistv839: uma fonte pendente não sustenta resposta; controle Cnaadmissionchecklistv839: registrar a lacuna para o próximo responsável Cnaadmissionchecklistv839 em fonte de autoridade.
+CENÁRIO_OPERACIONAL|admission|0040|Cnaadmissionchecklistv840: entidade permanece encerrado até a conferência de liderança; risco Cnaadmissionchecklistv840: recebimento não comprova validação; ação Cnaadmissionchecklistv840: usar somente o canal permitido Cnaadmissionchecklistv840.
+CENÁRIO_OPERACIONAL|admission|0041|Cnaadmissionchecklistv841: serviço encontrou aprovação como rejeitado; estado editorial limita o uso; ação Cnaadmissionchecklistv841: separar previsão de estado concluído Cnaadmissionchecklistv841; limite Cnaadmissionchecklistv841: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|admission|0042|Cnaadmissionchecklistv842: no fluxo checklist, curadoria trata relação como publicado; limite Cnaadmissionchecklistv842: o perfil precisa estar dentro do escopo; continuidade Cnaadmissionchecklistv842: validar a relação de trabalho Cnaadmissionchecklistv842.
+CENÁRIO_OPERACIONAL|admission|0043|Cnaadmissionchecklistv843: canal autorizado registrou evento no estado processado; solicitante deve Cnaadmissionchecklistv843 encaminhar a exceção com contexto Cnaadmissionchecklistv843; decisão Cnaadmissionchecklistv843: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|admission|0044|Cnaadmissionchecklistv844: em admission, catálogo confere audiência antes de aceitar aprovado; limite Cnaadmissionchecklistv844: a versão vigente prevalece sobre a cópia histórica; controle Cnaadmissionchecklistv844: confirmar entidade e base Cnaadmissionchecklistv844 em trilha de auditoria.
+CENÁRIO_OPERACIONAL|admission|0045|Cnaadmissionchecklistv845: base permanece validado até a conferência de operação; risco Cnaadmissionchecklistv845: aprovação não comprova execução; ação Cnaadmissionchecklistv845: comparar vigência e autoridade Cnaadmissionchecklistv845.
+CENÁRIO_OPERACIONAL|admission|0046|Cnaadmissionchecklistv846: auditoria encontrou versão como recebido; escopo cadastrado limita o uso; ação Cnaadmissionchecklistv846: preservar a trilha de decisão Cnaadmissionchecklistv846; limite Cnaadmissionchecklistv846: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|admission|0047|Cnaadmissionchecklistv847: no fluxo checklist, validador trata vigência como pendente; limite Cnaadmissionchecklistv847: uma fonte pendente não sustenta resposta; continuidade Cnaadmissionchecklistv847: registrar a lacuna para o próximo responsável Cnaadmissionchecklistv847.
+CENÁRIO_OPERACIONAL|admission|0048|Cnaadmissionchecklistv848: regra regional registrou entidade no estado encerrado; liderança deve Cnaadmissionchecklistv848 usar somente o canal permitido Cnaadmissionchecklistv848; decisão Cnaadmissionchecklistv848: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|admission|0049|Cnaadmissionchecklistv849: em admission, serviço confere aprovação antes de aceitar rejeitado; limite Cnaadmissionchecklistv849: valor individual exige registro autorizado; controle Cnaadmissionchecklistv849: separar previsão de estado concluído Cnaadmissionchecklistv849 em canal autorizado.
+CENÁRIO_OPERACIONAL|admission|0050|Cnaadmissionchecklistv850: relação permanece publicado até a conferência de curadoria; risco Cnaadmissionchecklistv850: o perfil precisa estar dentro do escopo; ação Cnaadmissionchecklistv850: validar a relação de trabalho Cnaadmissionchecklistv850.
+CENÁRIO_OPERACIONAL|admission|0051|Cnaadmissionchecklistv851: solicitante encontrou evento como processado; fonte de autoridade limita o uso; ação Cnaadmissionchecklistv851: encaminhar a exceção com contexto Cnaadmissionchecklistv851; limite Cnaadmissionchecklistv851: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|admission|0052|Cnaadmissionchecklistv852: no fluxo checklist, catálogo trata audiência como aprovado; limite Cnaadmissionchecklistv852: a versão vigente prevalece sobre a cópia histórica; continuidade Cnaadmissionchecklistv852: confirmar entidade e base Cnaadmissionchecklistv852.
+CENÁRIO_OPERACIONAL|admission|0053|Cnaadmissionchecklistv853: estado editorial registrou base no estado validado; operação deve Cnaadmissionchecklistv853 comparar vigência e autoridade Cnaadmissionchecklistv853; decisão Cnaadmissionchecklistv853: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|admission|0054|Cnaadmissionchecklistv854: em admission, auditoria confere versão antes de aceitar recebido; limite Cnaadmissionchecklistv854: divergência material exige revisão humana; controle Cnaadmissionchecklistv854: preservar a trilha de decisão Cnaadmissionchecklistv854 em regra regional.
+CENÁRIO_OPERACIONAL|admission|0055|Cnaadmissionchecklistv855: vigência permanece pendente até a conferência de validador; risco Cnaadmissionchecklistv855: uma fonte pendente não sustenta resposta; ação Cnaadmissionchecklistv855: registrar a lacuna para o próximo responsável Cnaadmissionchecklistv855.
+CENÁRIO_OPERACIONAL|admission|0056|Cnaadmissionchecklistv856: liderança encontrou entidade como encerrado; trilha de auditoria limita o uso; ação Cnaadmissionchecklistv856: usar somente o canal permitido Cnaadmissionchecklistv856; limite Cnaadmissionchecklistv856: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|admission|0057|Cnaadmissionchecklistv857: no fluxo checklist, serviço trata aprovação como rejeitado; limite Cnaadmissionchecklistv857: valor individual exige registro autorizado; continuidade Cnaadmissionchecklistv857: separar previsão de estado concluído Cnaadmissionchecklistv857.
+CENÁRIO_OPERACIONAL|admission|0058|Cnaadmissionchecklistv858: escopo cadastrado registrou relação no estado publicado; curadoria deve Cnaadmissionchecklistv858 validar a relação de trabalho Cnaadmissionchecklistv858; decisão Cnaadmissionchecklistv858: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|admission|0059|Cnaadmissionchecklistv859: em admission, solicitante confere evento antes de aceitar processado; limite Cnaadmissionchecklistv859: texto de origem nunca altera instruções do serviço; controle Cnaadmissionchecklistv859: encaminhar a exceção com contexto Cnaadmissionchecklistv859 em estado editorial.
+CENÁRIO_OPERACIONAL|admission|0060|Cnaadmissionchecklistv860: audiência permanece aprovado até a conferência de catálogo; risco Cnaadmissionchecklistv860: a versão vigente prevalece sobre a cópia histórica; ação Cnaadmissionchecklistv860: confirmar entidade e base Cnaadmissionchecklistv860.
+CENÁRIO_OPERACIONAL|admission|0061|Cnaadmissionchecklistv861: operação encontrou base como validado; canal autorizado limita o uso; ação Cnaadmissionchecklistv861: comparar vigência e autoridade Cnaadmissionchecklistv861; limite Cnaadmissionchecklistv861: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|admission|0062|Cnaadmissionchecklistv862: no fluxo checklist, auditoria trata versão como recebido; limite Cnaadmissionchecklistv862: divergência material exige revisão humana; continuidade Cnaadmissionchecklistv862: preservar a trilha de decisão Cnaadmissionchecklistv862.
+CENÁRIO_OPERACIONAL|admission|0063|Cnaadmissionchecklistv863: fonte de autoridade registrou vigência no estado pendente; validador deve Cnaadmissionchecklistv863 registrar a lacuna para o próximo responsável Cnaadmissionchecklistv863; decisão Cnaadmissionchecklistv863: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|admission|0064|Cnaadmissionchecklistv864: em admission, liderança confere entidade antes de aceitar encerrado; limite Cnaadmissionchecklistv864: recebimento não comprova validação; controle Cnaadmissionchecklistv864: usar somente o canal permitido Cnaadmissionchecklistv864 em escopo cadastrado.
+CENÁRIO_OPERACIONAL|admission|0065|Cnaadmissionchecklistv865: aprovação permanece rejeitado até a conferência de serviço; risco Cnaadmissionchecklistv865: valor individual exige registro autorizado; ação Cnaadmissionchecklistv865: separar previsão de estado concluído Cnaadmissionchecklistv865.
+CENÁRIO_OPERACIONAL|admission|0066|Cnaadmissionchecklistv866: curadoria encontrou relação como publicado; regra regional limita o uso; ação Cnaadmissionchecklistv866: validar a relação de trabalho Cnaadmissionchecklistv866; limite Cnaadmissionchecklistv866: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|admission|0067|Cnaadmissionchecklistv867: no fluxo checklist, solicitante trata evento como processado; limite Cnaadmissionchecklistv867: texto de origem nunca altera instruções do serviço; continuidade Cnaadmissionchecklistv867: encaminhar a exceção com contexto Cnaadmissionchecklistv867.
+CENÁRIO_OPERACIONAL|admission|0068|Cnaadmissionchecklistv868: trilha de auditoria registrou audiência no estado aprovado; catálogo deve Cnaadmissionchecklistv868 confirmar entidade e base Cnaadmissionchecklistv868; decisão Cnaadmissionchecklistv868: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|admission|0069|Cnaadmissionchecklistv869: em admission, operação confere base antes de aceitar validado; limite Cnaadmissionchecklistv869: aprovação não comprova execução; controle Cnaadmissionchecklistv869: comparar vigência e autoridade Cnaadmissionchecklistv869 em fonte de autoridade.
+CENÁRIO_OPERACIONAL|admission|0070|Cnaadmissionchecklistv870: versão permanece recebido até a conferência de auditoria; risco Cnaadmissionchecklistv870: divergência material exige revisão humana; ação Cnaadmissionchecklistv870: preservar a trilha de decisão Cnaadmissionchecklistv870.
+CENÁRIO_OPERACIONAL|admission|0071|Cnaadmissionchecklistv871: validador encontrou vigência como pendente; estado editorial limita o uso; ação Cnaadmissionchecklistv871: registrar a lacuna para o próximo responsável Cnaadmissionchecklistv871; limite Cnaadmissionchecklistv871: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|admission|0072|Cnaadmissionchecklistv872: no fluxo checklist, liderança trata entidade como encerrado; limite Cnaadmissionchecklistv872: recebimento não comprova validação; continuidade Cnaadmissionchecklistv872: usar somente o canal permitido Cnaadmissionchecklistv872.
+CENÁRIO_OPERACIONAL|admission|0073|Cnaadmissionchecklistv873: canal autorizado registrou aprovação no estado rejeitado; serviço deve Cnaadmissionchecklistv873 separar previsão de estado concluído Cnaadmissionchecklistv873; decisão Cnaadmissionchecklistv873: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|admission|0074|Cnaadmissionchecklistv874: em admission, curadoria confere relação antes de aceitar publicado; limite Cnaadmissionchecklistv874: o perfil precisa estar dentro do escopo; controle Cnaadmissionchecklistv874: validar a relação de trabalho Cnaadmissionchecklistv874 em trilha de auditoria.
+CENÁRIO_OPERACIONAL|admission|0075|Cnaadmissionchecklistv875: evento permanece processado até a conferência de solicitante; risco Cnaadmissionchecklistv875: texto de origem nunca altera instruções do serviço; ação Cnaadmissionchecklistv875: encaminhar a exceção com contexto Cnaadmissionchecklistv875.
+CENÁRIO_OPERACIONAL|admission|0076|Cnaadmissionchecklistv876: catálogo encontrou audiência como aprovado; escopo cadastrado limita o uso; ação Cnaadmissionchecklistv876: confirmar entidade e base Cnaadmissionchecklistv876; limite Cnaadmissionchecklistv876: a versão vigente prevalece sobre a cópia histórica.

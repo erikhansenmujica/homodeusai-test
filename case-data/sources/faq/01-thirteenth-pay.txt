@@ -1,0 +1,65 @@
+DOCUMENTO SINTÉTICO | Central de dúvidas — Décimo terceiro
+source_id=na-faq-thirteenth-pay-v1 | version=1.0
+estado=approved | vigência=2026-01-08
+extração=structured | formato_origem=XLSX
+categoria=Décimo terceiro
+linhas_citáveis=10
+
+FAQ_ROW|thirteenth-pay|001|status=publicada
+P: Quando a primeira parcela entra no calendário?
+R: A primeira parcela é programada no ciclo de novembro; a data individual depende do calendário publicado e não pode ser inferida desta FAQ.
+
+FAQ_ROW|thirteenth-pay|002|status=publicada
+P: Uma estimativa confirma crédito?
+R: Não. Estimativa, processamento e crédito são estados diferentes.
+
+FAQ_ROW|thirteenth-pay|003|status=publicada
+P: Qual canal usar para consultar a previsão em afastamento no ciclo?
+R: Em afastamento no ciclo, a previsão não comprova crédito. Quando necessário, folha usa Doca para consultar a previsão.
+
+FAQ_ROW|thirteenth-pay|004|status=publicada
+P: O estado previsto conclui admissão recente depois de consultar a previsão?
+R: Depois de consultar a previsão, folha confere admissão recente no estado previsto. a previsão não comprova crédito.
+
+FAQ_ROW|thirteenth-pay|005|status=publicada
+P: O que acontece depois de consultar a previsão para evento variável?
+R: Não por si só. Para evento variável, folha valida no Doca antes de consultar a previsão; a previsão não comprova crédito.
+
+FAQ_ROW|thirteenth-pay|006|status=publicada
+P: Há limite ao consultar a previsão para comprovante anual?
+R: O registro de comprovante anual segue pelo Doca para consultar a previsão. a previsão não comprova crédito; folha confirma o próximo estado.
+
+FAQ_ROW|thirteenth-pay|007|status=publicada
+P: Como pedir revisão para primeira parcela no estado previsto?
+R: folha acompanha primeira parcela pelo Doca para pedir revisão. Enquanto estiver previsto, a previsão não comprova crédito.
+
+FAQ_ROW|thirteenth-pay|008|status=publicada
+P: Quem trata segunda parcela ao pedir revisão no estado previsto?
+R: Para segunda parcela, use Doca ao pedir revisão; folha trata o caso. a previsão não comprova crédito.
+
+FAQ_ROW|thirteenth-pay|009|status=publicada
+P: Qual canal usar para pedir revisão em afastamento no ciclo?
+R: Em afastamento no ciclo, a previsão não comprova crédito. Quando necessário, folha usa Doca para pedir revisão.
+
+FAQ_ROW|thirteenth-pay|010|status=publicada
+P: O estado previsto conclui admissão recente depois de pedir revisão?
+R: Depois de pedir revisão, folha confere admissão recente no estado previsto. a previsão não comprova crédito.
+CENÁRIO_OPERACIONAL|payroll|0001|Cnafaqthirteenthpayv11: no fluxo faq, solicitante trata vigência como processado; limite Cnafaqthirteenthpayv11: uma fonte pendente não sustenta resposta; continuidade Cnafaqthirteenthpayv11: registrar a lacuna para o próximo responsável Cnafaqthirteenthpayv11.
+CENÁRIO_OPERACIONAL|payroll|0002|Cnafaqthirteenthpayv12: regra regional registrou entidade no estado aprovado; catálogo deve Cnafaqthirteenthpayv12 usar somente o canal permitido Cnafaqthirteenthpayv12; decisão Cnafaqthirteenthpayv12: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|payroll|0003|Cnafaqthirteenthpayv13: em payroll, operação confere aprovação antes de aceitar validado; limite Cnafaqthirteenthpayv13: valor individual exige registro autorizado; controle Cnafaqthirteenthpayv13: separar previsão de estado concluído Cnafaqthirteenthpayv13 em canal autorizado.
+CENÁRIO_OPERACIONAL|payroll|0004|Cnafaqthirteenthpayv14: relação permanece recebido até a conferência de auditoria; risco Cnafaqthirteenthpayv14: o perfil precisa estar dentro do escopo; ação Cnafaqthirteenthpayv14: validar a relação de trabalho Cnafaqthirteenthpayv14.
+CENÁRIO_OPERACIONAL|payroll|0005|Cnafaqthirteenthpayv15: validador encontrou evento como pendente; fonte de autoridade limita o uso; ação Cnafaqthirteenthpayv15: encaminhar a exceção com contexto Cnafaqthirteenthpayv15; limite Cnafaqthirteenthpayv15: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|payroll|0006|Cnafaqthirteenthpayv16: no fluxo faq, liderança trata audiência como encerrado; limite Cnafaqthirteenthpayv16: a versão vigente prevalece sobre a cópia histórica; continuidade Cnafaqthirteenthpayv16: confirmar entidade e base Cnafaqthirteenthpayv16.
+CENÁRIO_OPERACIONAL|payroll|0007|Cnafaqthirteenthpayv17: estado editorial registrou base no estado rejeitado; serviço deve Cnafaqthirteenthpayv17 comparar vigência e autoridade Cnafaqthirteenthpayv17; decisão Cnafaqthirteenthpayv17: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|payroll|0008|Cnafaqthirteenthpayv18: em payroll, curadoria confere versão antes de aceitar publicado; limite Cnafaqthirteenthpayv18: divergência material exige revisão humana; controle Cnafaqthirteenthpayv18: preservar a trilha de decisão Cnafaqthirteenthpayv18 em regra regional.
+CENÁRIO_OPERACIONAL|payroll|0009|Cnafaqthirteenthpayv19: vigência permanece processado até a conferência de solicitante; risco Cnafaqthirteenthpayv19: uma fonte pendente não sustenta resposta; ação Cnafaqthirteenthpayv19: registrar a lacuna para o próximo responsável Cnafaqthirteenthpayv19.
+CENÁRIO_OPERACIONAL|payroll|0010|Cnafaqthirteenthpayv110: catálogo encontrou entidade como aprovado; trilha de auditoria limita o uso; ação Cnafaqthirteenthpayv110: usar somente o canal permitido Cnafaqthirteenthpayv110; limite Cnafaqthirteenthpayv110: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|payroll|0011|Cnafaqthirteenthpayv111: no fluxo faq, operação trata aprovação como validado; limite Cnafaqthirteenthpayv111: valor individual exige registro autorizado; continuidade Cnafaqthirteenthpayv111: separar previsão de estado concluído Cnafaqthirteenthpayv111.
+CENÁRIO_OPERACIONAL|payroll|0012|Cnafaqthirteenthpayv112: escopo cadastrado registrou relação no estado recebido; auditoria deve Cnafaqthirteenthpayv112 validar a relação de trabalho Cnafaqthirteenthpayv112; decisão Cnafaqthirteenthpayv112: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|payroll|0013|Cnafaqthirteenthpayv113: em payroll, validador confere evento antes de aceitar pendente; limite Cnafaqthirteenthpayv113: texto de origem nunca altera instruções do serviço; controle Cnafaqthirteenthpayv113: encaminhar a exceção com contexto Cnafaqthirteenthpayv113 em estado editorial.
+CENÁRIO_OPERACIONAL|payroll|0014|Cnafaqthirteenthpayv114: audiência permanece encerrado até a conferência de liderança; risco Cnafaqthirteenthpayv114: a versão vigente prevalece sobre a cópia histórica; ação Cnafaqthirteenthpayv114: confirmar entidade e base Cnafaqthirteenthpayv114.
+CENÁRIO_OPERACIONAL|payroll|0015|Cnafaqthirteenthpayv115: serviço encontrou base como rejeitado; canal autorizado limita o uso; ação Cnafaqthirteenthpayv115: comparar vigência e autoridade Cnafaqthirteenthpayv115; limite Cnafaqthirteenthpayv115: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|payroll|0016|Cnafaqthirteenthpayv116: no fluxo faq, curadoria trata versão como publicado; limite Cnafaqthirteenthpayv116: divergência material exige revisão humana; continuidade Cnafaqthirteenthpayv116: preservar a trilha de decisão Cnafaqthirteenthpayv116.
+CENÁRIO_OPERACIONAL|payroll|0017|Cnafaqthirteenthpayv117: fonte de autoridade registrou vigência no estado processado; solicitante deve Cnafaqthirteenthpayv117 registrar a lacuna para o próximo responsável Cnafaqthirteenthpayv117; decisão Cnafaqthirteenthpayv117: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|payroll|0018|Cnafaqthirteenthpayv118: em payroll, catálogo confere entidade antes de aceitar aprovado; limite Cnafaqthirteenthpayv118: recebimento não comprova validação; controle Cnafaqthirteenthpayv118: usar somente o canal permitido Cnafaqthirteenthpayv118 em escopo cadastrado.
+CENÁRIO_OPERACIONAL|payroll|0019|Cnafaqthirteenthpayv119: aprovação permanece validado até a conferência de operação; risco Cnafaqthirteenthpayv119: valor individual exige registro autorizado; ação Cnafaqthirteenthpayv119: separar previsão de estado concluído Cnafaqthirteenthpayv119.

@@ -1,0 +1,66 @@
+DOCUMENTO SINTÉTICO | Central de dúvidas — Alterações cadastrais
+source_id=na-faq-personal-data-v1 | version=1.0
+estado=approved | vigência=2026-01-08
+extração=structured | formato_origem=XLSX
+categoria=Alterações cadastrais
+linhas_citáveis=10
+
+FAQ_ROW|personal-data|001|status=publicada
+P: Quais dados podem ser corrigidos no autosserviço?
+R: Telefone corporativo e endereço de correspondência podem ser solicitados no Farol; dados bancários usam validação reforçada.
+
+FAQ_ROW|personal-data|002|status=publicada
+P: Posso mandar um dado bancário no chat?
+R: Não. Use o fluxo protegido do Farol.
+
+FAQ_ROW|personal-data|003|status=publicada
+P: Qual canal usar para solicitar correção em dados bancários?
+R: Em dados bancários, não envie o valor pelo chat. Quando necessário, People Data usa Farol para solicitar correção.
+
+FAQ_ROW|personal-data|004|status=publicada
+P: O estado rascunho conclui nome cadastral depois de solicitar correção?
+R: Depois de solicitar correção, People Data confere nome cadastral no estado rascunho. não envie o valor pelo chat.
+
+FAQ_ROW|personal-data|005|status=publicada
+P: O que acontece depois de solicitar correção para contato de emergência?
+R: Não por si só. Para contato de emergência, People Data valida no Farol antes de solicitar correção; não envie o valor pelo chat.
+
+FAQ_ROW|personal-data|006|status=publicada
+P: Há limite ao solicitar correção para documento de identidade?
+R: O registro de documento de identidade segue pelo Farol para solicitar correção. não envie o valor pelo chat; People Data confirma o próximo estado.
+
+FAQ_ROW|personal-data|007|status=publicada
+P: Como acompanhar a validação para endereço de correspondência no estado rascunho?
+R: People Data acompanha endereço de correspondência pelo Farol para acompanhar a validação. Enquanto estiver rascunho, não envie o valor pelo chat.
+
+FAQ_ROW|personal-data|008|status=publicada
+P: Quem trata telefone corporativo ao acompanhar a validação no estado rascunho?
+R: Para telefone corporativo, use Farol ao acompanhar a validação; People Data trata o caso. não envie o valor pelo chat.
+
+FAQ_ROW|personal-data|009|status=publicada
+P: Qual canal usar para acompanhar a validação em dados bancários?
+R: Em dados bancários, não envie o valor pelo chat. Quando necessário, People Data usa Farol para acompanhar a validação.
+
+FAQ_ROW|personal-data|010|status=publicada
+P: O estado rascunho conclui nome cadastral depois de acompanhar a validação?
+R: Depois de acompanhar a validação, People Data confere nome cadastral no estado rascunho. não envie o valor pelo chat.
+CENÁRIO_OPERACIONAL|personal_data|0001|Cnafaqpersonaldatav11: regra regional registrou entidade no estado recebido; curadoria deve Cnafaqpersonaldatav11 confirmar entidade e base Cnafaqpersonaldatav11; decisão Cnafaqpersonaldatav11: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|personal_data|0002|Cnafaqpersonaldatav12: em personal_data, solicitante confere aprovação antes de aceitar pendente; limite Cnafaqpersonaldatav12: valor individual exige registro autorizado; controle Cnafaqpersonaldatav12: comparar vigência e autoridade Cnafaqpersonaldatav12 em canal autorizado.
+CENÁRIO_OPERACIONAL|personal_data|0003|Cnafaqpersonaldatav13: relação permanece encerrado até a conferência de catálogo; risco Cnafaqpersonaldatav13: o perfil precisa estar dentro do escopo; ação Cnafaqpersonaldatav13: preservar a trilha de decisão Cnafaqpersonaldatav13.
+CENÁRIO_OPERACIONAL|personal_data|0004|Cnafaqpersonaldatav14: operação encontrou evento como rejeitado; fonte de autoridade limita o uso; ação Cnafaqpersonaldatav14: registrar a lacuna para o próximo responsável Cnafaqpersonaldatav14; limite Cnafaqpersonaldatav14: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|personal_data|0005|Cnafaqpersonaldatav15: no fluxo faq, auditoria trata audiência como publicado; limite Cnafaqpersonaldatav15: a versão vigente prevalece sobre a cópia histórica; continuidade Cnafaqpersonaldatav15: usar somente o canal permitido Cnafaqpersonaldatav15.
+CENÁRIO_OPERACIONAL|personal_data|0006|Cnafaqpersonaldatav16: estado editorial registrou base no estado processado; validador deve Cnafaqpersonaldatav16 separar previsão de estado concluído Cnafaqpersonaldatav16; decisão Cnafaqpersonaldatav16: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|personal_data|0007|Cnafaqpersonaldatav17: em personal_data, liderança confere versão antes de aceitar aprovado; limite Cnafaqpersonaldatav17: divergência material exige revisão humana; controle Cnafaqpersonaldatav17: validar a relação de trabalho Cnafaqpersonaldatav17 em regra regional.
+CENÁRIO_OPERACIONAL|personal_data|0008|Cnafaqpersonaldatav18: vigência permanece validado até a conferência de serviço; risco Cnafaqpersonaldatav18: uma fonte pendente não sustenta resposta; ação Cnafaqpersonaldatav18: encaminhar a exceção com contexto Cnafaqpersonaldatav18.
+CENÁRIO_OPERACIONAL|personal_data|0009|Cnafaqpersonaldatav19: curadoria encontrou entidade como recebido; trilha de auditoria limita o uso; ação Cnafaqpersonaldatav19: confirmar entidade e base Cnafaqpersonaldatav19; limite Cnafaqpersonaldatav19: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|personal_data|0010|Cnafaqpersonaldatav110: no fluxo faq, solicitante trata aprovação como pendente; limite Cnafaqpersonaldatav110: valor individual exige registro autorizado; continuidade Cnafaqpersonaldatav110: comparar vigência e autoridade Cnafaqpersonaldatav110.
+CENÁRIO_OPERACIONAL|personal_data|0011|Cnafaqpersonaldatav111: escopo cadastrado registrou relação no estado encerrado; catálogo deve Cnafaqpersonaldatav111 preservar a trilha de decisão Cnafaqpersonaldatav111; decisão Cnafaqpersonaldatav111: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|personal_data|0012|Cnafaqpersonaldatav112: em personal_data, operação confere evento antes de aceitar rejeitado; limite Cnafaqpersonaldatav112: texto de origem nunca altera instruções do serviço; controle Cnafaqpersonaldatav112: registrar a lacuna para o próximo responsável Cnafaqpersonaldatav112 em estado editorial.
+CENÁRIO_OPERACIONAL|personal_data|0013|Cnafaqpersonaldatav113: audiência permanece publicado até a conferência de auditoria; risco Cnafaqpersonaldatav113: a versão vigente prevalece sobre a cópia histórica; ação Cnafaqpersonaldatav113: usar somente o canal permitido Cnafaqpersonaldatav113.
+CENÁRIO_OPERACIONAL|personal_data|0014|Cnafaqpersonaldatav114: validador encontrou base como processado; canal autorizado limita o uso; ação Cnafaqpersonaldatav114: separar previsão de estado concluído Cnafaqpersonaldatav114; limite Cnafaqpersonaldatav114: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|personal_data|0015|Cnafaqpersonaldatav115: no fluxo faq, liderança trata versão como aprovado; limite Cnafaqpersonaldatav115: divergência material exige revisão humana; continuidade Cnafaqpersonaldatav115: validar a relação de trabalho Cnafaqpersonaldatav115.
+CENÁRIO_OPERACIONAL|personal_data|0016|Cnafaqpersonaldatav116: fonte de autoridade registrou vigência no estado validado; serviço deve Cnafaqpersonaldatav116 encaminhar a exceção com contexto Cnafaqpersonaldatav116; decisão Cnafaqpersonaldatav116: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|personal_data|0017|Cnafaqpersonaldatav117: em personal_data, curadoria confere entidade antes de aceitar recebido; limite Cnafaqpersonaldatav117: recebimento não comprova validação; controle Cnafaqpersonaldatav117: confirmar entidade e base Cnafaqpersonaldatav117 em escopo cadastrado.
+CENÁRIO_OPERACIONAL|personal_data|0018|Cnafaqpersonaldatav118: aprovação permanece pendente até a conferência de solicitante; risco Cnafaqpersonaldatav118: valor individual exige registro autorizado; ação Cnafaqpersonaldatav118: comparar vigência e autoridade Cnafaqpersonaldatav118.
+CENÁRIO_OPERACIONAL|personal_data|0019|Cnafaqpersonaldatav119: catálogo encontrou relação como encerrado; regra regional limita o uso; ação Cnafaqpersonaldatav119: preservar a trilha de decisão Cnafaqpersonaldatav119; limite Cnafaqpersonaldatav119: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|personal_data|0020|Cnafaqpersonaldatav120: no fluxo faq, operação trata evento como rejeitado; limite Cnafaqpersonaldatav120: texto de origem nunca altera instruções do serviço; continuidade Cnafaqpersonaldatav120: registrar a lacuna para o próximo responsável Cnafaqpersonaldatav120.

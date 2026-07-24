@@ -1,0 +1,12 @@
+.git
+.github
+.audit
+.codegraph
+node_modules
+dist/*
+!dist/nexo-atlantico-knowledge-case.tgz
+organizer
+decisions.tsv
+DECISIONS.md
+*.log
+.DS_Store

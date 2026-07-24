@@ -1,0 +1,382 @@
+DOCUMENTO SINTÉTICO | Instrumento coletivo Planalto Central 2025–2026
+source_id=na-agreement-planalto-2025 | version=2025.1
+estado=approved | vigência=2025-08-01 a 2026-07-31
+extração=digital_text | formato_origem=PDF
+INSTRUMENTO COLETIVO SINTÉTICO
+região_de_aplicação=Planalto Central
+
+CLÁUSULA 01 — ENQUADRAMENTO
+Este instrumento se aplica somente aos perfis e localidades declarados nos metadados de Planalto Central.
+
+CLÁUSULA 12 — APOIO DE REFEIÇÃO
+O apoio diário elegível é de R$ 43,80 por dia efetivamente trabalhado. Ausência integral não gera o lançamento.
+
+CLÁUSULA 18 — HORAS ADICIONAIS
+As duas primeiras horas adicionais autorizadas recebem acréscimo de 55%. A autorização deve existir antes da execução.
+
+CLÁUSULA 27 — COMUNICAÇÃO DE ESCALA
+Mudança ordinária de escala deve ser comunicada com cinco dias úteis de antecedência, salvo emergência registrada.
+
+CLÁUSULA 44 — LIMITES DA FONTE
+Este instrumento não comprova crédito, presença, saldo, aprovação ou estado operacional individual.
+
+CLÁUSULA 051 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementplanalto2025051: em Planalto Central, afastamento integral pode alterar o evento. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 052 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementplanalto2025052: em Planalto Central, divergência material interrompe a resposta automática. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 053 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementplanalto2025053: em Planalto Central, tempo não autorizado segue para conferência. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 054 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementplanalto2025054: em Planalto Central, pedido de troca não comprova aprovação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 055 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementplanalto2025055: em Planalto Central, mensagem deve separar orientação de confirmação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 056 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementplanalto2025056: em Planalto Central, marcação incompleta não presume intervalo realizado. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 057 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementplanalto2025057: em Planalto Central, dado clínico não circula em canal aberto. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 058 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementplanalto2025058: em Planalto Central, alteração local só vale depois de publicação formal. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 059 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementplanalto2025059: em Planalto Central, previsão não comprova lançamento individual. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 060 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementplanalto2025060: em Planalto Central, resultado conciliado mantém as fontes consideradas. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 061 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementplanalto2025061: em Planalto Central, mudança de jornada exige registro e comunicação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 062 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementplanalto2025062: em Planalto Central, emergência deve manter justificativa auditável. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 063 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementplanalto2025063: em Planalto Central, canal de dúvida não substitui registro operacional. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 064 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementplanalto2025064: em Planalto Central, redução excepcional precisa de fundamento registrado. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 065 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementplanalto2025065: em Planalto Central, registro posterior não substitui atendimento urgente. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 066 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementplanalto2025066: em Planalto Central, evento anterior usa a regra vigente na data do fato. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 067 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementplanalto2025067: em Planalto Central, elegibilidade depende de dia e relação aplicáveis. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 068 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementplanalto2025068: em Planalto Central, versões equivalentes exigem dono de decisão. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 069 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementplanalto2025069: em Planalto Central, relação de estágio não herda banco de horas. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 070 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementplanalto2025070: em Planalto Central, troca ordinária exige ciência das partes. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 071 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementplanalto2025071: em Planalto Central, prazo informado precisa indicar seu marco inicial. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 072 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementplanalto2025072: em Planalto Central, divergência segue ao fluxo de jornada. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 073 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementplanalto2025073: em Planalto Central, risco imediato segue primeiro ao canal local. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 074 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementplanalto2025074: em Planalto Central, cópia sem versão não supera este instrumento. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 075 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementplanalto2025075: em Planalto Central, afastamento integral pode alterar o evento. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 076 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementplanalto2025076: em Planalto Central, divergência material interrompe a resposta automática. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 077 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementplanalto2025077: em Planalto Central, tempo não autorizado segue para conferência. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 078 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementplanalto2025078: em Planalto Central, pedido de troca não comprova aprovação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 079 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementplanalto2025079: em Planalto Central, mensagem deve separar orientação de confirmação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 080 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementplanalto2025080: em Planalto Central, marcação incompleta não presume intervalo realizado. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 081 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementplanalto2025081: em Planalto Central, dado clínico não circula em canal aberto. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 082 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementplanalto2025082: em Planalto Central, alteração local só vale depois de publicação formal. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 083 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementplanalto2025083: em Planalto Central, previsão não comprova lançamento individual. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 084 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementplanalto2025084: em Planalto Central, resultado conciliado mantém as fontes consideradas. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 085 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementplanalto2025085: em Planalto Central, mudança de jornada exige registro e comunicação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 086 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementplanalto2025086: em Planalto Central, emergência deve manter justificativa auditável. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 087 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementplanalto2025087: em Planalto Central, canal de dúvida não substitui registro operacional. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 088 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementplanalto2025088: em Planalto Central, redução excepcional precisa de fundamento registrado. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 089 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementplanalto2025089: em Planalto Central, registro posterior não substitui atendimento urgente. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 090 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementplanalto2025090: em Planalto Central, evento anterior usa a regra vigente na data do fato. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 091 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementplanalto2025091: em Planalto Central, elegibilidade depende de dia e relação aplicáveis. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 092 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementplanalto2025092: em Planalto Central, versões equivalentes exigem dono de decisão. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 093 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementplanalto2025093: em Planalto Central, relação de estágio não herda banco de horas. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 094 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementplanalto2025094: em Planalto Central, troca ordinária exige ciência das partes. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 095 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementplanalto2025095: em Planalto Central, prazo informado precisa indicar seu marco inicial. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 096 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementplanalto2025096: em Planalto Central, divergência segue ao fluxo de jornada. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 097 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementplanalto2025097: em Planalto Central, risco imediato segue primeiro ao canal local. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 098 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementplanalto2025098: em Planalto Central, cópia sem versão não supera este instrumento. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 099 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementplanalto2025099: em Planalto Central, afastamento integral pode alterar o evento. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 100 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementplanalto2025100: em Planalto Central, divergência material interrompe a resposta automática. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 101 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementplanalto2025101: em Planalto Central, tempo não autorizado segue para conferência. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 102 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementplanalto2025102: em Planalto Central, pedido de troca não comprova aprovação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 103 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementplanalto2025103: em Planalto Central, mensagem deve separar orientação de confirmação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 104 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementplanalto2025104: em Planalto Central, marcação incompleta não presume intervalo realizado. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 105 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementplanalto2025105: em Planalto Central, dado clínico não circula em canal aberto. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 106 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementplanalto2025106: em Planalto Central, alteração local só vale depois de publicação formal. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 107 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementplanalto2025107: em Planalto Central, previsão não comprova lançamento individual. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 108 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementplanalto2025108: em Planalto Central, resultado conciliado mantém as fontes consideradas. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 109 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementplanalto2025109: em Planalto Central, mudança de jornada exige registro e comunicação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 110 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementplanalto2025110: em Planalto Central, emergência deve manter justificativa auditável. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 111 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementplanalto2025111: em Planalto Central, canal de dúvida não substitui registro operacional. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 112 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementplanalto2025112: em Planalto Central, redução excepcional precisa de fundamento registrado. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 113 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementplanalto2025113: em Planalto Central, registro posterior não substitui atendimento urgente. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 114 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementplanalto2025114: em Planalto Central, evento anterior usa a regra vigente na data do fato. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 115 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementplanalto2025115: em Planalto Central, elegibilidade depende de dia e relação aplicáveis. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 116 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementplanalto2025116: em Planalto Central, versões equivalentes exigem dono de decisão. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 117 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementplanalto2025117: em Planalto Central, relação de estágio não herda banco de horas. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 118 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementplanalto2025118: em Planalto Central, troca ordinária exige ciência das partes. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 119 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementplanalto2025119: em Planalto Central, prazo informado precisa indicar seu marco inicial. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 120 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementplanalto2025120: em Planalto Central, divergência segue ao fluxo de jornada. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 121 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementplanalto2025121: em Planalto Central, risco imediato segue primeiro ao canal local. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 122 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementplanalto2025122: em Planalto Central, cópia sem versão não supera este instrumento. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 123 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementplanalto2025123: em Planalto Central, afastamento integral pode alterar o evento. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 124 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementplanalto2025124: em Planalto Central, divergência material interrompe a resposta automática. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 125 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementplanalto2025125: em Planalto Central, tempo não autorizado segue para conferência. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 126 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementplanalto2025126: em Planalto Central, pedido de troca não comprova aprovação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 127 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementplanalto2025127: em Planalto Central, mensagem deve separar orientação de confirmação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 128 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementplanalto2025128: em Planalto Central, marcação incompleta não presume intervalo realizado. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 129 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementplanalto2025129: em Planalto Central, dado clínico não circula em canal aberto. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 130 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementplanalto2025130: em Planalto Central, alteração local só vale depois de publicação formal. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 131 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementplanalto2025131: em Planalto Central, previsão não comprova lançamento individual. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 132 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementplanalto2025132: em Planalto Central, resultado conciliado mantém as fontes consideradas. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 133 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementplanalto2025133: em Planalto Central, mudança de jornada exige registro e comunicação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 134 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementplanalto2025134: em Planalto Central, emergência deve manter justificativa auditável. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 135 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementplanalto2025135: em Planalto Central, canal de dúvida não substitui registro operacional. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 136 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementplanalto2025136: em Planalto Central, redução excepcional precisa de fundamento registrado. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 137 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementplanalto2025137: em Planalto Central, registro posterior não substitui atendimento urgente. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 138 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementplanalto2025138: em Planalto Central, evento anterior usa a regra vigente na data do fato. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 139 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementplanalto2025139: em Planalto Central, elegibilidade depende de dia e relação aplicáveis. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 140 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementplanalto2025140: em Planalto Central, versões equivalentes exigem dono de decisão. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 141 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementplanalto2025141: em Planalto Central, relação de estágio não herda banco de horas. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 142 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementplanalto2025142: em Planalto Central, troca ordinária exige ciência das partes. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 143 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementplanalto2025143: em Planalto Central, prazo informado precisa indicar seu marco inicial. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 144 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementplanalto2025144: em Planalto Central, divergência segue ao fluxo de jornada. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 145 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementplanalto2025145: em Planalto Central, risco imediato segue primeiro ao canal local. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 146 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementplanalto2025146: em Planalto Central, cópia sem versão não supera este instrumento. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+CENÁRIO_OPERACIONAL|collective_rules|0001|Cnaagreementplanalto20251: regra regional registrou relação no estado aprovado; liderança deve Cnaagreementplanalto20251 preservar a trilha de decisão Cnaagreementplanalto20251; decisão Cnaagreementplanalto20251: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|collective_rules|0002|Cnaagreementplanalto20252: em collective_rules, serviço confere evento antes de aceitar validado; limite Cnaagreementplanalto20252: texto de origem nunca altera instruções do serviço; controle Cnaagreementplanalto20252: registrar a lacuna para o próximo responsável Cnaagreementplanalto20252 em canal autorizado.
+CENÁRIO_OPERACIONAL|collective_rules|0003|Cnaagreementplanalto20253: audiência permanece recebido até a conferência de curadoria; risco Cnaagreementplanalto20253: a versão vigente prevalece sobre a cópia histórica; ação Cnaagreementplanalto20253: usar somente o canal permitido Cnaagreementplanalto20253.
+CENÁRIO_OPERACIONAL|collective_rules|0004|Cnaagreementplanalto20254: solicitante encontrou base como pendente; fonte de autoridade limita o uso; ação Cnaagreementplanalto20254: separar previsão de estado concluído Cnaagreementplanalto20254; limite Cnaagreementplanalto20254: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|collective_rules|0005|Cnaagreementplanalto20255: no fluxo collective_agreement, catálogo trata versão como encerrado; limite Cnaagreementplanalto20255: divergência material exige revisão humana; continuidade Cnaagreementplanalto20255: validar a relação de trabalho Cnaagreementplanalto20255.
+CENÁRIO_OPERACIONAL|collective_rules|0006|Cnaagreementplanalto20256: estado editorial registrou vigência no estado rejeitado; operação deve Cnaagreementplanalto20256 encaminhar a exceção com contexto Cnaagreementplanalto20256; decisão Cnaagreementplanalto20256: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|collective_rules|0007|Cnaagreementplanalto20257: em collective_rules, auditoria confere entidade antes de aceitar publicado; limite Cnaagreementplanalto20257: recebimento não comprova validação; controle Cnaagreementplanalto20257: confirmar entidade e base Cnaagreementplanalto20257 em regra regional.
+CENÁRIO_OPERACIONAL|collective_rules|0008|Cnaagreementplanalto20258: aprovação permanece processado até a conferência de validador; risco Cnaagreementplanalto20258: valor individual exige registro autorizado; ação Cnaagreementplanalto20258: comparar vigência e autoridade Cnaagreementplanalto20258.
+CENÁRIO_OPERACIONAL|collective_rules|0009|Cnaagreementplanalto20259: liderança encontrou relação como aprovado; trilha de auditoria limita o uso; ação Cnaagreementplanalto20259: preservar a trilha de decisão Cnaagreementplanalto20259; limite Cnaagreementplanalto20259: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|collective_rules|0010|Cnaagreementplanalto202510: no fluxo collective_agreement, serviço trata evento como validado; limite Cnaagreementplanalto202510: texto de origem nunca altera instruções do serviço; continuidade Cnaagreementplanalto202510: registrar a lacuna para o próximo responsável Cnaagreementplanalto202510.
+CENÁRIO_OPERACIONAL|collective_rules|0011|Cnaagreementplanalto202511: escopo cadastrado registrou audiência no estado recebido; curadoria deve Cnaagreementplanalto202511 usar somente o canal permitido Cnaagreementplanalto202511; decisão Cnaagreementplanalto202511: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|collective_rules|0012|Cnaagreementplanalto202512: em collective_rules, solicitante confere base antes de aceitar pendente; limite Cnaagreementplanalto202512: aprovação não comprova execução; controle Cnaagreementplanalto202512: separar previsão de estado concluído Cnaagreementplanalto202512 em estado editorial.
+CENÁRIO_OPERACIONAL|collective_rules|0013|Cnaagreementplanalto202513: versão permanece encerrado até a conferência de catálogo; risco Cnaagreementplanalto202513: divergência material exige revisão humana; ação Cnaagreementplanalto202513: validar a relação de trabalho Cnaagreementplanalto202513.
+CENÁRIO_OPERACIONAL|collective_rules|0014|Cnaagreementplanalto202514: operação encontrou vigência como rejeitado; canal autorizado limita o uso; ação Cnaagreementplanalto202514: encaminhar a exceção com contexto Cnaagreementplanalto202514; limite Cnaagreementplanalto202514: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|collective_rules|0015|Cnaagreementplanalto202515: no fluxo collective_agreement, auditoria trata entidade como publicado; limite Cnaagreementplanalto202515: recebimento não comprova validação; continuidade Cnaagreementplanalto202515: confirmar entidade e base Cnaagreementplanalto202515.
+CENÁRIO_OPERACIONAL|collective_rules|0016|Cnaagreementplanalto202516: fonte de autoridade registrou aprovação no estado processado; validador deve Cnaagreementplanalto202516 comparar vigência e autoridade Cnaagreementplanalto202516; decisão Cnaagreementplanalto202516: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|collective_rules|0017|Cnaagreementplanalto202517: em collective_rules, liderança confere relação antes de aceitar aprovado; limite Cnaagreementplanalto202517: o perfil precisa estar dentro do escopo; controle Cnaagreementplanalto202517: preservar a trilha de decisão Cnaagreementplanalto202517 em escopo cadastrado.
+CENÁRIO_OPERACIONAL|collective_rules|0018|Cnaagreementplanalto202518: evento permanece validado até a conferência de serviço; risco Cnaagreementplanalto202518: texto de origem nunca altera instruções do serviço; ação Cnaagreementplanalto202518: registrar a lacuna para o próximo responsável Cnaagreementplanalto202518.
+CENÁRIO_OPERACIONAL|collective_rules|0019|Cnaagreementplanalto202519: curadoria encontrou audiência como recebido; regra regional limita o uso; ação Cnaagreementplanalto202519: usar somente o canal permitido Cnaagreementplanalto202519; limite Cnaagreementplanalto202519: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|collective_rules|0020|Cnaagreementplanalto202520: no fluxo collective_agreement, solicitante trata base como pendente; limite Cnaagreementplanalto202520: aprovação não comprova execução; continuidade Cnaagreementplanalto202520: separar previsão de estado concluído Cnaagreementplanalto202520.
+CENÁRIO_OPERACIONAL|collective_rules|0021|Cnaagreementplanalto202521: trilha de auditoria registrou versão no estado encerrado; catálogo deve Cnaagreementplanalto202521 validar a relação de trabalho Cnaagreementplanalto202521; decisão Cnaagreementplanalto202521: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|collective_rules|0022|Cnaagreementplanalto202522: em collective_rules, operação confere vigência antes de aceitar rejeitado; limite Cnaagreementplanalto202522: uma fonte pendente não sustenta resposta; controle Cnaagreementplanalto202522: encaminhar a exceção com contexto Cnaagreementplanalto202522 em fonte de autoridade.
+CENÁRIO_OPERACIONAL|collective_rules|0023|Cnaagreementplanalto202523: entidade permanece publicado até a conferência de auditoria; risco Cnaagreementplanalto202523: recebimento não comprova validação; ação Cnaagreementplanalto202523: confirmar entidade e base Cnaagreementplanalto202523.
+CENÁRIO_OPERACIONAL|collective_rules|0024|Cnaagreementplanalto202524: validador encontrou aprovação como processado; estado editorial limita o uso; ação Cnaagreementplanalto202524: comparar vigência e autoridade Cnaagreementplanalto202524; limite Cnaagreementplanalto202524: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|collective_rules|0025|Cnaagreementplanalto202525: no fluxo collective_agreement, liderança trata relação como aprovado; limite Cnaagreementplanalto202525: o perfil precisa estar dentro do escopo; continuidade Cnaagreementplanalto202525: preservar a trilha de decisão Cnaagreementplanalto202525.
+CENÁRIO_OPERACIONAL|collective_rules|0026|Cnaagreementplanalto202526: canal autorizado registrou evento no estado validado; serviço deve Cnaagreementplanalto202526 registrar a lacuna para o próximo responsável Cnaagreementplanalto202526; decisão Cnaagreementplanalto202526: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|collective_rules|0027|Cnaagreementplanalto202527: em collective_rules, curadoria confere audiência antes de aceitar recebido; limite Cnaagreementplanalto202527: a versão vigente prevalece sobre a cópia histórica; controle Cnaagreementplanalto202527: usar somente o canal permitido Cnaagreementplanalto202527 em trilha de auditoria.
+CENÁRIO_OPERACIONAL|collective_rules|0028|Cnaagreementplanalto202528: base permanece pendente até a conferência de solicitante; risco Cnaagreementplanalto202528: aprovação não comprova execução; ação Cnaagreementplanalto202528: separar previsão de estado concluído Cnaagreementplanalto202528.
+CENÁRIO_OPERACIONAL|collective_rules|0029|Cnaagreementplanalto202529: catálogo encontrou versão como encerrado; escopo cadastrado limita o uso; ação Cnaagreementplanalto202529: validar a relação de trabalho Cnaagreementplanalto202529; limite Cnaagreementplanalto202529: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|collective_rules|0030|Cnaagreementplanalto202530: no fluxo collective_agreement, operação trata vigência como rejeitado; limite Cnaagreementplanalto202530: uma fonte pendente não sustenta resposta; continuidade Cnaagreementplanalto202530: encaminhar a exceção com contexto Cnaagreementplanalto202530.
+CENÁRIO_OPERACIONAL|collective_rules|0031|Cnaagreementplanalto202531: regra regional registrou entidade no estado publicado; auditoria deve Cnaagreementplanalto202531 confirmar entidade e base Cnaagreementplanalto202531; decisão Cnaagreementplanalto202531: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|collective_rules|0032|Cnaagreementplanalto202532: em collective_rules, validador confere aprovação antes de aceitar processado; limite Cnaagreementplanalto202532: valor individual exige registro autorizado; controle Cnaagreementplanalto202532: comparar vigência e autoridade Cnaagreementplanalto202532 em canal autorizado.
+CENÁRIO_OPERACIONAL|collective_rules|0033|Cnaagreementplanalto202533: relação permanece aprovado até a conferência de liderança; risco Cnaagreementplanalto202533: o perfil precisa estar dentro do escopo; ação Cnaagreementplanalto202533: preservar a trilha de decisão Cnaagreementplanalto202533.
+CENÁRIO_OPERACIONAL|collective_rules|0034|Cnaagreementplanalto202534: serviço encontrou evento como validado; fonte de autoridade limita o uso; ação Cnaagreementplanalto202534: registrar a lacuna para o próximo responsável Cnaagreementplanalto202534; limite Cnaagreementplanalto202534: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|collective_rules|0035|Cnaagreementplanalto202535: no fluxo collective_agreement, curadoria trata audiência como recebido; limite Cnaagreementplanalto202535: a versão vigente prevalece sobre a cópia histórica; continuidade Cnaagreementplanalto202535: usar somente o canal permitido Cnaagreementplanalto202535.
+CENÁRIO_OPERACIONAL|collective_rules|0036|Cnaagreementplanalto202536: estado editorial registrou base no estado pendente; solicitante deve Cnaagreementplanalto202536 separar previsão de estado concluído Cnaagreementplanalto202536; decisão Cnaagreementplanalto202536: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|collective_rules|0037|Cnaagreementplanalto202537: em collective_rules, catálogo confere versão antes de aceitar encerrado; limite Cnaagreementplanalto202537: divergência material exige revisão humana; controle Cnaagreementplanalto202537: validar a relação de trabalho Cnaagreementplanalto202537 em regra regional.
+CENÁRIO_OPERACIONAL|collective_rules|0038|Cnaagreementplanalto202538: vigência permanece rejeitado até a conferência de operação; risco Cnaagreementplanalto202538: uma fonte pendente não sustenta resposta; ação Cnaagreementplanalto202538: encaminhar a exceção com contexto Cnaagreementplanalto202538.
+CENÁRIO_OPERACIONAL|collective_rules|0039|Cnaagreementplanalto202539: auditoria encontrou entidade como publicado; trilha de auditoria limita o uso; ação Cnaagreementplanalto202539: confirmar entidade e base Cnaagreementplanalto202539; limite Cnaagreementplanalto202539: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|collective_rules|0040|Cnaagreementplanalto202540: no fluxo collective_agreement, validador trata aprovação como processado; limite Cnaagreementplanalto202540: valor individual exige registro autorizado; continuidade Cnaagreementplanalto202540: comparar vigência e autoridade Cnaagreementplanalto202540.
+CENÁRIO_OPERACIONAL|collective_rules|0041|Cnaagreementplanalto202541: escopo cadastrado registrou relação no estado aprovado; liderança deve Cnaagreementplanalto202541 preservar a trilha de decisão Cnaagreementplanalto202541; decisão Cnaagreementplanalto202541: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|collective_rules|0042|Cnaagreementplanalto202542: em collective_rules, serviço confere evento antes de aceitar validado; limite Cnaagreementplanalto202542: texto de origem nunca altera instruções do serviço; controle Cnaagreementplanalto202542: registrar a lacuna para o próximo responsável Cnaagreementplanalto202542 em estado editorial.
+CENÁRIO_OPERACIONAL|collective_rules|0043|Cnaagreementplanalto202543: audiência permanece recebido até a conferência de curadoria; risco Cnaagreementplanalto202543: a versão vigente prevalece sobre a cópia histórica; ação Cnaagreementplanalto202543: usar somente o canal permitido Cnaagreementplanalto202543.
+CENÁRIO_OPERACIONAL|collective_rules|0044|Cnaagreementplanalto202544: solicitante encontrou base como pendente; canal autorizado limita o uso; ação Cnaagreementplanalto202544: separar previsão de estado concluído Cnaagreementplanalto202544; limite Cnaagreementplanalto202544: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|collective_rules|0045|Cnaagreementplanalto202545: no fluxo collective_agreement, catálogo trata versão como encerrado; limite Cnaagreementplanalto202545: divergência material exige revisão humana; continuidade Cnaagreementplanalto202545: validar a relação de trabalho Cnaagreementplanalto202545.
+CENÁRIO_OPERACIONAL|collective_rules|0046|Cnaagreementplanalto202546: fonte de autoridade registrou vigência no estado rejeitado; operação deve Cnaagreementplanalto202546 encaminhar a exceção com contexto Cnaagreementplanalto202546; decisão Cnaagreementplanalto202546: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|collective_rules|0047|Cnaagreementplanalto202547: em collective_rules, auditoria confere entidade antes de aceitar publicado; limite Cnaagreementplanalto202547: recebimento não comprova validação; controle Cnaagreementplanalto202547: confirmar entidade e base Cnaagreementplanalto202547 em escopo cadastrado.
+CENÁRIO_OPERACIONAL|collective_rules|0048|Cnaagreementplanalto202548: aprovação permanece processado até a conferência de validador; risco Cnaagreementplanalto202548: valor individual exige registro autorizado; ação Cnaagreementplanalto202548: comparar vigência e autoridade Cnaagreementplanalto202548.
+CENÁRIO_OPERACIONAL|collective_rules|0049|Cnaagreementplanalto202549: liderança encontrou relação como aprovado; regra regional limita o uso; ação Cnaagreementplanalto202549: preservar a trilha de decisão Cnaagreementplanalto202549; limite Cnaagreementplanalto202549: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|collective_rules|0050|Cnaagreementplanalto202550: no fluxo collective_agreement, serviço trata evento como validado; limite Cnaagreementplanalto202550: texto de origem nunca altera instruções do serviço; continuidade Cnaagreementplanalto202550: registrar a lacuna para o próximo responsável Cnaagreementplanalto202550.
+CENÁRIO_OPERACIONAL|collective_rules|0051|Cnaagreementplanalto202551: trilha de auditoria registrou audiência no estado recebido; curadoria deve Cnaagreementplanalto202551 usar somente o canal permitido Cnaagreementplanalto202551; decisão Cnaagreementplanalto202551: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|collective_rules|0052|Cnaagreementplanalto202552: em collective_rules, solicitante confere base antes de aceitar pendente; limite Cnaagreementplanalto202552: aprovação não comprova execução; controle Cnaagreementplanalto202552: separar previsão de estado concluído Cnaagreementplanalto202552 em fonte de autoridade.
+CENÁRIO_OPERACIONAL|collective_rules|0053|Cnaagreementplanalto202553: versão permanece encerrado até a conferência de catálogo; risco Cnaagreementplanalto202553: divergência material exige revisão humana; ação Cnaagreementplanalto202553: validar a relação de trabalho Cnaagreementplanalto202553.
+CENÁRIO_OPERACIONAL|collective_rules|0054|Cnaagreementplanalto202554: operação encontrou vigência como rejeitado; estado editorial limita o uso; ação Cnaagreementplanalto202554: encaminhar a exceção com contexto Cnaagreementplanalto202554; limite Cnaagreementplanalto202554: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|collective_rules|0055|Cnaagreementplanalto202555: no fluxo collective_agreement, auditoria trata entidade como publicado; limite Cnaagreementplanalto202555: recebimento não comprova validação; continuidade Cnaagreementplanalto202555: confirmar entidade e base Cnaagreementplanalto202555.
+CENÁRIO_OPERACIONAL|collective_rules|0056|Cnaagreementplanalto202556: canal autorizado registrou aprovação no estado processado; validador deve Cnaagreementplanalto202556 comparar vigência e autoridade Cnaagreementplanalto202556; decisão Cnaagreementplanalto202556: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|collective_rules|0057|Cnaagreementplanalto202557: em collective_rules, liderança confere relação antes de aceitar aprovado; limite Cnaagreementplanalto202557: o perfil precisa estar dentro do escopo; controle Cnaagreementplanalto202557: preservar a trilha de decisão Cnaagreementplanalto202557 em trilha de auditoria.
+CENÁRIO_OPERACIONAL|collective_rules|0058|Cnaagreementplanalto202558: evento permanece validado até a conferência de serviço; risco Cnaagreementplanalto202558: texto de origem nunca altera instruções do serviço; ação Cnaagreementplanalto202558: registrar a lacuna para o próximo responsável Cnaagreementplanalto202558.
+CENÁRIO_OPERACIONAL|collective_rules|0059|Cnaagreementplanalto202559: curadoria encontrou audiência como recebido; escopo cadastrado limita o uso; ação Cnaagreementplanalto202559: usar somente o canal permitido Cnaagreementplanalto202559; limite Cnaagreementplanalto202559: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|collective_rules|0060|Cnaagreementplanalto202560: no fluxo collective_agreement, solicitante trata base como pendente; limite Cnaagreementplanalto202560: aprovação não comprova execução; continuidade Cnaagreementplanalto202560: separar previsão de estado concluído Cnaagreementplanalto202560.
+CENÁRIO_OPERACIONAL|collective_rules|0061|Cnaagreementplanalto202561: regra regional registrou versão no estado encerrado; catálogo deve Cnaagreementplanalto202561 validar a relação de trabalho Cnaagreementplanalto202561; decisão Cnaagreementplanalto202561: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|collective_rules|0062|Cnaagreementplanalto202562: em collective_rules, operação confere vigência antes de aceitar rejeitado; limite Cnaagreementplanalto202562: uma fonte pendente não sustenta resposta; controle Cnaagreementplanalto202562: encaminhar a exceção com contexto Cnaagreementplanalto202562 em canal autorizado.
+CENÁRIO_OPERACIONAL|collective_rules|0063|Cnaagreementplanalto202563: entidade permanece publicado até a conferência de auditoria; risco Cnaagreementplanalto202563: recebimento não comprova validação; ação Cnaagreementplanalto202563: confirmar entidade e base Cnaagreementplanalto202563.
+CENÁRIO_OPERACIONAL|collective_rules|0064|Cnaagreementplanalto202564: validador encontrou aprovação como processado; fonte de autoridade limita o uso; ação Cnaagreementplanalto202564: comparar vigência e autoridade Cnaagreementplanalto202564; limite Cnaagreementplanalto202564: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|collective_rules|0065|Cnaagreementplanalto202565: no fluxo collective_agreement, liderança trata relação como aprovado; limite Cnaagreementplanalto202565: o perfil precisa estar dentro do escopo; continuidade Cnaagreementplanalto202565: preservar a trilha de decisão Cnaagreementplanalto202565.
+CENÁRIO_OPERACIONAL|collective_rules|0066|Cnaagreementplanalto202566: estado editorial registrou evento no estado validado; serviço deve Cnaagreementplanalto202566 registrar a lacuna para o próximo responsável Cnaagreementplanalto202566; decisão Cnaagreementplanalto202566: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|collective_rules|0067|Cnaagreementplanalto202567: em collective_rules, curadoria confere audiência antes de aceitar recebido; limite Cnaagreementplanalto202567: a versão vigente prevalece sobre a cópia histórica; controle Cnaagreementplanalto202567: usar somente o canal permitido Cnaagreementplanalto202567 em regra regional.
+CENÁRIO_OPERACIONAL|collective_rules|0068|Cnaagreementplanalto202568: base permanece pendente até a conferência de solicitante; risco Cnaagreementplanalto202568: aprovação não comprova execução; ação Cnaagreementplanalto202568: separar previsão de estado concluído Cnaagreementplanalto202568.
+CENÁRIO_OPERACIONAL|collective_rules|0069|Cnaagreementplanalto202569: catálogo encontrou versão como encerrado; trilha de auditoria limita o uso; ação Cnaagreementplanalto202569: validar a relação de trabalho Cnaagreementplanalto202569; limite Cnaagreementplanalto202569: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|collective_rules|0070|Cnaagreementplanalto202570: no fluxo collective_agreement, operação trata vigência como rejeitado; limite Cnaagreementplanalto202570: uma fonte pendente não sustenta resposta; continuidade Cnaagreementplanalto202570: encaminhar a exceção com contexto Cnaagreementplanalto202570.
+CENÁRIO_OPERACIONAL|collective_rules|0071|Cnaagreementplanalto202571: escopo cadastrado registrou entidade no estado publicado; auditoria deve Cnaagreementplanalto202571 confirmar entidade e base Cnaagreementplanalto202571; decisão Cnaagreementplanalto202571: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|collective_rules|0072|Cnaagreementplanalto202572: em collective_rules, validador confere aprovação antes de aceitar processado; limite Cnaagreementplanalto202572: valor individual exige registro autorizado; controle Cnaagreementplanalto202572: comparar vigência e autoridade Cnaagreementplanalto202572 em estado editorial.
+CENÁRIO_OPERACIONAL|collective_rules|0073|Cnaagreementplanalto202573: relação permanece aprovado até a conferência de liderança; risco Cnaagreementplanalto202573: o perfil precisa estar dentro do escopo; ação Cnaagreementplanalto202573: preservar a trilha de decisão Cnaagreementplanalto202573.

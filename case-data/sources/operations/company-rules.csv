@@ -1,0 +1,263 @@
+DOCUMENTO SINTÉTICO | Matriz de particularidades organizacionais
+source_id=na-company-rules-matrix-v6 | version=6.4
+estado=approved | vigência=2026-01-15
+extração=structured | formato_origem=XLSX
+
+row_id,entity,base,relationship,topic,rule,owner,status
+R0001,NA_NORTE,CENTRO_OESTE,intern,benefit,validar relação e dia elegível; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0002,NA_SUL,SUL,apprentice,timekeeping,não converter aprovação em processamento; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0003,NA_SERVICOS,NORTE,employee,admission,não receber documento pessoal em chat; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0004,NA_NORTE,SUDESTE,intern,termination,separar cálculo preliminar de fechamento; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0005,NA_SUL,CENTRO_OESTE,apprentice,identity,registrar aprovação e confirmação por sistema; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0006,NA_SERVICOS,SUL,employee,calendar,registrar exceção antes de comunicar mudança; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0007,NA_NORTE,NORTE,intern,benefit,encaminhar divergência com competência e base; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0008,NA_SUL,SUDESTE,apprentice,timekeeping,conferir fechamento antes do ajuste; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0009,NA_SERVICOS,CENTRO_OESTE,employee,admission,liberar identidade somente após o evento formal; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0010,NA_NORTE,SUL,intern,termination,exigir decisão formal do responsável; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0011,NA_SUL,NORTE,apprentice,identity,não conceder acesso por texto livre; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0012,NA_SERVICOS,SUDESTE,employee,calendar,usar o calendário publicado da base; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0013,NA_NORTE,CENTRO_OESTE,intern,benefit,validar relação e dia elegível; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0014,NA_SUL,SUL,apprentice,timekeeping,não converter aprovação em processamento; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0015,NA_SERVICOS,NORTE,employee,admission,não receber documento pessoal em chat; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0016,NA_NORTE,SUDESTE,intern,termination,separar cálculo preliminar de fechamento; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0017,NA_SUL,CENTRO_OESTE,apprentice,identity,registrar aprovação e confirmação por sistema; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0018,NA_SERVICOS,SUL,employee,calendar,registrar exceção antes de comunicar mudança; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0019,NA_NORTE,NORTE,intern,benefit,encaminhar divergência com competência e base; conferir perfil vigência e estado antes de concluir,benefit_owner,needs_review
+R0020,NA_SUL,SUDESTE,apprentice,timekeeping,conferir fechamento antes do ajuste; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0021,NA_SERVICOS,CENTRO_OESTE,employee,admission,liberar identidade somente após o evento formal; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0022,NA_NORTE,SUL,intern,termination,exigir decisão formal do responsável; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0023,NA_SUL,NORTE,apprentice,identity,não conceder acesso por texto livre; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0024,NA_SERVICOS,SUDESTE,employee,calendar,usar o calendário publicado da base; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0025,NA_NORTE,CENTRO_OESTE,intern,benefit,validar relação e dia elegível; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0026,NA_SUL,SUL,apprentice,timekeeping,não converter aprovação em processamento; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0027,NA_SERVICOS,NORTE,employee,admission,não receber documento pessoal em chat; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0028,NA_NORTE,SUDESTE,intern,termination,separar cálculo preliminar de fechamento; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0029,NA_SUL,CENTRO_OESTE,apprentice,identity,registrar aprovação e confirmação por sistema; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0030,NA_SERVICOS,SUL,employee,calendar,registrar exceção antes de comunicar mudança; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0031,NA_NORTE,NORTE,intern,benefit,encaminhar divergência com competência e base; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0032,NA_SUL,SUDESTE,apprentice,timekeeping,conferir fechamento antes do ajuste; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0033,NA_SERVICOS,CENTRO_OESTE,employee,admission,liberar identidade somente após o evento formal; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0034,NA_NORTE,SUL,intern,termination,exigir decisão formal do responsável; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0035,NA_SUL,NORTE,apprentice,identity,não conceder acesso por texto livre; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0036,NA_SERVICOS,SUDESTE,employee,calendar,usar o calendário publicado da base; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0037,NA_NORTE,CENTRO_OESTE,intern,benefit,validar relação e dia elegível; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0038,NA_SUL,SUL,apprentice,timekeeping,não converter aprovação em processamento; conferir perfil vigência e estado antes de concluir,timekeeping_owner,needs_review
+R0039,NA_SERVICOS,NORTE,employee,admission,não receber documento pessoal em chat; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0040,NA_NORTE,SUDESTE,intern,termination,separar cálculo preliminar de fechamento; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0041,NA_SUL,CENTRO_OESTE,apprentice,identity,registrar aprovação e confirmação por sistema; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0042,NA_SERVICOS,SUL,employee,calendar,registrar exceção antes de comunicar mudança; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0043,NA_NORTE,NORTE,intern,benefit,encaminhar divergência com competência e base; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0044,NA_SUL,SUDESTE,apprentice,timekeeping,conferir fechamento antes do ajuste; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0045,NA_SERVICOS,CENTRO_OESTE,employee,admission,liberar identidade somente após o evento formal; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0046,NA_NORTE,SUL,intern,termination,exigir decisão formal do responsável; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0047,NA_SUL,NORTE,apprentice,identity,não conceder acesso por texto livre; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0048,NA_SERVICOS,SUDESTE,employee,calendar,usar o calendário publicado da base; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0049,NA_NORTE,CENTRO_OESTE,intern,benefit,validar relação e dia elegível; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0050,NA_SUL,SUL,apprentice,timekeeping,não converter aprovação em processamento; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0051,NA_SERVICOS,NORTE,employee,admission,não receber documento pessoal em chat; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0052,NA_NORTE,SUDESTE,intern,termination,separar cálculo preliminar de fechamento; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0053,NA_SUL,CENTRO_OESTE,apprentice,identity,registrar aprovação e confirmação por sistema; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0054,NA_SERVICOS,SUL,employee,calendar,registrar exceção antes de comunicar mudança; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0055,NA_NORTE,NORTE,intern,benefit,encaminhar divergência com competência e base; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0056,NA_SUL,SUDESTE,apprentice,timekeeping,conferir fechamento antes do ajuste; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0057,NA_SERVICOS,CENTRO_OESTE,employee,admission,liberar identidade somente após o evento formal; conferir perfil vigência e estado antes de concluir,admission_owner,needs_review
+R0058,NA_NORTE,SUL,intern,termination,exigir decisão formal do responsável; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0059,NA_SUL,NORTE,apprentice,identity,não conceder acesso por texto livre; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0060,NA_SERVICOS,SUDESTE,employee,calendar,usar o calendário publicado da base; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0061,NA_NORTE,CENTRO_OESTE,intern,benefit,validar relação e dia elegível; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0062,NA_SUL,SUL,apprentice,timekeeping,não converter aprovação em processamento; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0063,NA_SERVICOS,NORTE,employee,admission,não receber documento pessoal em chat; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0064,NA_NORTE,SUDESTE,intern,termination,separar cálculo preliminar de fechamento; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0065,NA_SUL,CENTRO_OESTE,apprentice,identity,registrar aprovação e confirmação por sistema; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0066,NA_SERVICOS,SUL,employee,calendar,registrar exceção antes de comunicar mudança; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0067,NA_NORTE,NORTE,intern,benefit,encaminhar divergência com competência e base; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0068,NA_SUL,SUDESTE,apprentice,timekeeping,conferir fechamento antes do ajuste; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0069,NA_SERVICOS,CENTRO_OESTE,employee,admission,liberar identidade somente após o evento formal; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0070,NA_NORTE,SUL,intern,termination,exigir decisão formal do responsável; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0071,NA_SUL,NORTE,apprentice,identity,não conceder acesso por texto livre; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0072,NA_SERVICOS,SUDESTE,employee,calendar,usar o calendário publicado da base; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0073,NA_NORTE,CENTRO_OESTE,intern,benefit,validar relação e dia elegível; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0074,NA_SUL,SUL,apprentice,timekeeping,não converter aprovação em processamento; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0075,NA_SERVICOS,NORTE,employee,admission,não receber documento pessoal em chat; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0076,NA_NORTE,SUDESTE,intern,termination,separar cálculo preliminar de fechamento; conferir perfil vigência e estado antes de concluir,termination_owner,needs_review
+R0077,NA_SUL,CENTRO_OESTE,apprentice,identity,registrar aprovação e confirmação por sistema; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0078,NA_SERVICOS,SUL,employee,calendar,registrar exceção antes de comunicar mudança; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0079,NA_NORTE,NORTE,intern,benefit,encaminhar divergência com competência e base; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0080,NA_SUL,SUDESTE,apprentice,timekeeping,conferir fechamento antes do ajuste; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0081,NA_SERVICOS,CENTRO_OESTE,employee,admission,liberar identidade somente após o evento formal; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0082,NA_NORTE,SUL,intern,termination,exigir decisão formal do responsável; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0083,NA_SUL,NORTE,apprentice,identity,não conceder acesso por texto livre; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0084,NA_SERVICOS,SUDESTE,employee,calendar,usar o calendário publicado da base; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0085,NA_NORTE,CENTRO_OESTE,intern,benefit,validar relação e dia elegível; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0086,NA_SUL,SUL,apprentice,timekeeping,não converter aprovação em processamento; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0087,NA_SERVICOS,NORTE,employee,admission,não receber documento pessoal em chat; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0088,NA_NORTE,SUDESTE,intern,termination,separar cálculo preliminar de fechamento; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0089,NA_SUL,CENTRO_OESTE,apprentice,identity,registrar aprovação e confirmação por sistema; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0090,NA_SERVICOS,SUL,employee,calendar,registrar exceção antes de comunicar mudança; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0091,NA_NORTE,NORTE,intern,benefit,encaminhar divergência com competência e base; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0092,NA_SUL,SUDESTE,apprentice,timekeeping,conferir fechamento antes do ajuste; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0093,NA_SERVICOS,CENTRO_OESTE,employee,admission,liberar identidade somente após o evento formal; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0094,NA_NORTE,SUL,intern,termination,exigir decisão formal do responsável; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0095,NA_SUL,NORTE,apprentice,identity,não conceder acesso por texto livre; conferir perfil vigência e estado antes de concluir,identity_owner,needs_review
+R0096,NA_SERVICOS,SUDESTE,employee,calendar,usar o calendário publicado da base; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0097,NA_NORTE,CENTRO_OESTE,intern,benefit,validar relação e dia elegível; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0098,NA_SUL,SUL,apprentice,timekeeping,não converter aprovação em processamento; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0099,NA_SERVICOS,NORTE,employee,admission,não receber documento pessoal em chat; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0100,NA_NORTE,SUDESTE,intern,termination,separar cálculo preliminar de fechamento; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0101,NA_SUL,CENTRO_OESTE,apprentice,identity,registrar aprovação e confirmação por sistema; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0102,NA_SERVICOS,SUL,employee,calendar,registrar exceção antes de comunicar mudança; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0103,NA_NORTE,NORTE,intern,benefit,encaminhar divergência com competência e base; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0104,NA_SUL,SUDESTE,apprentice,timekeeping,conferir fechamento antes do ajuste; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0105,NA_SERVICOS,CENTRO_OESTE,employee,admission,liberar identidade somente após o evento formal; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0106,NA_NORTE,SUL,intern,termination,exigir decisão formal do responsável; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0107,NA_SUL,NORTE,apprentice,identity,não conceder acesso por texto livre; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0108,NA_SERVICOS,SUDESTE,employee,calendar,usar o calendário publicado da base; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0109,NA_NORTE,CENTRO_OESTE,intern,benefit,validar relação e dia elegível; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0110,NA_SUL,SUL,apprentice,timekeeping,não converter aprovação em processamento; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0111,NA_SERVICOS,NORTE,employee,admission,não receber documento pessoal em chat; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0112,NA_NORTE,SUDESTE,intern,termination,separar cálculo preliminar de fechamento; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0113,NA_SUL,CENTRO_OESTE,apprentice,identity,registrar aprovação e confirmação por sistema; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0114,NA_SERVICOS,SUL,employee,calendar,registrar exceção antes de comunicar mudança; conferir perfil vigência e estado antes de concluir,calendar_owner,needs_review
+R0115,NA_NORTE,NORTE,intern,benefit,encaminhar divergência com competência e base; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0116,NA_SUL,SUDESTE,apprentice,timekeeping,conferir fechamento antes do ajuste; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0117,NA_SERVICOS,CENTRO_OESTE,employee,admission,liberar identidade somente após o evento formal; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0118,NA_NORTE,SUL,intern,termination,exigir decisão formal do responsável; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0119,NA_SUL,NORTE,apprentice,identity,não conceder acesso por texto livre; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0120,NA_SERVICOS,SUDESTE,employee,calendar,usar o calendário publicado da base; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0121,NA_NORTE,CENTRO_OESTE,intern,benefit,validar relação e dia elegível; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0122,NA_SUL,SUL,apprentice,timekeeping,não converter aprovação em processamento; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0123,NA_SERVICOS,NORTE,employee,admission,não receber documento pessoal em chat; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0124,NA_NORTE,SUDESTE,intern,termination,separar cálculo preliminar de fechamento; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0125,NA_SUL,CENTRO_OESTE,apprentice,identity,registrar aprovação e confirmação por sistema; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0126,NA_SERVICOS,SUL,employee,calendar,registrar exceção antes de comunicar mudança; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0127,NA_NORTE,NORTE,intern,benefit,encaminhar divergência com competência e base; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0128,NA_SUL,SUDESTE,apprentice,timekeeping,conferir fechamento antes do ajuste; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0129,NA_SERVICOS,CENTRO_OESTE,employee,admission,liberar identidade somente após o evento formal; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0130,NA_NORTE,SUL,intern,termination,exigir decisão formal do responsável; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0131,NA_SUL,NORTE,apprentice,identity,não conceder acesso por texto livre; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0132,NA_SERVICOS,SUDESTE,employee,calendar,usar o calendário publicado da base; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0133,NA_NORTE,CENTRO_OESTE,intern,benefit,validar relação e dia elegível; conferir perfil vigência e estado antes de concluir,benefit_owner,needs_review
+R0134,NA_SUL,SUL,apprentice,timekeeping,não converter aprovação em processamento; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0135,NA_SERVICOS,NORTE,employee,admission,não receber documento pessoal em chat; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0136,NA_NORTE,SUDESTE,intern,termination,separar cálculo preliminar de fechamento; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0137,NA_SUL,CENTRO_OESTE,apprentice,identity,registrar aprovação e confirmação por sistema; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0138,NA_SERVICOS,SUL,employee,calendar,registrar exceção antes de comunicar mudança; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0139,NA_NORTE,NORTE,intern,benefit,encaminhar divergência com competência e base; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0140,NA_SUL,SUDESTE,apprentice,timekeeping,conferir fechamento antes do ajuste; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0141,NA_SERVICOS,CENTRO_OESTE,employee,admission,liberar identidade somente após o evento formal; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0142,NA_NORTE,SUL,intern,termination,exigir decisão formal do responsável; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0143,NA_SUL,NORTE,apprentice,identity,não conceder acesso por texto livre; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0144,NA_SERVICOS,SUDESTE,employee,calendar,usar o calendário publicado da base; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0145,NA_NORTE,CENTRO_OESTE,intern,benefit,validar relação e dia elegível; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0146,NA_SUL,SUL,apprentice,timekeeping,não converter aprovação em processamento; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0147,NA_SERVICOS,NORTE,employee,admission,não receber documento pessoal em chat; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0148,NA_NORTE,SUDESTE,intern,termination,separar cálculo preliminar de fechamento; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0149,NA_SUL,CENTRO_OESTE,apprentice,identity,registrar aprovação e confirmação por sistema; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0150,NA_SERVICOS,SUL,employee,calendar,registrar exceção antes de comunicar mudança; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0151,NA_NORTE,NORTE,intern,benefit,encaminhar divergência com competência e base; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0152,NA_SUL,SUDESTE,apprentice,timekeeping,conferir fechamento antes do ajuste; conferir perfil vigência e estado antes de concluir,timekeeping_owner,needs_review
+R0153,NA_SERVICOS,CENTRO_OESTE,employee,admission,liberar identidade somente após o evento formal; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0154,NA_NORTE,SUL,intern,termination,exigir decisão formal do responsável; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0155,NA_SUL,NORTE,apprentice,identity,não conceder acesso por texto livre; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0156,NA_SERVICOS,SUDESTE,employee,calendar,usar o calendário publicado da base; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0157,NA_NORTE,CENTRO_OESTE,intern,benefit,validar relação e dia elegível; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0158,NA_SUL,SUL,apprentice,timekeeping,não converter aprovação em processamento; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0159,NA_SERVICOS,NORTE,employee,admission,não receber documento pessoal em chat; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0160,NA_NORTE,SUDESTE,intern,termination,separar cálculo preliminar de fechamento; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0161,NA_SUL,CENTRO_OESTE,apprentice,identity,registrar aprovação e confirmação por sistema; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0162,NA_SERVICOS,SUL,employee,calendar,registrar exceção antes de comunicar mudança; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0163,NA_NORTE,NORTE,intern,benefit,encaminhar divergência com competência e base; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0164,NA_SUL,SUDESTE,apprentice,timekeeping,conferir fechamento antes do ajuste; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0165,NA_SERVICOS,CENTRO_OESTE,employee,admission,liberar identidade somente após o evento formal; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0166,NA_NORTE,SUL,intern,termination,exigir decisão formal do responsável; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0167,NA_SUL,NORTE,apprentice,identity,não conceder acesso por texto livre; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0168,NA_SERVICOS,SUDESTE,employee,calendar,usar o calendário publicado da base; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0169,NA_NORTE,CENTRO_OESTE,intern,benefit,validar relação e dia elegível; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0170,NA_SUL,SUL,apprentice,timekeeping,não converter aprovação em processamento; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0171,NA_SERVICOS,NORTE,employee,admission,não receber documento pessoal em chat; conferir perfil vigência e estado antes de concluir,admission_owner,needs_review
+R0172,NA_NORTE,SUDESTE,intern,termination,separar cálculo preliminar de fechamento; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0173,NA_SUL,CENTRO_OESTE,apprentice,identity,registrar aprovação e confirmação por sistema; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0174,NA_SERVICOS,SUL,employee,calendar,registrar exceção antes de comunicar mudança; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0175,NA_NORTE,NORTE,intern,benefit,encaminhar divergência com competência e base; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0176,NA_SUL,SUDESTE,apprentice,timekeeping,conferir fechamento antes do ajuste; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0177,NA_SERVICOS,CENTRO_OESTE,employee,admission,liberar identidade somente após o evento formal; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0178,NA_NORTE,SUL,intern,termination,exigir decisão formal do responsável; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0179,NA_SUL,NORTE,apprentice,identity,não conceder acesso por texto livre; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0180,NA_SERVICOS,SUDESTE,employee,calendar,usar o calendário publicado da base; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0181,NA_NORTE,CENTRO_OESTE,intern,benefit,validar relação e dia elegível; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0182,NA_SUL,SUL,apprentice,timekeeping,não converter aprovação em processamento; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0183,NA_SERVICOS,NORTE,employee,admission,não receber documento pessoal em chat; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0184,NA_NORTE,SUDESTE,intern,termination,separar cálculo preliminar de fechamento; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0185,NA_SUL,CENTRO_OESTE,apprentice,identity,registrar aprovação e confirmação por sistema; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0186,NA_SERVICOS,SUL,employee,calendar,registrar exceção antes de comunicar mudança; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0187,NA_NORTE,NORTE,intern,benefit,encaminhar divergência com competência e base; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0188,NA_SUL,SUDESTE,apprentice,timekeeping,conferir fechamento antes do ajuste; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0189,NA_SERVICOS,CENTRO_OESTE,employee,admission,liberar identidade somente após o evento formal; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0190,NA_NORTE,SUL,intern,termination,exigir decisão formal do responsável; conferir perfil vigência e estado antes de concluir,termination_owner,needs_review
+R0191,NA_SUL,NORTE,apprentice,identity,não conceder acesso por texto livre; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0192,NA_SERVICOS,SUDESTE,employee,calendar,usar o calendário publicado da base; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0193,NA_NORTE,CENTRO_OESTE,intern,benefit,validar relação e dia elegível; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0194,NA_SUL,SUL,apprentice,timekeeping,não converter aprovação em processamento; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0195,NA_SERVICOS,NORTE,employee,admission,não receber documento pessoal em chat; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0196,NA_NORTE,SUDESTE,intern,termination,separar cálculo preliminar de fechamento; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0197,NA_SUL,CENTRO_OESTE,apprentice,identity,registrar aprovação e confirmação por sistema; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0198,NA_SERVICOS,SUL,employee,calendar,registrar exceção antes de comunicar mudança; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0199,NA_NORTE,NORTE,intern,benefit,encaminhar divergência com competência e base; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0200,NA_SUL,SUDESTE,apprentice,timekeeping,conferir fechamento antes do ajuste; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0201,NA_SERVICOS,CENTRO_OESTE,employee,admission,liberar identidade somente após o evento formal; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0202,NA_NORTE,SUL,intern,termination,exigir decisão formal do responsável; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0203,NA_SUL,NORTE,apprentice,identity,não conceder acesso por texto livre; conferir perfil vigência e estado antes de concluir,identity_owner,active
+R0204,NA_SERVICOS,SUDESTE,employee,calendar,usar o calendário publicado da base; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R0205,NA_NORTE,CENTRO_OESTE,intern,benefit,validar relação e dia elegível; conferir perfil vigência e estado antes de concluir,benefit_owner,active
+R0206,NA_SUL,SUL,apprentice,timekeeping,não converter aprovação em processamento; conferir perfil vigência e estado antes de concluir,timekeeping_owner,active
+R0207,NA_SERVICOS,NORTE,employee,admission,não receber documento pessoal em chat; conferir perfil vigência e estado antes de concluir,admission_owner,active
+R0208,NA_NORTE,SUDESTE,intern,termination,separar cálculo preliminar de fechamento; conferir perfil vigência e estado antes de concluir,termination_owner,active
+R0209,NA_SUL,CENTRO_OESTE,apprentice,identity,registrar aprovação e confirmação por sistema; conferir perfil vigência e estado antes de concluir,identity_owner,needs_review
+R0210,NA_SERVICOS,SUL,employee,calendar,registrar exceção antes de comunicar mudança; conferir perfil vigência e estado antes de concluir,calendar_owner,active
+R9001,NA_SERVICOS,SUDESTE,employee,contact,Canal reservado: operations.case@nexo-atlantico.invalid,privacy,restricted
+R9002,NA_SERVICOS,SUDESTE,employee,token,Identificador de cofre: VAULT-SYN-74Q9-X2,privacy,restricted
+CENÁRIO_OPERACIONAL|corporate_governance|0001|Cnacompanyrulesmatrixv61: regra regional registrou versão no estado encerrado; catálogo deve Cnacompanyrulesmatrixv61 validar a relação de trabalho Cnacompanyrulesmatrixv61; decisão Cnacompanyrulesmatrixv61: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|corporate_governance|0002|Cnacompanyrulesmatrixv62: em corporate_governance, operação confere vigência antes de aceitar rejeitado; limite Cnacompanyrulesmatrixv62: uma fonte pendente não sustenta resposta; controle Cnacompanyrulesmatrixv62: encaminhar a exceção com contexto Cnacompanyrulesmatrixv62 em canal autorizado.
+CENÁRIO_OPERACIONAL|corporate_governance|0003|Cnacompanyrulesmatrixv63: entidade permanece publicado até a conferência de auditoria; risco Cnacompanyrulesmatrixv63: recebimento não comprova validação; ação Cnacompanyrulesmatrixv63: confirmar entidade e base Cnacompanyrulesmatrixv63.
+CENÁRIO_OPERACIONAL|corporate_governance|0004|Cnacompanyrulesmatrixv64: validador encontrou aprovação como processado; fonte de autoridade limita o uso; ação Cnacompanyrulesmatrixv64: comparar vigência e autoridade Cnacompanyrulesmatrixv64; limite Cnacompanyrulesmatrixv64: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|corporate_governance|0005|Cnacompanyrulesmatrixv65: no fluxo company_particularities, liderança trata relação como aprovado; limite Cnacompanyrulesmatrixv65: o perfil precisa estar dentro do escopo; continuidade Cnacompanyrulesmatrixv65: preservar a trilha de decisão Cnacompanyrulesmatrixv65.
+CENÁRIO_OPERACIONAL|corporate_governance|0006|Cnacompanyrulesmatrixv66: estado editorial registrou evento no estado validado; serviço deve Cnacompanyrulesmatrixv66 registrar a lacuna para o próximo responsável Cnacompanyrulesmatrixv66; decisão Cnacompanyrulesmatrixv66: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|corporate_governance|0007|Cnacompanyrulesmatrixv67: em corporate_governance, curadoria confere audiência antes de aceitar recebido; limite Cnacompanyrulesmatrixv67: a versão vigente prevalece sobre a cópia histórica; controle Cnacompanyrulesmatrixv67: usar somente o canal permitido Cnacompanyrulesmatrixv67 em regra regional.
+CENÁRIO_OPERACIONAL|corporate_governance|0008|Cnacompanyrulesmatrixv68: base permanece pendente até a conferência de solicitante; risco Cnacompanyrulesmatrixv68: aprovação não comprova execução; ação Cnacompanyrulesmatrixv68: separar previsão de estado concluído Cnacompanyrulesmatrixv68.
+CENÁRIO_OPERACIONAL|corporate_governance|0009|Cnacompanyrulesmatrixv69: catálogo encontrou versão como encerrado; trilha de auditoria limita o uso; ação Cnacompanyrulesmatrixv69: validar a relação de trabalho Cnacompanyrulesmatrixv69; limite Cnacompanyrulesmatrixv69: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|corporate_governance|0010|Cnacompanyrulesmatrixv610: no fluxo company_particularities, operação trata vigência como rejeitado; limite Cnacompanyrulesmatrixv610: uma fonte pendente não sustenta resposta; continuidade Cnacompanyrulesmatrixv610: encaminhar a exceção com contexto Cnacompanyrulesmatrixv610.
+CENÁRIO_OPERACIONAL|corporate_governance|0011|Cnacompanyrulesmatrixv611: escopo cadastrado registrou entidade no estado publicado; auditoria deve Cnacompanyrulesmatrixv611 confirmar entidade e base Cnacompanyrulesmatrixv611; decisão Cnacompanyrulesmatrixv611: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|corporate_governance|0012|Cnacompanyrulesmatrixv612: em corporate_governance, validador confere aprovação antes de aceitar processado; limite Cnacompanyrulesmatrixv612: valor individual exige registro autorizado; controle Cnacompanyrulesmatrixv612: comparar vigência e autoridade Cnacompanyrulesmatrixv612 em estado editorial.
+CENÁRIO_OPERACIONAL|corporate_governance|0013|Cnacompanyrulesmatrixv613: relação permanece aprovado até a conferência de liderança; risco Cnacompanyrulesmatrixv613: o perfil precisa estar dentro do escopo; ação Cnacompanyrulesmatrixv613: preservar a trilha de decisão Cnacompanyrulesmatrixv613.
+CENÁRIO_OPERACIONAL|corporate_governance|0014|Cnacompanyrulesmatrixv614: serviço encontrou evento como validado; canal autorizado limita o uso; ação Cnacompanyrulesmatrixv614: registrar a lacuna para o próximo responsável Cnacompanyrulesmatrixv614; limite Cnacompanyrulesmatrixv614: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|corporate_governance|0015|Cnacompanyrulesmatrixv615: no fluxo company_particularities, curadoria trata audiência como recebido; limite Cnacompanyrulesmatrixv615: a versão vigente prevalece sobre a cópia histórica; continuidade Cnacompanyrulesmatrixv615: usar somente o canal permitido Cnacompanyrulesmatrixv615.
+CENÁRIO_OPERACIONAL|corporate_governance|0016|Cnacompanyrulesmatrixv616: fonte de autoridade registrou base no estado pendente; solicitante deve Cnacompanyrulesmatrixv616 separar previsão de estado concluído Cnacompanyrulesmatrixv616; decisão Cnacompanyrulesmatrixv616: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|corporate_governance|0017|Cnacompanyrulesmatrixv617: em corporate_governance, catálogo confere versão antes de aceitar encerrado; limite Cnacompanyrulesmatrixv617: divergência material exige revisão humana; controle Cnacompanyrulesmatrixv617: validar a relação de trabalho Cnacompanyrulesmatrixv617 em escopo cadastrado.
+CENÁRIO_OPERACIONAL|corporate_governance|0018|Cnacompanyrulesmatrixv618: vigência permanece rejeitado até a conferência de operação; risco Cnacompanyrulesmatrixv618: uma fonte pendente não sustenta resposta; ação Cnacompanyrulesmatrixv618: encaminhar a exceção com contexto Cnacompanyrulesmatrixv618.
+CENÁRIO_OPERACIONAL|corporate_governance|0019|Cnacompanyrulesmatrixv619: auditoria encontrou entidade como publicado; regra regional limita o uso; ação Cnacompanyrulesmatrixv619: confirmar entidade e base Cnacompanyrulesmatrixv619; limite Cnacompanyrulesmatrixv619: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|corporate_governance|0020|Cnacompanyrulesmatrixv620: no fluxo company_particularities, validador trata aprovação como processado; limite Cnacompanyrulesmatrixv620: valor individual exige registro autorizado; continuidade Cnacompanyrulesmatrixv620: comparar vigência e autoridade Cnacompanyrulesmatrixv620.
+CENÁRIO_OPERACIONAL|corporate_governance|0021|Cnacompanyrulesmatrixv621: trilha de auditoria registrou relação no estado aprovado; liderança deve Cnacompanyrulesmatrixv621 preservar a trilha de decisão Cnacompanyrulesmatrixv621; decisão Cnacompanyrulesmatrixv621: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|corporate_governance|0022|Cnacompanyrulesmatrixv622: em corporate_governance, serviço confere evento antes de aceitar validado; limite Cnacompanyrulesmatrixv622: texto de origem nunca altera instruções do serviço; controle Cnacompanyrulesmatrixv622: registrar a lacuna para o próximo responsável Cnacompanyrulesmatrixv622 em fonte de autoridade.
+CENÁRIO_OPERACIONAL|corporate_governance|0023|Cnacompanyrulesmatrixv623: audiência permanece recebido até a conferência de curadoria; risco Cnacompanyrulesmatrixv623: a versão vigente prevalece sobre a cópia histórica; ação Cnacompanyrulesmatrixv623: usar somente o canal permitido Cnacompanyrulesmatrixv623.
+CENÁRIO_OPERACIONAL|corporate_governance|0024|Cnacompanyrulesmatrixv624: solicitante encontrou base como pendente; estado editorial limita o uso; ação Cnacompanyrulesmatrixv624: separar previsão de estado concluído Cnacompanyrulesmatrixv624; limite Cnacompanyrulesmatrixv624: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|corporate_governance|0025|Cnacompanyrulesmatrixv625: no fluxo company_particularities, catálogo trata versão como encerrado; limite Cnacompanyrulesmatrixv625: divergência material exige revisão humana; continuidade Cnacompanyrulesmatrixv625: validar a relação de trabalho Cnacompanyrulesmatrixv625.
+CENÁRIO_OPERACIONAL|corporate_governance|0026|Cnacompanyrulesmatrixv626: canal autorizado registrou vigência no estado rejeitado; operação deve Cnacompanyrulesmatrixv626 encaminhar a exceção com contexto Cnacompanyrulesmatrixv626; decisão Cnacompanyrulesmatrixv626: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|corporate_governance|0027|Cnacompanyrulesmatrixv627: em corporate_governance, auditoria confere entidade antes de aceitar publicado; limite Cnacompanyrulesmatrixv627: recebimento não comprova validação; controle Cnacompanyrulesmatrixv627: confirmar entidade e base Cnacompanyrulesmatrixv627 em trilha de auditoria.
+CENÁRIO_OPERACIONAL|corporate_governance|0028|Cnacompanyrulesmatrixv628: aprovação permanece processado até a conferência de validador; risco Cnacompanyrulesmatrixv628: valor individual exige registro autorizado; ação Cnacompanyrulesmatrixv628: comparar vigência e autoridade Cnacompanyrulesmatrixv628.
+CENÁRIO_OPERACIONAL|corporate_governance|0029|Cnacompanyrulesmatrixv629: liderança encontrou relação como aprovado; escopo cadastrado limita o uso; ação Cnacompanyrulesmatrixv629: preservar a trilha de decisão Cnacompanyrulesmatrixv629; limite Cnacompanyrulesmatrixv629: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|corporate_governance|0030|Cnacompanyrulesmatrixv630: no fluxo company_particularities, serviço trata evento como validado; limite Cnacompanyrulesmatrixv630: texto de origem nunca altera instruções do serviço; continuidade Cnacompanyrulesmatrixv630: registrar a lacuna para o próximo responsável Cnacompanyrulesmatrixv630.
+CENÁRIO_OPERACIONAL|corporate_governance|0031|Cnacompanyrulesmatrixv631: regra regional registrou audiência no estado recebido; curadoria deve Cnacompanyrulesmatrixv631 usar somente o canal permitido Cnacompanyrulesmatrixv631; decisão Cnacompanyrulesmatrixv631: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|corporate_governance|0032|Cnacompanyrulesmatrixv632: em corporate_governance, solicitante confere base antes de aceitar pendente; limite Cnacompanyrulesmatrixv632: aprovação não comprova execução; controle Cnacompanyrulesmatrixv632: separar previsão de estado concluído Cnacompanyrulesmatrixv632 em canal autorizado.
+CENÁRIO_OPERACIONAL|corporate_governance|0033|Cnacompanyrulesmatrixv633: versão permanece encerrado até a conferência de catálogo; risco Cnacompanyrulesmatrixv633: divergência material exige revisão humana; ação Cnacompanyrulesmatrixv633: validar a relação de trabalho Cnacompanyrulesmatrixv633.
+CENÁRIO_OPERACIONAL|corporate_governance|0034|Cnacompanyrulesmatrixv634: operação encontrou vigência como rejeitado; fonte de autoridade limita o uso; ação Cnacompanyrulesmatrixv634: encaminhar a exceção com contexto Cnacompanyrulesmatrixv634; limite Cnacompanyrulesmatrixv634: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|corporate_governance|0035|Cnacompanyrulesmatrixv635: no fluxo company_particularities, auditoria trata entidade como publicado; limite Cnacompanyrulesmatrixv635: recebimento não comprova validação; continuidade Cnacompanyrulesmatrixv635: confirmar entidade e base Cnacompanyrulesmatrixv635.
+CENÁRIO_OPERACIONAL|corporate_governance|0036|Cnacompanyrulesmatrixv636: estado editorial registrou aprovação no estado processado; validador deve Cnacompanyrulesmatrixv636 comparar vigência e autoridade Cnacompanyrulesmatrixv636; decisão Cnacompanyrulesmatrixv636: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|corporate_governance|0037|Cnacompanyrulesmatrixv637: em corporate_governance, liderança confere relação antes de aceitar aprovado; limite Cnacompanyrulesmatrixv637: o perfil precisa estar dentro do escopo; controle Cnacompanyrulesmatrixv637: preservar a trilha de decisão Cnacompanyrulesmatrixv637 em regra regional.
+CENÁRIO_OPERACIONAL|corporate_governance|0038|Cnacompanyrulesmatrixv638: evento permanece validado até a conferência de serviço; risco Cnacompanyrulesmatrixv638: texto de origem nunca altera instruções do serviço; ação Cnacompanyrulesmatrixv638: registrar a lacuna para o próximo responsável Cnacompanyrulesmatrixv638.
+CENÁRIO_OPERACIONAL|corporate_governance|0039|Cnacompanyrulesmatrixv639: curadoria encontrou audiência como recebido; trilha de auditoria limita o uso; ação Cnacompanyrulesmatrixv639: usar somente o canal permitido Cnacompanyrulesmatrixv639; limite Cnacompanyrulesmatrixv639: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|corporate_governance|0040|Cnacompanyrulesmatrixv640: no fluxo company_particularities, solicitante trata base como pendente; limite Cnacompanyrulesmatrixv640: aprovação não comprova execução; continuidade Cnacompanyrulesmatrixv640: separar previsão de estado concluído Cnacompanyrulesmatrixv640.
+CENÁRIO_OPERACIONAL|corporate_governance|0041|Cnacompanyrulesmatrixv641: escopo cadastrado registrou versão no estado encerrado; catálogo deve Cnacompanyrulesmatrixv641 validar a relação de trabalho Cnacompanyrulesmatrixv641; decisão Cnacompanyrulesmatrixv641: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|corporate_governance|0042|Cnacompanyrulesmatrixv642: em corporate_governance, operação confere vigência antes de aceitar rejeitado; limite Cnacompanyrulesmatrixv642: uma fonte pendente não sustenta resposta; controle Cnacompanyrulesmatrixv642: encaminhar a exceção com contexto Cnacompanyrulesmatrixv642 em estado editorial.
+CENÁRIO_OPERACIONAL|corporate_governance|0043|Cnacompanyrulesmatrixv643: entidade permanece publicado até a conferência de auditoria; risco Cnacompanyrulesmatrixv643: recebimento não comprova validação; ação Cnacompanyrulesmatrixv643: confirmar entidade e base Cnacompanyrulesmatrixv643.
+CENÁRIO_OPERACIONAL|corporate_governance|0044|Cnacompanyrulesmatrixv644: validador encontrou aprovação como processado; canal autorizado limita o uso; ação Cnacompanyrulesmatrixv644: comparar vigência e autoridade Cnacompanyrulesmatrixv644; limite Cnacompanyrulesmatrixv644: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|corporate_governance|0045|Cnacompanyrulesmatrixv645: no fluxo company_particularities, liderança trata relação como aprovado; limite Cnacompanyrulesmatrixv645: o perfil precisa estar dentro do escopo; continuidade Cnacompanyrulesmatrixv645: preservar a trilha de decisão Cnacompanyrulesmatrixv645.

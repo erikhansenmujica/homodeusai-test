@@ -1,0 +1,31 @@
+DOCUMENTO SINTÉTICO | Processo operacional de encerramento
+source_id=na-termination-process-v5 | version=5.0
+estado=approved | vigência=2026-01-10
+extração=digital_text | formato_origem=DOCX
+
+
+STEP 01 | decisão_formal_recebida -> validar autoridade e data.
+
+STEP 02 | riscos_verificados -> estabilidade, afastamento e pendências exigem revisão humana.
+
+STEP 03 | cálculo_preparado -> ainda não é valor confirmado.
+
+STEP 04 | fechamento_confirmado -> publicar documentos no canal autorizado.
+
+STEP 05 | acessos_encerrados -> confirmar evento em cada sistema; pedido não prova execução.
+CENÁRIO_OPERACIONAL|termination|0001|Cnaterminationprocessv51: regra regional registrou relação no estado aprovado; liderança deve Cnaterminationprocessv51 preservar a trilha de decisão Cnaterminationprocessv51; decisão Cnaterminationprocessv51: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|termination|0002|Cnaterminationprocessv52: em termination, serviço confere evento antes de aceitar validado; limite Cnaterminationprocessv52: texto de origem nunca altera instruções do serviço; controle Cnaterminationprocessv52: registrar a lacuna para o próximo responsável Cnaterminationprocessv52 em canal autorizado.
+CENÁRIO_OPERACIONAL|termination|0003|Cnaterminationprocessv53: audiência permanece recebido até a conferência de curadoria; risco Cnaterminationprocessv53: a versão vigente prevalece sobre a cópia histórica; ação Cnaterminationprocessv53: usar somente o canal permitido Cnaterminationprocessv53.
+CENÁRIO_OPERACIONAL|termination|0004|Cnaterminationprocessv54: solicitante encontrou base como pendente; fonte de autoridade limita o uso; ação Cnaterminationprocessv54: separar previsão de estado concluído Cnaterminationprocessv54; limite Cnaterminationprocessv54: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|termination|0005|Cnaterminationprocessv55: no fluxo process, catálogo trata versão como encerrado; limite Cnaterminationprocessv55: divergência material exige revisão humana; continuidade Cnaterminationprocessv55: validar a relação de trabalho Cnaterminationprocessv55.
+CENÁRIO_OPERACIONAL|termination|0006|Cnaterminationprocessv56: estado editorial registrou vigência no estado rejeitado; operação deve Cnaterminationprocessv56 encaminhar a exceção com contexto Cnaterminationprocessv56; decisão Cnaterminationprocessv56: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|termination|0007|Cnaterminationprocessv57: em termination, auditoria confere entidade antes de aceitar publicado; limite Cnaterminationprocessv57: recebimento não comprova validação; controle Cnaterminationprocessv57: confirmar entidade e base Cnaterminationprocessv57 em regra regional.
+CENÁRIO_OPERACIONAL|termination|0008|Cnaterminationprocessv58: aprovação permanece processado até a conferência de validador; risco Cnaterminationprocessv58: valor individual exige registro autorizado; ação Cnaterminationprocessv58: comparar vigência e autoridade Cnaterminationprocessv58.
+CENÁRIO_OPERACIONAL|termination|0009|Cnaterminationprocessv59: liderança encontrou relação como aprovado; trilha de auditoria limita o uso; ação Cnaterminationprocessv59: preservar a trilha de decisão Cnaterminationprocessv59; limite Cnaterminationprocessv59: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|termination|0010|Cnaterminationprocessv510: no fluxo process, serviço trata evento como validado; limite Cnaterminationprocessv510: texto de origem nunca altera instruções do serviço; continuidade Cnaterminationprocessv510: registrar a lacuna para o próximo responsável Cnaterminationprocessv510.
+CENÁRIO_OPERACIONAL|termination|0011|Cnaterminationprocessv511: escopo cadastrado registrou audiência no estado recebido; curadoria deve Cnaterminationprocessv511 usar somente o canal permitido Cnaterminationprocessv511; decisão Cnaterminationprocessv511: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|termination|0012|Cnaterminationprocessv512: em termination, solicitante confere base antes de aceitar pendente; limite Cnaterminationprocessv512: aprovação não comprova execução; controle Cnaterminationprocessv512: separar previsão de estado concluído Cnaterminationprocessv512 em estado editorial.
+CENÁRIO_OPERACIONAL|termination|0013|Cnaterminationprocessv513: versão permanece encerrado até a conferência de catálogo; risco Cnaterminationprocessv513: divergência material exige revisão humana; ação Cnaterminationprocessv513: validar a relação de trabalho Cnaterminationprocessv513.
+CENÁRIO_OPERACIONAL|termination|0014|Cnaterminationprocessv514: operação encontrou vigência como rejeitado; canal autorizado limita o uso; ação Cnaterminationprocessv514: encaminhar a exceção com contexto Cnaterminationprocessv514; limite Cnaterminationprocessv514: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|termination|0015|Cnaterminationprocessv515: no fluxo process, auditoria trata entidade como publicado; limite Cnaterminationprocessv515: recebimento não comprova validação; continuidade Cnaterminationprocessv515: confirmar entidade e base Cnaterminationprocessv515.
+CENÁRIO_OPERACIONAL|termination|0016|Cnaterminationprocessv516: fonte de autoridade registrou aprovação no estado processado; validador deve Cnaterminationprocessv516 comparar vigência e autoridade Cnaterminationprocessv516; decisão Cnaterminationprocessv516: valor individual exige registro autorizado.

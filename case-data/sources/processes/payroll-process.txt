@@ -1,0 +1,39 @@
+DOCUMENTO SINTÉTICO | Processo operacional de fechamento mensal
+source_id=na-payroll-process-v6 | version=6.2
+estado=approved | vigência=2026-01-08
+extração=digital_text | formato_origem=DOCX
+
+
+STEP 01 | entradas_congeladas -> conferir eventos da competência.
+
+STEP 02 | prévia_gerada -> prévia não comprova crédito nem valor final.
+
+STEP 03 | divergências_tratadas -> cada ajuste mantém trilha de auditoria.
+
+STEP 04 | fechamento_confirmado -> autoriza publicação dos comprovantes.
+
+STEP 05 | comprovante_publicado -> Doca disponibiliza até 12h do primeiro dia útil seguinte.
+CENÁRIO_OPERACIONAL|payroll|0001|Cnapayrollprocessv61: auditoria encontrou audiência como publicado; trilha de auditoria limita o uso; ação Cnapayrollprocessv61: usar somente o canal permitido Cnapayrollprocessv61; limite Cnapayrollprocessv61: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|payroll|0002|Cnapayrollprocessv62: no fluxo process, validador trata base como processado; limite Cnapayrollprocessv62: aprovação não comprova execução; continuidade Cnapayrollprocessv62: separar previsão de estado concluído Cnapayrollprocessv62.
+CENÁRIO_OPERACIONAL|payroll|0003|Cnapayrollprocessv63: escopo cadastrado registrou versão no estado aprovado; liderança deve Cnapayrollprocessv63 validar a relação de trabalho Cnapayrollprocessv63; decisão Cnapayrollprocessv63: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|payroll|0004|Cnapayrollprocessv64: em payroll, serviço confere vigência antes de aceitar validado; limite Cnapayrollprocessv64: uma fonte pendente não sustenta resposta; controle Cnapayrollprocessv64: encaminhar a exceção com contexto Cnapayrollprocessv64 em estado editorial.
+CENÁRIO_OPERACIONAL|payroll|0005|Cnapayrollprocessv65: entidade permanece recebido até a conferência de curadoria; risco Cnapayrollprocessv65: recebimento não comprova validação; ação Cnapayrollprocessv65: confirmar entidade e base Cnapayrollprocessv65.
+CENÁRIO_OPERACIONAL|payroll|0006|Cnapayrollprocessv66: solicitante encontrou aprovação como pendente; canal autorizado limita o uso; ação Cnapayrollprocessv66: comparar vigência e autoridade Cnapayrollprocessv66; limite Cnapayrollprocessv66: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|payroll|0007|Cnapayrollprocessv67: no fluxo process, catálogo trata relação como encerrado; limite Cnapayrollprocessv67: o perfil precisa estar dentro do escopo; continuidade Cnapayrollprocessv67: preservar a trilha de decisão Cnapayrollprocessv67.
+CENÁRIO_OPERACIONAL|payroll|0008|Cnapayrollprocessv68: fonte de autoridade registrou evento no estado rejeitado; operação deve Cnapayrollprocessv68 registrar a lacuna para o próximo responsável Cnapayrollprocessv68; decisão Cnapayrollprocessv68: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|payroll|0009|Cnapayrollprocessv69: em payroll, auditoria confere audiência antes de aceitar publicado; limite Cnapayrollprocessv69: a versão vigente prevalece sobre a cópia histórica; controle Cnapayrollprocessv69: usar somente o canal permitido Cnapayrollprocessv69 em escopo cadastrado.
+CENÁRIO_OPERACIONAL|payroll|0010|Cnapayrollprocessv610: base permanece processado até a conferência de validador; risco Cnapayrollprocessv610: aprovação não comprova execução; ação Cnapayrollprocessv610: separar previsão de estado concluído Cnapayrollprocessv610.
+CENÁRIO_OPERACIONAL|payroll|0011|Cnapayrollprocessv611: liderança encontrou versão como aprovado; regra regional limita o uso; ação Cnapayrollprocessv611: validar a relação de trabalho Cnapayrollprocessv611; limite Cnapayrollprocessv611: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|payroll|0012|Cnapayrollprocessv612: no fluxo process, serviço trata vigência como validado; limite Cnapayrollprocessv612: uma fonte pendente não sustenta resposta; continuidade Cnapayrollprocessv612: encaminhar a exceção com contexto Cnapayrollprocessv612.
+CENÁRIO_OPERACIONAL|payroll|0013|Cnapayrollprocessv613: trilha de auditoria registrou entidade no estado recebido; curadoria deve Cnapayrollprocessv613 confirmar entidade e base Cnapayrollprocessv613; decisão Cnapayrollprocessv613: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|payroll|0014|Cnapayrollprocessv614: em payroll, solicitante confere aprovação antes de aceitar pendente; limite Cnapayrollprocessv614: valor individual exige registro autorizado; controle Cnapayrollprocessv614: comparar vigência e autoridade Cnapayrollprocessv614 em fonte de autoridade.
+CENÁRIO_OPERACIONAL|payroll|0015|Cnapayrollprocessv615: relação permanece encerrado até a conferência de catálogo; risco Cnapayrollprocessv615: o perfil precisa estar dentro do escopo; ação Cnapayrollprocessv615: preservar a trilha de decisão Cnapayrollprocessv615.
+CENÁRIO_OPERACIONAL|payroll|0016|Cnapayrollprocessv616: operação encontrou evento como rejeitado; estado editorial limita o uso; ação Cnapayrollprocessv616: registrar a lacuna para o próximo responsável Cnapayrollprocessv616; limite Cnapayrollprocessv616: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|payroll|0017|Cnapayrollprocessv617: no fluxo process, auditoria trata audiência como publicado; limite Cnapayrollprocessv617: a versão vigente prevalece sobre a cópia histórica; continuidade Cnapayrollprocessv617: usar somente o canal permitido Cnapayrollprocessv617.
+CENÁRIO_OPERACIONAL|payroll|0018|Cnapayrollprocessv618: canal autorizado registrou base no estado processado; validador deve Cnapayrollprocessv618 separar previsão de estado concluído Cnapayrollprocessv618; decisão Cnapayrollprocessv618: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|payroll|0019|Cnapayrollprocessv619: em payroll, liderança confere versão antes de aceitar aprovado; limite Cnapayrollprocessv619: divergência material exige revisão humana; controle Cnapayrollprocessv619: validar a relação de trabalho Cnapayrollprocessv619 em trilha de auditoria.
+CENÁRIO_OPERACIONAL|payroll|0020|Cnapayrollprocessv620: vigência permanece validado até a conferência de serviço; risco Cnapayrollprocessv620: uma fonte pendente não sustenta resposta; ação Cnapayrollprocessv620: encaminhar a exceção com contexto Cnapayrollprocessv620.
+CENÁRIO_OPERACIONAL|payroll|0021|Cnapayrollprocessv621: curadoria encontrou entidade como recebido; escopo cadastrado limita o uso; ação Cnapayrollprocessv621: confirmar entidade e base Cnapayrollprocessv621; limite Cnapayrollprocessv621: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|payroll|0022|Cnapayrollprocessv622: no fluxo process, solicitante trata aprovação como pendente; limite Cnapayrollprocessv622: valor individual exige registro autorizado; continuidade Cnapayrollprocessv622: comparar vigência e autoridade Cnapayrollprocessv622.
+CENÁRIO_OPERACIONAL|payroll|0023|Cnapayrollprocessv623: regra regional registrou relação no estado encerrado; catálogo deve Cnapayrollprocessv623 preservar a trilha de decisão Cnapayrollprocessv623; decisão Cnapayrollprocessv623: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|payroll|0024|Cnapayrollprocessv624: em payroll, operação confere evento antes de aceitar rejeitado; limite Cnapayrollprocessv624: texto de origem nunca altera instruções do serviço; controle Cnapayrollprocessv624: registrar a lacuna para o próximo responsável Cnapayrollprocessv624 em canal autorizado.

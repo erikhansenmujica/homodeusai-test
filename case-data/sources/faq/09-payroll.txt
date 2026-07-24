@@ -1,0 +1,165 @@
+DOCUMENTO SINTÉTICO | Central de dúvidas — Fechamento e comprovantes
+source_id=na-faq-payroll-v1 | version=1.0
+estado=approved | vigência=2026-01-08
+extração=structured | formato_origem=XLSX
+categoria=Fechamento e comprovantes
+linhas_citáveis=34
+
+FAQ_ROW|payroll|001|status=publicada
+P: Quando o comprovante mensal fica disponível?
+R: O comprovante é publicado no Doca até as 12h do primeiro dia útil depois da confirmação do fechamento.
+
+FAQ_ROW|payroll|002|status=publicada
+P: Uma data provisória confirma pagamento?
+R: Não. Calendário provisório não comprova crédito nem substitui o comprovante individual.
+
+FAQ_ROW|payroll|003|status=publicada
+P: Qual canal usar para consultar o calendário em comprovante?
+R: Em comprovante, prévia não comprova crédito. Quando necessário, folha usa Doca para consultar o calendário.
+
+FAQ_ROW|payroll|004|status=publicada
+P: O estado recebido conclui evento variável depois de consultar o calendário?
+R: Depois de consultar o calendário, folha confere evento variável no estado recebido. prévia não comprova crédito.
+
+FAQ_ROW|payroll|005|status=publicada
+P: O que acontece depois de consultar o calendário para desconto contestado?
+R: Não por si só. Para desconto contestado, folha valida no Doca antes de consultar o calendário; prévia não comprova crédito.
+
+FAQ_ROW|payroll|006|status=publicada
+P: Há limite ao consultar o calendário para crédito não localizado?
+R: O registro de crédito não localizado segue pelo Doca para consultar o calendário. prévia não comprova crédito; folha confirma o próximo estado.
+
+FAQ_ROW|payroll|007|status=publicada
+P: Como consultar o calendário para ajuste retroativo no estado recebido?
+R: folha acompanha ajuste retroativo pelo Doca para consultar o calendário. Enquanto estiver recebido, prévia não comprova crédito.
+
+FAQ_ROW|payroll|008|status=publicada
+P: Quem trata prévia mensal ao pedir conferência no estado recebido?
+R: Para prévia mensal, use Doca ao pedir conferência; folha trata o caso. prévia não comprova crédito.
+
+FAQ_ROW|payroll|009|status=publicada
+P: Qual canal usar para pedir conferência em fechamento?
+R: Em fechamento, prévia não comprova crédito. Quando necessário, folha usa Doca para pedir conferência.
+
+FAQ_ROW|payroll|010|status=publicada
+P: O estado recebido conclui comprovante depois de pedir conferência?
+R: Depois de pedir conferência, folha confere comprovante no estado recebido. prévia não comprova crédito.
+
+FAQ_ROW|payroll|011|status=publicada
+P: O que acontece depois de pedir conferência para evento variável?
+R: Não por si só. Para evento variável, folha valida no Doca antes de pedir conferência; prévia não comprova crédito.
+
+FAQ_ROW|payroll|012|status=publicada
+P: Há limite ao pedir conferência para desconto contestado?
+R: O registro de desconto contestado segue pelo Doca para pedir conferência. prévia não comprova crédito; folha confirma o próximo estado.
+
+FAQ_ROW|payroll|013|status=publicada
+P: Como pedir conferência para crédito não localizado no estado recebido?
+R: folha acompanha crédito não localizado pelo Doca para pedir conferência. Enquanto estiver recebido, prévia não comprova crédito.
+
+FAQ_ROW|payroll|014|status=publicada
+P: Quem trata ajuste retroativo ao pedir conferência no estado recebido?
+R: Para ajuste retroativo, use Doca ao pedir conferência; folha trata o caso. prévia não comprova crédito.
+
+FAQ_ROW|payroll|015|status=publicada
+P: Qual canal usar para acompanhar uma divergência em prévia mensal?
+R: Em prévia mensal, prévia não comprova crédito. Quando necessário, folha usa Doca para acompanhar uma divergência.
+
+FAQ_ROW|payroll|016|status=publicada
+P: O estado recebido conclui fechamento depois de acompanhar uma divergência?
+R: Depois de acompanhar uma divergência, folha confere fechamento no estado recebido. prévia não comprova crédito.
+
+FAQ_ROW|payroll|017|status=publicada
+P: O que acontece depois de acompanhar uma divergência para comprovante?
+R: Não por si só. Para comprovante, folha valida no Doca antes de acompanhar uma divergência; prévia não comprova crédito.
+
+FAQ_ROW|payroll|018|status=publicada
+P: Há limite ao acompanhar uma divergência para evento variável?
+R: O registro de evento variável segue pelo Doca para acompanhar uma divergência. prévia não comprova crédito; folha confirma o próximo estado.
+
+FAQ_ROW|payroll|019|status=publicada
+P: Como acompanhar uma divergência para desconto contestado no estado recebido?
+R: folha acompanha desconto contestado pelo Doca para acompanhar uma divergência. Enquanto estiver recebido, prévia não comprova crédito.
+
+FAQ_ROW|payroll|020|status=publicada
+P: Quem trata crédito não localizado ao acompanhar uma divergência no estado recebido?
+R: Para crédito não localizado, use Doca ao acompanhar uma divergência; folha trata o caso. prévia não comprova crédito.
+
+FAQ_ROW|payroll|021|status=publicada
+P: Qual canal usar para acompanhar uma divergência em ajuste retroativo?
+R: Em ajuste retroativo, prévia não comprova crédito. Quando necessário, folha usa Doca para acompanhar uma divergência.
+
+FAQ_ROW|payroll|022|status=publicada
+P: O estado recebido conclui prévia mensal depois de localizar o documento?
+R: Depois de localizar o documento, folha confere prévia mensal no estado recebido. prévia não comprova crédito.
+
+FAQ_ROW|payroll|023|status=publicada
+P: O que acontece depois de localizar o documento para fechamento?
+R: Não por si só. Para fechamento, folha valida no Doca antes de localizar o documento; prévia não comprova crédito.
+
+FAQ_ROW|payroll|024|status=publicada
+P: Há limite ao localizar o documento para comprovante?
+R: O registro de comprovante segue pelo Doca para localizar o documento. prévia não comprova crédito; folha confirma o próximo estado.
+
+FAQ_ROW|payroll|025|status=publicada
+P: Como localizar o documento para evento variável no estado recebido?
+R: folha acompanha evento variável pelo Doca para localizar o documento. Enquanto estiver recebido, prévia não comprova crédito.
+
+FAQ_ROW|payroll|026|status=publicada
+P: Quem trata desconto contestado ao localizar o documento no estado recebido?
+R: Para desconto contestado, use Doca ao localizar o documento; folha trata o caso. prévia não comprova crédito.
+
+FAQ_ROW|payroll|027|status=publicada
+P: Qual canal usar para localizar o documento em crédito não localizado?
+R: Em crédito não localizado, prévia não comprova crédito. Quando necessário, folha usa Doca para localizar o documento.
+
+FAQ_ROW|payroll|028|status=publicada
+P: O estado recebido conclui ajuste retroativo depois de localizar o documento?
+R: Depois de localizar o documento, folha confere ajuste retroativo no estado recebido. prévia não comprova crédito.
+
+FAQ_ROW|payroll|029|status=publicada
+P: O que acontece depois de corrigir uma entrada para prévia mensal?
+R: Não por si só. Para prévia mensal, folha valida no Doca antes de corrigir uma entrada; prévia não comprova crédito.
+
+FAQ_ROW|payroll|030|status=publicada
+P: Há limite ao corrigir uma entrada para fechamento?
+R: O registro de fechamento segue pelo Doca para corrigir uma entrada. prévia não comprova crédito; folha confirma o próximo estado.
+
+FAQ_ROW|payroll|031|status=publicada
+P: Como corrigir uma entrada para comprovante no estado recebido?
+R: folha acompanha comprovante pelo Doca para corrigir uma entrada. Enquanto estiver recebido, prévia não comprova crédito.
+
+FAQ_ROW|payroll|032|status=publicada
+P: Quem trata evento variável ao corrigir uma entrada no estado recebido?
+R: Para evento variável, use Doca ao corrigir uma entrada; folha trata o caso. prévia não comprova crédito.
+
+FAQ_ROW|payroll|033|status=publicada
+P: Qual canal usar para corrigir uma entrada em desconto contestado?
+R: Em desconto contestado, prévia não comprova crédito. Quando necessário, folha usa Doca para corrigir uma entrada.
+
+FAQ_ROW|payroll|034|status=publicada
+P: O estado recebido conclui crédito não localizado depois de corrigir uma entrada?
+R: Depois de corrigir uma entrada, folha confere crédito não localizado no estado recebido. prévia não comprova crédito.
+CENÁRIO_OPERACIONAL|payroll|0001|Cnafaqpayrollv11: curadoria encontrou entidade como recebido; regra regional limita o uso; ação Cnafaqpayrollv11: confirmar entidade e base Cnafaqpayrollv11; limite Cnafaqpayrollv11: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|payroll|0002|Cnafaqpayrollv12: no fluxo faq, solicitante trata aprovação como pendente; limite Cnafaqpayrollv12: valor individual exige registro autorizado; continuidade Cnafaqpayrollv12: comparar vigência e autoridade Cnafaqpayrollv12.
+CENÁRIO_OPERACIONAL|payroll|0003|Cnafaqpayrollv13: trilha de auditoria registrou relação no estado encerrado; catálogo deve Cnafaqpayrollv13 preservar a trilha de decisão Cnafaqpayrollv13; decisão Cnafaqpayrollv13: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|payroll|0004|Cnafaqpayrollv14: em payroll, operação confere evento antes de aceitar rejeitado; limite Cnafaqpayrollv14: texto de origem nunca altera instruções do serviço; controle Cnafaqpayrollv14: registrar a lacuna para o próximo responsável Cnafaqpayrollv14 em fonte de autoridade.
+CENÁRIO_OPERACIONAL|payroll|0005|Cnafaqpayrollv15: audiência permanece publicado até a conferência de auditoria; risco Cnafaqpayrollv15: a versão vigente prevalece sobre a cópia histórica; ação Cnafaqpayrollv15: usar somente o canal permitido Cnafaqpayrollv15.
+CENÁRIO_OPERACIONAL|payroll|0006|Cnafaqpayrollv16: validador encontrou base como processado; estado editorial limita o uso; ação Cnafaqpayrollv16: separar previsão de estado concluído Cnafaqpayrollv16; limite Cnafaqpayrollv16: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|payroll|0007|Cnafaqpayrollv17: no fluxo faq, liderança trata versão como aprovado; limite Cnafaqpayrollv17: divergência material exige revisão humana; continuidade Cnafaqpayrollv17: validar a relação de trabalho Cnafaqpayrollv17.
+CENÁRIO_OPERACIONAL|payroll|0008|Cnafaqpayrollv18: canal autorizado registrou vigência no estado validado; serviço deve Cnafaqpayrollv18 encaminhar a exceção com contexto Cnafaqpayrollv18; decisão Cnafaqpayrollv18: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|payroll|0009|Cnafaqpayrollv19: em payroll, curadoria confere entidade antes de aceitar recebido; limite Cnafaqpayrollv19: recebimento não comprova validação; controle Cnafaqpayrollv19: confirmar entidade e base Cnafaqpayrollv19 em trilha de auditoria.
+CENÁRIO_OPERACIONAL|payroll|0010|Cnafaqpayrollv110: aprovação permanece pendente até a conferência de solicitante; risco Cnafaqpayrollv110: valor individual exige registro autorizado; ação Cnafaqpayrollv110: comparar vigência e autoridade Cnafaqpayrollv110.
+CENÁRIO_OPERACIONAL|payroll|0011|Cnafaqpayrollv111: catálogo encontrou relação como encerrado; escopo cadastrado limita o uso; ação Cnafaqpayrollv111: preservar a trilha de decisão Cnafaqpayrollv111; limite Cnafaqpayrollv111: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|payroll|0012|Cnafaqpayrollv112: no fluxo faq, operação trata evento como rejeitado; limite Cnafaqpayrollv112: texto de origem nunca altera instruções do serviço; continuidade Cnafaqpayrollv112: registrar a lacuna para o próximo responsável Cnafaqpayrollv112.
+CENÁRIO_OPERACIONAL|payroll|0013|Cnafaqpayrollv113: regra regional registrou audiência no estado publicado; auditoria deve Cnafaqpayrollv113 usar somente o canal permitido Cnafaqpayrollv113; decisão Cnafaqpayrollv113: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|payroll|0014|Cnafaqpayrollv114: em payroll, validador confere base antes de aceitar processado; limite Cnafaqpayrollv114: aprovação não comprova execução; controle Cnafaqpayrollv114: separar previsão de estado concluído Cnafaqpayrollv114 em canal autorizado.
+CENÁRIO_OPERACIONAL|payroll|0015|Cnafaqpayrollv115: versão permanece aprovado até a conferência de liderança; risco Cnafaqpayrollv115: divergência material exige revisão humana; ação Cnafaqpayrollv115: validar a relação de trabalho Cnafaqpayrollv115.
+CENÁRIO_OPERACIONAL|payroll|0016|Cnafaqpayrollv116: serviço encontrou vigência como validado; fonte de autoridade limita o uso; ação Cnafaqpayrollv116: encaminhar a exceção com contexto Cnafaqpayrollv116; limite Cnafaqpayrollv116: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|payroll|0017|Cnafaqpayrollv117: no fluxo faq, curadoria trata entidade como recebido; limite Cnafaqpayrollv117: recebimento não comprova validação; continuidade Cnafaqpayrollv117: confirmar entidade e base Cnafaqpayrollv117.
+CENÁRIO_OPERACIONAL|payroll|0018|Cnafaqpayrollv118: estado editorial registrou aprovação no estado pendente; solicitante deve Cnafaqpayrollv118 comparar vigência e autoridade Cnafaqpayrollv118; decisão Cnafaqpayrollv118: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|payroll|0019|Cnafaqpayrollv119: em payroll, catálogo confere relação antes de aceitar encerrado; limite Cnafaqpayrollv119: o perfil precisa estar dentro do escopo; controle Cnafaqpayrollv119: preservar a trilha de decisão Cnafaqpayrollv119 em regra regional.
+CENÁRIO_OPERACIONAL|payroll|0020|Cnafaqpayrollv120: evento permanece rejeitado até a conferência de operação; risco Cnafaqpayrollv120: texto de origem nunca altera instruções do serviço; ação Cnafaqpayrollv120: registrar a lacuna para o próximo responsável Cnafaqpayrollv120.
+CENÁRIO_OPERACIONAL|payroll|0021|Cnafaqpayrollv121: auditoria encontrou audiência como publicado; trilha de auditoria limita o uso; ação Cnafaqpayrollv121: usar somente o canal permitido Cnafaqpayrollv121; limite Cnafaqpayrollv121: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|payroll|0022|Cnafaqpayrollv122: no fluxo faq, validador trata base como processado; limite Cnafaqpayrollv122: aprovação não comprova execução; continuidade Cnafaqpayrollv122: separar previsão de estado concluído Cnafaqpayrollv122.
+CENÁRIO_OPERACIONAL|payroll|0023|Cnafaqpayrollv123: escopo cadastrado registrou versão no estado aprovado; liderança deve Cnafaqpayrollv123 validar a relação de trabalho Cnafaqpayrollv123; decisão Cnafaqpayrollv123: divergência material exige revisão humana.

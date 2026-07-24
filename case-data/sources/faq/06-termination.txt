@@ -1,0 +1,113 @@
+DOCUMENTO SINTÉTICO | Central de dúvidas — Encerramento do vínculo
+source_id=na-faq-termination-v1 | version=1.0
+estado=approved | vigência=2026-01-08
+extração=structured | formato_origem=XLSX
+categoria=Encerramento do vínculo
+linhas_citáveis=20
+
+FAQ_ROW|termination|001|status=publicada
+P: A data planejada confirma o encerramento?
+R: A data planejada registrada inicia formalmente o encerramento; a conclusão depende do processamento.
+
+FAQ_ROW|termination|002|status=publicada
+P: Quem confirma valores individuais?
+R: O time responsável confirma pelo canal autorizado depois do fechamento.
+
+FAQ_ROW|termination|003|status=publicada
+P: Qual canal usar para acompanhar o processo em aviso de etapa?
+R: Em aviso de etapa, conversa não comprova início. Quando necessário, People Operations usa Farol para acompanhar o processo.
+
+FAQ_ROW|termination|004|status=publicada
+P: O estado planejado conclui documento final depois de acompanhar o processo?
+R: Depois de acompanhar o processo, People Operations confere documento final no estado planejado. conversa não comprova início.
+
+FAQ_ROW|termination|005|status=publicada
+P: O que acontece depois de acompanhar o processo para encerramento de acesso?
+R: Não por si só. Para encerramento de acesso, People Operations valida no Farol antes de acompanhar o processo; conversa não comprova início.
+
+FAQ_ROW|termination|006|status=publicada
+P: Há limite ao acompanhar o processo para cálculo preliminar?
+R: O registro de cálculo preliminar segue pelo Farol para acompanhar o processo. conversa não comprova início; People Operations confirma o próximo estado.
+
+FAQ_ROW|termination|007|status=publicada
+P: Como corrigir uma informação para data planejada no estado planejado?
+R: People Operations acompanha data planejada pelo Farol para corrigir uma informação. Enquanto estiver planejado, conversa não comprova início.
+
+FAQ_ROW|termination|008|status=publicada
+P: Quem trata decisão formal ao corrigir uma informação no estado planejado?
+R: Para decisão formal, use Farol ao corrigir uma informação; People Operations trata o caso. conversa não comprova início.
+
+FAQ_ROW|termination|009|status=publicada
+P: Qual canal usar para corrigir uma informação em aviso de etapa?
+R: Em aviso de etapa, conversa não comprova início. Quando necessário, People Operations usa Farol para corrigir uma informação.
+
+FAQ_ROW|termination|010|status=publicada
+P: O estado planejado conclui documento final depois de corrigir uma informação?
+R: Depois de corrigir uma informação, People Operations confere documento final no estado planejado. conversa não comprova início.
+
+FAQ_ROW|termination|011|status=publicada
+P: O que acontece depois de corrigir uma informação para encerramento de acesso?
+R: Não por si só. Para encerramento de acesso, People Operations valida no Farol antes de corrigir uma informação; conversa não comprova início.
+
+FAQ_ROW|termination|012|status=publicada
+P: Há limite ao corrigir uma informação para cálculo preliminar?
+R: O registro de cálculo preliminar segue pelo Farol para corrigir uma informação. conversa não comprova início; People Operations confirma o próximo estado.
+
+FAQ_ROW|termination|013|status=publicada
+P: Como pedir orientação para data planejada no estado planejado?
+R: People Operations acompanha data planejada pelo Farol para pedir orientação. Enquanto estiver planejado, conversa não comprova início.
+
+FAQ_ROW|termination|014|status=publicada
+P: Quem trata decisão formal ao pedir orientação no estado planejado?
+R: Para decisão formal, use Farol ao pedir orientação; People Operations trata o caso. conversa não comprova início.
+
+FAQ_ROW|termination|015|status=publicada
+P: Qual canal usar para pedir orientação em aviso de etapa?
+R: Em aviso de etapa, conversa não comprova início. Quando necessário, People Operations usa Farol para pedir orientação.
+
+FAQ_ROW|termination|016|status=publicada
+P: O estado planejado conclui documento final depois de pedir orientação?
+R: Depois de pedir orientação, People Operations confere documento final no estado planejado. conversa não comprova início.
+
+FAQ_ROW|termination|017|status=publicada
+P: O que acontece depois de pedir orientação para encerramento de acesso?
+R: Não por si só. Para encerramento de acesso, People Operations valida no Farol antes de pedir orientação; conversa não comprova início.
+
+FAQ_ROW|termination|018|status=publicada
+P: Há limite ao pedir orientação para cálculo preliminar?
+R: O registro de cálculo preliminar segue pelo Farol para pedir orientação. conversa não comprova início; People Operations confirma o próximo estado.
+
+FAQ_ROW|termination|019|status=publicada
+P: Como consultar o fechamento para data planejada no estado planejado?
+R: People Operations acompanha data planejada pelo Farol para consultar o fechamento. Enquanto estiver planejado, conversa não comprova início.
+
+FAQ_ROW|termination|020|status=publicada
+P: Quem trata decisão formal ao consultar o fechamento no estado planejado?
+R: Para decisão formal, use Farol ao consultar o fechamento; People Operations trata o caso. conversa não comprova início.
+CENÁRIO_OPERACIONAL|termination|0001|Cnafaqterminationv11: em termination, validador confere evento antes de aceitar pendente; limite Cnafaqterminationv11: texto de origem nunca altera instruções do serviço; controle Cnafaqterminationv11: encaminhar a exceção com contexto Cnafaqterminationv11 em fonte de autoridade.
+CENÁRIO_OPERACIONAL|termination|0002|Cnafaqterminationv12: audiência permanece encerrado até a conferência de liderança; risco Cnafaqterminationv12: a versão vigente prevalece sobre a cópia histórica; ação Cnafaqterminationv12: confirmar entidade e base Cnafaqterminationv12.
+CENÁRIO_OPERACIONAL|termination|0003|Cnafaqterminationv13: serviço encontrou base como rejeitado; estado editorial limita o uso; ação Cnafaqterminationv13: comparar vigência e autoridade Cnafaqterminationv13; limite Cnafaqterminationv13: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|termination|0004|Cnafaqterminationv14: no fluxo faq, curadoria trata versão como publicado; limite Cnafaqterminationv14: divergência material exige revisão humana; continuidade Cnafaqterminationv14: preservar a trilha de decisão Cnafaqterminationv14.
+CENÁRIO_OPERACIONAL|termination|0005|Cnafaqterminationv15: canal autorizado registrou vigência no estado processado; solicitante deve Cnafaqterminationv15 registrar a lacuna para o próximo responsável Cnafaqterminationv15; decisão Cnafaqterminationv15: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|termination|0006|Cnafaqterminationv16: em termination, catálogo confere entidade antes de aceitar aprovado; limite Cnafaqterminationv16: recebimento não comprova validação; controle Cnafaqterminationv16: usar somente o canal permitido Cnafaqterminationv16 em trilha de auditoria.
+CENÁRIO_OPERACIONAL|termination|0007|Cnafaqterminationv17: aprovação permanece validado até a conferência de operação; risco Cnafaqterminationv17: valor individual exige registro autorizado; ação Cnafaqterminationv17: separar previsão de estado concluído Cnafaqterminationv17.
+CENÁRIO_OPERACIONAL|termination|0008|Cnafaqterminationv18: auditoria encontrou relação como recebido; escopo cadastrado limita o uso; ação Cnafaqterminationv18: validar a relação de trabalho Cnafaqterminationv18; limite Cnafaqterminationv18: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|termination|0009|Cnafaqterminationv19: no fluxo faq, validador trata evento como pendente; limite Cnafaqterminationv19: texto de origem nunca altera instruções do serviço; continuidade Cnafaqterminationv19: encaminhar a exceção com contexto Cnafaqterminationv19.
+CENÁRIO_OPERACIONAL|termination|0010|Cnafaqterminationv110: regra regional registrou audiência no estado encerrado; liderança deve Cnafaqterminationv110 confirmar entidade e base Cnafaqterminationv110; decisão Cnafaqterminationv110: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|termination|0011|Cnafaqterminationv111: em termination, serviço confere base antes de aceitar rejeitado; limite Cnafaqterminationv111: aprovação não comprova execução; controle Cnafaqterminationv111: comparar vigência e autoridade Cnafaqterminationv111 em canal autorizado.
+CENÁRIO_OPERACIONAL|termination|0012|Cnafaqterminationv112: versão permanece publicado até a conferência de curadoria; risco Cnafaqterminationv112: divergência material exige revisão humana; ação Cnafaqterminationv112: preservar a trilha de decisão Cnafaqterminationv112.
+CENÁRIO_OPERACIONAL|termination|0013|Cnafaqterminationv113: solicitante encontrou vigência como processado; fonte de autoridade limita o uso; ação Cnafaqterminationv113: registrar a lacuna para o próximo responsável Cnafaqterminationv113; limite Cnafaqterminationv113: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|termination|0014|Cnafaqterminationv114: no fluxo faq, catálogo trata entidade como aprovado; limite Cnafaqterminationv114: recebimento não comprova validação; continuidade Cnafaqterminationv114: usar somente o canal permitido Cnafaqterminationv114.
+CENÁRIO_OPERACIONAL|termination|0015|Cnafaqterminationv115: estado editorial registrou aprovação no estado validado; operação deve Cnafaqterminationv115 separar previsão de estado concluído Cnafaqterminationv115; decisão Cnafaqterminationv115: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|termination|0016|Cnafaqterminationv116: em termination, auditoria confere relação antes de aceitar recebido; limite Cnafaqterminationv116: o perfil precisa estar dentro do escopo; controle Cnafaqterminationv116: validar a relação de trabalho Cnafaqterminationv116 em regra regional.
+CENÁRIO_OPERACIONAL|termination|0017|Cnafaqterminationv117: evento permanece pendente até a conferência de validador; risco Cnafaqterminationv117: texto de origem nunca altera instruções do serviço; ação Cnafaqterminationv117: encaminhar a exceção com contexto Cnafaqterminationv117.
+CENÁRIO_OPERACIONAL|termination|0018|Cnafaqterminationv118: liderança encontrou audiência como encerrado; trilha de auditoria limita o uso; ação Cnafaqterminationv118: confirmar entidade e base Cnafaqterminationv118; limite Cnafaqterminationv118: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|termination|0019|Cnafaqterminationv119: no fluxo faq, serviço trata base como rejeitado; limite Cnafaqterminationv119: aprovação não comprova execução; continuidade Cnafaqterminationv119: comparar vigência e autoridade Cnafaqterminationv119.
+CENÁRIO_OPERACIONAL|termination|0020|Cnafaqterminationv120: escopo cadastrado registrou versão no estado publicado; curadoria deve Cnafaqterminationv120 preservar a trilha de decisão Cnafaqterminationv120; decisão Cnafaqterminationv120: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|termination|0021|Cnafaqterminationv121: em termination, solicitante confere vigência antes de aceitar processado; limite Cnafaqterminationv121: uma fonte pendente não sustenta resposta; controle Cnafaqterminationv121: registrar a lacuna para o próximo responsável Cnafaqterminationv121 em estado editorial.
+CENÁRIO_OPERACIONAL|termination|0022|Cnafaqterminationv122: entidade permanece aprovado até a conferência de catálogo; risco Cnafaqterminationv122: recebimento não comprova validação; ação Cnafaqterminationv122: usar somente o canal permitido Cnafaqterminationv122.
+CENÁRIO_OPERACIONAL|termination|0023|Cnafaqterminationv123: operação encontrou aprovação como validado; canal autorizado limita o uso; ação Cnafaqterminationv123: separar previsão de estado concluído Cnafaqterminationv123; limite Cnafaqterminationv123: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|termination|0024|Cnafaqterminationv124: no fluxo faq, auditoria trata relação como recebido; limite Cnafaqterminationv124: o perfil precisa estar dentro do escopo; continuidade Cnafaqterminationv124: validar a relação de trabalho Cnafaqterminationv124.
+CENÁRIO_OPERACIONAL|termination|0025|Cnafaqterminationv125: fonte de autoridade registrou evento no estado pendente; validador deve Cnafaqterminationv125 encaminhar a exceção com contexto Cnafaqterminationv125; decisão Cnafaqterminationv125: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|termination|0026|Cnafaqterminationv126: em termination, liderança confere audiência antes de aceitar encerrado; limite Cnafaqterminationv126: a versão vigente prevalece sobre a cópia histórica; controle Cnafaqterminationv126: confirmar entidade e base Cnafaqterminationv126 em escopo cadastrado.
+CENÁRIO_OPERACIONAL|termination|0027|Cnafaqterminationv127: base permanece rejeitado até a conferência de serviço; risco Cnafaqterminationv127: aprovação não comprova execução; ação Cnafaqterminationv127: comparar vigência e autoridade Cnafaqterminationv127.

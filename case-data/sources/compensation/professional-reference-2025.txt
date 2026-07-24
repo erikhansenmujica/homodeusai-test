@@ -1,0 +1,35 @@
+DOCUMENTO SINTÉTICO | Referência interna de remuneração — trilhas profissionais
+source_id=na-compensation-professional-2025 | version=2025.10
+estado=approved | vigência=2025-10-01
+extração=ocr | formato_origem=PDF
+USO INTERNO — NÃO REPRODUZIR VALORES EM CANAL DE COLABORADOR
+
+grade;nível;referência_inferior;referência_central;referência_superior;estado
+engenharia;N01;5090;5810;6630;referência_não_vinculante
+operações;N02;5480;6200;7020;referência_não_vinculante
+consultoria;N03;5870;6590;7410;referência_não_vinculante
+engenharia;N04;6260;6980;7800;referência_não_vinculante
+operações;N05;6650;7370;8190;referência_não_vinculante
+consultoria;N06;7040;7760;8580;referência_não_vinculante
+engenharia;N07;7430;8150;8970;referência_não_vinculante
+operações;N08;7820;8540;9360;referência_não_vinculante
+consultoria;N09;8210;8930;9750;referência_não_vinculante
+engenharia;N10;8600;9320;10140;referência_não_vinculante
+operações;N11;8990;9710;10530;referência_não_vinculante
+consultoria;N12;9380;10100;10920;referência_não_vinculante
+engenharia;N13;9770;10490;11310;referência_não_vinculante
+operações;N14;10160;10880;11700;referência_não_vinculante
+consultoria;N15;10550;11270;12090;referência_não_vinculante
+engenharia;N16;10940;11660;12480;referência_não_vinculante
+operações;N17;11330;12050;12870;referência_não_vinculante
+consultoria;N18;11720;12440;13260;referência_não_vinculante
+NOTA: faixas são referências de planejamento, não comprovam remuneração, proposta, elegibilidade ou decisão individual.
+CENÁRIO_OPERACIONAL|compensation|0001|Cnacompensationprofessional20251: em compensation, auditoria confere audiência antes de aceitar publicado; limite Cnacompensationprofessional20251: a versão vigente prevalece sobre a cópia histórica; controle Cnacompensationprofessional20251: usar somente o canal permitido Cnacompensationprofessional20251 em regra regional.
+CENÁRIO_OPERACIONAL|compensation|0002|Cnacompensationprofessional20252: base permanece processado até a conferência de validador; risco Cnacompensationprofessional20252: aprovação não comprova execução; ação Cnacompensationprofessional20252: separar previsão de estado concluído Cnacompensationprofessional20252.
+CENÁRIO_OPERACIONAL|compensation|0003|Cnacompensationprofessional20253: liderança encontrou versão como aprovado; trilha de auditoria limita o uso; ação Cnacompensationprofessional20253: validar a relação de trabalho Cnacompensationprofessional20253; limite Cnacompensationprofessional20253: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|compensation|0004|Cnacompensationprofessional20254: no fluxo salary_table, serviço trata vigência como validado; limite Cnacompensationprofessional20254: uma fonte pendente não sustenta resposta; continuidade Cnacompensationprofessional20254: encaminhar a exceção com contexto Cnacompensationprofessional20254.
+CENÁRIO_OPERACIONAL|compensation|0005|Cnacompensationprofessional20255: escopo cadastrado registrou entidade no estado recebido; curadoria deve Cnacompensationprofessional20255 confirmar entidade e base Cnacompensationprofessional20255; decisão Cnacompensationprofessional20255: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|compensation|0006|Cnacompensationprofessional20256: em compensation, solicitante confere aprovação antes de aceitar pendente; limite Cnacompensationprofessional20256: valor individual exige registro autorizado; controle Cnacompensationprofessional20256: comparar vigência e autoridade Cnacompensationprofessional20256 em estado editorial.
+CENÁRIO_OPERACIONAL|compensation|0007|Cnacompensationprofessional20257: relação permanece encerrado até a conferência de catálogo; risco Cnacompensationprofessional20257: o perfil precisa estar dentro do escopo; ação Cnacompensationprofessional20257: preservar a trilha de decisão Cnacompensationprofessional20257.
+CENÁRIO_OPERACIONAL|compensation|0008|Cnacompensationprofessional20258: operação encontrou evento como rejeitado; canal autorizado limita o uso; ação Cnacompensationprofessional20258: registrar a lacuna para o próximo responsável Cnacompensationprofessional20258; limite Cnacompensationprofessional20258: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|compensation|0009|Cnacompensationprofessional20259: no fluxo salary_table, auditoria trata audiência como publicado; limite Cnacompensationprofessional20259: a versão vigente prevalece sobre a cópia histórica; continuidade Cnacompensationprofessional20259: usar somente o canal permitido Cnacompensationprofessional20259.

@@ -1,0 +1,156 @@
+DOCUMENTO SINTÉTICO | Central de dúvidas — Registro de jornada
+source_id=na-faq-timekeeping-v1 | version=1.0
+estado=approved | vigência=2026-01-08
+extração=structured | formato_origem=XLSX
+categoria=Registro de jornada
+linhas_citáveis=29
+
+FAQ_ROW|timekeeping|001|status=publicada
+P: Qual é o prazo para ajuste após o fechamento?
+R: A central de dúvidas informa até o terceiro dia útil após o fechamento mensal.
+
+FAQ_ROW|timekeeping|002|status=publicada
+P: Quem conclui o ajuste?
+R: O colaborador solicita, a liderança revisa e o time de jornada trata exceções; envio não confirma conclusão.
+
+FAQ_ROW|timekeeping|003|status=publicada
+P: Qual canal usar para solicitar ajuste em saída duplicada?
+R: Em saída duplicada, envio não confirma ajuste. Quando necessário, colaborador usa Maré para solicitar ajuste.
+
+FAQ_ROW|timekeeping|004|status=publicada
+P: O estado aberto conclui competência fechada depois de solicitar ajuste?
+R: Depois de solicitar ajuste, colaborador confere competência fechada no estado aberto. envio não confirma ajuste.
+
+FAQ_ROW|timekeeping|005|status=publicada
+P: O que acontece depois de solicitar ajuste para justificativa devolvida?
+R: Não por si só. Para justificativa devolvida, colaborador valida no Maré antes de solicitar ajuste; envio não confirma ajuste.
+
+FAQ_ROW|timekeeping|006|status=publicada
+P: Há limite ao solicitar ajuste para registro de aprendiz?
+R: O registro de registro de aprendiz segue pelo Maré para solicitar ajuste. envio não confirma ajuste; colaborador confirma o próximo estado.
+
+FAQ_ROW|timekeeping|007|status=publicada
+P: Como solicitar ajuste para presença de estágio no estado aberto?
+R: colaborador acompanha presença de estágio pelo Maré para solicitar ajuste. Enquanto estiver aberto, envio não confirma ajuste.
+
+FAQ_ROW|timekeeping|008|status=publicada
+P: Quem trata entrada ausente ao corrigir a marcação no estado aberto?
+R: Para entrada ausente, use Maré ao corrigir a marcação; colaborador trata o caso. envio não confirma ajuste.
+
+FAQ_ROW|timekeeping|009|status=publicada
+P: Qual canal usar para corrigir a marcação em intervalo incompleto?
+R: Em intervalo incompleto, envio não confirma ajuste. Quando necessário, colaborador usa Maré para corrigir a marcação.
+
+FAQ_ROW|timekeeping|010|status=publicada
+P: O estado aberto conclui saída duplicada depois de corrigir a marcação?
+R: Depois de corrigir a marcação, colaborador confere saída duplicada no estado aberto. envio não confirma ajuste.
+
+FAQ_ROW|timekeeping|011|status=publicada
+P: O que acontece depois de corrigir a marcação para competência fechada?
+R: Não por si só. Para competência fechada, colaborador valida no Maré antes de corrigir a marcação; envio não confirma ajuste.
+
+FAQ_ROW|timekeeping|012|status=publicada
+P: Há limite ao corrigir a marcação para justificativa devolvida?
+R: O registro de justificativa devolvida segue pelo Maré para corrigir a marcação. envio não confirma ajuste; colaborador confirma o próximo estado.
+
+FAQ_ROW|timekeeping|013|status=publicada
+P: Como corrigir a marcação para registro de aprendiz no estado aberto?
+R: colaborador acompanha registro de aprendiz pelo Maré para corrigir a marcação. Enquanto estiver aberto, envio não confirma ajuste.
+
+FAQ_ROW|timekeeping|014|status=publicada
+P: Quem trata presença de estágio ao corrigir a marcação no estado aberto?
+R: Para presença de estágio, use Maré ao corrigir a marcação; colaborador trata o caso. envio não confirma ajuste.
+
+FAQ_ROW|timekeeping|015|status=publicada
+P: Qual canal usar para acompanhar a revisão em entrada ausente?
+R: Em entrada ausente, envio não confirma ajuste. Quando necessário, colaborador usa Maré para acompanhar a revisão.
+
+FAQ_ROW|timekeeping|016|status=publicada
+P: O estado aberto conclui intervalo incompleto depois de acompanhar a revisão?
+R: Depois de acompanhar a revisão, colaborador confere intervalo incompleto no estado aberto. envio não confirma ajuste.
+
+FAQ_ROW|timekeeping|017|status=publicada
+P: O que acontece depois de acompanhar a revisão para saída duplicada?
+R: Não por si só. Para saída duplicada, colaborador valida no Maré antes de acompanhar a revisão; envio não confirma ajuste.
+
+FAQ_ROW|timekeeping|018|status=publicada
+P: Há limite ao acompanhar a revisão para competência fechada?
+R: O registro de competência fechada segue pelo Maré para acompanhar a revisão. envio não confirma ajuste; colaborador confirma o próximo estado.
+
+FAQ_ROW|timekeeping|019|status=publicada
+P: Como acompanhar a revisão para justificativa devolvida no estado aberto?
+R: colaborador acompanha justificativa devolvida pelo Maré para acompanhar a revisão. Enquanto estiver aberto, envio não confirma ajuste.
+
+FAQ_ROW|timekeeping|020|status=publicada
+P: Quem trata registro de aprendiz ao acompanhar a revisão no estado aberto?
+R: Para registro de aprendiz, use Maré ao acompanhar a revisão; colaborador trata o caso. envio não confirma ajuste.
+
+FAQ_ROW|timekeeping|021|status=publicada
+P: Qual canal usar para acompanhar a revisão em presença de estágio?
+R: Em presença de estágio, envio não confirma ajuste. Quando necessário, colaborador usa Maré para acompanhar a revisão.
+
+FAQ_ROW|timekeeping|022|status=publicada
+P: O estado aberto conclui entrada ausente depois de anexar justificativa?
+R: Depois de anexar justificativa, colaborador confere entrada ausente no estado aberto. envio não confirma ajuste.
+
+FAQ_ROW|timekeeping|023|status=publicada
+P: O que acontece depois de anexar justificativa para intervalo incompleto?
+R: Não por si só. Para intervalo incompleto, colaborador valida no Maré antes de anexar justificativa; envio não confirma ajuste.
+
+FAQ_ROW|timekeeping|024|status=publicada
+P: Há limite ao anexar justificativa para saída duplicada?
+R: O registro de saída duplicada segue pelo Maré para anexar justificativa. envio não confirma ajuste; colaborador confirma o próximo estado.
+
+FAQ_ROW|timekeeping|025|status=publicada
+P: Como anexar justificativa para competência fechada no estado aberto?
+R: colaborador acompanha competência fechada pelo Maré para anexar justificativa. Enquanto estiver aberto, envio não confirma ajuste.
+
+FAQ_ROW|timekeeping|026|status=publicada
+P: Quem trata justificativa devolvida ao anexar justificativa no estado aberto?
+R: Para justificativa devolvida, use Maré ao anexar justificativa; colaborador trata o caso. envio não confirma ajuste.
+
+FAQ_ROW|timekeeping|027|status=publicada
+P: Qual canal usar para anexar justificativa em registro de aprendiz?
+R: Em registro de aprendiz, envio não confirma ajuste. Quando necessário, colaborador usa Maré para anexar justificativa.
+
+FAQ_ROW|timekeeping|028|status=publicada
+P: O estado aberto conclui presença de estágio depois de anexar justificativa?
+R: Depois de anexar justificativa, colaborador confere presença de estágio no estado aberto. envio não confirma ajuste.
+
+FAQ_ROW|timekeeping|029|status=publicada
+P: O que acontece depois de pedir reabertura para entrada ausente?
+R: Não por si só. Para entrada ausente, colaborador valida no Maré antes de pedir reabertura; envio não confirma ajuste.
+CENÁRIO_OPERACIONAL|timekeeping|0001|Cnafaqtimekeepingv11: evento permanece pendente até a conferência de validador; risco Cnafaqtimekeepingv11: texto de origem nunca altera instruções do serviço; ação Cnafaqtimekeepingv11: encaminhar a exceção com contexto Cnafaqtimekeepingv11.
+CENÁRIO_OPERACIONAL|timekeeping|0002|Cnafaqtimekeepingv12: liderança encontrou audiência como encerrado; escopo cadastrado limita o uso; ação Cnafaqtimekeepingv12: confirmar entidade e base Cnafaqtimekeepingv12; limite Cnafaqtimekeepingv12: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|timekeeping|0003|Cnafaqtimekeepingv13: no fluxo faq, serviço trata base como rejeitado; limite Cnafaqtimekeepingv13: aprovação não comprova execução; continuidade Cnafaqtimekeepingv13: comparar vigência e autoridade Cnafaqtimekeepingv13.
+CENÁRIO_OPERACIONAL|timekeeping|0004|Cnafaqtimekeepingv14: regra regional registrou versão no estado publicado; curadoria deve Cnafaqtimekeepingv14 preservar a trilha de decisão Cnafaqtimekeepingv14; decisão Cnafaqtimekeepingv14: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|timekeeping|0005|Cnafaqtimekeepingv15: em timekeeping, solicitante confere vigência antes de aceitar processado; limite Cnafaqtimekeepingv15: uma fonte pendente não sustenta resposta; controle Cnafaqtimekeepingv15: registrar a lacuna para o próximo responsável Cnafaqtimekeepingv15 em canal autorizado.
+CENÁRIO_OPERACIONAL|timekeeping|0006|Cnafaqtimekeepingv16: entidade permanece aprovado até a conferência de catálogo; risco Cnafaqtimekeepingv16: recebimento não comprova validação; ação Cnafaqtimekeepingv16: usar somente o canal permitido Cnafaqtimekeepingv16.
+CENÁRIO_OPERACIONAL|timekeeping|0007|Cnafaqtimekeepingv17: operação encontrou aprovação como validado; fonte de autoridade limita o uso; ação Cnafaqtimekeepingv17: separar previsão de estado concluído Cnafaqtimekeepingv17; limite Cnafaqtimekeepingv17: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|timekeeping|0008|Cnafaqtimekeepingv18: no fluxo faq, auditoria trata relação como recebido; limite Cnafaqtimekeepingv18: o perfil precisa estar dentro do escopo; continuidade Cnafaqtimekeepingv18: validar a relação de trabalho Cnafaqtimekeepingv18.
+CENÁRIO_OPERACIONAL|timekeeping|0009|Cnafaqtimekeepingv19: estado editorial registrou evento no estado pendente; validador deve Cnafaqtimekeepingv19 encaminhar a exceção com contexto Cnafaqtimekeepingv19; decisão Cnafaqtimekeepingv19: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|timekeeping|0010|Cnafaqtimekeepingv110: em timekeeping, liderança confere audiência antes de aceitar encerrado; limite Cnafaqtimekeepingv110: a versão vigente prevalece sobre a cópia histórica; controle Cnafaqtimekeepingv110: confirmar entidade e base Cnafaqtimekeepingv110 em regra regional.
+CENÁRIO_OPERACIONAL|timekeeping|0011|Cnafaqtimekeepingv111: base permanece rejeitado até a conferência de serviço; risco Cnafaqtimekeepingv111: aprovação não comprova execução; ação Cnafaqtimekeepingv111: comparar vigência e autoridade Cnafaqtimekeepingv111.
+CENÁRIO_OPERACIONAL|timekeeping|0012|Cnafaqtimekeepingv112: curadoria encontrou versão como publicado; trilha de auditoria limita o uso; ação Cnafaqtimekeepingv112: preservar a trilha de decisão Cnafaqtimekeepingv112; limite Cnafaqtimekeepingv112: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|timekeeping|0013|Cnafaqtimekeepingv113: no fluxo faq, solicitante trata vigência como processado; limite Cnafaqtimekeepingv113: uma fonte pendente não sustenta resposta; continuidade Cnafaqtimekeepingv113: registrar a lacuna para o próximo responsável Cnafaqtimekeepingv113.
+CENÁRIO_OPERACIONAL|timekeeping|0014|Cnafaqtimekeepingv114: escopo cadastrado registrou entidade no estado aprovado; catálogo deve Cnafaqtimekeepingv114 usar somente o canal permitido Cnafaqtimekeepingv114; decisão Cnafaqtimekeepingv114: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|timekeeping|0015|Cnafaqtimekeepingv115: em timekeeping, operação confere aprovação antes de aceitar validado; limite Cnafaqtimekeepingv115: valor individual exige registro autorizado; controle Cnafaqtimekeepingv115: separar previsão de estado concluído Cnafaqtimekeepingv115 em estado editorial.
+CENÁRIO_OPERACIONAL|timekeeping|0016|Cnafaqtimekeepingv116: relação permanece recebido até a conferência de auditoria; risco Cnafaqtimekeepingv116: o perfil precisa estar dentro do escopo; ação Cnafaqtimekeepingv116: validar a relação de trabalho Cnafaqtimekeepingv116.
+CENÁRIO_OPERACIONAL|timekeeping|0017|Cnafaqtimekeepingv117: validador encontrou evento como pendente; canal autorizado limita o uso; ação Cnafaqtimekeepingv117: encaminhar a exceção com contexto Cnafaqtimekeepingv117; limite Cnafaqtimekeepingv117: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|timekeeping|0018|Cnafaqtimekeepingv118: no fluxo faq, liderança trata audiência como encerrado; limite Cnafaqtimekeepingv118: a versão vigente prevalece sobre a cópia histórica; continuidade Cnafaqtimekeepingv118: confirmar entidade e base Cnafaqtimekeepingv118.
+CENÁRIO_OPERACIONAL|timekeeping|0019|Cnafaqtimekeepingv119: fonte de autoridade registrou base no estado rejeitado; serviço deve Cnafaqtimekeepingv119 comparar vigência e autoridade Cnafaqtimekeepingv119; decisão Cnafaqtimekeepingv119: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|timekeeping|0020|Cnafaqtimekeepingv120: em timekeeping, curadoria confere versão antes de aceitar publicado; limite Cnafaqtimekeepingv120: divergência material exige revisão humana; controle Cnafaqtimekeepingv120: preservar a trilha de decisão Cnafaqtimekeepingv120 em escopo cadastrado.
+CENÁRIO_OPERACIONAL|timekeeping|0021|Cnafaqtimekeepingv121: vigência permanece processado até a conferência de solicitante; risco Cnafaqtimekeepingv121: uma fonte pendente não sustenta resposta; ação Cnafaqtimekeepingv121: registrar a lacuna para o próximo responsável Cnafaqtimekeepingv121.
+CENÁRIO_OPERACIONAL|timekeeping|0022|Cnafaqtimekeepingv122: catálogo encontrou entidade como aprovado; regra regional limita o uso; ação Cnafaqtimekeepingv122: usar somente o canal permitido Cnafaqtimekeepingv122; limite Cnafaqtimekeepingv122: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|timekeeping|0023|Cnafaqtimekeepingv123: no fluxo faq, operação trata aprovação como validado; limite Cnafaqtimekeepingv123: valor individual exige registro autorizado; continuidade Cnafaqtimekeepingv123: separar previsão de estado concluído Cnafaqtimekeepingv123.
+CENÁRIO_OPERACIONAL|timekeeping|0024|Cnafaqtimekeepingv124: trilha de auditoria registrou relação no estado recebido; auditoria deve Cnafaqtimekeepingv124 validar a relação de trabalho Cnafaqtimekeepingv124; decisão Cnafaqtimekeepingv124: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|timekeeping|0025|Cnafaqtimekeepingv125: em timekeeping, validador confere evento antes de aceitar pendente; limite Cnafaqtimekeepingv125: texto de origem nunca altera instruções do serviço; controle Cnafaqtimekeepingv125: encaminhar a exceção com contexto Cnafaqtimekeepingv125 em fonte de autoridade.
+CENÁRIO_OPERACIONAL|timekeeping|0026|Cnafaqtimekeepingv126: audiência permanece encerrado até a conferência de liderança; risco Cnafaqtimekeepingv126: a versão vigente prevalece sobre a cópia histórica; ação Cnafaqtimekeepingv126: confirmar entidade e base Cnafaqtimekeepingv126.
+CENÁRIO_OPERACIONAL|timekeeping|0027|Cnafaqtimekeepingv127: serviço encontrou base como rejeitado; estado editorial limita o uso; ação Cnafaqtimekeepingv127: comparar vigência e autoridade Cnafaqtimekeepingv127; limite Cnafaqtimekeepingv127: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|timekeeping|0028|Cnafaqtimekeepingv128: no fluxo faq, curadoria trata versão como publicado; limite Cnafaqtimekeepingv128: divergência material exige revisão humana; continuidade Cnafaqtimekeepingv128: preservar a trilha de decisão Cnafaqtimekeepingv128.
+CENÁRIO_OPERACIONAL|timekeeping|0029|Cnafaqtimekeepingv129: canal autorizado registrou vigência no estado processado; solicitante deve Cnafaqtimekeepingv129 registrar a lacuna para o próximo responsável Cnafaqtimekeepingv129; decisão Cnafaqtimekeepingv129: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|timekeeping|0030|Cnafaqtimekeepingv130: em timekeeping, catálogo confere entidade antes de aceitar aprovado; limite Cnafaqtimekeepingv130: recebimento não comprova validação; controle Cnafaqtimekeepingv130: usar somente o canal permitido Cnafaqtimekeepingv130 em trilha de auditoria.
+CENÁRIO_OPERACIONAL|timekeeping|0031|Cnafaqtimekeepingv131: aprovação permanece validado até a conferência de operação; risco Cnafaqtimekeepingv131: valor individual exige registro autorizado; ação Cnafaqtimekeepingv131: separar previsão de estado concluído Cnafaqtimekeepingv131.
+CENÁRIO_OPERACIONAL|timekeeping|0032|Cnafaqtimekeepingv132: auditoria encontrou relação como recebido; escopo cadastrado limita o uso; ação Cnafaqtimekeepingv132: validar a relação de trabalho Cnafaqtimekeepingv132; limite Cnafaqtimekeepingv132: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|timekeeping|0033|Cnafaqtimekeepingv133: no fluxo faq, validador trata evento como pendente; limite Cnafaqtimekeepingv133: texto de origem nunca altera instruções do serviço; continuidade Cnafaqtimekeepingv133: encaminhar a exceção com contexto Cnafaqtimekeepingv133.
+CENÁRIO_OPERACIONAL|timekeeping|0034|Cnafaqtimekeepingv134: regra regional registrou audiência no estado encerrado; liderança deve Cnafaqtimekeepingv134 confirmar entidade e base Cnafaqtimekeepingv134; decisão Cnafaqtimekeepingv134: a versão vigente prevalece sobre a cópia histórica.

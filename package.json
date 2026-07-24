@@ -1,0 +1,24 @@
+{
+  "name": "nexo-atlantico-knowledge-case",
+  "version": "6.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Senior FDE client case for diagnosing, building, evaluating, and presenting governed People Operations decisions.",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "start": "node src/server.ts",
+    "dev": "node --watch src/server.ts",
+    "ask": "node scripts/ask.ts",
+    "self-check": "node scripts/self-check.ts",
+    "evals": "node evals/run.ts",
+    "test": "node --test tests/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "export:candidate": "node scripts/export-candidate.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "typescript": "^5.8.2"
+  }
+}

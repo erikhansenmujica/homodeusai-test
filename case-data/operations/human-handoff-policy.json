@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "policyId": "na-human-handoff-2026",
+  "effectiveFrom": "2026-01-05",
+  "timezone": "America/Sao_Paulo",
+  "routes": [
+    {
+      "reasonCode": "human_requested",
+      "queue": "people_ops_triage",
+      "targetHours": 24,
+      "message": "Certo. Vou encaminhar para uma pessoa do time de People Operations."
+    },
+    {
+      "reasonCode": "low_confidence",
+      "queue": "people_ops_triage",
+      "targetHours": 24,
+      "message": "Não encontrei evidência suficiente para orientar com segurança. People Operations vai revisar a dúvida."
+    },
+    {
+      "reasonCode": "conflicting_source",
+      "queue": "knowledge_governance",
+      "targetHours": 24,
+      "message": "As fontes disponíveis não permitem uma orientação única. O responsável pela política vai decidir qual regra vale."
+    },
+    {
+      "reasonCode": "missing_source",
+      "queue": "knowledge_governance",
+      "targetHours": 24,
+      "message": "Não há uma fonte aprovada suficiente para responder. A governança de conhecimento vai verificar."
+    },
+    {
+      "reasonCode": "profile_mismatch",
+      "queue": "people_ops_triage",
+      "targetHours": 24,
+      "message": "A documentação disponível não cobre este perfil. People Operations vai avaliar o caso."
+    },
+    {
+      "reasonCode": "sensitive_topic",
+      "queue": "people_data",
+      "targetHours": 8,
+      "message": "Este pedido envolve informação pessoal ou restrita. O atendimento seguirá pelo canal autorizado."
+    },
+    {
+      "reasonCode": "validation_pending",
+      "queue": "knowledge_governance",
+      "targetHours": 24,
+      "message": "A fonte relevante ainda não concluiu a validação. A governança de conhecimento vai acompanhar."
+    },
+    {
+      "reasonCode": "policy_sensitive_source",
+      "queue": "people_ops_lead",
+      "targetHours": 24,
+      "message": "A orientação exige avaliação do responsável por uma política sensível."
+    },
+    {
+      "reasonCode": "provider_failure",
+      "queue": "people_ops_triage",
+      "targetHours": 4,
+      "message": "O serviço não conseguiu concluir a consulta. A equipe responsável foi acionada."
+    }
+  ]
+}

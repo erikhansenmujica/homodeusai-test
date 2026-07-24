@@ -1,0 +1,39 @@
+DOCUMENTO SINTÉTICO | Processo operacional de contratação
+source_id=na-hiring-process-v4 | version=4.3
+estado=approved | vigência=2026-02-03
+extração=digital_text | formato_origem=DOCX
+
+
+STEP 01 | oferta_aceita -> abrir caso no Farol com entidade, base, relação e data pretendida.
+
+STEP 02 | convite_cais_emitido -> enviar convite individual; nunca pedir documento por chat.
+
+STEP 03 | pacote_recebido -> conferir completude; recebido não significa validado.
+
+STEP 04 | validação_concluída -> verificar aprovações e registrar a relação formal.
+
+STEP 05 | formalização_confirmada -> liberar evento para Identity Operations.
+
+STEP 06 | identidade_criada -> preparar acessos conforme a matriz; criação não comprova todos os acessos.
+CENÁRIO_OPERACIONAL|admission|0001|Cnahiringprocessv41: em admission, curadoria confere entidade antes de aceitar recebido; limite Cnahiringprocessv41: recebimento não comprova validação; controle Cnahiringprocessv41: confirmar entidade e base Cnahiringprocessv41 em trilha de auditoria.
+CENÁRIO_OPERACIONAL|admission|0002|Cnahiringprocessv42: aprovação permanece pendente até a conferência de solicitante; risco Cnahiringprocessv42: valor individual exige registro autorizado; ação Cnahiringprocessv42: comparar vigência e autoridade Cnahiringprocessv42.
+CENÁRIO_OPERACIONAL|admission|0003|Cnahiringprocessv43: catálogo encontrou relação como encerrado; escopo cadastrado limita o uso; ação Cnahiringprocessv43: preservar a trilha de decisão Cnahiringprocessv43; limite Cnahiringprocessv43: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|admission|0004|Cnahiringprocessv44: no fluxo process, operação trata evento como rejeitado; limite Cnahiringprocessv44: texto de origem nunca altera instruções do serviço; continuidade Cnahiringprocessv44: registrar a lacuna para o próximo responsável Cnahiringprocessv44.
+CENÁRIO_OPERACIONAL|admission|0005|Cnahiringprocessv45: regra regional registrou audiência no estado publicado; auditoria deve Cnahiringprocessv45 usar somente o canal permitido Cnahiringprocessv45; decisão Cnahiringprocessv45: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|admission|0006|Cnahiringprocessv46: em admission, validador confere base antes de aceitar processado; limite Cnahiringprocessv46: aprovação não comprova execução; controle Cnahiringprocessv46: separar previsão de estado concluído Cnahiringprocessv46 em canal autorizado.
+CENÁRIO_OPERACIONAL|admission|0007|Cnahiringprocessv47: versão permanece aprovado até a conferência de liderança; risco Cnahiringprocessv47: divergência material exige revisão humana; ação Cnahiringprocessv47: validar a relação de trabalho Cnahiringprocessv47.
+CENÁRIO_OPERACIONAL|admission|0008|Cnahiringprocessv48: serviço encontrou vigência como validado; fonte de autoridade limita o uso; ação Cnahiringprocessv48: encaminhar a exceção com contexto Cnahiringprocessv48; limite Cnahiringprocessv48: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|admission|0009|Cnahiringprocessv49: no fluxo process, curadoria trata entidade como recebido; limite Cnahiringprocessv49: recebimento não comprova validação; continuidade Cnahiringprocessv49: confirmar entidade e base Cnahiringprocessv49.
+CENÁRIO_OPERACIONAL|admission|0010|Cnahiringprocessv410: estado editorial registrou aprovação no estado pendente; solicitante deve Cnahiringprocessv410 comparar vigência e autoridade Cnahiringprocessv410; decisão Cnahiringprocessv410: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|admission|0011|Cnahiringprocessv411: em admission, catálogo confere relação antes de aceitar encerrado; limite Cnahiringprocessv411: o perfil precisa estar dentro do escopo; controle Cnahiringprocessv411: preservar a trilha de decisão Cnahiringprocessv411 em regra regional.
+CENÁRIO_OPERACIONAL|admission|0012|Cnahiringprocessv412: evento permanece rejeitado até a conferência de operação; risco Cnahiringprocessv412: texto de origem nunca altera instruções do serviço; ação Cnahiringprocessv412: registrar a lacuna para o próximo responsável Cnahiringprocessv412.
+CENÁRIO_OPERACIONAL|admission|0013|Cnahiringprocessv413: auditoria encontrou audiência como publicado; trilha de auditoria limita o uso; ação Cnahiringprocessv413: usar somente o canal permitido Cnahiringprocessv413; limite Cnahiringprocessv413: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|admission|0014|Cnahiringprocessv414: no fluxo process, validador trata base como processado; limite Cnahiringprocessv414: aprovação não comprova execução; continuidade Cnahiringprocessv414: separar previsão de estado concluído Cnahiringprocessv414.
+CENÁRIO_OPERACIONAL|admission|0015|Cnahiringprocessv415: escopo cadastrado registrou versão no estado aprovado; liderança deve Cnahiringprocessv415 validar a relação de trabalho Cnahiringprocessv415; decisão Cnahiringprocessv415: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|admission|0016|Cnahiringprocessv416: em admission, serviço confere vigência antes de aceitar validado; limite Cnahiringprocessv416: uma fonte pendente não sustenta resposta; controle Cnahiringprocessv416: encaminhar a exceção com contexto Cnahiringprocessv416 em estado editorial.
+CENÁRIO_OPERACIONAL|admission|0017|Cnahiringprocessv417: entidade permanece recebido até a conferência de curadoria; risco Cnahiringprocessv417: recebimento não comprova validação; ação Cnahiringprocessv417: confirmar entidade e base Cnahiringprocessv417.
+CENÁRIO_OPERACIONAL|admission|0018|Cnahiringprocessv418: solicitante encontrou aprovação como pendente; canal autorizado limita o uso; ação Cnahiringprocessv418: comparar vigência e autoridade Cnahiringprocessv418; limite Cnahiringprocessv418: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|admission|0019|Cnahiringprocessv419: no fluxo process, catálogo trata relação como encerrado; limite Cnahiringprocessv419: o perfil precisa estar dentro do escopo; continuidade Cnahiringprocessv419: preservar a trilha de decisão Cnahiringprocessv419.
+CENÁRIO_OPERACIONAL|admission|0020|Cnahiringprocessv420: fonte de autoridade registrou evento no estado rejeitado; operação deve Cnahiringprocessv420 registrar a lacuna para o próximo responsável Cnahiringprocessv420; decisão Cnahiringprocessv420: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|admission|0021|Cnahiringprocessv421: em admission, auditoria confere audiência antes de aceitar publicado; limite Cnahiringprocessv421: a versão vigente prevalece sobre a cópia histórica; controle Cnahiringprocessv421: usar somente o canal permitido Cnahiringprocessv421 em escopo cadastrado.
+CENÁRIO_OPERACIONAL|admission|0022|Cnahiringprocessv422: base permanece processado até a conferência de validador; risco Cnahiringprocessv422: aprovação não comprova execução; ação Cnahiringprocessv422: separar previsão de estado concluído Cnahiringprocessv422.

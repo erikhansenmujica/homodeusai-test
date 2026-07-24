@@ -1,0 +1,66 @@
+DOCUMENTO SINTÉTICO | Matriz de sistemas e acessos por perfil
+source_id=na-systems-access-matrix-v9 | version=9.4
+estado=approved | vigência=2026-02-19
+extração=structured | formato_origem=XLSX
+
+version,entity,role,relationship,system,bundle,trigger,approver,target,notes
+9.4,NA_NORTE,privacy,employee,Brisa,privacy_brisa,papel_treinamento_e_entidade_confirmados,privacy_owner,D+2,Acesso não concede consulta livre a dados individuais
+9.4,NA_SUL,lider,employee,Doca,lider_doca,papel_treinamento_e_entidade_confirmados,lider_owner,D+3,Acesso não concede consulta livre a dados individuais
+9.4,NA_SERVICOS,auditoria,employee,Prisma,auditoria_prisma,papel_treinamento_e_entidade_confirmados,auditoria_owner,D+4,Acesso não concede consulta livre a dados individuais
+9.4,NA_NORTE,people_ops,employee,Porto,people_ops_porto,papel_treinamento_e_entidade_confirmados,people_ops_owner,D+5,Acesso não concede consulta livre a dados individuais
+9.4,NA_SUL,colaborador,employee,Maré,colaborador_maré,formalização_confirmada,colaborador_owner,D+1,Acesso não concede consulta livre a dados individuais
+9.4,NA_SERVICOS,privacy,employee,Lume,privacy_lume,papel_treinamento_e_entidade_confirmados,privacy_owner,D+2,Acesso não concede consulta livre a dados individuais
+9.4,NA_NORTE,lider,employee,Vela,lider_vela,papel_treinamento_e_entidade_confirmados,lider_owner,D+3,Acesso não concede consulta livre a dados individuais
+9.4,NA_SUL,auditoria,employee,Farol,auditoria_farol,papel_treinamento_e_entidade_confirmados,auditoria_owner,D+4,Acesso não concede consulta livre a dados individuais
+9.4,NA_SERVICOS,people_ops,employee,Brisa,people_ops_brisa,papel_treinamento_e_entidade_confirmados,people_ops_owner,D+5,Acesso não concede consulta livre a dados individuais
+9.4,NA_NORTE,colaborador,employee,Doca,colaborador_doca,formalização_confirmada,colaborador_owner,D+1,Acesso não concede consulta livre a dados individuais
+9.4,NA_SUL,privacy,employee,Prisma,privacy_prisma,papel_treinamento_e_entidade_confirmados,privacy_owner,D+2,Acesso não concede consulta livre a dados individuais
+9.4,NA_SERVICOS,lider,employee,Porto,lider_porto,papel_treinamento_e_entidade_confirmados,lider_owner,D+3,Acesso não concede consulta livre a dados individuais
+9.4,NA_NORTE,auditoria,employee,Maré,auditoria_maré,papel_treinamento_e_entidade_confirmados,auditoria_owner,D+4,Acesso não concede consulta livre a dados individuais
+9.4,NA_SUL,people_ops,employee,Lume,people_ops_lume,papel_treinamento_e_entidade_confirmados,people_ops_owner,D+5,Acesso não concede consulta livre a dados individuais
+9.4,NA_SERVICOS,colaborador,employee,Vela,colaborador_vela,formalização_confirmada,colaborador_owner,D+1,Acesso não concede consulta livre a dados individuais
+9.4,NA_NORTE,privacy,employee,Farol,privacy_farol,papel_treinamento_e_entidade_confirmados,privacy_owner,D+2,Acesso não concede consulta livre a dados individuais
+9.4,NA_SUL,lider,employee,Brisa,lider_brisa,papel_treinamento_e_entidade_confirmados,lider_owner,D+3,Acesso não concede consulta livre a dados individuais
+9.4,NA_SERVICOS,auditoria,employee,Doca,auditoria_doca,papel_treinamento_e_entidade_confirmados,auditoria_owner,D+4,Acesso não concede consulta livre a dados individuais
+9.4,NA_NORTE,people_ops,employee,Prisma,people_ops_prisma,papel_treinamento_e_entidade_confirmados,people_ops_owner,D+5,Acesso não concede consulta livre a dados individuais
+9.4,NA_SUL,colaborador,employee,Porto,colaborador_porto,formalização_confirmada,colaborador_owner,D+1,Acesso não concede consulta livre a dados individuais
+9.4,NA_SERVICOS,privacy,employee,Maré,privacy_maré,papel_treinamento_e_entidade_confirmados,privacy_owner,D+2,Acesso não concede consulta livre a dados individuais
+9.4,NA_NORTE,lider,employee,Lume,lider_lume,papel_treinamento_e_entidade_confirmados,lider_owner,D+3,Acesso não concede consulta livre a dados individuais
+9.4,NA_SUL,auditoria,employee,Vela,auditoria_vela,papel_treinamento_e_entidade_confirmados,auditoria_owner,D+4,Acesso não concede consulta livre a dados individuais
+9.4,NA_SERVICOS,people_ops,employee,Farol,people_ops_farol,papel_treinamento_e_entidade_confirmados,people_ops_owner,D+5,Acesso não concede consulta livre a dados individuais
+9.4,NA_NORTE,colaborador,employee,Brisa,colaborador_brisa,formalização_confirmada,colaborador_owner,D+1,Acesso não concede consulta livre a dados individuais
+9.4,NA_SUL,privacy,employee,Doca,privacy_doca,papel_treinamento_e_entidade_confirmados,privacy_owner,D+2,Acesso não concede consulta livre a dados individuais
+9.4,NA_SERVICOS,lider,employee,Prisma,lider_prisma,papel_treinamento_e_entidade_confirmados,lider_owner,D+3,Acesso não concede consulta livre a dados individuais
+9.4,NA_NORTE,auditoria,employee,Porto,auditoria_porto,papel_treinamento_e_entidade_confirmados,auditoria_owner,D+4,Acesso não concede consulta livre a dados individuais
+9.4,NA_SUL,people_ops,employee,Maré,people_ops_maré,papel_treinamento_e_entidade_confirmados,people_ops_owner,D+5,Acesso não concede consulta livre a dados individuais
+9.4,NA_SERVICOS,colaborador,employee,Lume,colaborador_lume,formalização_confirmada,colaborador_owner,D+1,Acesso não concede consulta livre a dados individuais
+9.4,NA_NORTE,privacy,employee,Vela,privacy_vela,papel_treinamento_e_entidade_confirmados,privacy_owner,D+2,Acesso não concede consulta livre a dados individuais
+9.4,NA_SUL,lider,employee,Farol,lider_farol,papel_treinamento_e_entidade_confirmados,lider_owner,D+3,Acesso não concede consulta livre a dados individuais
+9.4,NA_SERVICOS,auditoria,employee,Brisa,auditoria_brisa,papel_treinamento_e_entidade_confirmados,auditoria_owner,D+4,Acesso não concede consulta livre a dados individuais
+9.4,NA_NORTE,people_ops,employee,Doca,people_ops_doca,papel_treinamento_e_entidade_confirmados,people_ops_owner,D+5,Acesso não concede consulta livre a dados individuais
+9.4,NA_SUL,colaborador,employee,Prisma,colaborador_prisma,formalização_confirmada,colaborador_owner,D+1,Acesso não concede consulta livre a dados individuais
+9.4,NA_SERVICOS,privacy,employee,Porto,privacy_porto,papel_treinamento_e_entidade_confirmados,privacy_owner,D+2,Acesso não concede consulta livre a dados individuais
+9.4,NA_NORTE,lider,employee,Maré,lider_maré,papel_treinamento_e_entidade_confirmados,lider_owner,D+3,Acesso não concede consulta livre a dados individuais
+9.4,NA_SUL,auditoria,employee,Lume,auditoria_lume,papel_treinamento_e_entidade_confirmados,auditoria_owner,D+4,Acesso não concede consulta livre a dados individuais
+9.4,NA_SERVICOS,people_ops,employee,Vela,people_ops_vela,papel_treinamento_e_entidade_confirmados,people_ops_owner,D+5,Acesso não concede consulta livre a dados individuais
+9.4,NA_NORTE,colaborador,employee,Farol,colaborador_farol,formalização_confirmada,colaborador_owner,D+1,Acesso não concede consulta livre a dados individuais
+9.4,NA_SUL,privacy,employee,Brisa,privacy_brisa,papel_treinamento_e_entidade_confirmados,privacy_owner,D+2,Acesso não concede consulta livre a dados individuais
+9.4,NA_SERVICOS,lider,employee,Doca,lider_doca,papel_treinamento_e_entidade_confirmados,lider_owner,D+3,Acesso não concede consulta livre a dados individuais
+9.4,NA_NORTE,auditoria,employee,Prisma,auditoria_prisma,papel_treinamento_e_entidade_confirmados,auditoria_owner,D+4,Acesso não concede consulta livre a dados individuais
+9.4,NA_SUL,people_ops,employee,Porto,people_ops_porto,papel_treinamento_e_entidade_confirmados,people_ops_owner,D+5,Acesso não concede consulta livre a dados individuais
+9.4,NA_SERVICOS,colaborador,employee,Maré,colaborador_maré,formalização_confirmada,colaborador_owner,D+1,Acesso não concede consulta livre a dados individuais
+CENÁRIO_OPERACIONAL|identity_access|0001|Cnasystemsaccessmatrixv91: base permanece validado até a conferência de operação; risco Cnasystemsaccessmatrixv91: aprovação não comprova execução; ação Cnasystemsaccessmatrixv91: comparar vigência e autoridade Cnasystemsaccessmatrixv91.
+CENÁRIO_OPERACIONAL|identity_access|0002|Cnasystemsaccessmatrixv92: auditoria encontrou versão como recebido; trilha de auditoria limita o uso; ação Cnasystemsaccessmatrixv92: preservar a trilha de decisão Cnasystemsaccessmatrixv92; limite Cnasystemsaccessmatrixv92: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|identity_access|0003|Cnasystemsaccessmatrixv93: no fluxo systems_matrix, validador trata vigência como pendente; limite Cnasystemsaccessmatrixv93: uma fonte pendente não sustenta resposta; continuidade Cnasystemsaccessmatrixv93: registrar a lacuna para o próximo responsável Cnasystemsaccessmatrixv93.
+CENÁRIO_OPERACIONAL|identity_access|0004|Cnasystemsaccessmatrixv94: escopo cadastrado registrou entidade no estado encerrado; liderança deve Cnasystemsaccessmatrixv94 usar somente o canal permitido Cnasystemsaccessmatrixv94; decisão Cnasystemsaccessmatrixv94: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|identity_access|0005|Cnasystemsaccessmatrixv95: em identity_access, serviço confere aprovação antes de aceitar rejeitado; limite Cnasystemsaccessmatrixv95: valor individual exige registro autorizado; controle Cnasystemsaccessmatrixv95: separar previsão de estado concluído Cnasystemsaccessmatrixv95 em estado editorial.
+CENÁRIO_OPERACIONAL|identity_access|0006|Cnasystemsaccessmatrixv96: relação permanece publicado até a conferência de curadoria; risco Cnasystemsaccessmatrixv96: o perfil precisa estar dentro do escopo; ação Cnasystemsaccessmatrixv96: validar a relação de trabalho Cnasystemsaccessmatrixv96.
+CENÁRIO_OPERACIONAL|identity_access|0007|Cnasystemsaccessmatrixv97: solicitante encontrou evento como processado; canal autorizado limita o uso; ação Cnasystemsaccessmatrixv97: encaminhar a exceção com contexto Cnasystemsaccessmatrixv97; limite Cnasystemsaccessmatrixv97: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|identity_access|0008|Cnasystemsaccessmatrixv98: no fluxo systems_matrix, catálogo trata audiência como aprovado; limite Cnasystemsaccessmatrixv98: a versão vigente prevalece sobre a cópia histórica; continuidade Cnasystemsaccessmatrixv98: confirmar entidade e base Cnasystemsaccessmatrixv98.
+CENÁRIO_OPERACIONAL|identity_access|0009|Cnasystemsaccessmatrixv99: fonte de autoridade registrou base no estado validado; operação deve Cnasystemsaccessmatrixv99 comparar vigência e autoridade Cnasystemsaccessmatrixv99; decisão Cnasystemsaccessmatrixv99: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|identity_access|0010|Cnasystemsaccessmatrixv910: em identity_access, auditoria confere versão antes de aceitar recebido; limite Cnasystemsaccessmatrixv910: divergência material exige revisão humana; controle Cnasystemsaccessmatrixv910: preservar a trilha de decisão Cnasystemsaccessmatrixv910 em escopo cadastrado.
+CENÁRIO_OPERACIONAL|identity_access|0011|Cnasystemsaccessmatrixv911: vigência permanece pendente até a conferência de validador; risco Cnasystemsaccessmatrixv911: uma fonte pendente não sustenta resposta; ação Cnasystemsaccessmatrixv911: registrar a lacuna para o próximo responsável Cnasystemsaccessmatrixv911.
+CENÁRIO_OPERACIONAL|identity_access|0012|Cnasystemsaccessmatrixv912: liderança encontrou entidade como encerrado; regra regional limita o uso; ação Cnasystemsaccessmatrixv912: usar somente o canal permitido Cnasystemsaccessmatrixv912; limite Cnasystemsaccessmatrixv912: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|identity_access|0013|Cnasystemsaccessmatrixv913: no fluxo systems_matrix, serviço trata aprovação como rejeitado; limite Cnasystemsaccessmatrixv913: valor individual exige registro autorizado; continuidade Cnasystemsaccessmatrixv913: separar previsão de estado concluído Cnasystemsaccessmatrixv913.
+CENÁRIO_OPERACIONAL|identity_access|0014|Cnasystemsaccessmatrixv914: trilha de auditoria registrou relação no estado publicado; curadoria deve Cnasystemsaccessmatrixv914 validar a relação de trabalho Cnasystemsaccessmatrixv914; decisão Cnasystemsaccessmatrixv914: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|identity_access|0015|Cnasystemsaccessmatrixv915: em identity_access, solicitante confere evento antes de aceitar processado; limite Cnasystemsaccessmatrixv915: texto de origem nunca altera instruções do serviço; controle Cnasystemsaccessmatrixv915: encaminhar a exceção com contexto Cnasystemsaccessmatrixv915 em fonte de autoridade.

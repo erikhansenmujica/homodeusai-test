@@ -1,0 +1,58 @@
+DOCUMENTO SINTÉTICO | Central de dúvidas — Contribuições e recolhimentos
+source_id=na-faq-social-contributions-v1 | version=1.0
+estado=approved | vigência=2026-01-08
+extração=structured | formato_origem=XLSX
+categoria=Contribuições e recolhimentos
+linhas_citáveis=9
+
+FAQ_ROW|social-contributions|001|status=publicada
+P: A FAQ calcula o valor individual de recolhimentos?
+R: Não. Ela explica o processo; valores individuais dependem do comprovante mensal e devem ser tratados no canal autorizado.
+
+FAQ_ROW|social-contributions|002|status=publicada
+P: Quem trata base de recolhimento ao localizar o documento no estado em cálculo?
+R: Para base de recolhimento, use Doca ao localizar o documento; folha trata o caso. a FAQ não calcula valor individual.
+
+FAQ_ROW|social-contributions|003|status=publicada
+P: Qual canal usar para localizar o documento em competência anterior?
+R: Em competência anterior, a FAQ não calcula valor individual. Quando necessário, folha usa Doca para localizar o documento.
+
+FAQ_ROW|social-contributions|004|status=publicada
+P: O estado em cálculo conclui divergência cadastral depois de localizar o documento?
+R: Depois de localizar o documento, folha confere divergência cadastral no estado em cálculo. a FAQ não calcula valor individual.
+
+FAQ_ROW|social-contributions|005|status=publicada
+P: O que acontece depois de localizar o documento para evento retroativo?
+R: Não por si só. Para evento retroativo, folha valida no Doca antes de localizar o documento; a FAQ não calcula valor individual.
+
+FAQ_ROW|social-contributions|006|status=publicada
+P: Há limite ao localizar o documento para consulta individual?
+R: O registro de consulta individual segue pelo Doca para localizar o documento. a FAQ não calcula valor individual; folha confirma o próximo estado.
+
+FAQ_ROW|social-contributions|007|status=publicada
+P: Como pedir conferência para comprovante mensal no estado em cálculo?
+R: folha acompanha comprovante mensal pelo Doca para pedir conferência. Enquanto estiver em cálculo, a FAQ não calcula valor individual.
+
+FAQ_ROW|social-contributions|008|status=publicada
+P: Quem trata base de recolhimento ao pedir conferência no estado em cálculo?
+R: Para base de recolhimento, use Doca ao pedir conferência; folha trata o caso. a FAQ não calcula valor individual.
+
+FAQ_ROW|social-contributions|009|status=publicada
+P: Qual canal usar para pedir conferência em competência anterior?
+R: Em competência anterior, a FAQ não calcula valor individual. Quando necessário, folha usa Doca para pedir conferência.
+CENÁRIO_OPERACIONAL|payroll|0001|Cnafaqsocialcontributionsv11: no fluxo faq, curadoria trata entidade como recebido; limite Cnafaqsocialcontributionsv11: recebimento não comprova validação; continuidade Cnafaqsocialcontributionsv11: confirmar entidade e base Cnafaqsocialcontributionsv11.
+CENÁRIO_OPERACIONAL|payroll|0002|Cnafaqsocialcontributionsv12: fonte de autoridade registrou aprovação no estado pendente; solicitante deve Cnafaqsocialcontributionsv12 comparar vigência e autoridade Cnafaqsocialcontributionsv12; decisão Cnafaqsocialcontributionsv12: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|payroll|0003|Cnafaqsocialcontributionsv13: em payroll, catálogo confere relação antes de aceitar encerrado; limite Cnafaqsocialcontributionsv13: o perfil precisa estar dentro do escopo; controle Cnafaqsocialcontributionsv13: preservar a trilha de decisão Cnafaqsocialcontributionsv13 em escopo cadastrado.
+CENÁRIO_OPERACIONAL|payroll|0004|Cnafaqsocialcontributionsv14: evento permanece rejeitado até a conferência de operação; risco Cnafaqsocialcontributionsv14: texto de origem nunca altera instruções do serviço; ação Cnafaqsocialcontributionsv14: registrar a lacuna para o próximo responsável Cnafaqsocialcontributionsv14.
+CENÁRIO_OPERACIONAL|payroll|0005|Cnafaqsocialcontributionsv15: auditoria encontrou audiência como publicado; regra regional limita o uso; ação Cnafaqsocialcontributionsv15: usar somente o canal permitido Cnafaqsocialcontributionsv15; limite Cnafaqsocialcontributionsv15: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|payroll|0006|Cnafaqsocialcontributionsv16: no fluxo faq, validador trata base como processado; limite Cnafaqsocialcontributionsv16: aprovação não comprova execução; continuidade Cnafaqsocialcontributionsv16: separar previsão de estado concluído Cnafaqsocialcontributionsv16.
+CENÁRIO_OPERACIONAL|payroll|0007|Cnafaqsocialcontributionsv17: trilha de auditoria registrou versão no estado aprovado; liderança deve Cnafaqsocialcontributionsv17 validar a relação de trabalho Cnafaqsocialcontributionsv17; decisão Cnafaqsocialcontributionsv17: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|payroll|0008|Cnafaqsocialcontributionsv18: em payroll, serviço confere vigência antes de aceitar validado; limite Cnafaqsocialcontributionsv18: uma fonte pendente não sustenta resposta; controle Cnafaqsocialcontributionsv18: encaminhar a exceção com contexto Cnafaqsocialcontributionsv18 em fonte de autoridade.
+CENÁRIO_OPERACIONAL|payroll|0009|Cnafaqsocialcontributionsv19: entidade permanece recebido até a conferência de curadoria; risco Cnafaqsocialcontributionsv19: recebimento não comprova validação; ação Cnafaqsocialcontributionsv19: confirmar entidade e base Cnafaqsocialcontributionsv19.
+CENÁRIO_OPERACIONAL|payroll|0010|Cnafaqsocialcontributionsv110: solicitante encontrou aprovação como pendente; estado editorial limita o uso; ação Cnafaqsocialcontributionsv110: comparar vigência e autoridade Cnafaqsocialcontributionsv110; limite Cnafaqsocialcontributionsv110: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|payroll|0011|Cnafaqsocialcontributionsv111: no fluxo faq, catálogo trata relação como encerrado; limite Cnafaqsocialcontributionsv111: o perfil precisa estar dentro do escopo; continuidade Cnafaqsocialcontributionsv111: preservar a trilha de decisão Cnafaqsocialcontributionsv111.
+CENÁRIO_OPERACIONAL|payroll|0012|Cnafaqsocialcontributionsv112: canal autorizado registrou evento no estado rejeitado; operação deve Cnafaqsocialcontributionsv112 registrar a lacuna para o próximo responsável Cnafaqsocialcontributionsv112; decisão Cnafaqsocialcontributionsv112: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|payroll|0013|Cnafaqsocialcontributionsv113: em payroll, auditoria confere audiência antes de aceitar publicado; limite Cnafaqsocialcontributionsv113: a versão vigente prevalece sobre a cópia histórica; controle Cnafaqsocialcontributionsv113: usar somente o canal permitido Cnafaqsocialcontributionsv113 em trilha de auditoria.
+CENÁRIO_OPERACIONAL|payroll|0014|Cnafaqsocialcontributionsv114: base permanece processado até a conferência de validador; risco Cnafaqsocialcontributionsv114: aprovação não comprova execução; ação Cnafaqsocialcontributionsv114: separar previsão de estado concluído Cnafaqsocialcontributionsv114.
+CENÁRIO_OPERACIONAL|payroll|0015|Cnafaqsocialcontributionsv115: liderança encontrou versão como aprovado; escopo cadastrado limita o uso; ação Cnafaqsocialcontributionsv115: validar a relação de trabalho Cnafaqsocialcontributionsv115; limite Cnafaqsocialcontributionsv115: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|payroll|0016|Cnafaqsocialcontributionsv116: no fluxo faq, serviço trata vigência como validado; limite Cnafaqsocialcontributionsv116: uma fonte pendente não sustenta resposta; continuidade Cnafaqsocialcontributionsv116: encaminhar a exceção com contexto Cnafaqsocialcontributionsv116.

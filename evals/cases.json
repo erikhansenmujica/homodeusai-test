@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0",
+  "cases": [
+    {
+      "id": "sample-conversation",
+      "sample": true,
+      "objective": "Check that a greeting stays conversational and does not invent a policy answer.",
+      "clusterId": "sample-conversation",
+      "profileId": "employee-na-servicos-sudeste",
+      "question": "Olá, tudo bem?",
+      "asOf": "2026-07-22T10:30:00.000Z",
+      "tags": ["conversational"],
+      "expected": {
+        "kind": "conversational",
+        "forbiddenBodyTerms": ["ticket"]
+      }
+    },
+    {
+      "id": "sample-human-requested",
+      "sample": true,
+      "objective": "Check that a direct request for a person creates a usable human handoff.",
+      "clusterId": "sample-human-requested",
+      "profileId": "employee-na-servicos-sudeste",
+      "question": "Quero falar com uma pessoa.",
+      "asOf": "2026-07-22T10:30:00.000Z",
+      "tags": ["defer"],
+      "expected": {
+        "kind": "defer",
+        "reasonCode": "human_requested"
+      }
+    }
+  ]
+}

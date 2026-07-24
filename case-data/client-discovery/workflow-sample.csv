@@ -1,0 +1,49 @@
+journey_id,request_family,channel,requester_relationship,elapsed_minutes,analyst_touches,transfers,reopened,employee_followups,documents_opened,request_excerpt
+journey-001,payroll-calendar,portal,employee,6.8,1,0,false,0,2,quando sai o comprovante?
+journey-002,expense-reimbursement,email,employee,17.9,2,1,true,1,4,meu reembolso entra quando?
+journey-003,parental-leave,chat,employee,23.6,3,2,true,2,5,como funciona a licença?
+journey-004,personal-leave-balance,portal,employee,11.2,2,1,true,1,2,quantos dias ainda tenho?
+journey-005,collective-agreement,service_desk,employee,28.7,3,2,false,1,6,qual regra vale na minha base?
+journey-006,safety-training,chat,employee,15.3,2,1,false,1,3,meu treinamento venceu?
+journey-007,time-record-adjustment,portal,employee,9.1,1,0,false,0,2,como corrijo a entrada de ontem?
+journey-008,employee-personal-record,email,employee,13.1,2,1,false,1,3,quero mudar meus dados bancários
+journey-009,contractor-benefit,chat,contractor,18.5,3,2,true,2,4,prestador recebe o mesmo benefício?
+journey-010,unsupported-allowance,portal,employee,14.6,2,1,true,1,3,existe ajuda para mudança?
+journey-011,termination-process,service_desk,employee,22.4,3,2,false,2,5,a data planejada já inicia tudo?
+journey-012,occupational-health,chat,employee,19.7,2,1,false,1,4,posso mandar meu laudo aqui?
+journey-013,payroll-calendar,chat,apprentice,8.4,1,0,false,1,2,a prévia confirma o pagamento?
+journey-014,expense-reimbursement,portal,employee,12.8,2,1,false,1,3,qual é o limite de táxi?
+journey-015,parental-leave,email,employee,31.2,4,3,true,3,7,o prazo muda por entidade?
+journey-016,personal-leave-balance,chat,employee,7.7,1,0,false,0,1,quero falar com alguém sobre meu saldo
+journey-017,collective-agreement,portal,employee,14.9,2,0,false,1,5,a regra do sul vale para mim?
+journey-018,safety-training,email,intern,18.1,2,1,true,1,3,estágio faz o mesmo treinamento?
+journey-019,time-record-adjustment,chat,employee,16.4,2,1,true,2,4,já enviei; por que não corrigiu?
+journey-020,employee-personal-record,portal,employee,10.6,1,0,false,0,2,como altero meu endereço?
+journey-021,contractor-benefit,email,contractor,24.3,3,2,false,2,5,qual instrumento cobre meu contrato?
+journey-022,unsupported-allowance,chat,employee,6.2,1,0,false,0,1,tem auxílio para internet?
+journey-023,termination-process,portal,apprentice,27.5,3,1,true,2,6,quando o cálculo fica final?
+journey-024,occupational-health,service_desk,employee,12.4,2,1,false,0,2,preciso registrar um incidente
+journey-025,payroll-calendar,email,employee,21.6,3,2,true,2,4,a data que me passaram é garantida?
+journey-026,expense-reimbursement,chat,employee,9.8,1,0,false,1,2,onde anexo o recibo?
+journey-027,parental-leave,portal,employee,18.7,2,1,false,1,4,quem aprova a licença?
+journey-028,personal-leave-balance,email,employee,13.9,2,1,true,1,3,o saldo do portal está certo?
+journey-029,collective-agreement,chat,apprentice,20.5,3,1,false,2,6,aprendiz entra nessa cláusula?
+journey-030,safety-training,portal,employee,7.1,1,0,false,0,2,onde vejo os próximos passos?
+journey-031,time-record-adjustment,email,employee,25.8,3,2,true,2,5,o prazo é dois ou três dias?
+journey-032,employee-personal-record,chat,employee,5.9,1,0,false,0,1,vou colar minha conta aqui
+journey-033,contractor-benefit,portal,contractor,16.8,2,1,false,1,4,posso usar o banco de horas?
+journey-034,unsupported-allowance,email,employee,19.2,2,1,true,2,3,me disseram que existe ajuda mensal
+journey-035,termination-process,chat,employee,11.7,2,1,false,1,3,quanto vou receber?
+journey-036,occupational-health,portal,employee,8.9,1,0,false,0,2,qual é o primeiro passo numa urgência?
+journey-037,payroll-calendar,service_desk,employee,10.2,1,0,false,0,3,onde fica o comprovante?
+journey-038,expense-reimbursement,portal,employee,27.1,3,2,true,2,6,o pedido já foi pago?
+journey-039,parental-leave,chat,employee,14.2,2,1,false,1,3,posso mandar o documento médico?
+journey-040,personal-leave-balance,service_desk,employee,22.9,3,2,true,2,5,a liderança pode confirmar meu saldo?
+journey-041,collective-agreement,email,employee,17.4,2,1,false,1,5,qual percentual de hora extra vale?
+journey-042,safety-training,chat,employee,9.5,1,0,false,1,2,não quero usar o bot
+journey-043,time-record-adjustment,portal,intern,12.6,2,1,false,1,3,estágio acumula banco de horas?
+journey-044,employee-personal-record,email,employee,18.3,2,1,true,2,4,a alteração já entrou?
+journey-045,contractor-benefit,service_desk,contractor,29.8,4,3,true,3,7,qual regra de refeição vale?
+journey-046,unsupported-allowance,chat,employee,7.4,1,0,false,0,2,tem ajuda para certificação?
+journey-047,termination-process,email,employee,26.2,3,2,false,2,6,pedido de bloqueio confirma acesso encerrado?
+journey-048,occupational-health,chat,employee,16.1,2,1,true,1,3,o chat pode dizer o que eu tenho?

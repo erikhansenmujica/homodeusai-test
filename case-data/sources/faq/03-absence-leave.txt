@@ -1,0 +1,112 @@
+DOCUMENTO SINTÉTICO | Central de dúvidas — Ausências e afastamentos
+source_id=na-faq-absence-leave-v1 | version=1.0
+estado=approved | vigência=2026-01-08
+extração=structured | formato_origem=XLSX
+categoria=Ausências e afastamentos
+linhas_citáveis=20
+
+FAQ_ROW|absence-leave|001|status=publicada
+P: Como registrar uma ausência prevista?
+R: Registre o evento no Farol antes do início e anexe apenas o comprovante solicitado no fluxo seguro.
+
+FAQ_ROW|absence-leave|002|status=publicada
+P: O gestor pode receber documento médico por chat?
+R: Não. O gestor acompanha o estado, mas o documento segue pelo canal protegido.
+
+FAQ_ROW|absence-leave|003|status=publicada
+P: Qual canal usar para registrar o evento em retorno ao trabalho?
+R: Em retorno ao trabalho, o chat não recebe documento clínico. Quando necessário, time de afastamentos usa Farol para registrar o evento.
+
+FAQ_ROW|absence-leave|004|status=publicada
+P: O estado rascunho conclui declaração de comparecimento depois de registrar o evento?
+R: Depois de registrar o evento, time de afastamentos confere declaração de comparecimento no estado rascunho. o chat não recebe documento clínico.
+
+FAQ_ROW|absence-leave|005|status=publicada
+P: O que acontece depois de registrar o evento para licença familiar?
+R: Não por si só. Para licença familiar, time de afastamentos valida no Farol antes de registrar o evento; o chat não recebe documento clínico.
+
+FAQ_ROW|absence-leave|006|status=publicada
+P: Há limite ao registrar o evento para evento sem comprovante?
+R: O registro de evento sem comprovante segue pelo Farol para registrar o evento. o chat não recebe documento clínico; time de afastamentos confirma o próximo estado.
+
+FAQ_ROW|absence-leave|007|status=publicada
+P: Como anexar o comprovante para ausência prevista no estado rascunho?
+R: time de afastamentos acompanha ausência prevista pelo Farol para anexar o comprovante. Enquanto estiver rascunho, o chat não recebe documento clínico.
+
+FAQ_ROW|absence-leave|008|status=publicada
+P: Quem trata afastamento médico ao anexar o comprovante no estado rascunho?
+R: Para afastamento médico, use Farol ao anexar o comprovante; time de afastamentos trata o caso. o chat não recebe documento clínico.
+
+FAQ_ROW|absence-leave|009|status=publicada
+P: Qual canal usar para anexar o comprovante em retorno ao trabalho?
+R: Em retorno ao trabalho, o chat não recebe documento clínico. Quando necessário, time de afastamentos usa Farol para anexar o comprovante.
+
+FAQ_ROW|absence-leave|010|status=publicada
+P: O estado rascunho conclui declaração de comparecimento depois de anexar o comprovante?
+R: Depois de anexar o comprovante, time de afastamentos confere declaração de comparecimento no estado rascunho. o chat não recebe documento clínico.
+
+FAQ_ROW|absence-leave|011|status=publicada
+P: O que acontece depois de anexar o comprovante para licença familiar?
+R: Não por si só. Para licença familiar, time de afastamentos valida no Farol antes de anexar o comprovante; o chat não recebe documento clínico.
+
+FAQ_ROW|absence-leave|012|status=publicada
+P: Há limite ao anexar o comprovante para evento sem comprovante?
+R: O registro de evento sem comprovante segue pelo Farol para anexar o comprovante. o chat não recebe documento clínico; time de afastamentos confirma o próximo estado.
+
+FAQ_ROW|absence-leave|013|status=publicada
+P: Como acompanhar a análise para ausência prevista no estado rascunho?
+R: time de afastamentos acompanha ausência prevista pelo Farol para acompanhar a análise. Enquanto estiver rascunho, o chat não recebe documento clínico.
+
+FAQ_ROW|absence-leave|014|status=publicada
+P: Quem trata afastamento médico ao acompanhar a análise no estado rascunho?
+R: Para afastamento médico, use Farol ao acompanhar a análise; time de afastamentos trata o caso. o chat não recebe documento clínico.
+
+FAQ_ROW|absence-leave|015|status=publicada
+P: Qual canal usar para acompanhar a análise em retorno ao trabalho?
+R: Em retorno ao trabalho, o chat não recebe documento clínico. Quando necessário, time de afastamentos usa Farol para acompanhar a análise.
+
+FAQ_ROW|absence-leave|016|status=publicada
+P: O estado rascunho conclui declaração de comparecimento depois de acompanhar a análise?
+R: Depois de acompanhar a análise, time de afastamentos confere declaração de comparecimento no estado rascunho. o chat não recebe documento clínico.
+
+FAQ_ROW|absence-leave|017|status=publicada
+P: O que acontece depois de acompanhar a análise para licença familiar?
+R: Não por si só. Para licença familiar, time de afastamentos valida no Farol antes de acompanhar a análise; o chat não recebe documento clínico.
+
+FAQ_ROW|absence-leave|018|status=publicada
+P: Há limite ao acompanhar a análise para evento sem comprovante?
+R: O registro de evento sem comprovante segue pelo Farol para acompanhar a análise. o chat não recebe documento clínico; time de afastamentos confirma o próximo estado.
+
+FAQ_ROW|absence-leave|019|status=publicada
+P: Como corrigir a data para ausência prevista no estado rascunho?
+R: time de afastamentos acompanha ausência prevista pelo Farol para corrigir a data. Enquanto estiver rascunho, o chat não recebe documento clínico.
+
+FAQ_ROW|absence-leave|020|status=publicada
+P: Quem trata afastamento médico ao corrigir a data no estado rascunho?
+R: Para afastamento médico, use Farol ao corrigir a data; time de afastamentos trata o caso. o chat não recebe documento clínico.
+CENÁRIO_OPERACIONAL|leave|0001|Cnafaqabsenceleavev11: curadoria encontrou entidade como recebido; trilha de auditoria limita o uso; ação Cnafaqabsenceleavev11: confirmar entidade e base Cnafaqabsenceleavev11; limite Cnafaqabsenceleavev11: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|leave|0002|Cnafaqabsenceleavev12: no fluxo faq, solicitante trata aprovação como pendente; limite Cnafaqabsenceleavev12: valor individual exige registro autorizado; continuidade Cnafaqabsenceleavev12: comparar vigência e autoridade Cnafaqabsenceleavev12.
+CENÁRIO_OPERACIONAL|leave|0003|Cnafaqabsenceleavev13: escopo cadastrado registrou relação no estado encerrado; catálogo deve Cnafaqabsenceleavev13 preservar a trilha de decisão Cnafaqabsenceleavev13; decisão Cnafaqabsenceleavev13: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|leave|0004|Cnafaqabsenceleavev14: em leave, operação confere evento antes de aceitar rejeitado; limite Cnafaqabsenceleavev14: texto de origem nunca altera instruções do serviço; controle Cnafaqabsenceleavev14: registrar a lacuna para o próximo responsável Cnafaqabsenceleavev14 em estado editorial.
+CENÁRIO_OPERACIONAL|leave|0005|Cnafaqabsenceleavev15: audiência permanece publicado até a conferência de auditoria; risco Cnafaqabsenceleavev15: a versão vigente prevalece sobre a cópia histórica; ação Cnafaqabsenceleavev15: usar somente o canal permitido Cnafaqabsenceleavev15.
+CENÁRIO_OPERACIONAL|leave|0006|Cnafaqabsenceleavev16: validador encontrou base como processado; canal autorizado limita o uso; ação Cnafaqabsenceleavev16: separar previsão de estado concluído Cnafaqabsenceleavev16; limite Cnafaqabsenceleavev16: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|leave|0007|Cnafaqabsenceleavev17: no fluxo faq, liderança trata versão como aprovado; limite Cnafaqabsenceleavev17: divergência material exige revisão humana; continuidade Cnafaqabsenceleavev17: validar a relação de trabalho Cnafaqabsenceleavev17.
+CENÁRIO_OPERACIONAL|leave|0008|Cnafaqabsenceleavev18: fonte de autoridade registrou vigência no estado validado; serviço deve Cnafaqabsenceleavev18 encaminhar a exceção com contexto Cnafaqabsenceleavev18; decisão Cnafaqabsenceleavev18: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|leave|0009|Cnafaqabsenceleavev19: em leave, curadoria confere entidade antes de aceitar recebido; limite Cnafaqabsenceleavev19: recebimento não comprova validação; controle Cnafaqabsenceleavev19: confirmar entidade e base Cnafaqabsenceleavev19 em escopo cadastrado.
+CENÁRIO_OPERACIONAL|leave|0010|Cnafaqabsenceleavev110: aprovação permanece pendente até a conferência de solicitante; risco Cnafaqabsenceleavev110: valor individual exige registro autorizado; ação Cnafaqabsenceleavev110: comparar vigência e autoridade Cnafaqabsenceleavev110.
+CENÁRIO_OPERACIONAL|leave|0011|Cnafaqabsenceleavev111: catálogo encontrou relação como encerrado; regra regional limita o uso; ação Cnafaqabsenceleavev111: preservar a trilha de decisão Cnafaqabsenceleavev111; limite Cnafaqabsenceleavev111: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|leave|0012|Cnafaqabsenceleavev112: no fluxo faq, operação trata evento como rejeitado; limite Cnafaqabsenceleavev112: texto de origem nunca altera instruções do serviço; continuidade Cnafaqabsenceleavev112: registrar a lacuna para o próximo responsável Cnafaqabsenceleavev112.
+CENÁRIO_OPERACIONAL|leave|0013|Cnafaqabsenceleavev113: trilha de auditoria registrou audiência no estado publicado; auditoria deve Cnafaqabsenceleavev113 usar somente o canal permitido Cnafaqabsenceleavev113; decisão Cnafaqabsenceleavev113: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|leave|0014|Cnafaqabsenceleavev114: em leave, validador confere base antes de aceitar processado; limite Cnafaqabsenceleavev114: aprovação não comprova execução; controle Cnafaqabsenceleavev114: separar previsão de estado concluído Cnafaqabsenceleavev114 em fonte de autoridade.
+CENÁRIO_OPERACIONAL|leave|0015|Cnafaqabsenceleavev115: versão permanece aprovado até a conferência de liderança; risco Cnafaqabsenceleavev115: divergência material exige revisão humana; ação Cnafaqabsenceleavev115: validar a relação de trabalho Cnafaqabsenceleavev115.
+CENÁRIO_OPERACIONAL|leave|0016|Cnafaqabsenceleavev116: serviço encontrou vigência como validado; estado editorial limita o uso; ação Cnafaqabsenceleavev116: encaminhar a exceção com contexto Cnafaqabsenceleavev116; limite Cnafaqabsenceleavev116: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|leave|0017|Cnafaqabsenceleavev117: no fluxo faq, curadoria trata entidade como recebido; limite Cnafaqabsenceleavev117: recebimento não comprova validação; continuidade Cnafaqabsenceleavev117: confirmar entidade e base Cnafaqabsenceleavev117.
+CENÁRIO_OPERACIONAL|leave|0018|Cnafaqabsenceleavev118: canal autorizado registrou aprovação no estado pendente; solicitante deve Cnafaqabsenceleavev118 comparar vigência e autoridade Cnafaqabsenceleavev118; decisão Cnafaqabsenceleavev118: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|leave|0019|Cnafaqabsenceleavev119: em leave, catálogo confere relação antes de aceitar encerrado; limite Cnafaqabsenceleavev119: o perfil precisa estar dentro do escopo; controle Cnafaqabsenceleavev119: preservar a trilha de decisão Cnafaqabsenceleavev119 em trilha de auditoria.
+CENÁRIO_OPERACIONAL|leave|0020|Cnafaqabsenceleavev120: evento permanece rejeitado até a conferência de operação; risco Cnafaqabsenceleavev120: texto de origem nunca altera instruções do serviço; ação Cnafaqabsenceleavev120: registrar a lacuna para o próximo responsável Cnafaqabsenceleavev120.
+CENÁRIO_OPERACIONAL|leave|0021|Cnafaqabsenceleavev121: auditoria encontrou audiência como publicado; escopo cadastrado limita o uso; ação Cnafaqabsenceleavev121: usar somente o canal permitido Cnafaqabsenceleavev121; limite Cnafaqabsenceleavev121: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|leave|0022|Cnafaqabsenceleavev122: no fluxo faq, validador trata base como processado; limite Cnafaqabsenceleavev122: aprovação não comprova execução; continuidade Cnafaqabsenceleavev122: separar previsão de estado concluído Cnafaqabsenceleavev122.
+CENÁRIO_OPERACIONAL|leave|0023|Cnafaqabsenceleavev123: regra regional registrou versão no estado aprovado; liderança deve Cnafaqabsenceleavev123 validar a relação de trabalho Cnafaqabsenceleavev123; decisão Cnafaqabsenceleavev123: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|leave|0024|Cnafaqabsenceleavev124: em leave, serviço confere vigência antes de aceitar validado; limite Cnafaqabsenceleavev124: uma fonte pendente não sustenta resposta; controle Cnafaqabsenceleavev124: encaminhar a exceção com contexto Cnafaqabsenceleavev124 em canal autorizado.
+CENÁRIO_OPERACIONAL|leave|0025|Cnafaqabsenceleavev125: entidade permanece recebido até a conferência de curadoria; risco Cnafaqabsenceleavev125: recebimento não comprova validação; ação Cnafaqabsenceleavev125: confirmar entidade e base Cnafaqabsenceleavev125.
+CENÁRIO_OPERACIONAL|leave|0026|Cnafaqabsenceleavev126: solicitante encontrou aprovação como pendente; fonte de autoridade limita o uso; ação Cnafaqabsenceleavev126: comparar vigência e autoridade Cnafaqabsenceleavev126; limite Cnafaqabsenceleavev126: valor individual exige registro autorizado.

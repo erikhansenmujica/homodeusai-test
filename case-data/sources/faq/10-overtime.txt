@@ -1,0 +1,154 @@
+DOCUMENTO SINTÉTICO | Central de dúvidas — Horas adicionais
+source_id=na-faq-overtime-v1 | version=1.0
+estado=approved | vigência=2026-01-08
+extração=structured | formato_origem=XLSX
+categoria=Horas adicionais
+linhas_citáveis=30
+
+FAQ_ROW|overtime|001|status=publicada
+P: Hora adicional precisa de autorização?
+R: Sim. A autorização pode ser registrada até o fim do dia seguinte à execução.
+
+FAQ_ROW|overtime|002|status=publicada
+P: Estagiário usa banco de horas?
+R: Não. O perfil de estágio não participa do banco de horas nesta regra interna.
+
+FAQ_ROW|overtime|003|status=publicada
+P: Qual canal usar para registrar o evento em banco de horas?
+R: Em banco de horas, registro não substitui autorização. Quando necessário, liderança usa Maré para registrar o evento.
+
+FAQ_ROW|overtime|004|status=publicada
+P: O estado planejado conclui trabalho em descanso depois de registrar o evento?
+R: Depois de registrar o evento, liderança confere trabalho em descanso no estado planejado. registro não substitui autorização.
+
+FAQ_ROW|overtime|005|status=publicada
+P: O que acontece depois de registrar o evento para ajuste de apontamento?
+R: Não por si só. Para ajuste de apontamento, liderança valida no Maré antes de registrar o evento; registro não substitui autorização.
+
+FAQ_ROW|overtime|006|status=publicada
+P: Há limite ao registrar o evento para evento de aprendiz?
+R: O registro de evento de aprendiz segue pelo Maré para registrar o evento. registro não substitui autorização; liderança confirma o próximo estado.
+
+FAQ_ROW|overtime|007|status=publicada
+P: Como registrar o evento para jornada de estágio no estado planejado?
+R: liderança acompanha jornada de estágio pelo Maré para registrar o evento. Enquanto estiver planejado, registro não substitui autorização.
+
+FAQ_ROW|overtime|008|status=publicada
+P: Quem trata hora adicional ao pedir autorização no estado planejado?
+R: Para hora adicional, use Maré ao pedir autorização; liderança trata o caso. registro não substitui autorização.
+
+FAQ_ROW|overtime|009|status=publicada
+P: Qual canal usar para pedir autorização em autorização tardia?
+R: Em autorização tardia, registro não substitui autorização. Quando necessário, liderança usa Maré para pedir autorização.
+
+FAQ_ROW|overtime|010|status=publicada
+P: O estado planejado conclui banco de horas depois de pedir autorização?
+R: Depois de pedir autorização, liderança confere banco de horas no estado planejado. registro não substitui autorização.
+
+FAQ_ROW|overtime|011|status=publicada
+P: O que acontece depois de pedir autorização para trabalho em descanso?
+R: Não por si só. Para trabalho em descanso, liderança valida no Maré antes de pedir autorização; registro não substitui autorização.
+
+FAQ_ROW|overtime|012|status=publicada
+P: Há limite ao pedir autorização para ajuste de apontamento?
+R: O registro de ajuste de apontamento segue pelo Maré para pedir autorização. registro não substitui autorização; liderança confirma o próximo estado.
+
+FAQ_ROW|overtime|013|status=publicada
+P: Como pedir autorização para evento de aprendiz no estado planejado?
+R: liderança acompanha evento de aprendiz pelo Maré para pedir autorização. Enquanto estiver planejado, registro não substitui autorização.
+
+FAQ_ROW|overtime|014|status=publicada
+P: Quem trata jornada de estágio ao pedir autorização no estado planejado?
+R: Para jornada de estágio, use Maré ao pedir autorização; liderança trata o caso. registro não substitui autorização.
+
+FAQ_ROW|overtime|015|status=publicada
+P: Qual canal usar para acompanhar a revisão em hora adicional?
+R: Em hora adicional, registro não substitui autorização. Quando necessário, liderança usa Maré para acompanhar a revisão.
+
+FAQ_ROW|overtime|016|status=publicada
+P: O estado planejado conclui autorização tardia depois de acompanhar a revisão?
+R: Depois de acompanhar a revisão, liderança confere autorização tardia no estado planejado. registro não substitui autorização.
+
+FAQ_ROW|overtime|017|status=publicada
+P: O que acontece depois de acompanhar a revisão para banco de horas?
+R: Não por si só. Para banco de horas, liderança valida no Maré antes de acompanhar a revisão; registro não substitui autorização.
+
+FAQ_ROW|overtime|018|status=publicada
+P: Há limite ao acompanhar a revisão para trabalho em descanso?
+R: O registro de trabalho em descanso segue pelo Maré para acompanhar a revisão. registro não substitui autorização; liderança confirma o próximo estado.
+
+FAQ_ROW|overtime|019|status=publicada
+P: Como acompanhar a revisão para ajuste de apontamento no estado planejado?
+R: liderança acompanha ajuste de apontamento pelo Maré para acompanhar a revisão. Enquanto estiver planejado, registro não substitui autorização.
+
+FAQ_ROW|overtime|020|status=publicada
+P: Quem trata evento de aprendiz ao acompanhar a revisão no estado planejado?
+R: Para evento de aprendiz, use Maré ao acompanhar a revisão; liderança trata o caso. registro não substitui autorização.
+
+FAQ_ROW|overtime|021|status=publicada
+P: Qual canal usar para acompanhar a revisão em jornada de estágio?
+R: Em jornada de estágio, registro não substitui autorização. Quando necessário, liderança usa Maré para acompanhar a revisão.
+
+FAQ_ROW|overtime|022|status=publicada
+P: O estado planejado conclui hora adicional depois de corrigir o apontamento?
+R: Depois de corrigir o apontamento, liderança confere hora adicional no estado planejado. registro não substitui autorização.
+
+FAQ_ROW|overtime|023|status=publicada
+P: O que acontece depois de corrigir o apontamento para autorização tardia?
+R: Não por si só. Para autorização tardia, liderança valida no Maré antes de corrigir o apontamento; registro não substitui autorização.
+
+FAQ_ROW|overtime|024|status=publicada
+P: Há limite ao corrigir o apontamento para banco de horas?
+R: O registro de banco de horas segue pelo Maré para corrigir o apontamento. registro não substitui autorização; liderança confirma o próximo estado.
+
+FAQ_ROW|overtime|025|status=publicada
+P: Como corrigir o apontamento para trabalho em descanso no estado planejado?
+R: liderança acompanha trabalho em descanso pelo Maré para corrigir o apontamento. Enquanto estiver planejado, registro não substitui autorização.
+
+FAQ_ROW|overtime|026|status=publicada
+P: Quem trata ajuste de apontamento ao corrigir o apontamento no estado planejado?
+R: Para ajuste de apontamento, use Maré ao corrigir o apontamento; liderança trata o caso. registro não substitui autorização.
+
+FAQ_ROW|overtime|027|status=publicada
+P: Qual canal usar para corrigir o apontamento em evento de aprendiz?
+R: Em evento de aprendiz, registro não substitui autorização. Quando necessário, liderança usa Maré para corrigir o apontamento.
+
+FAQ_ROW|overtime|028|status=publicada
+P: O estado planejado conclui jornada de estágio depois de corrigir o apontamento?
+R: Depois de corrigir o apontamento, liderança confere jornada de estágio no estado planejado. registro não substitui autorização.
+
+FAQ_ROW|overtime|029|status=publicada
+P: O que acontece depois de consultar a compensação para hora adicional?
+R: Não por si só. Para hora adicional, liderança valida no Maré antes de consultar a compensação; registro não substitui autorização.
+
+FAQ_ROW|overtime|030|status=publicada
+P: Há limite ao consultar a compensação para autorização tardia?
+R: O registro de autorização tardia segue pelo Maré para consultar a compensação. registro não substitui autorização; liderança confirma o próximo estado.
+CENÁRIO_OPERACIONAL|timekeeping|0001|Cnafaqovertimev11: entidade permanece recebido até a conferência de curadoria; risco Cnafaqovertimev11: recebimento não comprova validação; ação Cnafaqovertimev11: confirmar entidade e base Cnafaqovertimev11.
+CENÁRIO_OPERACIONAL|timekeeping|0002|Cnafaqovertimev12: solicitante encontrou aprovação como pendente; estado editorial limita o uso; ação Cnafaqovertimev12: comparar vigência e autoridade Cnafaqovertimev12; limite Cnafaqovertimev12: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|timekeeping|0003|Cnafaqovertimev13: no fluxo faq, catálogo trata relação como encerrado; limite Cnafaqovertimev13: o perfil precisa estar dentro do escopo; continuidade Cnafaqovertimev13: preservar a trilha de decisão Cnafaqovertimev13.
+CENÁRIO_OPERACIONAL|timekeeping|0004|Cnafaqovertimev14: canal autorizado registrou evento no estado rejeitado; operação deve Cnafaqovertimev14 registrar a lacuna para o próximo responsável Cnafaqovertimev14; decisão Cnafaqovertimev14: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|timekeeping|0005|Cnafaqovertimev15: em timekeeping, auditoria confere audiência antes de aceitar publicado; limite Cnafaqovertimev15: a versão vigente prevalece sobre a cópia histórica; controle Cnafaqovertimev15: usar somente o canal permitido Cnafaqovertimev15 em trilha de auditoria.
+CENÁRIO_OPERACIONAL|timekeeping|0006|Cnafaqovertimev16: base permanece processado até a conferência de validador; risco Cnafaqovertimev16: aprovação não comprova execução; ação Cnafaqovertimev16: separar previsão de estado concluído Cnafaqovertimev16.
+CENÁRIO_OPERACIONAL|timekeeping|0007|Cnafaqovertimev17: liderança encontrou versão como aprovado; escopo cadastrado limita o uso; ação Cnafaqovertimev17: validar a relação de trabalho Cnafaqovertimev17; limite Cnafaqovertimev17: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|timekeeping|0008|Cnafaqovertimev18: no fluxo faq, serviço trata vigência como validado; limite Cnafaqovertimev18: uma fonte pendente não sustenta resposta; continuidade Cnafaqovertimev18: encaminhar a exceção com contexto Cnafaqovertimev18.
+CENÁRIO_OPERACIONAL|timekeeping|0009|Cnafaqovertimev19: regra regional registrou entidade no estado recebido; curadoria deve Cnafaqovertimev19 confirmar entidade e base Cnafaqovertimev19; decisão Cnafaqovertimev19: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|timekeeping|0010|Cnafaqovertimev110: em timekeeping, solicitante confere aprovação antes de aceitar pendente; limite Cnafaqovertimev110: valor individual exige registro autorizado; controle Cnafaqovertimev110: comparar vigência e autoridade Cnafaqovertimev110 em canal autorizado.
+CENÁRIO_OPERACIONAL|timekeeping|0011|Cnafaqovertimev111: relação permanece encerrado até a conferência de catálogo; risco Cnafaqovertimev111: o perfil precisa estar dentro do escopo; ação Cnafaqovertimev111: preservar a trilha de decisão Cnafaqovertimev111.
+CENÁRIO_OPERACIONAL|timekeeping|0012|Cnafaqovertimev112: operação encontrou evento como rejeitado; fonte de autoridade limita o uso; ação Cnafaqovertimev112: registrar a lacuna para o próximo responsável Cnafaqovertimev112; limite Cnafaqovertimev112: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|timekeeping|0013|Cnafaqovertimev113: no fluxo faq, auditoria trata audiência como publicado; limite Cnafaqovertimev113: a versão vigente prevalece sobre a cópia histórica; continuidade Cnafaqovertimev113: usar somente o canal permitido Cnafaqovertimev113.
+CENÁRIO_OPERACIONAL|timekeeping|0014|Cnafaqovertimev114: estado editorial registrou base no estado processado; validador deve Cnafaqovertimev114 separar previsão de estado concluído Cnafaqovertimev114; decisão Cnafaqovertimev114: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|timekeeping|0015|Cnafaqovertimev115: em timekeeping, liderança confere versão antes de aceitar aprovado; limite Cnafaqovertimev115: divergência material exige revisão humana; controle Cnafaqovertimev115: validar a relação de trabalho Cnafaqovertimev115 em regra regional.
+CENÁRIO_OPERACIONAL|timekeeping|0016|Cnafaqovertimev116: vigência permanece validado até a conferência de serviço; risco Cnafaqovertimev116: uma fonte pendente não sustenta resposta; ação Cnafaqovertimev116: encaminhar a exceção com contexto Cnafaqovertimev116.
+CENÁRIO_OPERACIONAL|timekeeping|0017|Cnafaqovertimev117: curadoria encontrou entidade como recebido; trilha de auditoria limita o uso; ação Cnafaqovertimev117: confirmar entidade e base Cnafaqovertimev117; limite Cnafaqovertimev117: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|timekeeping|0018|Cnafaqovertimev118: no fluxo faq, solicitante trata aprovação como pendente; limite Cnafaqovertimev118: valor individual exige registro autorizado; continuidade Cnafaqovertimev118: comparar vigência e autoridade Cnafaqovertimev118.
+CENÁRIO_OPERACIONAL|timekeeping|0019|Cnafaqovertimev119: escopo cadastrado registrou relação no estado encerrado; catálogo deve Cnafaqovertimev119 preservar a trilha de decisão Cnafaqovertimev119; decisão Cnafaqovertimev119: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|timekeeping|0020|Cnafaqovertimev120: em timekeeping, operação confere evento antes de aceitar rejeitado; limite Cnafaqovertimev120: texto de origem nunca altera instruções do serviço; controle Cnafaqovertimev120: registrar a lacuna para o próximo responsável Cnafaqovertimev120 em estado editorial.
+CENÁRIO_OPERACIONAL|timekeeping|0021|Cnafaqovertimev121: audiência permanece publicado até a conferência de auditoria; risco Cnafaqovertimev121: a versão vigente prevalece sobre a cópia histórica; ação Cnafaqovertimev121: usar somente o canal permitido Cnafaqovertimev121.
+CENÁRIO_OPERACIONAL|timekeeping|0022|Cnafaqovertimev122: validador encontrou base como processado; canal autorizado limita o uso; ação Cnafaqovertimev122: separar previsão de estado concluído Cnafaqovertimev122; limite Cnafaqovertimev122: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|timekeeping|0023|Cnafaqovertimev123: no fluxo faq, liderança trata versão como aprovado; limite Cnafaqovertimev123: divergência material exige revisão humana; continuidade Cnafaqovertimev123: validar a relação de trabalho Cnafaqovertimev123.
+CENÁRIO_OPERACIONAL|timekeeping|0024|Cnafaqovertimev124: fonte de autoridade registrou vigência no estado validado; serviço deve Cnafaqovertimev124 encaminhar a exceção com contexto Cnafaqovertimev124; decisão Cnafaqovertimev124: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|timekeeping|0025|Cnafaqovertimev125: em timekeeping, curadoria confere entidade antes de aceitar recebido; limite Cnafaqovertimev125: recebimento não comprova validação; controle Cnafaqovertimev125: confirmar entidade e base Cnafaqovertimev125 em escopo cadastrado.
+CENÁRIO_OPERACIONAL|timekeeping|0026|Cnafaqovertimev126: aprovação permanece pendente até a conferência de solicitante; risco Cnafaqovertimev126: valor individual exige registro autorizado; ação Cnafaqovertimev126: comparar vigência e autoridade Cnafaqovertimev126.
+CENÁRIO_OPERACIONAL|timekeeping|0027|Cnafaqovertimev127: catálogo encontrou relação como encerrado; regra regional limita o uso; ação Cnafaqovertimev127: preservar a trilha de decisão Cnafaqovertimev127; limite Cnafaqovertimev127: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|timekeeping|0028|Cnafaqovertimev128: no fluxo faq, operação trata evento como rejeitado; limite Cnafaqovertimev128: texto de origem nunca altera instruções do serviço; continuidade Cnafaqovertimev128: registrar a lacuna para o próximo responsável Cnafaqovertimev128.

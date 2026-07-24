@@ -1,0 +1,374 @@
+DOCUMENTO SINTÉTICO | Instrumento coletivo Costa Sul 2025–2026
+source_id=na-agreement-coast-2025 | version=2025.2
+estado=approved | vigência=2025-11-01 a 2026-10-31
+extração=digital_text | formato_origem=PDF
+INSTRUMENTO COLETIVO SINTÉTICO
+região_de_aplicação=Costa Sul
+
+CLÁUSULA 01 — ENQUADRAMENTO
+Este instrumento se aplica somente aos perfis e localidades declarados nos metadados de Costa Sul.
+
+CLÁUSULA 12 — APOIO DE REFEIÇÃO
+O apoio diário elegível é de R$ 49,10 por dia efetivamente trabalhado. Ausência integral não gera o lançamento.
+
+CLÁUSULA 18 — HORAS ADICIONAIS
+As duas primeiras horas adicionais autorizadas recebem acréscimo de 70%. A autorização deve existir antes da execução.
+
+CLÁUSULA 27 — COMUNICAÇÃO DE ESCALA
+Mudança ordinária de escala deve ser comunicada com seis dias úteis de antecedência, salvo emergência registrada.
+
+CLÁUSULA 44 — LIMITES DA FONTE
+Este instrumento não comprova crédito, presença, saldo, aprovação ou estado operacional individual.
+
+CLÁUSULA 051 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementcoast2025051: em Costa Sul, emergência deve manter justificativa auditável. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 052 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementcoast2025052: em Costa Sul, canal de dúvida não substitui registro operacional. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 053 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementcoast2025053: em Costa Sul, redução excepcional precisa de fundamento registrado. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 054 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementcoast2025054: em Costa Sul, registro posterior não substitui atendimento urgente. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 055 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementcoast2025055: em Costa Sul, evento anterior usa a regra vigente na data do fato. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 056 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementcoast2025056: em Costa Sul, elegibilidade depende de dia e relação aplicáveis. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 057 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementcoast2025057: em Costa Sul, versões equivalentes exigem dono de decisão. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 058 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementcoast2025058: em Costa Sul, relação de estágio não herda banco de horas. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 059 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementcoast2025059: em Costa Sul, troca ordinária exige ciência das partes. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 060 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementcoast2025060: em Costa Sul, prazo informado precisa indicar seu marco inicial. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 061 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementcoast2025061: em Costa Sul, divergência segue ao fluxo de jornada. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 062 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementcoast2025062: em Costa Sul, risco imediato segue primeiro ao canal local. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 063 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementcoast2025063: em Costa Sul, cópia sem versão não supera este instrumento. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 064 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementcoast2025064: em Costa Sul, afastamento integral pode alterar o evento. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 065 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementcoast2025065: em Costa Sul, divergência material interrompe a resposta automática. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 066 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementcoast2025066: em Costa Sul, tempo não autorizado segue para conferência. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 067 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementcoast2025067: em Costa Sul, pedido de troca não comprova aprovação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 068 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementcoast2025068: em Costa Sul, mensagem deve separar orientação de confirmação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 069 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementcoast2025069: em Costa Sul, marcação incompleta não presume intervalo realizado. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 070 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementcoast2025070: em Costa Sul, dado clínico não circula em canal aberto. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 071 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementcoast2025071: em Costa Sul, alteração local só vale depois de publicação formal. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 072 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementcoast2025072: em Costa Sul, previsão não comprova lançamento individual. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 073 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementcoast2025073: em Costa Sul, resultado conciliado mantém as fontes consideradas. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 074 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementcoast2025074: em Costa Sul, mudança de jornada exige registro e comunicação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 075 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementcoast2025075: em Costa Sul, emergência deve manter justificativa auditável. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 076 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementcoast2025076: em Costa Sul, canal de dúvida não substitui registro operacional. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 077 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementcoast2025077: em Costa Sul, redução excepcional precisa de fundamento registrado. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 078 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementcoast2025078: em Costa Sul, registro posterior não substitui atendimento urgente. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 079 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementcoast2025079: em Costa Sul, evento anterior usa a regra vigente na data do fato. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 080 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementcoast2025080: em Costa Sul, elegibilidade depende de dia e relação aplicáveis. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 081 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementcoast2025081: em Costa Sul, versões equivalentes exigem dono de decisão. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 082 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementcoast2025082: em Costa Sul, relação de estágio não herda banco de horas. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 083 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementcoast2025083: em Costa Sul, troca ordinária exige ciência das partes. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 084 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementcoast2025084: em Costa Sul, prazo informado precisa indicar seu marco inicial. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 085 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementcoast2025085: em Costa Sul, divergência segue ao fluxo de jornada. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 086 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementcoast2025086: em Costa Sul, risco imediato segue primeiro ao canal local. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 087 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementcoast2025087: em Costa Sul, cópia sem versão não supera este instrumento. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 088 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementcoast2025088: em Costa Sul, afastamento integral pode alterar o evento. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 089 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementcoast2025089: em Costa Sul, divergência material interrompe a resposta automática. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 090 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementcoast2025090: em Costa Sul, tempo não autorizado segue para conferência. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 091 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementcoast2025091: em Costa Sul, pedido de troca não comprova aprovação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 092 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementcoast2025092: em Costa Sul, mensagem deve separar orientação de confirmação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 093 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementcoast2025093: em Costa Sul, marcação incompleta não presume intervalo realizado. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 094 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementcoast2025094: em Costa Sul, dado clínico não circula em canal aberto. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 095 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementcoast2025095: em Costa Sul, alteração local só vale depois de publicação formal. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 096 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementcoast2025096: em Costa Sul, previsão não comprova lançamento individual. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 097 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementcoast2025097: em Costa Sul, resultado conciliado mantém as fontes consideradas. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 098 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementcoast2025098: em Costa Sul, mudança de jornada exige registro e comunicação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 099 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementcoast2025099: em Costa Sul, emergência deve manter justificativa auditável. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 100 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementcoast2025100: em Costa Sul, canal de dúvida não substitui registro operacional. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 101 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementcoast2025101: em Costa Sul, redução excepcional precisa de fundamento registrado. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 102 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementcoast2025102: em Costa Sul, registro posterior não substitui atendimento urgente. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 103 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementcoast2025103: em Costa Sul, evento anterior usa a regra vigente na data do fato. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 104 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementcoast2025104: em Costa Sul, elegibilidade depende de dia e relação aplicáveis. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 105 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementcoast2025105: em Costa Sul, versões equivalentes exigem dono de decisão. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 106 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementcoast2025106: em Costa Sul, relação de estágio não herda banco de horas. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 107 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementcoast2025107: em Costa Sul, troca ordinária exige ciência das partes. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 108 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementcoast2025108: em Costa Sul, prazo informado precisa indicar seu marco inicial. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 109 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementcoast2025109: em Costa Sul, divergência segue ao fluxo de jornada. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 110 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementcoast2025110: em Costa Sul, risco imediato segue primeiro ao canal local. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 111 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementcoast2025111: em Costa Sul, cópia sem versão não supera este instrumento. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 112 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementcoast2025112: em Costa Sul, afastamento integral pode alterar o evento. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 113 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementcoast2025113: em Costa Sul, divergência material interrompe a resposta automática. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 114 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementcoast2025114: em Costa Sul, tempo não autorizado segue para conferência. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 115 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementcoast2025115: em Costa Sul, pedido de troca não comprova aprovação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 116 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementcoast2025116: em Costa Sul, mensagem deve separar orientação de confirmação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 117 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementcoast2025117: em Costa Sul, marcação incompleta não presume intervalo realizado. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 118 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementcoast2025118: em Costa Sul, dado clínico não circula em canal aberto. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 119 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementcoast2025119: em Costa Sul, alteração local só vale depois de publicação formal. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 120 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementcoast2025120: em Costa Sul, previsão não comprova lançamento individual. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 121 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementcoast2025121: em Costa Sul, resultado conciliado mantém as fontes consideradas. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 122 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementcoast2025122: em Costa Sul, mudança de jornada exige registro e comunicação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 123 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementcoast2025123: em Costa Sul, emergência deve manter justificativa auditável. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 124 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementcoast2025124: em Costa Sul, canal de dúvida não substitui registro operacional. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 125 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementcoast2025125: em Costa Sul, redução excepcional precisa de fundamento registrado. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 126 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementcoast2025126: em Costa Sul, registro posterior não substitui atendimento urgente. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 127 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementcoast2025127: em Costa Sul, evento anterior usa a regra vigente na data do fato. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 128 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementcoast2025128: em Costa Sul, elegibilidade depende de dia e relação aplicáveis. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 129 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementcoast2025129: em Costa Sul, versões equivalentes exigem dono de decisão. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 130 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementcoast2025130: em Costa Sul, relação de estágio não herda banco de horas. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 131 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementcoast2025131: em Costa Sul, troca ordinária exige ciência das partes. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 132 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementcoast2025132: em Costa Sul, prazo informado precisa indicar seu marco inicial. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 133 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementcoast2025133: em Costa Sul, divergência segue ao fluxo de jornada. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 134 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementcoast2025134: em Costa Sul, risco imediato segue primeiro ao canal local. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 135 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementcoast2025135: em Costa Sul, cópia sem versão não supera este instrumento. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 136 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementcoast2025136: em Costa Sul, afastamento integral pode alterar o evento. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 137 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementcoast2025137: em Costa Sul, divergência material interrompe a resposta automática. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 138 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementcoast2025138: em Costa Sul, tempo não autorizado segue para conferência. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+
+CLÁUSULA 139 — REGISTRO COMPLEMENTAR DE ESCALA
+Cláusula naagreementcoast2025139: em Costa Sul, pedido de troca não comprova aprovação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema escala.
+
+CLÁUSULA 140 — REGISTRO COMPLEMENTAR DE COMUNICAÇÃO
+Cláusula naagreementcoast2025140: em Costa Sul, mensagem deve separar orientação de confirmação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema comunicação.
+
+CLÁUSULA 141 — REGISTRO COMPLEMENTAR DE INTERVALO
+Cláusula naagreementcoast2025141: em Costa Sul, marcação incompleta não presume intervalo realizado. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema intervalo.
+
+CLÁUSULA 142 — REGISTRO COMPLEMENTAR DE SEGURANÇA
+Cláusula naagreementcoast2025142: em Costa Sul, dado clínico não circula em canal aberto. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema segurança.
+
+CLÁUSULA 143 — REGISTRO COMPLEMENTAR DE VIGÊNCIA
+Cláusula naagreementcoast2025143: em Costa Sul, alteração local só vale depois de publicação formal. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema vigência.
+
+CLÁUSULA 144 — REGISTRO COMPLEMENTAR DE BENEFÍCIO
+Cláusula naagreementcoast2025144: em Costa Sul, previsão não comprova lançamento individual. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema benefício.
+
+CLÁUSULA 145 — REGISTRO COMPLEMENTAR DE CONCILIAÇÃO
+Cláusula naagreementcoast2025145: em Costa Sul, resultado conciliado mantém as fontes consideradas. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema conciliação.
+
+CLÁUSULA 146 — REGISTRO COMPLEMENTAR DE JORNADA
+Cláusula naagreementcoast2025146: em Costa Sul, mudança de jornada exige registro e comunicação. O responsável registra aplicabilidade, decisão e eventual exceção antes de concluir o tema jornada.
+CENÁRIO_OPERACIONAL|collective_rules|0001|Cnaagreementcoast20251: no fluxo collective_agreement, operação trata base como validado; limite Cnaagreementcoast20251: aprovação não comprova execução; continuidade Cnaagreementcoast20251: comparar vigência e autoridade Cnaagreementcoast20251.
+CENÁRIO_OPERACIONAL|collective_rules|0002|Cnaagreementcoast20252: escopo cadastrado registrou versão no estado recebido; auditoria deve Cnaagreementcoast20252 preservar a trilha de decisão Cnaagreementcoast20252; decisão Cnaagreementcoast20252: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|collective_rules|0003|Cnaagreementcoast20253: em collective_rules, validador confere vigência antes de aceitar pendente; limite Cnaagreementcoast20253: uma fonte pendente não sustenta resposta; controle Cnaagreementcoast20253: registrar a lacuna para o próximo responsável Cnaagreementcoast20253 em estado editorial.
+CENÁRIO_OPERACIONAL|collective_rules|0004|Cnaagreementcoast20254: entidade permanece encerrado até a conferência de liderança; risco Cnaagreementcoast20254: recebimento não comprova validação; ação Cnaagreementcoast20254: usar somente o canal permitido Cnaagreementcoast20254.
+CENÁRIO_OPERACIONAL|collective_rules|0005|Cnaagreementcoast20255: serviço encontrou aprovação como rejeitado; canal autorizado limita o uso; ação Cnaagreementcoast20255: separar previsão de estado concluído Cnaagreementcoast20255; limite Cnaagreementcoast20255: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|collective_rules|0006|Cnaagreementcoast20256: no fluxo collective_agreement, curadoria trata relação como publicado; limite Cnaagreementcoast20256: o perfil precisa estar dentro do escopo; continuidade Cnaagreementcoast20256: validar a relação de trabalho Cnaagreementcoast20256.
+CENÁRIO_OPERACIONAL|collective_rules|0007|Cnaagreementcoast20257: fonte de autoridade registrou evento no estado processado; solicitante deve Cnaagreementcoast20257 encaminhar a exceção com contexto Cnaagreementcoast20257; decisão Cnaagreementcoast20257: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|collective_rules|0008|Cnaagreementcoast20258: em collective_rules, catálogo confere audiência antes de aceitar aprovado; limite Cnaagreementcoast20258: a versão vigente prevalece sobre a cópia histórica; controle Cnaagreementcoast20258: confirmar entidade e base Cnaagreementcoast20258 em escopo cadastrado.
+CENÁRIO_OPERACIONAL|collective_rules|0009|Cnaagreementcoast20259: base permanece validado até a conferência de operação; risco Cnaagreementcoast20259: aprovação não comprova execução; ação Cnaagreementcoast20259: comparar vigência e autoridade Cnaagreementcoast20259.
+CENÁRIO_OPERACIONAL|collective_rules|0010|Cnaagreementcoast202510: auditoria encontrou versão como recebido; regra regional limita o uso; ação Cnaagreementcoast202510: preservar a trilha de decisão Cnaagreementcoast202510; limite Cnaagreementcoast202510: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|collective_rules|0011|Cnaagreementcoast202511: no fluxo collective_agreement, validador trata vigência como pendente; limite Cnaagreementcoast202511: uma fonte pendente não sustenta resposta; continuidade Cnaagreementcoast202511: registrar a lacuna para o próximo responsável Cnaagreementcoast202511.
+CENÁRIO_OPERACIONAL|collective_rules|0012|Cnaagreementcoast202512: trilha de auditoria registrou entidade no estado encerrado; liderança deve Cnaagreementcoast202512 usar somente o canal permitido Cnaagreementcoast202512; decisão Cnaagreementcoast202512: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|collective_rules|0013|Cnaagreementcoast202513: em collective_rules, serviço confere aprovação antes de aceitar rejeitado; limite Cnaagreementcoast202513: valor individual exige registro autorizado; controle Cnaagreementcoast202513: separar previsão de estado concluído Cnaagreementcoast202513 em fonte de autoridade.
+CENÁRIO_OPERACIONAL|collective_rules|0014|Cnaagreementcoast202514: relação permanece publicado até a conferência de curadoria; risco Cnaagreementcoast202514: o perfil precisa estar dentro do escopo; ação Cnaagreementcoast202514: validar a relação de trabalho Cnaagreementcoast202514.
+CENÁRIO_OPERACIONAL|collective_rules|0015|Cnaagreementcoast202515: solicitante encontrou evento como processado; estado editorial limita o uso; ação Cnaagreementcoast202515: encaminhar a exceção com contexto Cnaagreementcoast202515; limite Cnaagreementcoast202515: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|collective_rules|0016|Cnaagreementcoast202516: no fluxo collective_agreement, catálogo trata audiência como aprovado; limite Cnaagreementcoast202516: a versão vigente prevalece sobre a cópia histórica; continuidade Cnaagreementcoast202516: confirmar entidade e base Cnaagreementcoast202516.
+CENÁRIO_OPERACIONAL|collective_rules|0017|Cnaagreementcoast202517: canal autorizado registrou base no estado validado; operação deve Cnaagreementcoast202517 comparar vigência e autoridade Cnaagreementcoast202517; decisão Cnaagreementcoast202517: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|collective_rules|0018|Cnaagreementcoast202518: em collective_rules, auditoria confere versão antes de aceitar recebido; limite Cnaagreementcoast202518: divergência material exige revisão humana; controle Cnaagreementcoast202518: preservar a trilha de decisão Cnaagreementcoast202518 em trilha de auditoria.
+CENÁRIO_OPERACIONAL|collective_rules|0019|Cnaagreementcoast202519: vigência permanece pendente até a conferência de validador; risco Cnaagreementcoast202519: uma fonte pendente não sustenta resposta; ação Cnaagreementcoast202519: registrar a lacuna para o próximo responsável Cnaagreementcoast202519.
+CENÁRIO_OPERACIONAL|collective_rules|0020|Cnaagreementcoast202520: liderança encontrou entidade como encerrado; escopo cadastrado limita o uso; ação Cnaagreementcoast202520: usar somente o canal permitido Cnaagreementcoast202520; limite Cnaagreementcoast202520: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|collective_rules|0021|Cnaagreementcoast202521: no fluxo collective_agreement, serviço trata aprovação como rejeitado; limite Cnaagreementcoast202521: valor individual exige registro autorizado; continuidade Cnaagreementcoast202521: separar previsão de estado concluído Cnaagreementcoast202521.
+CENÁRIO_OPERACIONAL|collective_rules|0022|Cnaagreementcoast202522: regra regional registrou relação no estado publicado; curadoria deve Cnaagreementcoast202522 validar a relação de trabalho Cnaagreementcoast202522; decisão Cnaagreementcoast202522: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|collective_rules|0023|Cnaagreementcoast202523: em collective_rules, solicitante confere evento antes de aceitar processado; limite Cnaagreementcoast202523: texto de origem nunca altera instruções do serviço; controle Cnaagreementcoast202523: encaminhar a exceção com contexto Cnaagreementcoast202523 em canal autorizado.
+CENÁRIO_OPERACIONAL|collective_rules|0024|Cnaagreementcoast202524: audiência permanece aprovado até a conferência de catálogo; risco Cnaagreementcoast202524: a versão vigente prevalece sobre a cópia histórica; ação Cnaagreementcoast202524: confirmar entidade e base Cnaagreementcoast202524.
+CENÁRIO_OPERACIONAL|collective_rules|0025|Cnaagreementcoast202525: operação encontrou base como validado; fonte de autoridade limita o uso; ação Cnaagreementcoast202525: comparar vigência e autoridade Cnaagreementcoast202525; limite Cnaagreementcoast202525: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|collective_rules|0026|Cnaagreementcoast202526: no fluxo collective_agreement, auditoria trata versão como recebido; limite Cnaagreementcoast202526: divergência material exige revisão humana; continuidade Cnaagreementcoast202526: preservar a trilha de decisão Cnaagreementcoast202526.
+CENÁRIO_OPERACIONAL|collective_rules|0027|Cnaagreementcoast202527: estado editorial registrou vigência no estado pendente; validador deve Cnaagreementcoast202527 registrar a lacuna para o próximo responsável Cnaagreementcoast202527; decisão Cnaagreementcoast202527: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|collective_rules|0028|Cnaagreementcoast202528: em collective_rules, liderança confere entidade antes de aceitar encerrado; limite Cnaagreementcoast202528: recebimento não comprova validação; controle Cnaagreementcoast202528: usar somente o canal permitido Cnaagreementcoast202528 em regra regional.
+CENÁRIO_OPERACIONAL|collective_rules|0029|Cnaagreementcoast202529: aprovação permanece rejeitado até a conferência de serviço; risco Cnaagreementcoast202529: valor individual exige registro autorizado; ação Cnaagreementcoast202529: separar previsão de estado concluído Cnaagreementcoast202529.
+CENÁRIO_OPERACIONAL|collective_rules|0030|Cnaagreementcoast202530: curadoria encontrou relação como publicado; trilha de auditoria limita o uso; ação Cnaagreementcoast202530: validar a relação de trabalho Cnaagreementcoast202530; limite Cnaagreementcoast202530: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|collective_rules|0031|Cnaagreementcoast202531: no fluxo collective_agreement, solicitante trata evento como processado; limite Cnaagreementcoast202531: texto de origem nunca altera instruções do serviço; continuidade Cnaagreementcoast202531: encaminhar a exceção com contexto Cnaagreementcoast202531.
+CENÁRIO_OPERACIONAL|collective_rules|0032|Cnaagreementcoast202532: escopo cadastrado registrou audiência no estado aprovado; catálogo deve Cnaagreementcoast202532 confirmar entidade e base Cnaagreementcoast202532; decisão Cnaagreementcoast202532: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|collective_rules|0033|Cnaagreementcoast202533: em collective_rules, operação confere base antes de aceitar validado; limite Cnaagreementcoast202533: aprovação não comprova execução; controle Cnaagreementcoast202533: comparar vigência e autoridade Cnaagreementcoast202533 em estado editorial.
+CENÁRIO_OPERACIONAL|collective_rules|0034|Cnaagreementcoast202534: versão permanece recebido até a conferência de auditoria; risco Cnaagreementcoast202534: divergência material exige revisão humana; ação Cnaagreementcoast202534: preservar a trilha de decisão Cnaagreementcoast202534.
+CENÁRIO_OPERACIONAL|collective_rules|0035|Cnaagreementcoast202535: validador encontrou vigência como pendente; canal autorizado limita o uso; ação Cnaagreementcoast202535: registrar a lacuna para o próximo responsável Cnaagreementcoast202535; limite Cnaagreementcoast202535: uma fonte pendente não sustenta resposta.
+CENÁRIO_OPERACIONAL|collective_rules|0036|Cnaagreementcoast202536: no fluxo collective_agreement, liderança trata entidade como encerrado; limite Cnaagreementcoast202536: recebimento não comprova validação; continuidade Cnaagreementcoast202536: usar somente o canal permitido Cnaagreementcoast202536.
+CENÁRIO_OPERACIONAL|collective_rules|0037|Cnaagreementcoast202537: fonte de autoridade registrou aprovação no estado rejeitado; serviço deve Cnaagreementcoast202537 separar previsão de estado concluído Cnaagreementcoast202537; decisão Cnaagreementcoast202537: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|collective_rules|0038|Cnaagreementcoast202538: em collective_rules, curadoria confere relação antes de aceitar publicado; limite Cnaagreementcoast202538: o perfil precisa estar dentro do escopo; controle Cnaagreementcoast202538: validar a relação de trabalho Cnaagreementcoast202538 em escopo cadastrado.
+CENÁRIO_OPERACIONAL|collective_rules|0039|Cnaagreementcoast202539: evento permanece processado até a conferência de solicitante; risco Cnaagreementcoast202539: texto de origem nunca altera instruções do serviço; ação Cnaagreementcoast202539: encaminhar a exceção com contexto Cnaagreementcoast202539.
+CENÁRIO_OPERACIONAL|collective_rules|0040|Cnaagreementcoast202540: catálogo encontrou audiência como aprovado; regra regional limita o uso; ação Cnaagreementcoast202540: confirmar entidade e base Cnaagreementcoast202540; limite Cnaagreementcoast202540: a versão vigente prevalece sobre a cópia histórica.
+CENÁRIO_OPERACIONAL|collective_rules|0041|Cnaagreementcoast202541: no fluxo collective_agreement, operação trata base como validado; limite Cnaagreementcoast202541: aprovação não comprova execução; continuidade Cnaagreementcoast202541: comparar vigência e autoridade Cnaagreementcoast202541.
+CENÁRIO_OPERACIONAL|collective_rules|0042|Cnaagreementcoast202542: trilha de auditoria registrou versão no estado recebido; auditoria deve Cnaagreementcoast202542 preservar a trilha de decisão Cnaagreementcoast202542; decisão Cnaagreementcoast202542: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|collective_rules|0043|Cnaagreementcoast202543: em collective_rules, validador confere vigência antes de aceitar pendente; limite Cnaagreementcoast202543: uma fonte pendente não sustenta resposta; controle Cnaagreementcoast202543: registrar a lacuna para o próximo responsável Cnaagreementcoast202543 em fonte de autoridade.
+CENÁRIO_OPERACIONAL|collective_rules|0044|Cnaagreementcoast202544: entidade permanece encerrado até a conferência de liderança; risco Cnaagreementcoast202544: recebimento não comprova validação; ação Cnaagreementcoast202544: usar somente o canal permitido Cnaagreementcoast202544.
+CENÁRIO_OPERACIONAL|collective_rules|0045|Cnaagreementcoast202545: serviço encontrou aprovação como rejeitado; estado editorial limita o uso; ação Cnaagreementcoast202545: separar previsão de estado concluído Cnaagreementcoast202545; limite Cnaagreementcoast202545: valor individual exige registro autorizado.
+CENÁRIO_OPERACIONAL|collective_rules|0046|Cnaagreementcoast202546: no fluxo collective_agreement, curadoria trata relação como publicado; limite Cnaagreementcoast202546: o perfil precisa estar dentro do escopo; continuidade Cnaagreementcoast202546: validar a relação de trabalho Cnaagreementcoast202546.
+CENÁRIO_OPERACIONAL|collective_rules|0047|Cnaagreementcoast202547: canal autorizado registrou evento no estado processado; solicitante deve Cnaagreementcoast202547 encaminhar a exceção com contexto Cnaagreementcoast202547; decisão Cnaagreementcoast202547: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|collective_rules|0048|Cnaagreementcoast202548: em collective_rules, catálogo confere audiência antes de aceitar aprovado; limite Cnaagreementcoast202548: a versão vigente prevalece sobre a cópia histórica; controle Cnaagreementcoast202548: confirmar entidade e base Cnaagreementcoast202548 em trilha de auditoria.
+CENÁRIO_OPERACIONAL|collective_rules|0049|Cnaagreementcoast202549: base permanece validado até a conferência de operação; risco Cnaagreementcoast202549: aprovação não comprova execução; ação Cnaagreementcoast202549: comparar vigência e autoridade Cnaagreementcoast202549.
+CENÁRIO_OPERACIONAL|collective_rules|0050|Cnaagreementcoast202550: auditoria encontrou versão como recebido; escopo cadastrado limita o uso; ação Cnaagreementcoast202550: preservar a trilha de decisão Cnaagreementcoast202550; limite Cnaagreementcoast202550: divergência material exige revisão humana.
+CENÁRIO_OPERACIONAL|collective_rules|0051|Cnaagreementcoast202551: no fluxo collective_agreement, validador trata vigência como pendente; limite Cnaagreementcoast202551: uma fonte pendente não sustenta resposta; continuidade Cnaagreementcoast202551: registrar a lacuna para o próximo responsável Cnaagreementcoast202551.
+CENÁRIO_OPERACIONAL|collective_rules|0052|Cnaagreementcoast202552: regra regional registrou entidade no estado encerrado; liderança deve Cnaagreementcoast202552 usar somente o canal permitido Cnaagreementcoast202552; decisão Cnaagreementcoast202552: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|collective_rules|0053|Cnaagreementcoast202553: em collective_rules, serviço confere aprovação antes de aceitar rejeitado; limite Cnaagreementcoast202553: valor individual exige registro autorizado; controle Cnaagreementcoast202553: separar previsão de estado concluído Cnaagreementcoast202553 em canal autorizado.
+CENÁRIO_OPERACIONAL|collective_rules|0054|Cnaagreementcoast202554: relação permanece publicado até a conferência de curadoria; risco Cnaagreementcoast202554: o perfil precisa estar dentro do escopo; ação Cnaagreementcoast202554: validar a relação de trabalho Cnaagreementcoast202554.
+CENÁRIO_OPERACIONAL|collective_rules|0055|Cnaagreementcoast202555: solicitante encontrou evento como processado; fonte de autoridade limita o uso; ação Cnaagreementcoast202555: encaminhar a exceção com contexto Cnaagreementcoast202555; limite Cnaagreementcoast202555: texto de origem nunca altera instruções do serviço.
+CENÁRIO_OPERACIONAL|collective_rules|0056|Cnaagreementcoast202556: no fluxo collective_agreement, catálogo trata audiência como aprovado; limite Cnaagreementcoast202556: a versão vigente prevalece sobre a cópia histórica; continuidade Cnaagreementcoast202556: confirmar entidade e base Cnaagreementcoast202556.
+CENÁRIO_OPERACIONAL|collective_rules|0057|Cnaagreementcoast202557: estado editorial registrou base no estado validado; operação deve Cnaagreementcoast202557 comparar vigência e autoridade Cnaagreementcoast202557; decisão Cnaagreementcoast202557: aprovação não comprova execução.
+CENÁRIO_OPERACIONAL|collective_rules|0058|Cnaagreementcoast202558: em collective_rules, auditoria confere versão antes de aceitar recebido; limite Cnaagreementcoast202558: divergência material exige revisão humana; controle Cnaagreementcoast202558: preservar a trilha de decisão Cnaagreementcoast202558 em regra regional.
+CENÁRIO_OPERACIONAL|collective_rules|0059|Cnaagreementcoast202559: vigência permanece pendente até a conferência de validador; risco Cnaagreementcoast202559: uma fonte pendente não sustenta resposta; ação Cnaagreementcoast202559: registrar a lacuna para o próximo responsável Cnaagreementcoast202559.
+CENÁRIO_OPERACIONAL|collective_rules|0060|Cnaagreementcoast202560: liderança encontrou entidade como encerrado; trilha de auditoria limita o uso; ação Cnaagreementcoast202560: usar somente o canal permitido Cnaagreementcoast202560; limite Cnaagreementcoast202560: recebimento não comprova validação.
+CENÁRIO_OPERACIONAL|collective_rules|0061|Cnaagreementcoast202561: no fluxo collective_agreement, serviço trata aprovação como rejeitado; limite Cnaagreementcoast202561: valor individual exige registro autorizado; continuidade Cnaagreementcoast202561: separar previsão de estado concluído Cnaagreementcoast202561.
+CENÁRIO_OPERACIONAL|collective_rules|0062|Cnaagreementcoast202562: escopo cadastrado registrou relação no estado publicado; curadoria deve Cnaagreementcoast202562 validar a relação de trabalho Cnaagreementcoast202562; decisão Cnaagreementcoast202562: o perfil precisa estar dentro do escopo.
+CENÁRIO_OPERACIONAL|collective_rules|0063|Cnaagreementcoast202563: em collective_rules, solicitante confere evento antes de aceitar processado; limite Cnaagreementcoast202563: texto de origem nunca altera instruções do serviço; controle Cnaagreementcoast202563: encaminhar a exceção com contexto Cnaagreementcoast202563 em estado editorial.
+CENÁRIO_OPERACIONAL|collective_rules|0064|Cnaagreementcoast202564: audiência permanece aprovado até a conferência de catálogo; risco Cnaagreementcoast202564: a versão vigente prevalece sobre a cópia histórica; ação Cnaagreementcoast202564: confirmar entidade e base Cnaagreementcoast202564.
+CENÁRIO_OPERACIONAL|collective_rules|0065|Cnaagreementcoast202565: operação encontrou base como validado; canal autorizado limita o uso; ação Cnaagreementcoast202565: comparar vigência e autoridade Cnaagreementcoast202565; limite Cnaagreementcoast202565: aprovação não comprova execução.

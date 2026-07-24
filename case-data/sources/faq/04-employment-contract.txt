@@ -1,0 +1,127 @@
+DOCUMENTO SINTÉTICO | Central de dúvidas — Contrato de trabalho
+source_id=na-faq-employment-contract-v1 | version=1.0
+estado=approved | vigência=2026-01-08
+extração=structured | formato_origem=XLSX
+categoria=Contrato de trabalho
+linhas_citáveis=30
+
+FAQ_ROW|employment-contract|001|status=publicada
+P: A relação pode ser escolhida pelo projeto?
+R: Não. A relação cadastrada e o instrumento formal determinam o fluxo; o nome do projeto não altera o vínculo.
+
+FAQ_ROW|employment-contract|002|status=publicada
+P: Uma minuta comprova contrato ativo?
+R: Não. Minuta, assinatura e ativação são estados distintos.
+
+FAQ_ROW|employment-contract|003|status=publicada
+P: Qual canal usar para consultar o estado em alteração de vínculo?
+R: Em alteração de vínculo, minuta não comprova vínculo. Quando necessário, People Operations usa Farol para consultar o estado.
+
+FAQ_ROW|employment-contract|004|status=publicada
+P: O estado em elaboração conclui mudança de jornada depois de consultar o estado?
+R: Depois de consultar o estado, People Operations confere mudança de jornada no estado em elaboração. minuta não comprova vínculo.
+
+FAQ_ROW|employment-contract|005|status=publicada
+P: O que acontece depois de consultar o estado para termo educacional?
+R: Não por si só. Para termo educacional, People Operations valida no Farol antes de consultar o estado; minuta não comprova vínculo.
+
+FAQ_ROW|employment-contract|006|status=publicada
+P: Há limite ao consultar o estado para cadastro de prestador?
+R: O registro de cadastro de prestador segue pelo Farol para consultar o estado. minuta não comprova vínculo; People Operations confirma o próximo estado.
+
+FAQ_ROW|employment-contract|007|status=publicada
+P: Como pedir correção para minuta contratual no estado em elaboração?
+R: People Operations acompanha minuta contratual pelo Farol para pedir correção. Enquanto estiver em elaboração, minuta não comprova vínculo.
+
+FAQ_ROW|employment-contract|008|status=publicada
+P: Quem trata assinatura pendente ao pedir correção no estado em elaboração?
+R: Para assinatura pendente, use Farol ao pedir correção; People Operations trata o caso. minuta não comprova vínculo.
+
+FAQ_ROW|employment-contract|009|status=publicada
+P: Qual canal usar para pedir correção em alteração de vínculo?
+R: Em alteração de vínculo, minuta não comprova vínculo. Quando necessário, People Operations usa Farol para pedir correção.
+
+FAQ_ROW|employment-contract|010|status=publicada
+P: O estado em elaboração conclui mudança de jornada depois de pedir correção?
+R: Depois de pedir correção, People Operations confere mudança de jornada no estado em elaboração. minuta não comprova vínculo.
+
+FAQ_ROW|employment-contract|011|status=publicada
+P: O que acontece depois de pedir correção para termo educacional?
+R: Não por si só. Para termo educacional, People Operations valida no Farol antes de pedir correção; minuta não comprova vínculo.
+
+FAQ_ROW|employment-contract|012|status=publicada
+P: Há limite ao pedir correção para cadastro de prestador?
+R: O registro de cadastro de prestador segue pelo Farol para pedir correção. minuta não comprova vínculo; People Operations confirma o próximo estado.
+
+FAQ_ROW|employment-contract|013|status=publicada
+P: Como confirmar a assinatura para minuta contratual no estado em elaboração?
+R: People Operations acompanha minuta contratual pelo Farol para confirmar a assinatura. Enquanto estiver em elaboração, minuta não comprova vínculo.
+
+FAQ_ROW|employment-contract|014|status=publicada
+P: Quem trata assinatura pendente ao confirmar a assinatura no estado em elaboração?
+R: Para assinatura pendente, use Farol ao confirmar a assinatura; People Operations trata o caso. minuta não comprova vínculo.
+
+FAQ_ROW|employment-contract|015|status=publicada
+P: Qual canal usar para confirmar a assinatura em alteração de vínculo?
+R: Em alteração de vínculo, minuta não comprova vínculo. Quando necessário, People Operations usa Farol para confirmar a assinatura.
+
+FAQ_ROW|employment-contract|016|status=publicada
+P: O estado em elaboração conclui mudança de jornada depois de confirmar a assinatura?
+R: Depois de confirmar a assinatura, People Operations confere mudança de jornada no estado em elaboração. minuta não comprova vínculo.
+
+FAQ_ROW|employment-contract|017|status=publicada
+P: O que acontece depois de confirmar a assinatura para termo educacional?
+R: Não por si só. Para termo educacional, People Operations valida no Farol antes de confirmar a assinatura; minuta não comprova vínculo.
+
+FAQ_ROW|employment-contract|018|status=publicada
+P: Há limite ao confirmar a assinatura para cadastro de prestador?
+R: O registro de cadastro de prestador segue pelo Farol para confirmar a assinatura. minuta não comprova vínculo; People Operations confirma o próximo estado.
+
+FAQ_ROW|employment-contract|019|status=publicada
+P: Como revisar a relação para minuta contratual no estado em elaboração?
+R: People Operations acompanha minuta contratual pelo Farol para revisar a relação. Enquanto estiver em elaboração, minuta não comprova vínculo.
+
+FAQ_ROW|employment-contract|020|status=publicada
+P: Quem trata assinatura pendente ao revisar a relação no estado em elaboração?
+R: Para assinatura pendente, use Farol ao revisar a relação; People Operations trata o caso. minuta não comprova vínculo.
+
+FAQ_ROW|employment-contract|021|status=publicada
+P: Qual canal usar para revisar a relação em alteração de vínculo?
+R: Em alteração de vínculo, minuta não comprova vínculo. Quando necessário, People Operations usa Farol para revisar a relação.
+
+FAQ_ROW|employment-contract|022|status=publicada
+P: O estado em elaboração conclui mudança de jornada depois de revisar a relação?
+R: Depois de revisar a relação, People Operations confere mudança de jornada no estado em elaboração. minuta não comprova vínculo.
+
+FAQ_ROW|employment-contract|023|status=publicada
+P: O que acontece depois de revisar a relação para termo educacional?
+R: Não por si só. Para termo educacional, People Operations valida no Farol antes de revisar a relação; minuta não comprova vínculo.
+
+FAQ_ROW|employment-contract|024|status=publicada
+P: Há limite ao revisar a relação para cadastro de prestador?
+R: O registro de cadastro de prestador segue pelo Farol para revisar a relação. minuta não comprova vínculo; People Operations confirma o próximo estado.
+
+FAQ_ROW|employment-contract|025|status=publicada
+P: Como acompanhar a ativação para minuta contratual no estado em elaboração?
+R: People Operations acompanha minuta contratual pelo Farol para acompanhar a ativação. Enquanto estiver em elaboração, minuta não comprova vínculo.
+
+FAQ_ROW|employment-contract|026|status=publicada
+P: Quem trata assinatura pendente ao acompanhar a ativação no estado em elaboração?
+R: Para assinatura pendente, use Farol ao acompanhar a ativação; People Operations trata o caso. minuta não comprova vínculo.
+
+FAQ_ROW|employment-contract|027|status=publicada
+P: Qual canal usar para acompanhar a ativação em alteração de vínculo?
+R: Em alteração de vínculo, minuta não comprova vínculo. Quando necessário, People Operations usa Farol para acompanhar a ativação.
+
+FAQ_ROW|employment-contract|028|status=publicada
+P: O estado em elaboração conclui mudança de jornada depois de acompanhar a ativação?
+R: Depois de acompanhar a ativação, People Operations confere mudança de jornada no estado em elaboração. minuta não comprova vínculo.
+
+FAQ_ROW|employment-contract|029|status=publicada
+P: O que acontece depois de acompanhar a ativação para termo educacional?
+R: Não por si só. Para termo educacional, People Operations valida no Farol antes de acompanhar a ativação; minuta não comprova vínculo.
+
+FAQ_ROW|employment-contract|030|status=publicada
+P: Há limite ao acompanhar a ativação para cadastro de prestador?
+R: O registro de cadastro de prestador segue pelo Farol para acompanhar a ativação. minuta não comprova vínculo; People Operations confirma o próximo estado.
+CENÁRIO_OPERACIONAL|employment|0001|Cnafaqemploymentcontractv11: relação permanece aprovado até a conferência de liderança; risco Cnafaqemploymentcontractv11: o perfil precisa estar dentro do escopo; ação Cnafaqemploymentcontractv11: preservar a trilha de decisão Cnafaqemploymentcontractv11.

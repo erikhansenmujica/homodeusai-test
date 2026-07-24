@@ -1,0 +1,288 @@
+{
+  "schemaVersion": 1,
+  "synthetic": true,
+  "recordType": "anonymized_semantic_reconstruction",
+  "use": "business_diagnosis_only",
+  "answerEvidenceEligible": false,
+  "provenanceEnvelope": {
+    "reviewedArtifacts": {
+      "callArtifacts": 15,
+      "emailArtifacts": 13,
+      "collaborationSummaries": 2,
+      "memoryRecords": 1,
+      "localProjectFiles": 27
+    },
+    "consolidationNote": "The memory record is counted separately from the 15 call artifacts. Duplicate transcripts, analysis notes, and follow-up summaries were consolidated into nine discovery moments.",
+    "privacyNote": "All names, organizations, dates, vendor names, addresses, exact commercial figures, verbal mannerisms, and recoverable transcript phrasing were removed or replaced."
+  },
+  "evidenceTypes": {
+    "observed_current_state": "A stakeholder described or demonstrated the current workflow.",
+    "client_request": "A stakeholder stated a desired operating outcome.",
+    "constraint": "A stakeholder identified a technical, security, ownership, or approval boundary.",
+    "correction": "A later session corrected an earlier model of the workflow.",
+    "delivery_claim": "The delivery team stated a value, readiness, or design claim that the client did not independently validate.",
+    "open_question": "The record did not establish an answer."
+  },
+  "sessions": [
+    {
+      "sessionId": "discovery-01",
+      "sequence": 1,
+      "topic": "Initial operating vision",
+      "participantRoles": ["executive sponsor", "people operations lead", "delivery team"],
+      "observations": [
+        {
+          "type": "observed_current_state",
+          "text": "People Operations had already started mapping recurring questions before this engagement."
+        },
+        {
+          "type": "client_request",
+          "text": "The organization wanted a reusable operating and knowledge layer that could grow across functions, not a separate chatbot for each department."
+        },
+        {
+          "type": "client_request",
+          "text": "The initial ambition was for software to classify and prepare work while a person retained approval at consequential points."
+        },
+        {
+          "type": "constraint",
+          "text": "The organization expected to own the code and operate the product inside its controlled environment."
+        },
+        {
+          "type": "open_question",
+          "text": "Infrastructure, integration access, operating ownership, and the first production scope had not been agreed."
+        }
+      ]
+    },
+    {
+      "sessionId": "discovery-02",
+      "sequence": 2,
+      "topic": "People Operations workflow walkthrough",
+      "participantRoles": ["people operations lead", "people operations analyst", "security lead", "delivery team"],
+      "observations": [
+        {
+          "type": "observed_current_state",
+          "text": "Requests were distributed across individual email, a planned shared mailbox, collaboration chat, messaging, spreadsheets, service channels, and specialist systems."
+        },
+        {
+          "type": "observed_current_state",
+          "text": "The core HR platform supported hiring, termination, leave, payroll, timekeeping, and statutory calculations; finance, identity, health, signature, and global records lived elsewhere."
+        },
+        {
+          "type": "observed_current_state",
+          "text": "Recurring employee answers depended on collective instruments, labor guidance, internal rules, requester context, and effective dates. Senior staff often answered from memory; junior staff searched a limited internal assistant and copied the result into the request channel."
+        },
+        {
+          "type": "client_request",
+          "text": "The operations lead asked whether analysts could work from one system and see information from the existing tools there instead of being redirected across them."
+        },
+        {
+          "type": "client_request",
+          "text": "Operators needed to inspect the action, rule, evidence, and error history, intervene in a decision, and retain role-based permissions."
+        },
+        {
+          "type": "constraint",
+          "text": "Security rejected external handling of sensitive employment documents and required an explicit infrastructure and support model. No dedicated hosting environment had yet been provisioned."
+        }
+      ]
+    },
+    {
+      "sessionId": "discovery-03",
+      "sequence": 3,
+      "topic": "Admission deep dive",
+      "participantRoles": ["people operations lead", "security lead", "delivery team"],
+      "observations": [
+        {
+          "type": "observed_current_state",
+          "text": "An upstream hiring request frequently arrived with the wrong legal entity, cost center, subdivision, role, contract type, or required field and moved back and forth before People Operations could continue."
+        },
+        {
+          "type": "observed_current_state",
+          "text": "Candidates entered personal data and uploaded documents through the HR platform, but the platform did not reliably validate a field against the file or confirm that the expected document type had been supplied. Analysts compared them manually."
+        },
+        {
+          "type": "observed_current_state",
+          "text": "Part of the registration was repeated in a globally controlled enterprise system whose integration path was considered difficult."
+        },
+        {
+          "type": "observed_current_state",
+          "text": "Medical clearance, account setup, equipment, contract generation, and signature progressed in parallel. Missing documents and signatures were often chased through messaging, outside a shared case record."
+        },
+        {
+          "type": "client_request",
+          "text": "The team wanted upstream validation before an error reached People Operations and a visible list of exceptions with an owner and deadline."
+        },
+        {
+          "type": "constraint",
+          "text": "The discovery did not establish that the pilot could write to the globally controlled system or replace the source HR workflow."
+        }
+      ]
+    },
+    {
+      "sessionId": "discovery-04",
+      "sequence": 4,
+      "topic": "Architecture correction",
+      "participantRoles": ["people operations lead", "platform lead", "delivery team"],
+      "observations": [
+        {
+          "type": "correction",
+          "text": "A later walkthrough corrected the ordering of the admission flow: the global record begins in parallel, while the final HR registration depends on complete candidate data."
+        },
+        {
+          "type": "correction",
+          "text": "What had been drawn as a separate workflow tool was actually a module inside the core HR platform."
+        },
+        {
+          "type": "observed_current_state",
+          "text": "The team said a screen-shared end-to-end admission was needed because a high-level diagram had missed operational steps and system boundaries."
+        },
+        {
+          "type": "open_question",
+          "text": "The available record did not confirm write APIs, event guarantees, rate limits, sandbox access, or ownership for each system."
+        }
+      ]
+    },
+    {
+      "sessionId": "discovery-05",
+      "sequence": 5,
+      "topic": "Existing email assistant demonstration",
+      "participantRoles": ["internal product owner", "people operations lead", "delivery team"],
+      "observations": [
+        {
+          "type": "observed_current_state",
+          "text": "An internal low-code assistant already displayed a permissioned email queue, classified messages, suggested editable replies, searched a knowledge base, stored records, and created tasks in the team tracker."
+        },
+        {
+          "type": "observed_current_state",
+          "text": "The first version used the organization’s document repository, with a more structured data service considered for a later phase."
+        },
+        {
+          "type": "client_request",
+          "text": "The internal product owner wanted an explicit operator feedback control."
+        },
+        {
+          "type": "open_question",
+          "text": "Operating KPIs, answer-readiness policy, handoff quality, and the boundary between the internal assistant and the proposed product were not defined."
+        }
+      ]
+    },
+    {
+      "sessionId": "discovery-06",
+      "sequence": 6,
+      "topic": "Knowledge and access checkpoint",
+      "participantRoles": ["people operations lead", "internal product owner", "delivery team"],
+      "observations": [
+        {
+          "type": "observed_current_state",
+          "text": "The intended answer base combined internal policies, collective instruments, labor guidance, and company-specific rules held in the corporate document environment."
+        },
+        {
+          "type": "client_request",
+          "text": "Stakeholders wanted unanswered questions to become candidates for governed knowledge after operator review. The record did not authorize automatic self-training from an operator reply."
+        },
+        {
+          "type": "constraint",
+          "text": "Corporate identity, mailbox, collaboration-channel, and source access were still pending."
+        },
+        {
+          "type": "observed_current_state",
+          "text": "The client had not yet reviewed the proposed interface, and the delivery team was still confirming whether the full FAQ set had been shared."
+        },
+        {
+          "type": "correction",
+          "text": "The delivery team learned that an internally built FAQ capability overlapped one of the proposed scopes and that integration, rather than duplication, was expected."
+        }
+      ]
+    },
+    {
+      "sessionId": "discovery-07",
+      "sequence": 7,
+      "topic": "Technical alignment and product overlap",
+      "participantRoles": ["people operations lead", "internal product owner", "platform and security leads", "delivery team"],
+      "observations": [
+        {
+          "type": "client_request",
+          "text": "The internal assistant and the proposed system should interoperate rather than maintain competing knowledge stores. A governed service interface and links into the existing workflow were discussed as possibilities, not approved designs."
+        },
+        {
+          "type": "client_request",
+          "text": "The operations lead asked for a clear account of the value beyond the existing low-code assistant."
+        },
+        {
+          "type": "constraint",
+          "text": "Parent-organization security approval was the main blocker for mailbox access, APIs, hosting, and deployment. Approval depended on a concrete component map, the technologies to be operated, support ownership, and alternative hosting paths."
+        },
+        {
+          "type": "constraint",
+          "text": "The platform team preferred the smallest practical deviation from its approved corporate environment. Public model access could be restricted or unavailable."
+        },
+        {
+          "type": "observed_current_state",
+          "text": "Vacation checks, pre-payroll validation, invoice review, termination, timekeeping, reimbursement, and travel were named as possible modules as the scope expanded. Their relative value was not established in the session."
+        }
+      ]
+    },
+    {
+      "sessionId": "discovery-08",
+      "sequence": 8,
+      "topic": "Executive sponsor checkpoint",
+      "participantRoles": ["executive sponsor", "delivery lead"],
+      "observations": [
+        {
+          "type": "observed_current_state",
+          "text": "The sponsor had not followed the technical detail and received a broad walkthrough after the proposed scope had expanded from three fronts to seven."
+        },
+        {
+          "type": "constraint",
+          "text": "Missing documents and restricted APIs still prevented validation against production data inside the client environment."
+        },
+        {
+          "type": "client_request",
+          "text": "The sponsor asked what needed to be accelerated and took ownership of the parent-organization approval path."
+        },
+        {
+          "type": "delivery_claim",
+          "text": "Readiness, time-to-delivery, and monthly-hours claims were presented from memory during the status walkthrough. They were not independently validated in the discovery record."
+        },
+        {
+          "type": "open_question",
+          "text": "The sponsor did not choose the first operating scope or define the evidence required for rollout."
+        }
+      ]
+    },
+    {
+      "sessionId": "discovery-09",
+      "sequence": 9,
+      "topic": "Source and access follow-up",
+      "participantRoles": ["people operations lead", "delivery team"],
+      "observations": [
+        {
+          "type": "observed_current_state",
+          "text": "Follow-up exchanges supplied corrected FAQ material, compensation references, an official organization-specific rules matrix, and admission process references through a protected repository. Anonymized admission cases were reported as uploaded to that repository, but the available record did not establish access, validation, or agreed expected outcomes."
+        },
+        {
+          "type": "constraint",
+          "text": "Repository access remained dependent on guest identity and one-time-password approval."
+        },
+        {
+          "type": "open_question",
+          "text": "Receipt of a file did not establish its approval state, authority, audience, effective period, extraction quality, or eligibility for an employee answer."
+        }
+      ]
+    }
+  ],
+  "crossSessionTensions": [
+    "Stakeholders want fewer manual touches, but a fast unsupported answer is worse than waiting.",
+    "The client asked for one operating surface, while several source systems may remain read-only or inaccessible during a pilot.",
+    "High-volume FAQ work is attractive, but an internal assistant already covers part of it.",
+    "Stakeholders want the system to improve from fallback cases, but no process authorizes operator replies to become policy automatically.",
+    "The sponsor heard a broad, nearly ready product story while the operating team had not validated the interface, integrations, or production data path.",
+    "The proposed scope expanded faster than the evidence used to prioritize it."
+  ],
+  "unresolvedQuestions": [
+    "Which operating outcome should define the first pilot: fewer touches, faster useful resolution, fewer unsafe answers, fewer reopened cases, or another measure?",
+    "Which workflow should be first once overlap with the internal assistant and integration feasibility are considered?",
+    "Which system events can be read, which can be written, and which must remain manual in the pilot?",
+    "Who owns a deferred case, how is it completed, and what knowledge-governance step follows the resolution?",
+    "What evidence would justify increasing autonomy for a request family?",
+    "What will the team do with any capacity released by the system, and how will that value be measured?"
+  ]
+}
