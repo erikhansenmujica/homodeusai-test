@@ -15,9 +15,11 @@ import type {
   RetrievalCandidate,
 } from "./types.ts";
 
-const PIPELINE_VERSION = "lexical-governed-v1";
+const PIPELINE_VERSION = "lexical-governed-v2";
 const MIN_RELEVANCE = 2.35;
-const MAX_GOVERNED_CANDIDATES = 10;
+const MAX_GOVERNED_CANDIDATES = 28;
+
+type AnswerRequirement = "percentage" | "currency" | "duration" | "list" | "event" | "boolean" | "individual_state" | "general_rule";
 
 const CONVERSATIONAL_PATTERNS = [
   /^(?:oi|olá|ola|bom dia|boa tarde|boa noite)[!,.?\s]*$/iu,
@@ -73,6 +75,59 @@ function uniqueSourceCandidates(candidates: RetrievalCandidate[]): RetrievalCand
   return [...unique.values()];
 }
 
+function answerRequirement(question: string): AnswerRequirement {
+  const normalized = tokenize(question).join(" ");
+  if (/\b(?:saldo|estado solicitacao|estado solicitação|espelho individual|ao vivo)\b/iu.test(normalized)) return "individual_state";
+  if (/\b(?:percentual|acrescimo|acréscimo|porcentagem)\b/iu.test(normalized)) return "percentage";
+  if (/\b(?:valor|quanto|r\$|apoio|refeicao|refeição)\b/iu.test(normalized)) return "currency";
+  if (/\b(?:quantos|dias|prazo|antecedencia|antecedência)\b/iu.test(normalized)) return "duration";
+  if (/\b(?:quais|documentos|marcacoes|marcações)\b/iu.test(normalized)) return "list";
+  if (/\b(?:qual evento|antes que|antes de)\b/iu.test(question)) return "event";
+  if (/\b(?:suficiente|pode confirmar|consegue confirmar|obrigatoria|obrigatório|obrigatoria|obrigatório)\b/iu.test(question)) return "boolean";
+  return "general_rule";
+}
+
+function sufficiency(candidate: RetrievalCandidate, requirement: AnswerRequirement): number {
+  const text = candidate.passage.answerText;
+  const normalized = tokenize(text).join(" ");
+  const hasPercent = /\b\d+(?:[,.]\d+)?\s*%/u.test(text);
+  const hasCurrency = /R\$\s*\d+(?:[.,]\d+)?/u.test(text);
+  const hasDuration = /\b\d+\s+dias?\b|\b(?:primeiro|segundo|terceiro|quarto|quatro|quinto|cinco|sexto|seis) dias?\b/iu.test(text);
+  const hasList = /(?:\bdocument\w*\b|\bitens?\b|\bcomprovante\b).*[;,]|\bidentidade\b.*\bcomprovante\b|\bentrada\b.*\bsa[ií]da\b/iu.test(text);
+  const hasEvent = /formaliza[cç][aã]o_confirmada|evento|ap[oó]s.*formaliza/iu.test(text);
+  const hasBoolean = /\b(?:n[aã]o|sim|suficiente|insuficiente|exige|obrigat)/iu.test(text);
+  const hasIndividualStateLimit = /saldo ao vivo|espelho individual|estado de solicita[cç][aã]o/iu.test(text);
+  const supported = {
+    percentage: hasPercent,
+    currency: hasCurrency,
+    duration: hasDuration,
+    list: hasList,
+    event: hasEvent,
+    boolean: hasBoolean,
+    individual_state: hasIndividualStateLimit,
+    general_rule: normalized.length > 12,
+  }[requirement];
+  return supported ? 7 : -18;
+}
+
+function scopeSpecificity(candidate: RetrievalCandidate, input: DecideRequest): number {
+  const scope = candidate.document.eligibility;
+  const matches = [scope.legalEntityIds.includes(input.requester.legalEntityId), scope.baseIds.includes(input.requester.baseId),
+    scope.relationships.includes(input.requester.relationship), scope.roles.includes(input.requester.role)];
+  const restricted = [scope.legalEntityIds, scope.baseIds, scope.relationships, scope.roles]
+    .filter((values) => !values.includes("*")).length;
+  return matches.filter(Boolean).length * 0.12 + restricted * 0.18;
+}
+
+function rankEligible(candidates: RetrievalCandidate[], input: DecideRequest, requirement: AnswerRequirement): RetrievalCandidate[] {
+  return candidates.map((candidate) => {
+    const authorityScore = candidate.document.authorityTier / 100 * 1.2;
+    const scopeScore = scopeSpecificity(candidate, input);
+    const sufficiencyScore = sufficiency(candidate, requirement);
+    return { ...candidate, authorityScore, scopeScore, sufficiencyScore, finalScore: candidate.score + authorityScore + scopeScore + sufficiencyScore };
+  }).sort((left, right) => (right.finalScore ?? 0) - (left.finalScore ?? 0) || right.score - left.score);
+}
+
 function primaryRejection(rejections: EligibilityRejectionCode[]): EligibilityRejectionCode {
   const priority: EligibilityRejectionCode[] = [
     "approval", "sensitivity", "audience", "scope", "future", "expired", "superseded",
@@ -86,9 +141,10 @@ function deferReasonForRejected(candidates: Array<{
 }>): HandoffReason {
   const codes = new Set(candidates.flatMap((item) => item.rejectionCodes));
   const hasPending = candidates.some((item) => item.candidate.document.approval === "pending");
-  if (hasPending || codes.has("future") || codes.has("expired") || codes.has("superseded") || codes.has("approval")) {
+  if (hasPending || codes.has("approval")) {
     return "validation_pending";
   }
+  if (codes.has("future") || codes.has("expired") || codes.has("superseded")) return "missing_source";
   if (codes.has("sensitivity") || codes.has("audience")) return "policy_sensitive_source";
   if (codes.has("scope")) return "profile_mismatch";
   return "missing_source";
@@ -107,6 +163,20 @@ function messageFor(reason: HandoffReason): string {
     provider_failure: "Não foi possível concluir a consulta automaticamente. People Operations continuará o atendimento enquanto a plataforma é verificada.",
   };
   return messages[reason];
+}
+
+function explainedDeferMessage(
+  reason: HandoffReason,
+  rejected: Array<{ candidate: RetrievalCandidate; rejectionCodes: EligibilityRejectionCode[] }>,
+): string {
+  if (reason === "missing_source" && rejected.some((item) => item.rejectionCodes.includes("expired") || item.rejectionCodes.includes("future"))) {
+    const title = rejected.find((item) => item.rejectionCodes.includes("expired") || item.rejectionCodes.includes("future"))?.candidate.document.title;
+    return `Não encontrei uma fonte vigente e aplicável para essa resposta na data consultada${title ? `; ${title} estava fora do período de vigência` : ""}. A solicitação foi encaminhada para validação.`;
+  }
+  if (reason === "profile_mismatch" && rejected.some((item) => item.rejectionCodes.includes("scope"))) {
+    return "Encontrei fontes relacionadas, mas elas não cobrem a entidade, base ou relação de trabalho deste perfil. People Operations vai validar a orientação aplicável.";
+  }
+  return messageFor(reason);
 }
 
 function emptyGovernanceTrace(
@@ -148,16 +218,18 @@ function emptyGovernanceTrace(
 function selectAnswerCandidates(
   eligible: RetrievalCandidate[],
   question: string,
+  requirement: AnswerRequirement,
 ): RetrievalCandidate[] {
-  const strongest = uniqueSourceCandidates(eligible);
+  const strongest = uniqueSourceCandidates(eligible.filter((candidate) => (candidate.sufficiencyScore ?? -1) > 0));
   const top = strongest[0];
-  if (!top || top.score < MIN_RELEVANCE || top.queryCoverage < 0.52) return [];
+  const coverageFloor = requirement === "general_rule" ? 0.52 : 0.25;
+  if (!top || top.score < MIN_RELEVANCE || top.queryCoverage < coverageFloor) return [];
   const selected = [top];
   const asksCompound = /\b(?:e|também|tambem|além disso|alem disso)\b/iu.test(question);
   if (asksCompound) {
     const second = strongest.find((candidate) =>
       candidate.document.sourceId !== top.document.sourceId &&
-      candidate.score >= Math.max(MIN_RELEVANCE, top.score * 0.34) &&
+      (candidate.finalScore ?? candidate.score) >= Math.max(MIN_RELEVANCE, (top.finalScore ?? top.score) * 0.34) &&
       candidate.queryCoverage >= 0.25 &&
       candidate.passage.answerText !== top.passage.answerText);
     if (second) selected.push(second);
@@ -221,13 +293,19 @@ function saveRoutingTrace(
     consideredEvidence: candidates.map((candidate, index) => ({
       sourceId: candidate.document.sourceId,
       versionId: candidate.document.versionId,
-      startByte: Buffer.byteLength(candidate.document.content.slice(0, candidate.passage.startCharacter), "utf8"),
-      endByte: Buffer.byteLength(candidate.document.content.slice(0, candidate.passage.endCharacter), "utf8"),
+      startByte: candidate.passage.startByte,
+      endByte: candidate.passage.endByte,
       rank: index + 1,
-      stage: eligible.some((item) => item.document.sourceId === candidate.document.sourceId)
+      stage: eligible.some((item) => item.passage.id === candidate.passage.id)
         ? "eligible"
         : "rejected",
       score: Number(candidate.score.toFixed(4)),
+      passageId: candidate.passage.id,
+      lexicalScore: Number(candidate.score.toFixed(4)),
+      finalScore: candidate.finalScore === undefined ? undefined : Number(candidate.finalScore.toFixed(4)),
+      rejectionCodes: rejected.find((item) => item.candidate.passage.id === candidate.passage.id)?.rejectionCodes,
+      selectedAsEvidence: decision.kind === "answer" && decision.claims.some((claim) => claim.evidence.some((evidence) =>
+        evidence.sourceId === candidate.document.sourceId && candidate.passage.text.includes(evidence.quote))),
     })),
     timingsMs: {
       retrieval: Number(timings.retrieval.toFixed(3)),
@@ -248,11 +326,17 @@ function saveRoutingTrace(
   saveTrace(trace);
 }
 
-function deferredDecision(input: DecideRequest, traceId: string, reason: HandoffReason, score: number): Decision {
+function deferredDecision(
+  input: DecideRequest,
+  traceId: string,
+  reason: HandoffReason,
+  score: number,
+  rejected: Array<{ candidate: RetrievalCandidate; rejectionCodes: EligibilityRejectionCode[] }> = [],
+): Decision {
   return {
     kind: "defer",
     answerabilityScore: Math.max(0, Math.min(1, score)),
-    userMessage: messageFor(reason),
+    userMessage: explainedDeferMessage(reason, rejected),
     handoff: createHandoff(input, reason, traceId),
     traceId,
   };
@@ -292,7 +376,8 @@ export async function decide(input: DecideRequest): Promise<Decision> {
     return deferredDecision(input, traceId, reason, 0);
   }
 
-  if (matchesAny(input.question, SENSITIVE_PATTERNS)) {
+  const asksPolicyCapability = /\b(?:pol[ií]tica|procedimento|regra)\b.*\b(?:confirmar|mostrar|informar)\b/iu.test(input.question);
+  if (!asksPolicyCapability && matchesAny(input.question, SENSITIVE_PATTERNS)) {
     const reason: HandoffReason = "sensitive_topic";
     saveTrace(emptyGovernanceTrace(input, traceId, "defer", reason, started, "The request concerns individual or protected state."));
     return deferredDecision(input, traceId, reason, 0.05);
@@ -303,10 +388,11 @@ export async function decide(input: DecideRequest): Promise<Decision> {
   const retrieval = lexicalIndex(documents).search(input.question);
   const retrievalMs = performance.now() - retrievalStarted;
   const topScore = retrieval.candidates[0]?.score ?? 0;
-  const relevanceFloor = Math.max(0.85, topScore * 0.25);
-  const candidates = uniqueSourceCandidates(
-    retrieval.candidates.filter((candidate) => candidate.score >= relevanceFloor),
-  ).slice(0, MAX_GOVERNED_CANDIDATES);
+  const relevanceFloor = Math.max(0.55, topScore * 0.12);
+  // Govern passages first: a later clause in the same source can be the only sufficient answer.
+  const candidates = retrieval.candidates
+    .filter((candidate) => candidate.score >= relevanceFloor)
+    .slice(0, MAX_GOVERNED_CANDIDATES);
 
   const governanceStarted = performance.now();
   const superseded = activeSupersededSources(documents, input);
@@ -323,9 +409,9 @@ export async function decide(input: DecideRequest): Promise<Decision> {
       });
     }
   }
-  const conflictCandidates = retrieval.candidates.filter((candidate) =>
-    eligible.some((source) => source.document.sourceId === candidate.document.sourceId) &&
-    candidate.score >= Math.max(MIN_RELEVANCE, topScore * 0.48));
+  const requirement = answerRequirement(input.question);
+  const rankedEligible = rankEligible(eligible, input, requirement);
+  const conflictCandidates = rankedEligible.filter((candidate) => (candidate.sufficiencyScore ?? 0) > 0);
   const conflicts = detectConflicts(conflictCandidates);
   const governanceMs = performance.now() - governanceStarted;
 
@@ -335,20 +421,20 @@ export async function decide(input: DecideRequest): Promise<Decision> {
     item.candidate.document.sourceId === candidates[0]?.document.sourceId);
   const rejectedDominates = Boolean(
     strongestRejected &&
-    (!eligible[0] || eligible[0].score < topScore * 0.75),
+    (!rankedEligible[0] || rankedEligible[0].score < topScore * 0.75),
   );
   if (candidates.length === 0 || topScore < MIN_RELEVANCE) {
     decision = deferredDecision(input, traceId, "missing_source", 0.08);
   } else if (eligible.length === 0) {
-    decision = deferredDecision(input, traceId, deferReasonForRejected(rejected), 0.12);
+    decision = deferredDecision(input, traceId, deferReasonForRejected(rejected), 0.12, rejected);
   } else if (rejectedDominates && strongestRejected) {
-    decision = deferredDecision(input, traceId, deferReasonForRejected([strongestRejected]), 0.16);
+    decision = deferredDecision(input, traceId, deferReasonForRejected([strongestRejected]), 0.16, [strongestRejected]);
   } else if (conflicts.length > 0) {
     decision = deferredDecision(input, traceId, "conflicting_source", 0.2);
   } else {
-    const answerCandidates = selectAnswerCandidates(eligible, input.question);
+    const answerCandidates = selectAnswerCandidates(rankedEligible, input.question, requirement);
     if (answerCandidates.length === 0) {
-      decision = deferredDecision(input, traceId, "missing_source", 0.18);
+      decision = deferredDecision(input, traceId, "missing_source", 0.18, rejected);
     } else {
       const claims = createClaims(answerCandidates);
       decision = {
@@ -361,7 +447,7 @@ export async function decide(input: DecideRequest): Promise<Decision> {
     }
   }
   const decisionMs = performance.now() - decisionStarted;
-  saveRoutingTrace(input, traceId, decision, candidates, eligible, rejected, conflicts, {
+  saveRoutingTrace(input, traceId, decision, candidates, rankedEligible, rejected, conflicts, {
     retrieval: retrievalMs,
     governance: governanceMs,
     decision: decisionMs,

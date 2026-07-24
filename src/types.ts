@@ -45,7 +45,11 @@ export interface Passage {
   answerText: string;
   startCharacter: number;
   endCharacter: number;
+  startByte: number;
+  endByte: number;
   tokens: string[];
+  titleTokens: string[];
+  headingTokens: string[];
   searchableTokens: string[];
 }
 
@@ -53,6 +57,13 @@ export interface RetrievalCandidate {
   document: SourceDocument;
   passage: Passage;
   score: number;
+  titleScore?: number;
+  headingScore?: number;
+  bodyScore?: number;
+  authorityScore?: number;
+  scopeScore?: number;
+  sufficiencyScore?: number;
+  finalScore?: number;
   matchedTerms: string[];
   queryCoverage: number;
 }
@@ -195,6 +206,11 @@ export interface TraceEvidence {
   rank: number;
   stage: string;
   score?: number;
+  passageId?: string;
+  lexicalScore?: number;
+  finalScore?: number;
+  rejectionCodes?: EligibilityRejectionCode[];
+  selectedAsEvidence?: boolean;
 }
 
 export interface DecisionTrace {

@@ -14,6 +14,7 @@ const SYNONYM_GROUPS = [
   ["demissao", "demissão", "desligamento", "rescisao", "rescisão", "encerramento"],
   ["admissao", "admissão", "ingresso", "contratacao", "contratação", "onboarding"],
   ["ponto", "jornada", "marcacao", "marcação", "registro"],
+  ["marca", "marcas", "marcacao", "marcação", "registro", "registros"],
   ["hora", "horas", "extra", "extras", "adicional", "adicionais"],
   ["atestado", "laudo", "documento", "medico", "médico", "clinico", "clínico"],
   ["chat", "mensagem", "whatsapp", "email", "e-mail"],
@@ -22,6 +23,7 @@ const SYNONYM_GROUPS = [
   ["percentual", "percentuais", "acrescimo", "acréscimo"],
   ["alimentacao", "alimentação", "refeicao", "refeição"],
   ["prazo", "quando", "data", "antecedencia", "antecedência"],
+  ["documentos", "documento", "instrumento", "formalizacao", "formalização"],
   ["corrigir", "correcao", "correção", "ajustar", "ajuste"],
   ["estagiario", "estagiário", "estagio", "estágio", "intern"],
   ["aprendiz", "apprentice"],
@@ -79,7 +81,8 @@ function passage(
   sequence: number,
 ): Passage {
   const answerText = cleanAnswer(text);
-  const titleTokens = tokenize(`${document.title} ${document.domain} ${heading}`);
+  const titleTokens = tokenize(`${document.title} ${document.domain}`);
+  const headingTokens = tokenize(heading);
   const contentTokens = tokenize(text);
   return {
     id: `${document.sourceId}:${sequence}`,
@@ -92,8 +95,12 @@ function passage(
     answerText,
     startCharacter,
     endCharacter: startCharacter + text.length,
+    startByte: Buffer.byteLength(document.content.slice(0, startCharacter), "utf8"),
+    endByte: Buffer.byteLength(document.content.slice(0, startCharacter + text.length), "utf8"),
     tokens: contentTokens,
-    searchableTokens: [...titleTokens, ...titleTokens, ...contentTokens],
+    titleTokens,
+    headingTokens,
+    searchableTokens: [...titleTokens, ...headingTokens, ...contentTokens],
   };
 }
 
@@ -111,6 +118,7 @@ function extractFaqPassages(document: SourceDocument): Passage[] {
 }
 
 function extractStructuredPassages(document: SourceDocument): Passage[] {
+  // Synthetic operational scenarios are generated test noise, not approved guidance.
   const marker = document.content.search(/^CENÁRIO_OPERACIONAL\|/mu);
   const useful = marker >= 0 ? document.content.slice(0, marker) : document.content;
   const bodyStart = useful.indexOf("\n\n");
@@ -123,15 +131,15 @@ function extractStructuredPassages(document: SourceDocument): Passage[] {
     for (const match of sections) {
       const sectionBody = match[2].trim();
       if (!sectionBody) continue;
+      let searchFrom = 0;
       for (const paragraph of sectionBody.split(/\n{2,}/u).map((item) => item.trim()).filter(Boolean)) {
-        const headingLine = match[0].match(/^#{1,3}\s+[^\n]+/u)?.[0] ?? match[1];
-        const fullText = `${headingLine}\n${paragraph}`;
-        const localStart = match[0].indexOf(paragraph);
+        const localStart = match[0].indexOf(paragraph, searchFrom);
+        searchFrom = Math.max(searchFrom, localStart + paragraph.length);
         markdownPassages.push(passage(
           document,
           match[1].trim(),
-          fullText,
-          absoluteBodyStart + (match.index ?? 0) + Math.max(0, localStart) - headingLine.length - 1,
+          paragraph,
+          absoluteBodyStart + (match.index ?? 0) + Math.max(0, localStart),
           sequence,
         ));
         sequence += 1;
@@ -185,22 +193,39 @@ export class LexicalIndex {
     const passageCount = this.passages.length;
     for (const item of this.passages) {
       const frequencies = new Map<string, number>();
-      for (const token of item.searchableTokens) frequencies.set(token, (frequencies.get(token) ?? 0) + 1);
+      const titleFrequencies = new Map<string, number>();
+      const headingFrequencies = new Map<string, number>();
+      for (const token of item.tokens) frequencies.set(token, (frequencies.get(token) ?? 0) + 1);
+      for (const token of item.titleTokens) titleFrequencies.set(token, (titleFrequencies.get(token) ?? 0) + 1);
+      for (const token of item.headingTokens) headingFrequencies.set(token, (headingFrequencies.get(token) ?? 0) + 1);
       let score = 0;
+      let titleScore = 0;
+      let headingScore = 0;
+      let bodyScore = 0;
       const matchedTerms: string[] = [];
       for (const token of queryTokens) {
         const frequency = frequencies.get(token) ?? 0;
-        if (frequency === 0) continue;
+        const titleFrequency = titleFrequencies.get(token) ?? 0;
+        const headingFrequency = headingFrequencies.get(token) ?? 0;
+        if (frequency + titleFrequency + headingFrequency === 0) continue;
         matchedTerms.push(token);
         const documentFrequency = this.documentFrequency.get(token) ?? 0;
         const inverseFrequency = Math.log(1 + (passageCount - documentFrequency + 0.5) / (documentFrequency + 0.5));
-        const normalization = frequency + 1.2 * (1 - 0.75 + 0.75 * item.searchableTokens.length / this.averageLength);
-        score += inverseFrequency * (frequency * 2.2 / normalization);
+        const normalization = frequency + 1.2 * (1 - 0.75 + 0.75 * item.tokens.length / this.averageLength);
+        const body = inverseFrequency * (frequency * 2.2 / Math.max(1, normalization));
+        const title = inverseFrequency * titleFrequency * 1.1;
+        const heading = inverseFrequency * headingFrequency * 1.8;
+        bodyScore += body;
+        titleScore += title;
+        headingScore += heading;
+        score += body + title + heading;
       }
-      const rawMatched = rawTokens.filter((token) => frequencies.has(token)).length;
+      const rawMatched = rawTokens.filter((token) =>
+        frequencies.has(token) || titleFrequencies.has(token) || headingFrequencies.has(token)).length;
       score += rawMatched * 0.55;
       const coveredConcepts = rawTokens.filter((token) =>
-        (synonymMap.get(token) ?? [token]).some((term) => frequencies.has(term))).length;
+        (synonymMap.get(token) ?? [token]).some((term) =>
+          frequencies.has(term) || titleFrequencies.has(term) || headingFrequencies.has(term))).length;
       const queryCoverage = coveredConcepts / Math.max(1, rawTokens.length);
       const normalizedQuestion = normalizeToken(question.replace(/\s+/gu, " "));
       const normalizedAnswer = normalizeToken(item.answerText.replace(/\s+/gu, " "));
@@ -208,7 +233,7 @@ export class LexicalIndex {
       if (score > 0) {
         const document = this.documents.find((source) =>
           source.sourceId === item.sourceId && source.versionId === item.versionId);
-        if (document) candidates.push({ document, passage: item, score, matchedTerms, queryCoverage });
+        if (document) candidates.push({ document, passage: item, score, titleScore, headingScore, bodyScore, matchedTerms, queryCoverage });
       }
     }
     candidates.sort((left, right) =>

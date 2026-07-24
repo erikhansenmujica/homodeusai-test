@@ -41,7 +41,7 @@ Modules are `contract`, `corpus`, `retrieval`, `governance`, `decide`, `evidence
 
 ## 8. Request lifecycle
 
-Malformed input returns typed `400`. Conversational and explicit-human routes short-circuit safely. Other requests retrieve at most 48 passages, deduplicate to at most 10 governed source candidates, apply eligibility, detect conflicts, and select at most two answer passages. A defer persists its work record before response completion. Every valid decision has a retrievable redacted trace.
+Malformed input returns typed `400`. Conversational and explicit-human routes short-circuit safely. Other requests retrieve at most 48 passages, govern the best 28 passages without premature source deduplication, rerank eligible passages, detect conflicts, and select at most two answer passages. A defer persists its work record before response completion. Every valid decision has a retrievable redacted trace.
 
 ## 9. Domain model
 
@@ -49,7 +49,7 @@ Existing `Decision`, `DecideRequest`, `SourceDocument`, evidence, handoff, and t
 
 ## 10. Retrieval design
 
-FAQ rows, Markdown paragraphs under headings, collective clauses, and process blocks are citation units. Text is NFKD-normalized, diacritics removed for matching, lowercased, tokenized, and filtered through a small Portuguese/English stopword list. No stemming is used; bounded synonym groups cover high-value corpus language. Titles, headings, domains, and content are indexed, with metadata tokens repeated for weight. Ranking is BM25-style with `k1=1.2`, `b=0.75`, exact-query bonuses, raw-term bonuses, and per-query concept coverage. The index is small enough to build in memory.
+FAQ rows, Markdown paragraphs under headings, collective clauses, and process blocks are citation units with stable character and UTF-8 byte ranges. Synthetic `CENÁRIO_OPERACIONAL` records are excluded because they are generated test noise rather than approved guidance. Text is NFKD-normalized, diacritics removed for matching, lowercased, tokenized, and filtered through a small Portuguese/English stopword list. No stemming is used; bounded synonym groups cover high-value corpus language. Titles, headings, and bodies receive distinct BM25-style weights. After governance, deterministic requirement checks (percentage, currency, duration, list, event, boolean, individual-state, or general rule) plus authority and scope specificity rerank candidates. The index is small enough to build in memory.
 
 ## 11. Governance design
 
@@ -61,7 +61,7 @@ An effective approved source’s explicit `supersedes` list removes the older re
 
 ## 13. Decision logic
 
-`answer` requires sufficient score, query-concept coverage, eligible evidence, no conflict, and valid citations. A second source is included only for explicit compound language. `defer` handles human request, missing/low evidence, scope mismatch, pending/stale source, protected source, conflict, sensitive individual state, and injection. `conversational` is limited to greetings and thanks without a policy request.
+`answer` requires sufficient score, query-concept coverage, an answer passage that satisfies the requested answer type, eligible evidence, no conflict, and valid citations. Source deduplication happens only after passage reranking. A second source is included only for explicit compound language. `defer` handles human request, missing/low evidence, scope mismatch, pending/stale source, protected source, conflict, sensitive individual state, and injection; expired applicable sources produce an explained missing-source defer. `conversational` is limited to greetings and thanks without a policy request.
 
 ## 14. Evidence and citations
 
@@ -93,7 +93,7 @@ Each trace stores request/trace IDs, versions, ordered stages, exact candidate/e
 
 ## 21. Testing strategy
 
-Unit tests cover parser limits, UTF-8 citations, token expansion, inclusive dates, injection, unsupported near-matches, conflict routing, and contract validation. Integration tests cover API/eval runner and handoff restart/idempotency/resolution. Browser verification covers answer, evidence, trace, defer, open, resolve, history, responsive overflow, and console errors.
+Unit tests cover parser limits, UTF-8 citations, token expansion, inclusive dates, injection, unsupported near-matches, conflict routing, contract validation, 20 named governed-retrieval regressions, and expired-agreement explanation. Integration tests cover API/eval runner and handoff restart/idempotency/resolution. Browser verification covers answer, evidence, trace, defer, open, resolve, history, responsive overflow, and console errors.
 
 ## 22. Candidate eval suite
 
