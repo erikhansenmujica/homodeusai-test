@@ -115,6 +115,6 @@ test("authored eval suite satisfies the submission structure", async () => {
   const input: unknown = JSON.parse(await readFile(new URL("../evals/cases.json", import.meta.url), "utf8"));
   const result = validateCandidateEvalSuite(input);
   assert.equal(result.summary.sampleCases, 0);
-  assert.equal(result.summary.candidateCases, 19);
+  assert.equal(result.summary.candidateCases, 20);
   assert.deepEqual(result.errors, []);
 });

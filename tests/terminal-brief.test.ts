@@ -13,22 +13,27 @@ test("finished workbench exposes the production decision path", () => {
     assert.match(html, new RegExp(`data-testid="${testId}"`, "u"), `missing production hook: ${testId}`);
   }
   assert.match(html, /Respostas com <em>recibo/iu);
+  assert.match(html, /<link rel="icon" href="\/favicon\.svg" type="image\/svg\+xml">/u);
   assert.match(html, /aria-busy="false"/u);
   assert.doesNotMatch(html, /gauntlet-starter|data-starter="incomplete"/u);
 });
 
 test("workbench implements evidence, trace, and handoff lifecycle surfaces", () => {
   const html = renderWorkbench();
+  const client = readFile(new URL("../src/public/workbench.js", import.meta.url), "utf8");
+  return client.then((script) => {
+    const product = `${html}\n${script}`;
   for (const testId of [
     "claims-panel", "evidence-source-link", "handoff-panel", "handoff-open",
     "handoff-record", "handoff-resolution-form", "handoff-resolution-summary",
     "handoff-resolve", "handoff-resolved-state", "trace-trigger", "trace-panel",
   ]) {
-    assert.match(html, new RegExp(`"${testId}"`, "u"), `missing lifecycle hook: ${testId}`);
+      assert.match(product, new RegExp(`"${testId}"`, "u"), `missing lifecycle hook: ${testId}`);
   }
-  assert.match(html, /requestSubmit\(\)/u);
-  assert.match(html, /sourceId \+ " · " \+ evidence.versionId/u);
-  assert.match(html, /trusted requester does not|Limite de confiança/iu);
+    assert.match(product, /requestSubmit\(\)/u);
+    assert.match(product, /makeSourceAnchor\(metadata, "Abrir documento"/u);
+    assert.match(product, /texto da pergunta não pode alterar|Limite de confiança/iu);
+  });
 });
 
 test("candidate guides define the same three-part final review", async () => {

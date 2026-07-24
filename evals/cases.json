@@ -160,6 +160,37 @@
       }
     },
     {
+      "id": "vacation-submission-contextual-followup",
+      "objective": "Verify an elliptical follow-up retains the prior user topic without treating the prior assistant answer as evidence.",
+      "clusterId": "state-not-completion",
+      "profileId": "employee-na-servicos-sudeste",
+      "question": "Enviar a solicitação já significa que ela foi aprovada?",
+      "history": [
+        {
+          "role": "user",
+          "content": "Com quanta antecedência devo solicitar férias?"
+        },
+        {
+          "role": "assistant",
+          "content": "O pedido deve ser aberto com pelo menos 35 dias corridos de antecedência; envio não significa aprovação."
+        }
+      ],
+      "asOf": "2026-07-22T10:30:00.000Z",
+      "tags": ["answer", "state_not_completion"],
+      "expected": {
+        "kind": "answer",
+        "requiredSourceIds": ["na-faq-vacation-v1"],
+        "requiredBodyTerms": ["envio não significa aprovação"],
+        "requiredClaims": [
+          {
+            "bodyTerm": "envio não significa aprovação",
+            "sourceIds": ["na-faq-vacation-v1"],
+            "quoteTerms": ["envio não significa aprovação"]
+          }
+        ]
+      }
+    },
+    {
       "id": "health-urgent-compound",
       "objective": "Verify a compound safety question is fully supported by two eligible sources rather than partially answered.",
       "clusterId": "health-urgent-compound",

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Nexo Atlântico">
+  <rect width="64" height="64" rx="16" fill="#17362e"/>
+  <circle cx="32" cy="32" r="23" fill="none" stroke="#c89d49" stroke-width="2"/>
+  <circle cx="32" cy="32" r="19" fill="none" stroke="#f2eee4" stroke-opacity=".22"/>
+  <text x="32" y="38" fill="#f3c875" font-family="Georgia, serif" font-size="20" font-weight="700" text-anchor="middle">NA</text>
+  <path d="M29 51h6l-3 3z" fill="#d96442"/>
+</svg>

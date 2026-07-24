@@ -33,6 +33,9 @@ const SYNONYM_GROUPS = [
   ["incidente", "acidente", "emergencia", "emergência", "urgente", "urgencia", "urgência"],
   ["formaliza", "formalizar", "formalizacao", "formalização"],
   ["autorizado", "autorizada", "autorizados", "autorizadas", "autorizacao", "autorização"],
+  ["solicitacao", "solicitação", "pedido", "requerimento"],
+  ["envio", "enviar", "submissao", "submissão", "submeter"],
+  ["aprovacao", "aprovação", "aprovado", "aprovada", "aprovar"],
 ] as const;
 
 const QUERY_CONCEPTS = {

@@ -8,15 +8,15 @@ Command:
 CANDIDATE_BASE_URL=http://127.0.0.1:8080 npm run evals
 ```
 
-Authoritative local run on 2026-07-24: **19 cases, 19 passed, 0 failed, 100% pass rate, execution complete**. This does not predict the sealed score.
+Authoritative local run on 2026-07-24: **20 cases, 20 passed, 0 failed, 100% pass rate, execution complete**. This does not predict the sealed score.
 
-The suite contains 10 answers, 8 deferrals, and 1 conversational case. It covers seven answer sources across payroll, vacation, personal data, admission, health and safety, and collective rules. Six clusters repeat or paraphrase facts.
+The suite contains 11 answers, 8 deferrals, and 1 conversational case. It covers seven answer sources across payroll, vacation, personal data, admission, health and safety, and collective rules. Six clusters repeat or paraphrase facts.
 
 ## Risk design
 
 Cases cover exact evidence, multi-source compound questions, conflicting approved sources, stale/scope boundaries, unsupported near-matches, sensitive individual state, prompt/source injection, paraphrases, trusted relationship changes, and explicit human routing.
 
-The candidate-defined risk is `state_not_completion`. Discovery showed that analysts must distinguish requested, received, validated, approved, processed, and completed states. `payroll-provisional-is-not-payment` and `vacation-submission-is-not-approval` verify that the service does not turn an intermediate state into a completed outcome.
+The candidate-defined risk is `state_not_completion`. Discovery showed that analysts must distinguish requested, received, validated, approved, processed, and completed states. `payroll-provisional-is-not-payment`, `vacation-submission-is-not-approval`, and `vacation-submission-contextual-followup` verify that the service does not turn an intermediate state into a completed outcome, including when the vacation topic is supplied by a prior user turn.
 
 The counterfactual pair asks the identical Sul overtime-percentage question at the same instant. An employee is answered from `na-agreement-coast-2025`; changing only relationship to apprentice produces `defer`.
 

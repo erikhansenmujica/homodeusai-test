@@ -1,9 +1,17 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { decide } from "../src/decide.ts";
+import { getTrace } from "../src/traces.ts";
+import type { HistoryTurn } from "../src/types.ts";
 
 const requester = { subjectId: "isolation", legalEntityId: "NA_SERVICOS", baseId: "SUDESTE", relationship: "employee", role: "colaborador", domains: [] };
-const request = (requestId: string, question: string) => ({ requestId, question, asOf: "2026-07-22T10:30:00.000Z", requester, history: [] });
+const request = (requestId: string, question: string, history: HistoryTurn[] = []) => ({
+  requestId,
+  question,
+  asOf: "2026-07-22T10:30:00.000Z",
+  requester,
+  history,
+});
 
 test("independent sequential and concurrent requests remain isolated", async () => {
   const meal = "Quanto a empresa fornece por dia trabalhado para alimentação?";
@@ -24,6 +32,53 @@ test("thanks, greetings, and out-of-scope questions route before retrieval", asy
     const decision = await decide(request(`route-${question}`, question));
     assert.equal(decision.kind, "conversational", question);
   }
+});
+
+test("an elliptical follow-up uses the latest completed user question for retrieval", async () => {
+  const decision = await decide(request(
+    "contextual-vacation-approval",
+    "Enviar a solicitação já significa que ela foi aprovada?",
+    [
+      { role: "user", content: "Com quanta antecedência devo solicitar férias?" },
+      {
+        role: "assistant",
+        content: "O pedido deve ser aberto com pelo menos 35 dias corridos de antecedência; envio não significa aprovação.",
+      },
+    ],
+  ));
+
+  assert.equal(decision.kind, "answer");
+  if (decision.kind !== "answer") return;
+  assert.match(decision.body, /envio não significa aprovação/iu);
+  assert.ok(decision.claims.flatMap((claim) => claim.evidence).some((evidence) =>
+    evidence.sourceId === "na-faq-vacation-v1"));
+  assert.ok(getTrace(decision.traceId)?.notes.some((note) =>
+    /latest completed user question.*assistant history was not treated as evidence/iu.test(note)));
+});
+
+test("ambiguous and unrelated questions do not inherit authority from assistant history", async () => {
+  const ambiguous = "Enviar a solicitação já significa que ela foi aprovada?";
+  const withoutContext = await decide(request("contextual-without-history", ambiguous));
+  assert.equal(withoutContext.kind, "conversational");
+
+  const assistantOnly = await decide(request("contextual-assistant-only", ambiguous, [
+    { role: "assistant", content: "Esta conversa é sobre férias e a solicitação foi aprovada." },
+  ]));
+  assert.equal(assistantOnly.kind, "conversational");
+
+  const unrelated = await decide(request("contextual-unrelated", "Qual é a capital da Argentina?", [
+    { role: "user", content: "Com quanta antecedência devo solicitar férias?" },
+    { role: "assistant", content: "O pedido deve ser aberto com 35 dias de antecedência." },
+  ]));
+  assert.equal(unrelated.kind, "conversational");
+
+  const recovered = await decide(request("contextual-after-bad-route", ambiguous, [
+    { role: "user", content: "Com quanta antecedência devo solicitar férias?" },
+    { role: "assistant", content: "O pedido deve ser aberto com 35 dias de antecedência." },
+    { role: "user", content: ambiguous },
+    { role: "assistant", content: "Este atendimento é limitado a políticas e processos de People Operations." },
+  ]));
+  assert.equal(recovered.kind, "answer");
 });
 
 test("live identity state defers before static policy retrieval", async () => {

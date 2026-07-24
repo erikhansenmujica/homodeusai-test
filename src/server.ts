@@ -9,6 +9,7 @@ import { loadSourceDocuments } from "./corpus.ts";
 import { decide } from "./decide.ts";
 import { getHandoff, resolveHandoff } from "./queue.ts";
 import { lexicalIndex } from "./retrieval.ts";
+import { getGovernedSource } from "./source-access.ts";
 import { getTrace } from "./traces.ts";
 import { renderWorkbench } from "./ui.ts";
 
@@ -58,7 +59,44 @@ const server = createServer(async (req, res) => {
       return json(res, 200, { status: "ready", documents: documents.length, passages: index.passages.length });
     }
 
-    if (req.method === "GET" && url.pathname === "/") {
+    if (req.method === "GET" && url.pathname === "/assets/workbench.css") {
+      const stylesheet = readFileSync(join(ROOT, "src", "public", "workbench.css"));
+      res.writeHead(200, {
+        "content-type": "text/css; charset=utf-8",
+        "cache-control": "public, max-age=300",
+        "x-content-type-options": "nosniff",
+      });
+      return res.end(stylesheet);
+    }
+
+    if (req.method === "GET" && url.pathname === "/favicon.svg") {
+      const favicon = readFileSync(join(ROOT, "src", "public", "favicon.svg"));
+      res.writeHead(200, {
+        "content-type": "image/svg+xml; charset=utf-8",
+        "cache-control": "public, max-age=86400",
+        "x-content-type-options": "nosniff",
+      });
+      return res.end(favicon);
+    }
+
+    if (req.method === "GET" && url.pathname === "/assets/workbench.js") {
+      const script = readFileSync(join(ROOT, "src", "public", "workbench.js"));
+      res.writeHead(200, {
+        "content-type": "text/javascript; charset=utf-8",
+        "cache-control": "public, max-age=300",
+        "x-content-type-options": "nosniff",
+      });
+      return res.end(script);
+    }
+
+    if (
+      req.method === "GET"
+      && (
+        url.pathname === "/"
+        || url.pathname === "/sources"
+        || /^\/sources\/[^/]+\/[^/]+$/u.test(url.pathname)
+      )
+    ) {
       res.writeHead(200, {
         "content-type": "text/html; charset=utf-8",
         "cache-control": "no-store",
@@ -131,6 +169,25 @@ const server = createServer(async (req, res) => {
       return json(res, 200, payload);
     }
 
+    const governedSourceMatch = req.method === "GET"
+      ? url.pathname.match(/^\/api\/sources\/([^/]+)\/([^/]+)$/u)
+      : null;
+    if (governedSourceMatch) {
+      const sourceId = decodeURIComponent(governedSourceMatch[1]);
+      const versionId = decodeURIComponent(governedSourceMatch[2]);
+      const result = getGovernedSource(sourceId, versionId, {
+        profileId: url.searchParams.get("profileId") ?? undefined,
+        legalEntityId: url.searchParams.get("legalEntityId") ?? undefined,
+        baseId: url.searchParams.get("baseId") ?? undefined,
+        relationship: url.searchParams.get("relationship") ?? undefined,
+        role: url.searchParams.get("role") ?? undefined,
+        asOf: url.searchParams.get("asOf") ?? "",
+      });
+      return result
+        ? json(res, 200, result)
+        : json(res, 404, { error: "source_not_found" });
+    }
+
     if (req.method === "POST" && url.pathname === "/v1/decide") {
       const parsed = parseDecideRequest(await readJson(req));
       if (!parsed.ok) return json(res, 400, { error: "invalid_request", details: parsed.errors });
@@ -173,7 +230,7 @@ const server = createServer(async (req, res) => {
 
     return json(res, 404, {
       error: "not_found",
-      paths: ["/", "/healthz", "/readyz", "/api/corpus", "/api/profiles", "POST /v1/decide", "/v1/traces/:traceId", "/v1/handoffs/:ticketId", "POST /v1/handoffs/:ticketId/resolve"],
+      paths: ["/", "/sources", "/sources/:sourceId/:versionId", "/healthz", "/readyz", "/api/corpus", "/api/profiles", "/api/sources/:sourceId/:versionId", "POST /v1/decide", "/v1/traces/:traceId", "/v1/handoffs/:ticketId", "POST /v1/handoffs/:ticketId/resolve"],
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "unexpected error";

@@ -39,7 +39,7 @@ const QUESTION_FRAME_TERMS = new Set([
   "precisa", "precisam", "preciso", "procedimento", "pode", "podem", "qual", "quais", "quando", "quanto",
   "quantos", "realizada", "realizadas", "registrar", "regra", "relacao", "sao", "sujeito", "tem", "tenho", "ter", "tipo",
   "situacoes", "suficiente", "trabalhar", "trabalhada", "trabalhadas", "valor", "onde", "percentual", "diariamente",
-  "exigido", "exigidos", "lista", "listas",
+  "exigido", "exigidos", "lista", "listas", "ele", "ela", "eles", "elas", "isso", "isto", "aquilo",
 ]);
 
 const CONVERSATIONAL_PATTERNS = [
@@ -126,6 +126,44 @@ function isPeopleOpsQuestion(question: string): boolean {
   return matchesAny(normalizeForRouting(question), PEOPLE_OPS_SCOPE_PATTERNS);
 }
 
+function isContextDependentFollowup(question: string): boolean {
+  const text = normalizeForRouting(question).trim();
+  if (tokenize(text).length > 24) return false;
+  return (
+    /\b(?:isso|isto|aquilo|ele|ela|eles|elas|esse|essa|esses|essas|este|esta|estes|estas|nesse caso|neste caso|o mesmo|a mesma)\b/u.test(text)
+    || /^(?:e|mas|entao|nesse caso|neste caso)\b/u.test(text)
+    || /\b(?:solicitacao|pedido|requerimento|processo|envio|submissao|aprovacao|prazo|percentual|valor|canal|documento)\b/u.test(text)
+  );
+}
+
+function latestCompletedPeopleOpsQuestion(input: DecideRequest): string | undefined {
+  const history = input.history ?? [];
+  for (let index = history.length - 2; index >= 0; index -= 1) {
+    if (
+      history[index]?.role === "user"
+      && history.slice(index + 1).some((turn) => turn.role === "assistant")
+      && isPeopleOpsQuestion(history[index]?.content ?? "")
+    ) {
+      return history[index]?.content;
+    }
+  }
+  return undefined;
+}
+
+function retrievalQuestionFor(input: DecideRequest): { question: string; usedHistory: boolean } {
+  if (isPeopleOpsQuestion(input.question) || !isContextDependentFollowup(input.question)) {
+    return { question: input.question, usedHistory: false };
+  }
+  const previousQuestion = latestCompletedPeopleOpsQuestion(input);
+  if (!previousQuestion) {
+    return { question: input.question, usedHistory: false };
+  }
+  return {
+    question: `${previousQuestion}\nPergunta complementar: ${input.question}`,
+    usedHistory: true,
+  };
+}
+
 function asksLiveIndividualState(question: string): boolean {
   const text = normalizeForRouting(question);
   const personal = /\b(?:eu|meu|minha|meus|minhas|rh)\b/u.test(text);
@@ -181,7 +219,7 @@ function answerRequirement(question: string): AnswerRequirement {
       /\b(?:banco de horas|banco|horas)\b/iu.test(question)) return "boolean";
   if (/\b(?:estagio|estági[oa]|estagiari[oa]|instrumento|termo)\b/iu.test(normalized)) return "event";
   if (/\b(?:qual evento|antes que|antes de)\b/iu.test(question)) return "event";
-  if (/\b(?:suficiente|pode confirmar|consegue confirmar|obrigatoria|obrigatório|obrigatoria|obrigatório)\b/iu.test(question)) return "boolean";
+  if (/\b(?:suficiente|significa|equivale|pode confirmar|consegue confirmar|obrigatoria|obrigatório|obrigatoria|obrigatório)\b/iu.test(question)) return "boolean";
   return "general_rule";
 }
 
@@ -473,6 +511,7 @@ function saveRoutingTrace(
     resolvedRegion?: string;
     requirement?: string;
     providerStatus: "ok" | "degraded";
+    contextualized?: boolean;
   },
   confidence: EvidenceConfidence,
   timings: { retrieval: number; governance: number; decision: number; total: number },
@@ -548,6 +587,9 @@ function saveRoutingTrace(
     notes: [
       `${tokenize(input.question).length} normalized query terms; source and requester text treated as untrusted data.`,
       "Governance was applied deterministically before response rendering.",
+      ...(retrieval.contextualized
+        ? ["The latest completed user question was used for retrieval context; assistant history was not treated as evidence."]
+        : []),
     ],
     retrievalDiagnostics: {
       queryTokens: retrieval.queryTokens,
@@ -581,6 +623,7 @@ function deferredDecision(
 export async function decide(input: DecideRequest): Promise<Decision> {
   const started = performance.now();
   const traceId = traceIdFor(input);
+  const retrievalContext = retrievalQuestionFor(input);
 
   if (matchesAny(input.question, CONVERSATIONAL_PATTERNS)) {
     const trimmed = input.question.trim();
@@ -625,7 +668,7 @@ export async function decide(input: DecideRequest): Promise<Decision> {
     return deferredDecision(input, traceId, reason, 0.96);
   }
 
-  if (!isPeopleOpsQuestion(input.question)) {
+  if (!isPeopleOpsQuestion(retrievalContext.question)) {
     const decision: Decision = {
       kind: "conversational",
       body: "Este atendimento é limitado a políticas e processos de People Operations. Posso ajudar com uma dúvida desse contexto.",
@@ -643,18 +686,18 @@ export async function decide(input: DecideRequest): Promise<Decision> {
 
   const documents = loadSourceDocuments();
   const retrievalStarted = performance.now();
-  const retrieval = lexicalIndex(documents).search(input.question);
+  const retrieval = lexicalIndex(documents).search(retrievalContext.question);
   let semantic: SemanticRetrievalCandidate[];
   let semanticProviderStatus: "ok" | "degraded";
   if (process.env.LEARNED_SEMANTIC_ENABLED === "false") {
-    semantic = semanticIndex(documents).search(input.question, 28);
+    semantic = semanticIndex(documents).search(retrievalContext.question, 28);
     semanticProviderStatus = "degraded";
   } else {
     try {
-      semantic = await learnedSemanticIndex(documents).search(input.question, 28);
+      semantic = await learnedSemanticIndex(documents).search(retrievalContext.question, 28);
       semanticProviderStatus = "ok";
     } catch {
-      semantic = semanticIndex(documents).search(input.question, 28);
+      semantic = semanticIndex(documents).search(retrievalContext.question, 28);
       semanticProviderStatus = "degraded";
     }
   }
@@ -747,7 +790,8 @@ export async function decide(input: DecideRequest): Promise<Decision> {
   const decisionMs = performance.now() - decisionStarted;
   saveRoutingTrace(input, traceId, decision, candidates, rankedEligible, rejected, conflicts,
     { queryTokens: retrieval.queryTokens, expandedTerms: retrieval.expandedTerms, concepts: retrieval.concepts,
-      explicitRegion: requestedRegion, resolvedRegion, requirement, providerStatus: semanticProviderStatus }, confidence,
+      explicitRegion: requestedRegion, resolvedRegion, requirement, providerStatus: semanticProviderStatus,
+      contextualized: retrievalContext.usedHistory }, confidence,
     { retrieval: retrievalMs, governance: governanceMs, decision: decisionMs, total: performance.now() - started });
   return decision;
 }
