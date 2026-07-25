@@ -38,6 +38,24 @@ test("evaluation counts, retrieval thresholds, and provider terminology stay con
 
   // Prevent CI from silently exercising learned-mode assertions with the degraded fallback.
   const workflow = await readFile(new URL("../.github/workflows/verify.yml", import.meta.url), "utf8");
+  // Require one checksum-verified cache producer before every model-dependent CI job.
+  const modelJob = workflow.slice(workflow.indexOf("  model:"), workflow.indexOf("  quality:"));
+  assert.match(modelJob, /actions\/cache@v4/u);
+  assert.match(modelJob, /npm run setup:model/u);
+  assert.match(modelJob, /npm run verify:model/u);
+  const modelDependentJobs = [
+    ["quality", "browser"],
+    ["browser", "evaluations"],
+    ["evaluations", "submission"],
+    ["container", undefined],
+  ] as const;
+  for (const [jobName, nextJobName] of modelDependentJobs) {
+    const jobStart = workflow.indexOf(`  ${jobName}:`);
+    const jobEnd = nextJobName ? workflow.indexOf(`  ${nextJobName}:`, jobStart) : undefined;
+    const job = workflow.slice(jobStart, jobEnd);
+    assert.match(job, /needs: model/u, `${jobName} must wait for the model cache producer`);
+  }
+  // Preserve explicit setup verification before the learned quality suite initializes.
   const qualityJob = workflow.slice(workflow.indexOf("  quality:"), workflow.indexOf("  browser:"));
   const modelSetupIndex = qualityJob.indexOf("npm run setup:model");
   const testIndex = qualityJob.indexOf("npm test");

@@ -8,7 +8,26 @@ permissions:
   contents: read
 
 jobs:
+  # Materialize the checksum-pinned model once so parallel jobs do not stampede the upstream host.
+  model:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      # Publish only a fully verified model directory to dependent jobs through the workflow cache.
+      - uses: actions/cache@v4
+        with:
+          path: models/Xenova/multilingual-e5-base
+          key: nexo-model-${{ runner.os }}-${{ hashFiles('src/model-manifest.ts') }}
+      - run: npm run setup:model
+      - run: npm run verify:model
+
+  # Wait for the shared model cache before exercising learned-mode quality checks.
   quality:
+    needs: model
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -20,12 +39,19 @@ jobs:
       - run: npm ci
       - run: npm audit --omit=dev
       - run: npm run typecheck
+      # Restore the model that the prerequisite job checksum-verified.
+      - uses: actions/cache@v4
+        with:
+          path: models/Xenova/multilingual-e5-base
+          key: nexo-model-${{ runner.os }}-${{ hashFiles('src/model-manifest.ts') }}
       # Learned-mode assertions require the checksum-pinned offline model before runtime initialization.
       - run: npm run setup:model
       - run: npm test
       - run: npm run self-check
 
+  # Wait for the shared model cache before starting browser dependencies and tests.
   browser:
+    needs: model
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -35,6 +61,11 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      # Restore the model that the prerequisite job checksum-verified.
+      - uses: actions/cache@v4
+        with:
+          path: models/Xenova/multilingual-e5-base
+          key: nexo-model-${{ runner.os }}-${{ hashFiles('src/model-manifest.ts') }}
       - run: npm run setup:model
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
@@ -46,7 +77,9 @@ jobs:
             playwright-report/
             test-results/
 
+  # Wait for the shared model cache before running the learned evaluation modes.
   evaluations:
+    needs: model
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -70,6 +103,11 @@ jobs:
           curl -fsS http://127.0.0.1:8080/readyz
           CANDIDATE_BASE_URL=http://127.0.0.1:8080 npm run evals
           node --input-type=module -e "import report from '/tmp/candidate-eval-report.json' with { type: 'json' }; if (!report.safe) process.exit(1)"
+      # Restore the model that the prerequisite job checksum-verified.
+      - uses: actions/cache@v4
+        with:
+          path: models/Xenova/multilingual-e5-base
+          key: nexo-model-${{ runner.os }}-${{ hashFiles('src/model-manifest.ts') }}
       - run: npm run setup:model
       - run: npm run test:extended
       - run: npm run evals:matrix
@@ -88,7 +126,9 @@ jobs:
       - run: npm run export:candidate
       - run: cd dist && sha256sum --check nexo-atlantico-knowledge-case.tgz.sha256
 
+  # Delay the clean Docker proof until the single upstream model materialization has finished.
   container:
+    needs: model
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:

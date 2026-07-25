@@ -32,6 +32,19 @@ function normalized(value: string): string {
   return value.normalize("NFKC").toLocaleLowerCase("pt-BR");
 }
 
+// Inspect semantic text fields while excluding opaque identifiers and numeric diagnostics from leak checks.
+function searchableText(value: unknown, key?: string): string {
+  if (key === "traceId" || key === "requestId" || key === "ticketId" || key === "createdAt") return "";
+  if (typeof value === "string") return value;
+  if (Array.isArray(value)) return value.map((item) => searchableText(item)).join("\n");
+  if (value && typeof value === "object") {
+    return Object.entries(value)
+      .map(([entryKey, entryValue]) => searchableText(entryValue, entryKey))
+      .join("\n");
+  }
+  return "";
+}
+
 const fixture = JSON.parse(
   await readFile(new URL("./extended-cases.json", import.meta.url), "utf8"),
 ) as { schemaVersion: string; cases: ExtendedCase[] };
@@ -74,14 +87,15 @@ test("the supplied 63-question adversarial matrix remains governed and semantica
       for (const term of testCase.bodyTerms ?? []) {
         assert.ok(normalized(body).includes(normalized(term)), `missing body term: ${term}`);
       }
+      // Check rendered and persisted semantic text independently of random correlation identifiers.
       for (const term of testCase.forbiddenTerms ?? []) {
-        assert.ok(!normalized(JSON.stringify(decision)).includes(normalized(term)), `leaked forbidden term: ${term}`);
+        assert.ok(!normalized(searchableText(decision)).includes(normalized(term)), `leaked forbidden term: ${term}`);
       }
       const trace = getTrace(decision.traceId);
       assert.ok(trace, decision.traceId);
       for (const term of testCase.forbiddenTerms ?? []) {
         assert.ok(
-          !normalized(JSON.stringify(trace)).includes(normalized(term)),
+          !normalized(searchableText(trace)).includes(normalized(term)),
           `trace leaked forbidden term: ${term}`,
         );
       }

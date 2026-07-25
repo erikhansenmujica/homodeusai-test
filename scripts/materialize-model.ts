@@ -13,8 +13,9 @@ const MODELS = [
   { id: E5_MODEL_ID, revision: E5_MODEL_REVISION, files: E5_MODEL_FILES },
 ] as const;
 // Bound transient network recovery so CI remains deterministic and eventually fails closed.
-const DOWNLOAD_ATTEMPTS = 3;
-const RETRY_DELAY_MS = 1_000;
+const DOWNLOAD_ATTEMPTS = 5;
+const RETRY_DELAY_MS = 2_000;
+const MAX_RETRY_DELAY_MS = 30_000;
 
 function sha256(path: string): string { return createHash("sha256").update(readFileSync(path)).digest("hex"); }
 function targetFor(modelId: string, file: string): string { return join(ROOT, "models", ...modelId.split("/"), file); }
@@ -22,23 +23,38 @@ function targetFor(modelId: string, file: string): string { return join(ROOT, "m
 function wait(milliseconds: number): Promise<void> {
   return new Promise((resolveWait) => setTimeout(resolveWait, milliseconds));
 }
+// Honor server backoff guidance when available while keeping the delay bounded.
+function retryAfterDelay(response: Response): number | undefined {
+  const value = response.headers.get("retry-after")?.trim();
+  if (!value) return undefined;
+  const seconds = Number(value);
+  if (Number.isFinite(seconds)) return Math.max(0, seconds * 1_000);
+  const retryAt = Date.parse(value);
+  if (Number.isNaN(retryAt)) return undefined;
+  return Math.max(0, retryAt - Date.now());
+}
 // Retry checksum-pinned model downloads after transient transport or server failures.
 async function fetchWithRetry(url: string): Promise<Response> {
   let lastError: unknown;
   let attemptsMade = 0;
+  let serverDelay: number | undefined;
   for (let attempt = 1; attempt <= DOWNLOAD_ATTEMPTS; attempt += 1) {
     attemptsMade = attempt;
     try {
       const response = await fetch(url);
       if (response.ok) return response;
       lastError = new Error(`HTTP ${response.status}`);
+      serverDelay = retryAfterDelay(response);
       if (response.status >= 400 && response.status < 500
         && response.status !== 408 && response.status !== 429) break;
     } catch (error) {
       lastError = error;
+      serverDelay = undefined;
     }
     if (attempt < DOWNLOAD_ATTEMPTS) {
-      await wait(RETRY_DELAY_MS * attempt);
+      // Exponential recovery absorbs short rate-limit windows without unbounded CI hangs.
+      const exponentialDelay = RETRY_DELAY_MS * (2 ** (attempt - 1));
+      await wait(Math.min(MAX_RETRY_DELAY_MS, Math.max(exponentialDelay, serverDelay ?? 0)));
     }
   }
   throw new Error(`Could not download ${url} after ${attemptsMade} attempts`, {

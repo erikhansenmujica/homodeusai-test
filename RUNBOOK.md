@@ -34,11 +34,11 @@ npm run build:index
 LEARNED_SEMANTIC_ENABLED=true RUNTIME_STATE_PATH=/tmp/nexo-learned npm start
 ```
 
-`setup:model` gives each pinned asset up to three bounded download attempts for transient transport or server failures, then verifies every tokenizer, configuration, SentencePiece, and int8 ONNX checksum. Non-retryable client responses fail immediately. `build:index` records the model revision and every passage hash. A stale or incompatible index is rebuilt. If the model is missing or invalid, readiness completes as `ready_degraded`; traces expose provider state only as `ok` or `degraded`.
+`setup:model` gives each pinned asset up to five bounded download attempts for transient transport or server failures. Retries use exponential delays of 2, 4, 8, and 16 seconds, honor a longer server `Retry-After` within a 30-second cap, and then verify every tokenizer, configuration, SentencePiece, and int8 ONNX checksum. Non-retryable client responses fail immediately. `build:index` records the model revision and every passage hash. A stale or incompatible index is rebuilt. If the model is missing or invalid, readiness completes as `ready_degraded`; traces expose provider state only as `ok` or `degraded`.
 
 The multi-stage Docker build downloads and verifies the pinned assets without relying on ignored local files. The runtime defaults to learned mode because the frozen suite passed 21/21 there versus 9/21 exact outcomes in degraded mode. When model initialization fails, `ready_degraded` remains available as a safe, abstention-first fallback; it is not advertised as multilingual semantic equivalence.
 
-The CI quality job runs `npm run setup:model` before `npm test`, so learned-mode assertions cannot silently execute against the degraded fallback. The evaluation job still starts a separate model-disabled runtime to verify safe degraded behavior intentionally.
+CI has one prerequisite model job that downloads and checksum-verifies the pinned directory, then publishes a revision-keyed GitHub Actions cache. Quality, browser, and evaluation jobs wait for and restore that cache before running `setup:model` as an integrity check, which prevents parallel cold downloads and ensures learned-mode assertions cannot silently execute against the degraded fallback. The clean Docker build also waits for the model job but downloads inside its build context to prove that ignored local assets are unnecessary. The evaluation job still starts a separate model-disabled runtime to verify safe degraded behavior intentionally.
 
 ## Test and evaluate
 
