@@ -723,19 +723,24 @@ async function decideGoverned(input: DecideRequest): Promise<Decision> {
   // Let strong direct FAQ evidence defeat a cross-domain concept without weakening policy or agreement expansion.
   const directTopCandidate = directSemanticCandidates[0];
   const conceptTopCandidate = semanticBatch.candidates[1]?.[0];
-  const lexicallyRetrievedPassages = new Set(
-    retrieval.candidates.map((candidate) => candidate.passage.id),
+  // Count only the high-signal lexical head as independent expansion corroboration.
+  const lexicallyCorroboratedPassages = new Set(
+    retrieval.candidates
+      .slice(0, RETRIEVAL_LIMITS.maximumLexicalCorroborationCandidates)
+      .map((candidate) => candidate.passage.id),
   );
   const conceptDomainCoherent = directTopCandidate === undefined
     || conceptTopCandidate === undefined
     || directTopCandidate.document.domain === conceptTopCandidate.document.domain
     || directTopCandidate.document.sourceType !== "faq"
     || directTopCandidate.score < patternThresholds.standalonePromptSemanticMinimum;
-  // Let only an independently lexical FAQ near the stable direct top broaden the default source-type check.
-  const faqNearTopSupport = candidatePreferredSourceTypes.includes("faq")
+  // Broaden only FAQ recall or declared multi-source conflict checks with an independently lexical near-top source.
+  const nearTopSourceMayBroaden = candidatePreferredSourceTypes.includes("faq")
+    || retrievalDefinition?.conflictOnMultipleSources === true;
+  const corroboratedPreferredNearTop = nearTopSourceMayBroaden
     && directSemanticCandidates.some((candidate) =>
-      candidate.document.sourceType === "faq"
-      && lexicallyRetrievedPassages.has(candidate.passage.id)
+      candidatePreferredSourceTypes.includes(candidate.document.sourceType)
+      && lexicallyCorroboratedPassages.has(candidate.passage.id)
       && candidate.score >= (directTopCandidate?.score ?? 0)
         - patternThresholds.semanticCandidateMargin
       && (
@@ -744,7 +749,7 @@ async function decideGoverned(input: DecideRequest): Promise<Decision> {
       ));
   const preferredDirectSupport = candidatePreferredSourceTypes.includes(
     directTopCandidate?.document.sourceType ?? "",
-  ) || faqNearTopSupport;
+  ) || corroboratedPreferredNearTop;
   const semanticExpansionEnabled = semanticExpansionCandidate
     && conceptDomainCoherent
     && (
