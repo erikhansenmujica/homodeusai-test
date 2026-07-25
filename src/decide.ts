@@ -731,16 +731,20 @@ async function decideGoverned(input: DecideRequest): Promise<Decision> {
     || directTopCandidate.document.domain === conceptTopCandidate.document.domain
     || directTopCandidate.document.sourceType !== "faq"
     || directTopCandidate.score < patternThresholds.standalonePromptSemanticMinimum;
-  // Let a domain-aligned preferred source in the stable direct window corroborate a low-score concept.
-  const preferredDirectSupport = directSemanticCandidates.some((candidate) =>
-    candidatePreferredSourceTypes.includes(candidate.document.sourceType)
-    && lexicallyRetrievedPassages.has(candidate.passage.id)
-    && candidate.score >= (directTopCandidate?.score ?? 0)
-      - patternThresholds.semanticCandidateMargin
-    && (
-      conceptTopCandidate === undefined
-      || candidate.document.domain === conceptTopCandidate.document.domain
-    ));
+  // Let only an independently lexical FAQ near the stable direct top broaden the default source-type check.
+  const faqNearTopSupport = candidatePreferredSourceTypes.includes("faq")
+    && directSemanticCandidates.some((candidate) =>
+      candidate.document.sourceType === "faq"
+      && lexicallyRetrievedPassages.has(candidate.passage.id)
+      && candidate.score >= (directTopCandidate?.score ?? 0)
+        - patternThresholds.semanticCandidateMargin
+      && (
+        conceptTopCandidate === undefined
+        || candidate.document.domain === conceptTopCandidate.document.domain
+      ));
+  const preferredDirectSupport = candidatePreferredSourceTypes.includes(
+    directTopCandidate?.document.sourceType ?? "",
+  ) || faqNearTopSupport;
   const semanticExpansionEnabled = semanticExpansionCandidate
     && conceptDomainCoherent
     && (
