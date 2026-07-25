@@ -33,3 +33,20 @@ test("evidence references use UTF-8 byte offsets", () => {
   assert.equal(resolveEvidence(document, evidence), true);
   assert.equal(resolveEvidence(document, { ...evidence, quote: "Sao Paulo" }), false);
 });
+
+test("accented evidence retains exact UTF-8 offsets and SHA-256 identity", () => {
+  const accentedContent = "A regra determina acréscimo de 62% nas duas primeiras horas.";
+  const accentedDocument: SourceDocument = {
+    ...document,
+    sourceId: "SRC-ACCENTED",
+    content: accentedContent,
+    contentSha256: sha256Text(accentedContent),
+    expectedCharacters: accentedContent.length,
+  };
+  const quote = "acréscimo de 62%";
+  const evidence = evidenceForQuote(accentedDocument, quote);
+  assert.equal(evidence.startByte, Buffer.byteLength("A regra determina ", "utf8"));
+  assert.equal(evidence.endByte - evidence.startByte, Buffer.byteLength(quote, "utf8"));
+  assert.equal(evidence.quoteSha256, sha256Text(quote));
+  assert.equal(resolveEvidence(accentedDocument, evidence), true);
+});

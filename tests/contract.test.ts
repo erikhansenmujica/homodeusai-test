@@ -50,6 +50,64 @@ test("decision service returns a valid and idempotent safe handoff", async () =>
   assert.equal(resolveHandoff(first.handoff.ticketId, "different-operator", "Do not overwrite.")?.resolution?.actorId, "operator-17");
 });
 
+test("simultaneous duplicate handoffs produce one durable identity", async () => {
+  resetHandoffsForTest();
+  const parsed = parseDecideRequest({
+    ...validRequest,
+    requestId: "concurrent-human-request",
+    question: "Quero falar com uma pessoa.",
+    history: [
+      { role: "user", content: "Tenho uma dúvida sobre férias." },
+      { role: "assistant", content: "Como posso ajudar?" },
+    ],
+  });
+  assert.equal(parsed.ok, true);
+  if (!parsed.ok) return;
+
+  const decisions = await Promise.all([
+    decide(parsed.value),
+    decide(parsed.value),
+    decide(parsed.value),
+  ]);
+  assert.ok(decisions.every((decision) => decision.kind === "defer"));
+  const receipts = decisions.flatMap((decision) =>
+    decision.kind === "defer" ? [decision.handoff] : []);
+  assert.equal(new Set(receipts.map((receipt) => receipt.ticketId)).size, 1);
+  assert.equal(new Set(receipts.map((receipt) => receipt.idempotencyKey)).size, 1);
+
+  const stored = getHandoff(receipts[0]!.ticketId);
+  assert.deepEqual(stored?.request.requester, parsed.value.requester);
+  assert.deepEqual(stored?.request.history, parsed.value.history);
+});
+
+test("simultaneous competing resolutions retain one canonical result", async () => {
+  resetHandoffsForTest();
+  const parsed = parseDecideRequest({
+    ...validRequest,
+    requestId: "concurrent-resolution-request",
+    question: "Quero falar com uma pessoa.",
+    history: [],
+  });
+  assert.equal(parsed.ok, true);
+  if (!parsed.ok) return;
+  const decision = await decide(parsed.value);
+  assert.equal(decision.kind, "defer");
+  if (decision.kind !== "defer") return;
+
+  const [first, second] = await Promise.all([
+    Promise.resolve().then(() =>
+      resolveHandoff(decision.handoff.ticketId, "operator-a", "Canonical resolution A.")),
+    Promise.resolve().then(() =>
+      resolveHandoff(decision.handoff.ticketId, "operator-b", "Competing resolution B.")),
+  ]);
+  assert.deepEqual(first?.resolution, second?.resolution);
+  assert.equal(resolveHandoff(
+    decision.handoff.ticketId,
+    first!.resolution!.actorId,
+    first!.resolution!.summary,
+  )?.resolution?.resolvedAt, first?.resolution?.resolvedAt);
+});
+
 test("handoff record survives a process restart against the same state directory", () => {
   const directory = mkdtempSync(join(tmpdir(), "gauntlet-handoff-test-"));
   const moduleUrl = new URL("../src/queue.ts", import.meta.url).href;

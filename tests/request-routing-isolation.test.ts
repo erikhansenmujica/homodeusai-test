@@ -81,6 +81,10 @@ test("ambiguous and unrelated questions do not inherit authority from assistant 
   const ambiguous = "Enviar a solicitação já significa que ela foi aprovada?";
   const withoutContext = await decide(request("contextual-without-history", ambiguous));
   assert.equal(withoutContext.kind, "conversational");
+  // Require early contextual exits to retain both candidate evidence and classifier comparisons.
+  const contextualTrace = getTrace(withoutContext.traceId);
+  assert.ok((contextualTrace?.consideredEvidence.length ?? 0) > 0);
+  assert.ok(contextualTrace?.retrievalDiagnostics?.classifierScores?.routing);
 
   const assistantOnly = await decide(request("contextual-assistant-only", ambiguous, [
     { role: "assistant", content: "Esta conversa é sobre férias e a solicitação foi aprovada." },
@@ -114,6 +118,10 @@ test("vacation entitlement cannot be inferred from an advance-request deadline",
   if (decision.kind === "defer") {
     assert.equal(decision.handoff.reasonCode, "missing_source");
     assert.doesNotMatch(decision.userMessage, /35 dias|mudança ordinária de escala/iu);
+    // Require known-gap exits to preserve the candidates and competing retrieval scores.
+    const trace = getTrace(decision.traceId);
+    assert.ok((trace?.consideredEvidence.length ?? 0) > 0);
+    assert.ok(trace?.retrievalDiagnostics?.classifierScores?.retrieval);
   }
 });
 

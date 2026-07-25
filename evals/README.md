@@ -49,6 +49,22 @@ Start your service, then run:
 CANDIDATE_BASE_URL=http://127.0.0.1:8080 npm run evals
 ```
 
+The repository also includes a supplemental 63-question adversarial regression matrix:
+
+```bash
+npm run test:extended
+```
+
+It is intentionally separate from the frozen candidate suite and exercises the real decision engine directly, including exact governed evidence and trace-redaction assertions.
+
+A second supplemental suite contains 20 supported open-world questions that are absent from concept-specific routing, including eight observed presentation-probe failures:
+
+```bash
+node --test --test-concurrency=1 tests/open-world-retrieval.test.ts
+```
+
+It asserts the expected source, answer terms, and byte-valid governed evidence. It remains separate from the official 21-case candidate evaluation.
+
 The runner writes `/tmp/candidate-eval-report.json` by default; set `CANDIDATE_EVAL_REPORT_PATH` when you want it elsewhere. It exits nonzero only when the suite cannot complete. Individual case failures remain in the report and do not turn an honest run into an execution error. The starter is intentionally incomplete, so its first run should fail with clear suite errors.
 
 The hiring runner invokes `node evals/run.ts` in bare Node 24 with the submission mounted read-only, no `node_modules`, and no public network. You may change the runner, but it must use only Node built-ins and local submission files.

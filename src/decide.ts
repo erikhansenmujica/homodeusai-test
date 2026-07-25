@@ -9,6 +9,7 @@ import {
 import {
   retrievalQuestionFor,
   routingIntentIsContextual,
+  routingIntentIsSupported,
   routingIntentIsTerminal,
 } from "./conversation.ts";
 import { loadSourceDocuments } from "./corpus.ts";
@@ -17,15 +18,21 @@ import { evidenceForQuote } from "./evidence.ts";
 import { activeSupersededSources, detectConflicts, evaluateEligibility } from "./governance.ts";
 import { createHandoff } from "./queue.ts";
 import { lexicalIndex, tokenize } from "./retrieval.ts";
-import { semanticPatternConfig } from "./semantic-patterns.ts";
+import {
+  mergeSemanticPatternAnalyses,
+  semanticPatternConfig,
+  type AnswerPattern,
+} from "./semantic-patterns.ts";
 import {
   runtimeAnswerAlignment,
+  runtimePromptAlignment,
   runtimeAnswerPatterns,
   runtimeCandidateAnswerPatterns,
   runtimeCompositionPatterns,
   runtimeRetrievalPatterns,
   runtimeRoutingPatterns,
-  runtimeSemanticSearch,
+  runtimeSemanticSearchMany,
+  SemanticProviderUnavailableError,
 } from "./runtime.ts";
 import { fuseRetrieval } from "./semantic.ts";
 import { saveTrace } from "./traces.ts";
@@ -45,6 +52,59 @@ const PIPELINE_VERSION = "semantic-governed-v4";
 const MIN_RELEVANCE = RETRIEVAL_LIMITS.minimumRelevance;
 const MAX_GOVERNED_CANDIDATES = RETRIEVAL_LIMITS.maximumGovernedCandidates;
 
+function semanticSentences(value: string): string[] {
+  const segments = [...new Intl.Segmenter(undefined, { granularity: "sentence" }).segment(value)]
+    .map((segment) => segment.segment.trim())
+    .filter((segment) => segment.length > 0 && segment !== value.trim());
+  return [...new Set(segments)];
+}
+
+async function hasMixedScopeClauseBoundary(question: string): Promise<boolean> {
+  const words = [...new Intl.Segmenter(undefined, { granularity: "word" }).segment(question)]
+    .filter((segment) => segment.isWordLike);
+  if (words.length < 6) return false;
+  const allOffsets = words.slice(3, -2).map((word) => word.index);
+  const maximumBoundaries = 24;
+  const offsets = allOffsets.length <= maximumBoundaries
+    ? allOffsets
+    : [...new Set(Array.from({ length: maximumBoundaries }, (_value, index) =>
+      allOffsets[Math.round(index * (allOffsets.length - 1) / (maximumBoundaries - 1))]!))];
+  const clauses = offsets.flatMap((offset) => [
+    question.slice(0, offset).trim(),
+    question.slice(offset).trim(),
+  ]);
+  const [routing, retrieval] = await Promise.all([
+    runtimeRoutingPatterns(clauses),
+    runtimeRetrievalPatterns(clauses),
+  ]);
+  const thresholds = semanticPatternConfig().thresholds;
+  const isUnsupportedOutsideClause = (
+    route: (typeof routing)[number],
+    concept: (typeof retrieval)[number],
+  ): boolean =>
+    routingIntentIsTerminal(route, "out_of_scope")
+    && (route.scores.out_of_scope ?? 0) >= concept.best.score + thresholds.semanticWindow;
+  const isSupportedPolicyClause = (concept: (typeof retrieval)[number]): boolean =>
+    concept.best.score >= thresholds.routingDomainSignalMinimum
+    && concept.best.score - concept.second.score >= thresholds.retrievalConceptMargin;
+  for (let index = 0; index < offsets.length; index += 1) {
+    const leftRouting = routing[index * 2]!;
+    const rightRouting = routing[index * 2 + 1]!;
+    const leftRetrieval = retrieval[index * 2]!;
+    const rightRetrieval = retrieval[index * 2 + 1]!;
+    if (
+      (
+        isUnsupportedOutsideClause(leftRouting, leftRetrieval)
+        && isSupportedPolicyClause(rightRetrieval)
+      )
+      || (
+        isUnsupportedOutsideClause(rightRouting, rightRetrieval)
+        && isSupportedPolicyClause(leftRetrieval)
+      )
+    ) return true;
+  }
+  return false;
+}
 
 function shortHash(value: string, length = 18): string {
   return createHash("sha256").update(value, "utf8").digest("hex").slice(0, length);
@@ -63,32 +123,57 @@ function traceIdFor(input: DecideRequest): string {
 
 function explicitRegion(question: string, documents: SourceDocument[]): string | undefined {
   const questionTokens = new Set(tokenize(question));
-  const titleTokensByBase = new Map<string, Set<string>>();
+  const regionTokensByBase = new Map<string, { base: Set<string>; title: Set<string> }>();
   for (const document of documents) {
     const bases = document.eligibility.baseIds.filter((baseId) => baseId !== "*");
     if (bases.length !== 1) continue;
-    const tokens = titleTokensByBase.get(bases[0]!) ?? new Set<string>();
-    tokenize(`${bases[0]!.replaceAll("_", " ")} ${document.title}`)
+    const tokens = regionTokensByBase.get(bases[0]!) ?? {
+      base: new Set(tokenize(bases[0]!.replaceAll("_", " ")).filter((token) => token.length >= 3)),
+      title: new Set<string>(),
+    };
+    tokenize(document.title)
       .filter((token) => token.length >= 3)
-      .forEach((token) => tokens.add(token));
-    titleTokensByBase.set(bases[0]!, tokens);
+      .forEach((token) => tokens.title.add(token));
+    regionTokensByBase.set(bases[0]!, tokens);
   }
   const ownership = new Map<string, Set<string>>();
-  for (const [baseId, tokens] of titleTokensByBase) {
-    for (const token of tokens) {
+  for (const [baseId, groups] of regionTokensByBase) {
+    for (const token of [...groups.base, ...groups.title]) {
       const bases = ownership.get(token) ?? new Set<string>();
       bases.add(baseId);
       ownership.set(token, bases);
     }
   }
-  const matches = [...titleTokensByBase].filter(([baseId, tokens]) =>
-    [...tokens].some((token) => questionTokens.has(token) && ownership.get(token)?.size === 1
-      && ownership.get(token)?.has(baseId)));
+  const matches = [...regionTokensByBase].filter(([baseId, groups]) => {
+    const baseMatch = groups.base.size > 0
+      && [...groups.base].every((token) => questionTokens.has(token));
+    const distinctTitleMatches = [...groups.title].filter((token) =>
+      questionTokens.has(token)
+      && ownership.get(token)?.size === 1
+      && ownership.get(token)?.has(baseId));
+    return baseMatch || distinctTitleMatches.length >= 2;
+  });
   return matches.length === 1 ? matches[0]![0] : undefined;
 }
 
-function sourceMatchesRequestedRegion(candidate: RetrievalCandidate, baseId: string | undefined): boolean {
+function sourceMatchesRequestedRegion(
+  candidate: Pick<RetrievalCandidate, "document">,
+  baseId: string | undefined,
+): boolean {
   return !baseId || candidate.document.eligibility.baseIds.includes("*") || candidate.document.eligibility.baseIds.includes(baseId);
+}
+
+function sourceHasRelationshipOnlyGap(
+  candidate: RetrievalCandidate,
+  input: DecideRequest,
+): boolean {
+  const scope = candidate.document.eligibility;
+  const matches = (values: string[], actual: string): boolean =>
+    values.length === 0 || values.includes("*") || values.includes(actual);
+  return matches(scope.legalEntityIds, input.requester.legalEntityId)
+    && matches(scope.baseIds, input.requester.baseId)
+    && matches(scope.roles, input.requester.role)
+    && !matches(scope.relationships, input.requester.relationship);
 }
 
 function uniqueSourceCandidates(candidates: RetrievalCandidate[]): RetrievalCandidate[] {
@@ -162,6 +247,7 @@ function emptyGovernanceTrace(
   reasonCode: HandoffReason | undefined,
   started: number,
   note: string,
+  providerStatus: DecisionTrace["provider"]["status"] = "not_used",
 ): DecisionTrace {
   return {
     traceId,
@@ -179,7 +265,7 @@ function emptyGovernanceTrace(
       rejectionReasons: {},
     },
     route: { kind, ...(reasonCode ? { reasonCode } : {}) },
-    provider: { status: "not_used" },
+    provider: { status: providerStatus },
     consideredEvidence: [],
     timingsMs: {
       retrieval: 0,
@@ -188,6 +274,24 @@ function emptyGovernanceTrace(
       total: Math.max(0, performance.now() - started),
     },
     notes: [note],
+  };
+}
+
+// Serialize classifier outputs as bounded numeric diagnostics rather than opaque internal reasoning.
+function traceClassifier(analysis: {
+  best: { id: string; score: number };
+  second: { id: string; score: number };
+  scores: Record<string, number>;
+}): {
+  best: { id: string; score: number };
+  second: { id: string; score: number };
+  scores: Record<string, number>;
+} {
+  return {
+    best: { id: analysis.best.id, score: Number(analysis.best.score.toFixed(4)) },
+    second: { id: analysis.second.id, score: Number(analysis.second.score.toFixed(4)) },
+    scores: Object.fromEntries(Object.entries(analysis.scores)
+      .map(([id, score]) => [id, Number(score.toFixed(4))])),
   };
 }
 
@@ -249,6 +353,9 @@ function saveRoutingTrace(
     providerStatus: "ok" | "degraded";
     contextualized?: boolean;
     contextualTurns?: number;
+    // Carry the same public classifier diagnostics through every persisted routing trace.
+    classifierScores?: NonNullable<DecisionTrace["retrievalDiagnostics"]>["classifierScores"];
+    note?: string;
   },
   confidence: EvidenceConfidence,
   timings: { retrieval: number; governance: number; decision: number; total: number },
@@ -310,8 +417,12 @@ function saveRoutingTrace(
       answerSemanticScore: scored.answerSemanticScore === undefined
         ? undefined
         : Number(scored.answerSemanticScore.toFixed(4)),
+      promptSemanticScore: scored.promptSemanticScore === undefined
+        ? undefined
+        : Number(scored.promptSemanticScore.toFixed(4)),
       fusionScore: scored.fusionScore === undefined ? undefined : Number(scored.fusionScore.toFixed(6)),
       finalScore: scored.finalScore === undefined ? undefined : Number(scored.finalScore.toFixed(4)),
+      queryCoverage: Number(scored.queryCoverage.toFixed(4)),
       rejectionCodes: rejected.find((item) => item.candidate.passage.id === candidate.passage.id)?.rejectionCodes,
       selectedAsEvidence: decision.kind === "answer" && decision.claims.some((claim) => claim.evidence.some((evidence) =>
         evidence.sourceId === scored.document.sourceId && scored.passage.text.includes(evidence.quote))),
@@ -333,6 +444,7 @@ function saveRoutingTrace(
       ...(retrieval.contextualized
         ? [`${retrieval.contextualTurns ?? 1} completed user question(s) were used for retrieval context; assistant history was not treated as evidence.`]
         : []),
+      ...(retrieval.note ? [retrieval.note] : []),
     ],
     retrievalDiagnostics: {
       queryTokens: retrieval.queryTokens,
@@ -341,6 +453,7 @@ function saveRoutingTrace(
       explicitRegion: retrieval.explicitRegion,
       resolvedRegion: retrieval.resolvedRegion,
       answerRequirement: retrieval.requirement,
+      classifierScores: retrieval.classifierScores,
     },
     confidence,
   };
@@ -363,16 +476,29 @@ function deferredDecision(
   };
 }
 
-export async function decide(input: DecideRequest): Promise<Decision> {
+async function decideGoverned(input: DecideRequest): Promise<Decision> {
   const started = performance.now();
   const traceId = traceIdFor(input);
-  const [[routing], [queryPattern], [initialRetrievalPattern], [composition]] = await Promise.all([
-    runtimeRoutingPatterns([input.question]),
-    runtimeAnswerPatterns([input.question]),
-    runtimeRetrievalPatterns([input.question]),
-    runtimeCompositionPatterns([input.question]),
+  const sentenceSegments = semanticSentences(input.question);
+  const routingInputs = [input.question, ...sentenceSegments];
+  const routingAnalyses = await runtimeRoutingPatterns(routingInputs);
+  const routing = mergeSemanticPatternAnalyses(routingAnalyses);
+  const trustedSemanticSegments = sentenceSegments.filter((_segment, index) =>
+    !routingIntentIsSupported(routingAnalyses[index + 1]!, "requester_context_override"));
+  const semanticInputQuestion = trustedSemanticSegments.length > 0
+    && trustedSemanticSegments.length < sentenceSegments.length
+    ? trustedSemanticSegments.join(" ")
+    : input.question;
+  const [[queryPattern], [initialRetrievalPattern], [composition]] = await Promise.all([
+    runtimeAnswerPatterns([semanticInputQuestion]),
+    runtimeRetrievalPatterns([semanticInputQuestion]),
+    runtimeCompositionPatterns([semanticInputQuestion]),
   ]);
-  const retrievalContext = await retrievalQuestionFor(input, routing!, runtimeRoutingPatterns);
+  const retrievalContext = await retrievalQuestionFor(
+    { ...input, question: semanticInputQuestion },
+    routing,
+    runtimeRoutingPatterns,
+  );
   const contextualRetrievalPatterns = retrievalContext.usedHistory
     ? await runtimeRetrievalPatterns([retrievalContext.question, ...retrievalContext.topicQuestions])
     : [];
@@ -382,60 +508,174 @@ export async function decide(input: DecideRequest): Promise<Decision> {
       || right.best.score - left.best.score)[0]!
     : initialRetrievalPattern!;
   const patternThresholds = semanticPatternConfig().thresholds;
+  // Capture every semantic classifier result once so all exit paths can persist the same diagnostics.
+  const classifierScores = {
+    routing: traceClassifier(routing),
+    retrieval: traceClassifier(retrievalPattern),
+    answer: traceClassifier(queryPattern!),
+    composition: traceClassifier(composition!),
+  };
   const initialDomainSignal = initialRetrievalPattern!.best.score
     >= patternThresholds.routingDomainSignalMinimum
     && initialRetrievalPattern!.best.score - initialRetrievalPattern!.second.score
       >= patternThresholds.retrievalConceptMargin;
-  const compoundQuestion = composition!.best.id === "compound_question"
+  const compositionSignal = composition!.best.id === "compound_question"
     && composition!.best.score >= patternThresholds.compositionMinimum
     && composition!.best.score - composition!.second.score >= patternThresholds.compositionMargin;
+  const mixedScopeCompositionSignal = composition!.best.id === "compound_question"
+    && composition!.best.score - composition!.second.score >= patternThresholds.compositionMargin;
   const retrievalDefinitions = semanticPatternConfig().retrievalPatterns;
-  const selectedRetrievalId = retrievalPattern.best.id;
-  const selectedRetrievalScore = retrievalPattern.scores[selectedRetrievalId] ?? 0;
-  const selectedRetrievalDefinition = retrievalDefinitions.find((pattern) =>
-    pattern.id === selectedRetrievalId);
-  const answerPatternCompatible = retrievalContext.usedHistory
-    || selectedRetrievalDefinition?.answerPattern === undefined
-    || selectedRetrievalDefinition.answerPattern === queryPattern!.best.id
-    || selectedRetrievalDefinition.answerPatternFlexible === true
-    || (
-      selectedRetrievalScore >= patternThresholds.answerSemanticMinimum
-      && retrievalPattern.best.score - retrievalPattern.second.score
-        >= patternThresholds.answerPatternMargin
+  const answerPatternCompatible = (definition: typeof retrievalDefinitions[number]): boolean =>
+    retrievalContext.usedHistory
+    || definition.answerPattern === undefined
+    || definition.answerPatternFlexible === true
+    || (queryPattern!.scores[definition.answerPattern as AnswerPattern] ?? 0)
+      >= queryPattern!.best.score - (
+        definition.answerPatternMargin
+        ?? patternThresholds.answerPatternMargin
+      );
+  const compatibleRetrievalPatterns = retrievalDefinitions
+    .map((definition) => ({
+      definition,
+      score: retrievalPattern.scores[definition.id] ?? 0,
+      selectionScore: (retrievalPattern.scores[definition.id] ?? 0)
+        + (
+          definition.answerPattern === undefined
+            ? 0
+            : (
+              (queryPattern!.scores[definition.answerPattern as AnswerPattern] ?? 0)
+                - queryPattern!.best.score
+            ) * (
+              definition.answerPatternSelectionWeight
+              ?? patternThresholds.answerPatternSelectionWeight
+            )
+        )
+        + (
+          definition.profileAffinityRelationships?.includes(input.requester.relationship)
+            ? patternThresholds.profileConceptBoost
+            : 0
+        ),
+    }))
+    .filter((candidate) =>
+      candidate.score >= (candidate.definition.minimumScore
+        ?? patternThresholds.retrievalConceptMinimum)
+      && candidate.score
+        + (
+          candidate.definition.profileAffinityRelationships?.includes(input.requester.relationship)
+            ? patternThresholds.profileConceptBoost
+            : 0
+        )
+        >= retrievalPattern.best.score - patternThresholds.semanticWindow
+      && answerPatternCompatible(candidate.definition))
+    .sort((left, right) => right.selectionScore - left.selectionScore
+      || right.score - left.score
+      || left.definition.id.localeCompare(right.definition.id));
+  const selectedRetrievalPattern = compatibleRetrievalPatterns[0];
+  const nextCompatibleScore = compatibleRetrievalPatterns[1]?.selectionScore ?? 0;
+  // Let a best-match policy override resolve live-state ambiguity when it clears its concept margin.
+  const useRetrievalPattern = selectedRetrievalPattern !== undefined
+    && (
+      selectedRetrievalPattern.selectionScore - nextCompatibleScore >= (
+        selectedRetrievalPattern.definition.minimumMargin
+        ?? patternThresholds.safetyBoundaryMargin
+      )
+      || compatibleRetrievalPatterns.length === 1
+      || (
+        selectedRetrievalPattern.definition.policyGuidanceOverride === true
+        && selectedRetrievalPattern.definition.id === retrievalPattern.best.id
+        && retrievalPattern.best.score >= patternThresholds.retrievalConceptMinimum
+        && retrievalPattern.best.score < patternThresholds.routingDomainSignalMinimum
+      )
     );
-  const useRetrievalPattern = !compoundQuestion
-    && selectedRetrievalScore >= patternThresholds.retrievalConceptMinimum
-    && retrievalPattern.best.score - retrievalPattern.second.score >= patternThresholds.retrievalConceptMargin
-    && answerPatternCompatible;
   const retrievalDefinition = useRetrievalPattern
-    ? selectedRetrievalDefinition
+    ? selectedRetrievalPattern.definition
     : undefined;
-  const retrievalHint = retrievalDefinition?.retrievalHint;
-  const expectedPattern = retrievalDefinition?.answerPattern;
-  const preferredSourceTypes = retrievalDefinition?.preferredSourceTypes ?? [];
-  const requiredSourceTypes = retrievalDefinition?.requiredSourceTypes ?? [];
+  const selectedRetrievalScore = selectedRetrievalPattern?.score ?? 0;
+  const compoundQuestion = retrievalDefinition?.compoundAnswer === true;
+  const policyBoundaries = retrievalDefinitions
+    .filter((definition) =>
+      definition.deferReason !== undefined
+      || definition.sensitiveTopic === true)
+    .map((definition) => ({
+      definition,
+      score: retrievalPattern.scores[definition.id] ?? 0,
+    }))
+    .filter((candidate) =>
+      candidate.score >= (candidate.definition.minimumScore ?? 0.8)
+      && candidate.score >= retrievalPattern.best.score - patternThresholds.safetyBoundaryProximity)
+    .sort((left, right) => right.score - left.score);
+  const hardPolicyBoundary = policyBoundaries.find((candidate) =>
+    candidate.definition.deferReason === "policy_sensitive_source");
+  // Preserve a high-confidence mixed live-state boundary even when a supported policy clause scores slightly higher.
+  // A mixed policy/live-state boundary needs an explicit coordinated clause, not only embedding proximity.
+  const hasCoordinatedClause = /\b(?:e|and|y)\b/iu.test(semanticInputQuestion);
+  const mixedLiveStateBoundary = compositionSignal
+    && hasCoordinatedClause
+    && !retrievalContext.usedHistory
+    ? retrievalDefinitions
+      .filter((definition) => definition.id === "mixed_policy_and_live_state")
+      .map((definition) => ({
+        definition,
+        score: retrievalPattern.scores[definition.id] ?? 0,
+      }))
+      .find((candidate) =>
+        candidate.score >= (candidate.definition.minimumScore ?? 0.8))
+    : undefined;
+  const sensitiveBoundary = policyBoundaries.find((candidate) =>
+    candidate.definition.deferReason !== "policy_sensitive_source")
+    ?? mixedLiveStateBoundary;
+  const knownGapBoundary = retrievalDefinitions
+    .filter((definition) => definition.knownCorpusGap === true)
+    .map((definition) => ({
+      definition,
+      score: retrievalPattern.scores[definition.id] ?? 0,
+    }))
+    // A known corpus gap may defer only when it is the classifier's best concept, not a near neighbor.
+    .filter((candidate) =>
+      candidate.definition.id === retrievalPattern.best.id
+      &&
+      candidate.score >= (
+        candidate.definition.minimumScore
+        ?? patternThresholds.retrievalExpansionMinimum
+      ))
+    .sort((left, right) => right.score - left.score)[0];
+  const semanticExpansionCandidate = retrievalDefinition !== undefined
+    && selectedRetrievalScore >= patternThresholds.retrievalExpansionMinimum
+    && selectedRetrievalPattern !== undefined
+    && (
+      selectedRetrievalPattern.selectionScore - nextCompatibleScore
+        >= (retrievalDefinition.minimumMargin ?? patternThresholds.retrievalExpansionMargin)
+      || compatibleRetrievalPatterns.length === 1
+    );
+  const candidatePreferredSourceTypes = retrievalDefinition?.preferredSourceTypes ?? [];
 
-  if (!compoundQuestion
-    && (routingIntentIsTerminal(routing!, "gratitude") || routingIntentIsTerminal(routing!, "greeting"))) {
-    const decision: Decision = {
-      kind: "conversational",
-      body: routing!.best.id === "gratitude"
-        ? "De nada. Estou à disposição para outras dúvidas sobre People Operations."
-        : "Olá! Posso orientar sobre políticas e processos de People Operations ou encaminhar o atendimento para uma pessoa.",
-      traceId,
-    };
-    saveTrace(emptyGovernanceTrace(input, traceId, decision.kind, undefined, started,
-      `Semantic route: ${routing!.best.id}. No policy decision was requested.`));
-    return decision;
-  }
-
-  if (routingIntentIsTerminal(routing!, "human_requested")) {
+  // Reserve human handoff for an explicit whole-question or sentence-level terminal request.
+  if (routingAnalyses.some((analysis) =>
+    analysis.best.id === "human_requested"
+    && routingIntentIsSupported(analysis, "human_requested")
+    && analysis.best.score >= patternThresholds.routingDomainSignalMinimum)) {
     const reason: HandoffReason = "human_requested";
-    saveTrace(emptyGovernanceTrace(input, traceId, "defer", reason, started, "The requester explicitly asked for a person."));
+    // Persist the competing intent scores even though explicit human routing exits before corpus retrieval.
+    const trace = emptyGovernanceTrace(
+      input,
+      traceId,
+      "defer",
+      reason,
+      started,
+      "The requester explicitly asked for a person.",
+    );
+    trace.retrievalDiagnostics = {
+      queryTokens: tokenize(input.question),
+      expandedTerms: [],
+      concepts: [routing.best.id, retrievalPattern.best.id, queryPattern!.best.id],
+      answerRequirement: queryPattern!.best.id,
+      classifierScores,
+    };
+    saveTrace(trace);
     return deferredDecision(input, traceId, reason, 0);
   }
 
-  if (routingIntentIsTerminal(routing!, "governance_attack")) {
+  if (routingIntentIsSupported(routing, "governance_attack")) {
     const reason: HandoffReason = "policy_sensitive_source";
     const trace = emptyGovernanceTrace(input, traceId, "defer", reason, started, "Untrusted text attempted to alter governance or disclose protected data.");
     trace.governance = {
@@ -449,10 +689,137 @@ export async function decide(input: DecideRequest): Promise<Decision> {
     return deferredDecision(input, traceId, reason, 0);
   }
 
+  const documents = loadSourceDocuments();
+  const retrievalStarted = performance.now();
+  const semanticQueries = [
+    retrievalContext.question,
+    ...(semanticExpansionCandidate && retrievalDefinition?.retrievalHint
+      ? [retrievalDefinition.retrievalHint]
+      : []),
+  ];
+  const semanticBatch = await runtimeSemanticSearchMany(documents, semanticQueries, 192);
+  const directSemanticCandidates = semanticBatch.candidates[0] ?? [];
+  const directSemanticScores = new Map(
+    directSemanticCandidates.map((candidate) => [candidate.passage.id, candidate.score]),
+  );
+  const semanticExpansionEnabled = semanticExpansionCandidate
+    && (
+      selectedRetrievalScore >= patternThresholds.routingDomainSignalMinimum
+      || (
+        candidatePreferredSourceTypes.length > 0
+        && candidatePreferredSourceTypes.includes(
+          directSemanticCandidates[0]?.document.sourceType ?? "",
+        )
+      )
+    );
+  const expectedPattern: AnswerPattern | undefined = semanticExpansionEnabled
+    ? retrievalDefinition?.answerPattern
+    : undefined;
+  const preferredSourceTypes: string[] = semanticExpansionEnabled
+    ? candidatePreferredSourceTypes
+    : [];
+  const requiredSourceTypes: string[] = semanticExpansionEnabled
+    ? retrievalDefinition?.requiredSourceTypes ?? []
+    : [];
+  const mergedSemanticCandidates = new Map(
+    directSemanticCandidates.map((candidate) => [candidate.passage.id, candidate]),
+  );
+  for (const candidates of semanticExpansionEnabled
+    ? semanticBatch.candidates.slice(1)
+    : []) {
+    for (const candidate of candidates) {
+      const current = mergedSemanticCandidates.get(candidate.passage.id);
+      if (current === undefined || candidate.score > current.score) {
+        mergedSemanticCandidates.set(candidate.passage.id, candidate);
+      }
+    }
+  }
+  const semantic = {
+    candidates: [...mergedSemanticCandidates.values()]
+      .sort((left, right) => right.score - left.score || left.passage.id.localeCompare(right.passage.id)),
+    mode: semanticBatch.mode,
+  };
+  const semanticProviderStatus = semantic.mode === "learned" ? "ok" : "degraded";
+  const requestedRegion = routingIntentIsSupported(routing, "requester_context_override")
+    ? undefined
+    : explicitRegion(semanticInputQuestion, documents);
+  const resolvedRegion = input.requester.baseId;
+  const superseded = activeSupersededSources(documents, input);
+  const strongDirectEvidence = semantic.mode === "learned"
+    && directSemanticCandidates.some((candidate) =>
+      candidate.score >= patternThresholds.genericDirectSemanticMinimum
+      && sourceMatchesRequestedRegion(candidate, requestedRegion)
+      && evaluateEligibility(candidate.document, input, superseded).eligible);
+
+  const strongOutOfScope = routingIntentIsTerminal(routing, "out_of_scope")
+    && (routing.scores.out_of_scope ?? 0)
+      >= initialRetrievalPattern!.best.score;
+  if (!compoundQuestion && strongOutOfScope && !strongDirectEvidence) {
+    const decision: Decision = {
+      kind: "conversational",
+      body: "Este atendimento é limitado a políticas e processos de People Operations. Posso ajudar com uma dúvida desse contexto.",
+      traceId,
+    };
+    saveTrace(emptyGovernanceTrace(input, traceId, decision.kind, undefined, started,
+      "The question has a strong semantic out-of-scope signal and no comparable People Operations concept."));
+    return decision;
+  }
+
+  if (routingIntentIsTerminal(routing, "out_of_scope")
+    && routing.best.score - routing.second.score
+      >= patternThresholds.mixedScopeRoutingMargin
+    && initialDomainSignal
+    && mixedScopeCompositionSignal
+    && await hasMixedScopeClauseBoundary(semanticInputQuestion)) {
+    const reason: HandoffReason = "missing_source";
+    saveTrace(emptyGovernanceTrace(input, traceId, "defer", reason, started,
+      "The request combines a supported People Operations concept with a separately unsupported information need."));
+    return deferredDecision(input, traceId, reason, 0.08);
+  }
+
+  if (hardPolicyBoundary?.definition.deferReason) {
+    const reason = hardPolicyBoundary.definition.deferReason;
+    saveTrace(emptyGovernanceTrace(input, traceId, "defer", reason, started,
+      `Versioned semantic policy boundary: ${hardPolicyBoundary.definition.id}.`));
+    return deferredDecision(input, traceId, reason, 0);
+  }
+
+  if (!compoundQuestion
+    && (
+      routingIntentIsTerminal(routing, "service_capability")
+      || (
+        ["gratitude", "greeting"].includes(routing.best.id)
+        && routing.best.score >= 0.84
+        && routing.best.score - routing.second.score >= 0.02
+      )
+      || (
+        !initialDomainSignal
+        && !retrievalDefinition
+        && (routingIntentIsTerminal(routing, "gratitude") || routingIntentIsTerminal(routing, "greeting"))
+      )
+    )) {
+    const decision: Decision = {
+      kind: "conversational",
+      body: routing.best.id === "gratitude"
+        ? "De nada. Estou à disposição para outras dúvidas sobre People Operations."
+        : routing.best.id === "service_capability"
+          ? "Posso orientar sobre políticas e processos de People Operations, como folha, jornada, benefícios, férias, admissão e segurança, sempre usando fontes governadas. Questões individuais ou sem evidência são encaminhadas para a equipe responsável."
+          : "Olá! Posso orientar sobre políticas e processos de People Operations ou encaminhar o atendimento para uma pessoa.",
+      traceId,
+    };
+    saveTrace(emptyGovernanceTrace(input, traceId, decision.kind, undefined, started,
+      `Semantic route: ${routing.best.id}. No policy decision was requested.`));
+    return decision;
+  }
+
   if (
     !compoundQuestion
     &&
     !initialDomainSignal
+    && !retrievalDefinition
+    && !hardPolicyBoundary
+    && !sensitiveBoundary
+    && !strongDirectEvidence
     &&
     routingIntentIsTerminal(routing!, "out_of_scope")
   ) {
@@ -465,17 +832,13 @@ export async function decide(input: DecideRequest): Promise<Decision> {
     return decision;
   }
 
-  if (compoundQuestion && !initialDomainSignal && routingIntentIsTerminal(routing!, "out_of_scope")) {
+  if (compoundQuestion && !initialDomainSignal && !retrievalDefinition
+    && !hardPolicyBoundary && !sensitiveBoundary
+    && !strongDirectEvidence
+    && routingIntentIsTerminal(routing!, "out_of_scope")) {
     const reason: HandoffReason = "missing_source";
     saveTrace(emptyGovernanceTrace(input, traceId, "defer", reason, started,
       "At least one independent part of the compound question is outside the governed People Operations corpus."));
-    return deferredDecision(input, traceId, reason, 0.08);
-  }
-
-  if (retrievalDefinition?.knownCorpusGap === true) {
-    const reason: HandoffReason = "missing_source";
-    saveTrace(emptyGovernanceTrace(input, traceId, "defer", reason, started,
-      "A versioned semantic concept identifies a known gap in the governed corpus."));
     return deferredDecision(input, traceId, reason, 0.08);
   }
 
@@ -485,47 +848,28 @@ export async function decide(input: DecideRequest): Promise<Decision> {
     && (routing!.scores.live_individual_state ?? 0)
       >= (liveStateDefinition?.terminalMinimum ?? patternThresholds.terminalIntentMinimum);
   const individualStateSupported = queryPattern!.best.id === "individual_state";
-  if ((retrievalDefinition?.sensitiveTopic === true || (liveStateSupported && individualStateSupported))
-    && retrievalDefinition?.liveStateOverride !== true) {
-    const reason: HandoffReason = "sensitive_topic";
-    saveTrace(emptyGovernanceTrace(input, traceId, "defer", reason, started, "The request requires live individual transactional state, which static governed sources do not provide."));
-    return deferredDecision(input, traceId, reason, 0.96);
-  }
-
-  const contextFreeConcept = retrievalDefinition?.contextFreeMinimum !== undefined
-    && selectedRetrievalScore >= retrievalDefinition.contextFreeMinimum;
-  if (routingIntentIsContextual(routing!) && !retrievalContext.usedHistory && !contextFreeConcept) {
-    const decision: Decision = {
-      kind: "conversational",
-      body: "Posso responder a pergunta complementar quando houver uma decisão anterior no mesmo contexto. Faça primeiro a pergunta principal de People Operations.",
-      traceId,
-    };
-    saveTrace(emptyGovernanceTrace(input, traceId, decision.kind, undefined, started,
-      "A referential follow-up had no completed user question establishing a trusted topic."));
-    return decision;
-  }
-
-  const documents = loadSourceDocuments();
-  const retrievalStarted = performance.now();
+  const contextFreeConcept = retrievalDefinition !== undefined
+    && selectedRetrievalScore >= (
+      retrievalDefinition.contextFreeMinimum
+      ?? retrievalDefinition.minimumScore
+      ?? patternThresholds.retrievalConceptMinimum
+    );
   const retrieval = lexicalIndex(documents).search(retrievalContext.question, 192);
-  const semanticQuestion = retrievalHint ?? retrievalContext.question;
-  const semantic = await runtimeSemanticSearch(documents, semanticQuestion, 192);
-  const semanticProviderStatus = semantic.mode === "learned" ? "ok" : "degraded";
   const hybridCandidates = fuseRetrieval(retrieval.candidates, semantic.candidates, 256);
   const retrievalMs = performance.now() - retrievalStarted;
   const topScore = hybridCandidates.reduce((strongest, candidate) =>
     Math.max(strongest, retrievalStrength(candidate)), 0);
   const relevanceFloor = Math.max(0.55, topScore * 0.12);
   // Govern passages first: a later clause in the same source can be the only sufficient answer.
-  const requestedRegion = explicitRegion(input.question, documents);
-  const resolvedRegion = input.requester.baseId;
   const candidates = hybridCandidates
     .filter((candidate) => sourceMatchesRequestedRegion(candidate, requestedRegion))
+    .filter((candidate) =>
+      requiredSourceTypes.length === 0
+      || requiredSourceTypes.includes(candidate.document.sourceType))
     .filter((candidate) => retrievalStrength(candidate) >= relevanceFloor)
     .slice(0, MAX_GOVERNED_CANDIDATES);
 
   const governanceStarted = performance.now();
-  const superseded = activeSupersededSources(documents, input);
   const eligible: RetrievalCandidate[] = [];
   const rejected: Array<{ candidate: RetrievalCandidate; rejectionCodes: EligibilityRejectionCode[] }> = [];
   for (const candidate of candidates) {
@@ -539,8 +883,9 @@ export async function decide(input: DecideRequest): Promise<Decision> {
       });
     }
   }
-  const [answerAlignments, passageAnalyses] = await Promise.all([
+  const [answerAlignments, promptAlignments, passageAnalyses] = await Promise.all([
     runtimeAnswerAlignment(documents, retrievalContext.question, eligible),
+    runtimePromptAlignment(documents, retrievalContext.question, eligible),
     runtimeCandidateAnswerPatterns(documents, eligible),
   ]);
   const passagePatterns = new Map(eligible.map((candidate, index) =>
@@ -548,9 +893,17 @@ export async function decide(input: DecideRequest): Promise<Decision> {
   const alignedEligible = eligible.map((candidate, index) => ({
     ...candidate,
     answerSemanticScore: answerAlignments[index],
+    promptSemanticScore: promptAlignments[index],
   }));
   const topAnswerSemanticScore = alignedEligible.reduce((top, candidate) =>
     Math.max(top, candidate.answerSemanticScore ?? 0), 0);
+  const topPromptSemanticScore = alignedEligible.reduce((top, candidate) =>
+    Math.max(top, candidate.promptSemanticScore ?? 0), 0);
+  const promptSemanticScores = alignedEligible
+    .flatMap((candidate) => candidate.promptSemanticScore === undefined
+      ? []
+      : [candidate.promptSemanticScore])
+    .sort((left, right) => right - left);
   const semanticEligible = alignedEligible
     .filter((candidate) => candidate.semanticScore !== undefined)
     .map((candidate) => ({ ...candidate, semanticScore: candidate.semanticScore! }))
@@ -570,10 +923,15 @@ export async function decide(input: DecideRequest): Promise<Decision> {
     topSemanticSourceId,
     topSemanticSourceShare: topSemanticSourceCount / Math.max(1, nearTopSemantic.length),
     topAnswerSemanticScore,
+    topPromptSemanticScore,
+    secondPromptSemanticScore: promptSemanticScores[1] ?? 0,
     answerSemanticMinimum: retrievalDefinition?.answerAlignmentMinimum
       ?? patternThresholds.answerSemanticMinimum,
+    semanticWindowMultiplier: retrievalDefinition?.semanticWindowMultiplier ?? 1,
     expectedPattern,
+    answerPatternFlexible: retrievalDefinition?.answerPatternFlexible === true,
     preferredSourceTypes,
+    compoundAnswerSameDomain: retrievalDefinition?.compoundAnswerSameDomain ?? false,
     learned: semantic.mode === "learned",
   };
   const requirement = expectedPattern ?? answerRequirement(queryPattern!);
@@ -581,9 +939,140 @@ export async function decide(input: DecideRequest): Promise<Decision> {
     ? alignedEligible.filter((candidate) => requiredSourceTypes.includes(candidate.document.sourceType))
     : alignedEligible;
   const rankedEligible = rankEligible(answerEligible, input, requirement, supportContext);
-  const conflictDomain = retrievalDefinition
-    ? rankedEligible.find((candidate) => (candidate.sufficiencyScore ?? 0) > 0)?.document.domain
-    : undefined;
+  // Recognize a complete standalone question when an eligible passage has unusually strong exact retrieval support.
+  const strongStandaloneLexicalEvidence = rankedEligible.some((candidate) =>
+    (candidate.sufficiencyScore ?? 0) > 0
+    && (candidate.lexicalScore ?? 0)
+      >= patternThresholds.genericDirectLexicalMinimum * 2);
+  // Persist real candidates and classifier scores when a post-retrieval safety boundary exits early.
+  const savePostRetrievalBoundary = (decision: Decision, note: string): void => {
+    const governanceElapsed = performance.now() - governanceStarted;
+    const confidence = evidenceConfidence(
+      decision,
+      [],
+      [],
+      requestedRegion === input.requester.baseId ? requestedRegion : undefined,
+    );
+    saveRoutingTrace(
+      input,
+      traceId,
+      decision,
+      candidates,
+      rankedEligible,
+      rejected,
+      [],
+      {
+        queryTokens: retrieval.queryTokens,
+        expandedTerms: [],
+        concepts: [
+          routing.best.id,
+          queryPattern!.best.id,
+          ...(retrievalDefinition ? [retrievalDefinition.id] : []),
+        ],
+        explicitRegion: requestedRegion,
+        resolvedRegion,
+        requirement,
+        providerStatus: semanticProviderStatus,
+        contextualized: retrievalContext.usedHistory,
+        contextualTurns: retrievalContext.contextualTurns,
+        classifierScores,
+        note,
+      },
+      confidence,
+      {
+        retrieval: retrievalMs,
+        governance: governanceElapsed,
+        decision: 0,
+        total: performance.now() - started,
+      },
+    );
+  };
+  const standalonePromptEvidence = alignedEligible.some((candidate) =>
+      (candidate.promptSemanticScore ?? 0) >= patternThresholds.promptSemanticMinimum
+      && (directSemanticScores.get(candidate.passage.id) ?? 0)
+        >= patternThresholds.standalonePromptSemanticMinimum
+      && (candidate.answerSemanticScore ?? 0) >= patternThresholds.genericDirectAnswerMinimum);
+  const sensitiveCapabilityOverride = standalonePromptEvidence
+    && sensitiveBoundary?.definition.id !== "mixed_policy_and_live_state"
+    && composition!.best.score - composition!.second.score
+      < patternThresholds.sensitiveCapabilityCompositionMarginMaximum;
+  if (sensitiveBoundary?.definition.sensitiveTopic === true
+    && !sensitiveCapabilityOverride
+    && retrievalDefinition?.liveStateOverride !== true) {
+    const reason: HandoffReason = "sensitive_topic";
+    // Save the governed retrieval evidence that led to the sensitive boundary.
+    const decision = deferredDecision(input, traceId, reason, 0.96);
+    savePostRetrievalBoundary(
+      decision,
+      `Versioned semantic sensitive boundary: ${sensitiveBoundary.definition.id}.`,
+    );
+    return decision;
+  }
+  const knownGapPromptEvidence = alignedEligible.some((candidate) =>
+    (candidate.promptSemanticScore ?? 0) >= patternThresholds.promptSemanticMinimum
+    && (directSemanticScores.get(candidate.passage.id) ?? 0)
+      >= patternThresholds.genericDirectSemanticMinimum
+    && (candidate.answerSemanticScore ?? 0) >= patternThresholds.genericDirectAnswerMinimum);
+  const knownGapCapabilityOverride = knownGapPromptEvidence
+    && composition!.best.score - composition!.second.score
+      < patternThresholds.sensitiveCapabilityCompositionMarginMaximum;
+  if (knownGapBoundary !== undefined && !knownGapCapabilityOverride) {
+    const reason: HandoffReason = "missing_source";
+    // Save the retrieved passages that failed to resolve the classified corpus gap.
+    const decision = deferredDecision(input, traceId, reason, 0.08);
+    savePostRetrievalBoundary(
+      decision,
+      "A versioned semantic concept identifies a known gap and no uniquely aligned governed prompt resolves it.",
+    );
+    return decision;
+  }
+  const unresolvedSensitiveState = retrievalDefinitions
+    .filter((definition) => definition.sensitiveTopic === true)
+    .some((definition) =>
+      (retrievalPattern.scores[definition.id] ?? 0)
+        >= (
+          definition.minimumScore
+          ?? Math.max(
+            patternThresholds.retrievalExpansionMinimum,
+            patternThresholds.routingDomainSignalMinimum,
+          )
+        ));
+  const staticCapabilityEvidence = standalonePromptEvidence
+    && composition!.best.score - composition!.second.score
+      < patternThresholds.sensitiveCapabilityCompositionMarginMaximum;
+  if (liveStateSupported && individualStateSupported
+    && (!standalonePromptEvidence || (unresolvedSensitiveState && !staticCapabilityEvidence))
+    && (
+      retrievalDefinition?.policyGuidanceOverride !== true
+      || routingIntentIsTerminal(routing!, "live_individual_state")
+    )
+    && retrievalDefinition?.liveStateOverride !== true) {
+    const reason: HandoffReason = "sensitive_topic";
+    // Save the static candidates that were rejected as proof of live individual state.
+    const decision = deferredDecision(input, traceId, reason, 0.96);
+    savePostRetrievalBoundary(
+      decision,
+      "The request requires live individual transactional state, which static governed sources do not provide.",
+    );
+    return decision;
+  }
+  // Apply the conversational fallback only to a genuinely short follow-up without standalone evidence.
+  if (routingIntentIsContextual(routing!, semanticInputQuestion) && !retrievalContext.usedHistory && !contextFreeConcept
+    && !standalonePromptEvidence && !strongStandaloneLexicalEvidence) {
+    const contextualDecision: Decision = {
+      kind: "conversational",
+      body: "Posso responder a pergunta complementar quando houver uma decisão anterior no mesmo contexto. Faça primeiro a pergunta principal de People Operations.",
+      traceId,
+    };
+    // Save candidate evidence and classifier scores for unsupported contextual follow-ups.
+    savePostRetrievalBoundary(
+      contextualDecision,
+      "A referential follow-up had no completed user question establishing a trusted topic.",
+    );
+    return contextualDecision;
+  }
+  const conflictDomain = rankedEligible.find((candidate) =>
+    (candidate.sufficiencyScore ?? 0) > 0)?.document.domain;
   const strongestEligible = rankedEligible.reduce((strongest, candidate) =>
     Math.max(strongest, retrievalStrength(candidate)), 0);
   const conflictAnswerWindow = patternThresholds.multiPassageWindow * 1.6;
@@ -613,12 +1102,45 @@ export async function decide(input: DecideRequest): Promise<Decision> {
   const hasSufficientCandidate = rankedEligible.some((candidate) =>
     (candidate.sufficiencyScore ?? 0) > 0);
   const conflicts = hasSufficientCandidate ? detectConflicts(conflictCandidates) : [];
+  // Require a strong conflict concept, or a channel question whose competing sources are exceptionally close.
+  const strongConflictConcept =
+    selectedRetrievalScore >= patternThresholds.routingDomainSignalMinimum;
+  if (hasSufficientCandidate
+    && retrievalDefinition?.conflictOnMultipleSources
+    && (
+      strongConflictConcept
+      || retrievalDefinition.answerPattern === "location_or_channel"
+    )) {
+    // Keep the wider configured window only when the conflict classifier independently supports it.
+    const consensusWindow = patternThresholds.semanticWindow
+      * (strongConflictConcept ? retrievalDefinition.conflictWindowMultiplier ?? 1 : 1);
+    const consensusCandidates = alignedEligible.filter((candidate) =>
+      candidate.semanticScore !== undefined
+      && candidate.semanticScore >= supportContext.topSemanticScore - consensusWindow
+      && (candidate.answerSemanticScore ?? 0) >= supportContext.answerSemanticMinimum
+      && retrievalStrength(candidate) >= RETRIEVAL_LIMITS.minimumRelevance);
+    const bySource = new Map(consensusCandidates.map((candidate) =>
+      [candidate.document.sourceId, candidate] as const));
+    const distinct = [...bySource.values()];
+    if (distinct.length > 1 && conflicts.length === 0) {
+      conflicts.push({
+        domain: distinct[0]!.document.domain,
+        left: distinct[0]!,
+        right: distinct[1]!,
+        signals: ["semantic_consensus_required"],
+      });
+    }
+  }
   if (semantic.mode === "degraded") {
     const topLexicalScore = alignedEligible.reduce((top, candidate) =>
       Math.max(top, candidate.lexicalScore ?? 0), 0);
+    const degradedDomain = rankedEligible[0]?.document.domain;
     const degradedConflictCandidates = alignedEligible.filter((candidate) =>
-      (candidate.lexicalScore ?? 0) >= topLexicalScore * 0.45
-      && candidate.queryCoverage >= 0.2);
+      (degradedDomain === undefined || candidate.document.domain === degradedDomain)
+      &&
+      (candidate.lexicalScore ?? 0) >= topLexicalScore
+        * patternThresholds.degradedAuthorityLexicalRatio
+      && candidate.queryCoverage >= patternThresholds.degradedAuthorityCoverageMinimum);
     const knownPairs = new Set(conflicts.map((conflict) =>
       [conflict.left.document.sourceId, conflict.right.document.sourceId].sort().join("\n")));
     for (const conflict of detectConflicts(degradedConflictCandidates)) {
@@ -628,18 +1150,15 @@ export async function decide(input: DecideRequest): Promise<Decision> {
         conflicts.push(conflict);
       }
     }
-  }
-  if (retrievalDefinition?.id === "admission_submission_channel") {
-    const bySource = new Map(rankedEligible
-      .filter((item) => (item.sufficiencyScore ?? 0) > 0)
-      .map((candidate) => [candidate.document.sourceId, candidate]));
-    const values = [...bySource.values()];
-    if (values.length > 1) {
+    const degradedAuthorities = new Map(degradedConflictCandidates.map((candidate) =>
+      [candidate.document.sourceId, candidate] as const));
+    if (hasSufficientCandidate && conflicts.length === 0 && degradedAuthorities.size > 1) {
+      const distinct = [...degradedAuthorities.values()];
       conflicts.push({
-        domain: "submission_channel",
-        left: values[0]!,
-        right: values[1]!,
-        signals: ["multiple_authoritative_destinations"],
+        domain: distinct[0]!.document.domain,
+        left: distinct[0]!,
+        right: distinct[1]!,
+        signals: ["degraded_multi_authority_ambiguity"],
       });
     }
   }
@@ -665,6 +1184,11 @@ export async function decide(input: DecideRequest): Promise<Decision> {
   const decisionStarted = performance.now();
   let decision: Decision;
   let confidence: EvidenceConfidence;
+  const relationshipAuthorityGap = retrievalDefinition?.relationshipGapIsMissingSource === true
+    && rejected.some((item) =>
+      item.rejectionCodes.length === 1
+      && item.rejectionCodes[0] === "scope"
+      && sourceHasRelationshipOnlyGap(item.candidate, input));
   if (candidates.length === 0 || topScore < MIN_RELEVANCE) {
     decision = deferredDecision(input, traceId, "missing_source", 0.08);
   } else if (regionProfileMismatch) {
@@ -672,7 +1196,13 @@ export async function decide(input: DecideRequest): Promise<Decision> {
   } else if (applicableExpiredSource) {
     decision = deferredDecision(input, traceId, "missing_source", 0.12, rejected);
   } else if (eligible.length === 0) {
-    decision = deferredDecision(input, traceId, deferReasonForRejected(rejected), 0.12, rejected);
+    decision = deferredDecision(
+      input,
+      traceId,
+      relationshipAuthorityGap ? "missing_source" : deferReasonForRejected(rejected),
+      0.12,
+      rejected,
+    );
   } else if (conflicts.length > 0) {
     decision = deferredDecision(input, traceId, "conflicting_source", 0.2);
   } else {
@@ -713,15 +1243,44 @@ export async function decide(input: DecideRequest): Promise<Decision> {
     decision.claims = decision.claims.map((claim) => ({ ...claim, confidence }));
   }
   const decisionMs = performance.now() - decisionStarted;
+  // Persist the full classifier comparison alongside final governed retrieval evidence.
   saveRoutingTrace(input, traceId, decision, candidates, rankedEligible, rejected, conflicts,
     { queryTokens: retrieval.queryTokens, expandedTerms: [], concepts: [
       routing!.best.id,
       queryPattern!.best.id,
-      ...(useRetrievalPattern ? [selectedRetrievalId] : []),
+      ...(retrievalDefinition ? [retrievalDefinition.id] : []),
       ...(compoundQuestion ? ["compound_question"] : []),
     ],
       explicitRegion: requestedRegion, resolvedRegion, requirement, providerStatus: semanticProviderStatus,
-      contextualized: retrievalContext.usedHistory, contextualTurns: retrievalContext.contextualTurns }, confidence,
+      contextualized: retrievalContext.usedHistory, contextualTurns: retrievalContext.contextualTurns,
+      classifierScores }, confidence,
     { retrieval: retrievalMs, governance: governanceMs, decision: decisionMs, total: performance.now() - started });
   return decision;
+}
+
+export async function withProviderFailureBoundary(
+  input: DecideRequest,
+  operation: () => Promise<Decision>,
+): Promise<Decision> {
+  const started = performance.now();
+  try {
+    return await operation();
+  } catch (error) {
+    if (!(error instanceof SemanticProviderUnavailableError)) throw error;
+    const traceId = traceIdFor(input);
+    saveTrace(emptyGovernanceTrace(
+      input,
+      traceId,
+      "defer",
+      "provider_failure",
+      started,
+      "The semantic provider became unavailable during the request; no provider output was used as evidence.",
+      "degraded",
+    ));
+    return deferredDecision(input, traceId, "provider_failure", 0);
+  }
+}
+
+export async function decide(input: DecideRequest): Promise<Decision> {
+  return withProviderFailureBoundary(input, () => decideGoverned(input));
 }

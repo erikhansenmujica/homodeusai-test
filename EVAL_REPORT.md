@@ -29,7 +29,9 @@ Development also exposed:
 - a relationship-specific admission question initially selected the apprentice paragraph; Markdown headings are now weighted and kept with their paragraphs;
 - a referential meal-support follow-up was split incorrectly at the adverb “também”; contextual matching now preserves that sentence and maps work-status wording to the cited eligibility condition;
 - the starter stored traces only in memory; traces are now atomic durable files;
-- timekeeping and termination questions initially risked choosing one approved source; numeric, polarity, and timing conflict checks now force `conflicting_source`.
+- timekeeping and termination questions initially risked choosing one approved source; semantic conflict concepts now require multi-authority consensus, while Unicode numeric comparison remains a language-neutral deterministic signal;
+- the supplied 63-question adversarial matrix initially matched 37/63 expected outcomes; general semantic routing, trusted-context isolation, answer-shape calibration, compound-question boundaries, and conservative authority handling raised it to 63/63 without query-language keyword branches.
+- eight later open-world presentation probes exposed false handoffs and one wrong-clause answer around service channels, draft vacation changes, event-date rules, documented exceptions, request-versus-approval, equivalent versions, reconciliation records, and deadline start points. The fixes use generic semantic answer alignment, policy/live-state separation, evidence ranking, and conflict gating; all eight remain regressions without question-text branches.
 
 Thresholds are intentionally conservative: lexical-only support needs a BM25-style score of at least 2.35 and at least 60% subject-term coverage; learned support needs calibrated semantic topic and answer alignment. A second claim is allowed only for a semantically classified compound question and a distinct source covering a different answer shape. An ineligible or conceptually mismatched source cannot be rescued by raw similarity.
 
@@ -50,9 +52,19 @@ No duplicate work record was observed.
 
 The frozen suite is run in both learned and degraded modes with `npm run evals:matrix`. Both modes must complete all 21 cases without unsupported autonomous answers, start within 180 seconds, and return the first post-readiness decision within 10 seconds. Exact outcome coverage and safety are reported separately: a conservative defer is safe degradation, not a correct outcome. Learned retrieval is selected only when it improves coverage without reducing safety.
 
-Measured locally on 2026-07-24: degraded readiness took **1.03 s** and its first post-readiness decision took **125 ms**; it matched **9/21** exact outcomes and safely abstained on the remainder. Learned readiness, including model/index validation and warm-up, took **4.59 s** and its first post-readiness decision took **181 ms**; it passed **21/21**. In the restricted Node 24 container, learned readiness took **20.58 s** and the first decision took **0.93 s**. Both modes had zero unsupported autonomous answers, so learned retrieval is the selected default.
+Measured from fresh state locally on 2026-07-25: degraded readiness took **0.81 s** and its first post-readiness decision took **136 ms**; it matched **9/21** exact outcomes and safely abstained on the remainder. Learned readiness, including model/index creation, validation, and warm-up, took **49.69 s** and its first decision took **200 ms**; it passed **21/21**. Both modes had zero unsupported autonomous answers, so learned retrieval is the selected default.
+
+The final Docker image was also built without ignored local assets and started under the submission limits: read-only root, numeric runtime user, no capabilities, no-new-privileges, 256 processes, 2 CPU, and 4 GiB memory. Its bundled index reached `ready_learned` in **12.34 s**; the first client-observed decision took **1.033 s** (**1.019 s** inside the service), below the 10-second restricted-container ceiling. A handoff created on a named state volume remained open and retrievable after the container was removed and recreated.
 
 The trace exposes learned-provider state as `ok` or `degraded`. Model absence or corruption produces `ready_degraded`; governance, conflicts, claims, citations, routing, and handoffs remain available.
+
+## Supplemental adversarial matrix
+
+`npm run test:extended` executes the 63 supplied Portuguese questions as a permanent real-engine regression suite. It checks the expected decision and public reason, required and forbidden answer terms, source identity, exact byte-level evidence, and trace redaction. The final run passed **63/63**. Fixes are expressed as versioned multilingual meaning prototypes and generic policy properties such as compound support, profile affinity, source-type requirements, and multi-authority consensus; the engine does not branch on those questions or maintain Portuguese synonym, polarity, or timing-word tables.
+
+`tests/open-world-retrieval.test.ts` adds 20 supported corpus questions that are absent from the semantic retrieval concept catalog. The final learned run passed **20/20** with the expected source and byte-valid evidence. The final eight reproduce the presentation-probe failures described above. These cases protect the architectural rule that prototypes may improve recall and enforce safety but do not define the complete set of answerable questions.
+
+The deterministic fallback cannot provide cross-language meaning matching without the multilingual model. It therefore remains language-neutral and abstention-first: on the frozen suite it produced 9 exact outcomes and 12 safe handoffs, with no unsupported answer. This is deliberately measured separately from learned coverage.
 
 ## Next cases
 

@@ -16,9 +16,14 @@ export interface SemanticSupportContext {
   topSemanticSourceId?: string;
   topSemanticSourceShare: number;
   topAnswerSemanticScore: number;
+  topPromptSemanticScore: number;
+  secondPromptSemanticScore: number;
   answerSemanticMinimum: number;
+  semanticWindowMultiplier: number;
   expectedPattern?: AnswerPattern;
+  answerPatternFlexible: boolean;
   preferredSourceTypes: string[];
+  compoundAnswerSameDomain: boolean;
   learned: boolean;
 }
 
@@ -75,18 +80,53 @@ function semanticShapeBonus(
 function semanticTopicSupport(candidate: RetrievalCandidate, context: SemanticSupportContext): boolean {
   if (!context.learned || candidate.semanticScore === undefined) return false;
   const thresholds = semanticPatternConfig().thresholds;
-  const concentrated = context.topSemanticScore >= thresholds.semanticAbsoluteMinimum;
-  const answerAligned = (candidate.answerSemanticScore ?? 0) >= context.answerSemanticMinimum;
-  const conceptuallySupported = context.expectedPattern !== undefined && answerAligned;
-  const semanticWindow = thresholds.semanticWindow * (
-    context.expectedPattern !== undefined
-    && context.preferredSourceTypes.includes(candidate.document.sourceType)
-      ? 2
-      : 1
-  );
-  return ((concentrated && answerAligned) || conceptuallySupported)
+  const conceptuallySupported = context.expectedPattern !== undefined
+    && (candidate.answerSemanticScore ?? 0)
+      >= Math.min(context.answerSemanticMinimum, thresholds.genericDirectAnswerMinimum);
+  const directlySupported = candidate.semanticScore >= thresholds.genericDirectSemanticMinimum
+    && (candidate.answerSemanticScore ?? 0) >= thresholds.genericDirectAnswerMinimum
+    && (
+      candidate.queryCoverage >= thresholds.genericDirectCoverageMinimum
+      || (candidate.lexicalScore ?? 0) >= thresholds.genericDirectLexicalMinimum
+    );
+  // Accept a passage that is jointly closest to the question and answer even when paraphrasing is lexical-light.
+  const jointlyAlignedDirectSupport =
+    candidate.semanticScore >= thresholds.genericDirectSemanticMinimum
+    && candidate.semanticScore >= context.topSemanticScore - thresholds.semanticCandidateMargin
+    && (candidate.answerSemanticScore ?? 0) >= thresholds.genericDirectAnswerMinimum
+    && (candidate.answerSemanticScore ?? 0)
+      >= context.topAnswerSemanticScore - thresholds.answerSemanticWindow;
+  // Let rare exact wording establish support when answer alignment is strong but the embedding score is diffuse.
+  const lexicallySpecificSupport =
+    (candidate.lexicalScore ?? 0) >= thresholds.genericDirectLexicalMinimum
+    && (candidate.answerSemanticScore ?? 0) >= thresholds.genericDirectAnswerMinimum;
+  const corroboratedDirectSupport = candidate.semanticScore
+      >= thresholds.genericCorroboratedSemanticMinimum
+    && (candidate.answerSemanticScore ?? 0) >= thresholds.genericDirectAnswerMinimum
+    && candidate.queryCoverage >= thresholds.genericCorroboratedCoverageMinimum
+    && context.topSemanticScore >= thresholds.genericDirectSemanticMinimum;
+  const promptSupported = (candidate.promptSemanticScore ?? 0) >= thresholds.promptSemanticMinimum
+    && (candidate.promptSemanticScore ?? 0) >= context.topPromptSemanticScore - Number.EPSILON
+    && context.topPromptSemanticScore - context.secondPromptSemanticScore
+      >= thresholds.promptSemanticMargin
+    && (candidate.answerSemanticScore ?? 0) >= thresholds.genericDirectAnswerMinimum;
+  const semanticWindow = thresholds.semanticWindow
+    * context.semanticWindowMultiplier
+    * (
+      context.expectedPattern !== undefined
+      && context.preferredSourceTypes.includes(candidate.document.sourceType)
+        ? 2
+        : 1
+    );
+  return promptSupported || (
+    (directlySupported
+      || jointlyAlignedDirectSupport
+      || lexicallySpecificSupport
+      || corroboratedDirectSupport
+      || conceptuallySupported)
     && candidate.semanticScore >= thresholds.semanticCandidateMinimum
-    && candidate.semanticScore >= context.topSemanticScore - semanticWindow;
+    && candidate.semanticScore >= context.topSemanticScore - semanticWindow
+  );
 }
 
 function sufficiency(
@@ -126,12 +166,14 @@ export function rankEligible(
     const scopeScore = scopeSpecificity(candidate, input);
     const sufficiencyScore = sufficiency(candidate, requirement, context);
     const shapeScore = semanticShapeBonus(candidate, requirement, context);
-    const semanticRankingWindow = semanticPatternConfig().thresholds.semanticWindow * (
-      context.expectedPattern !== undefined
-      && context.preferredSourceTypes.includes(candidate.document.sourceType)
-        ? 2
-        : 1
-    );
+    const semanticRankingWindow = semanticPatternConfig().thresholds.semanticWindow
+      * context.semanticWindowMultiplier
+      * (
+        context.expectedPattern !== undefined
+        && context.preferredSourceTypes.includes(candidate.document.sourceType)
+          ? 2
+          : 1
+      );
     const semanticRankingScore = candidate.semanticScore === undefined ? 0
       : Math.max(0, 1 - (context.topSemanticScore - candidate.semanticScore)
         / Math.max(semanticRankingWindow, Number.EPSILON))
@@ -140,9 +182,26 @@ export function rankEligible(
       : Math.max(0, 1 - (context.topAnswerSemanticScore - candidate.answerSemanticScore)
         / Math.max(semanticPatternConfig().thresholds.answerSemanticWindow, Number.EPSILON))
         * semanticPatternConfig().thresholds.answerSemanticRankingWeight;
+    const promptSemanticRankingScore = candidate.promptSemanticScore === undefined
+      || candidate.promptSemanticScore < semanticPatternConfig().thresholds.promptSemanticMinimum
+      || candidate.promptSemanticScore < context.topPromptSemanticScore - Number.EPSILON
+      || context.topPromptSemanticScore - context.secondPromptSemanticScore
+        < semanticPatternConfig().thresholds.promptSemanticMargin
+      ? 0
+      : Math.max(0, 1 - (context.topPromptSemanticScore - candidate.promptSemanticScore)
+        / Math.max(semanticPatternConfig().thresholds.promptSemanticWindow, Number.EPSILON))
+        * semanticPatternConfig().thresholds.promptSemanticRankingWeight;
     const sourceTypeRankingScore = context.preferredSourceTypes.includes(candidate.document.sourceType)
       ? semanticPatternConfig().thresholds.sourceTypeRankingWeight
       : 0;
+    // Reward rare exact wording enough to beat a generic semantic template with no lexical retrieval support.
+    const lexicalSpecificityRankingScore =
+      (candidate.lexicalScore ?? 0)
+        >= semanticPatternConfig().thresholds.genericDirectLexicalMinimum * 0.95
+      && (candidate.answerSemanticScore ?? 0)
+        >= semanticPatternConfig().thresholds.genericDirectAnswerMinimum
+        ? 1.1
+        : 0;
     return {
       ...candidate,
       authorityScore,
@@ -150,7 +209,8 @@ export function rankEligible(
       sufficiencyScore,
       finalScore: retrievalStrength(candidate) + authorityScore + scopeScore + sufficiencyScore
         + shapeScore + semanticRankingScore + answerSemanticRankingScore
-        + sourceTypeRankingScore,
+        + promptSemanticRankingScore
+        + sourceTypeRankingScore + lexicalSpecificityRankingScore,
     };
   }).sort((left, right) =>
     (right.finalScore ?? 0) - (left.finalScore ?? 0)
@@ -166,20 +226,88 @@ export function selectAnswerCandidates(
     (candidate.sufficiencyScore ?? 0) > 0
     && retrievalStrength(candidate) >= RETRIEVAL_LIMITS.minimumRelevance);
   if (!primary) return [];
-  const queryListScore = context.queryPattern.scores.list ?? 0;
-  const listLike = context.expectedPattern === "list"
-    || queryListScore >= context.queryPattern.best.score
-      - semanticPatternConfig().thresholds.multiPassageWindow;
-  if (!listLike || primary.semanticScore === undefined) return [primary];
-  const primarySemanticScore = primary.semanticScore;
+  const thresholds = semanticPatternConfig().thresholds;
+  const preferredCandidates = context.expectedPattern === undefined
+    ? []
+    : eligible.filter((candidate) =>
+      (candidate.sufficiencyScore ?? 0) > 0
+      && context.preferredSourceTypes.includes(candidate.document.sourceType));
+  const shapePreferred = context.answerPatternFlexible
+    ? undefined
+    : preferredCandidates
+    .filter((candidate) =>
+      context.passagePatterns.get(candidate.passage.id)?.best.id === context.expectedPattern
+      && (
+        candidate.semanticScore === undefined
+        || primary.semanticScore === undefined
+        || candidate.semanticScore >= primary.semanticScore - thresholds.semanticWindow
+      ))
+    .sort((left, right) =>
+      (right.semanticScore ?? 0) - (left.semanticScore ?? 0)
+      || (right.finalScore ?? 0) - (left.finalScore ?? 0))[0];
+  const promptPreferredCandidates = preferredCandidates
+    .filter((candidate) => candidate.promptSemanticScore !== undefined)
+    .sort((left, right) =>
+      (right.promptSemanticScore ?? 0) - (left.promptSemanticScore ?? 0));
+  const promptPreferred = (promptPreferredCandidates[0]?.promptSemanticScore ?? 0)
+      >= thresholds.promptSemanticMinimum
+    && (promptPreferredCandidates[0]?.promptSemanticScore ?? 0)
+      - (promptPreferredCandidates[1]?.promptSemanticScore ?? 0)
+      >= thresholds.promptSelectionMargin
+    ? promptPreferredCandidates[0]
+    : undefined;
+  const sourceCoherent = context.expectedPattern !== undefined
+    && context.topSemanticSourceId !== undefined
+    && context.topSemanticSourceShare >= thresholds.semanticClusterMinimum
+    ? eligible
+      .filter((candidate) =>
+        (candidate.sufficiencyScore ?? 0) > 0
+        && candidate.document.sourceId === context.topSemanticSourceId
+        && (
+          context.preferredSourceTypes.length === 0
+          || context.preferredSourceTypes.includes(candidate.document.sourceType)
+        )
+        && (candidate.semanticScore ?? 0) >= context.topSemanticScore - thresholds.semanticWindow)
+      .sort((left, right) =>
+        (right.finalScore ?? 0) - (left.finalScore ?? 0)
+        || (right.semanticScore ?? 0) - (left.semanticScore ?? 0))[0]
+    : undefined;
+  const preferred = preferredCandidates
+      .sort((left, right) =>
+        (right.semanticScore ?? 0) - (left.semanticScore ?? 0)
+        || (right.finalScore ?? 0) - (left.finalScore ?? 0))[0];
+  const selected = promptPreferred ?? shapePreferred ?? sourceCoherent ?? (preferred !== undefined
+    && (
+      !context.preferredSourceTypes.includes(primary.document.sourceType)
+      || (preferred.semanticScore ?? 0) - (primary.semanticScore ?? 0)
+        >= thresholds.semanticCandidateMargin
+    )
+    ? preferred
+    : primary);
+  const authoritative = eligible
+    .filter((candidate) =>
+      (candidate.sufficiencyScore ?? 0) > 0
+      && !context.preferredSourceTypes.includes(selected.document.sourceType)
+      && (candidate.document.authorityTier - selected.document.authorityTier) / 100
+        >= thresholds.authorityDominanceMinimum
+      && (candidate.semanticScore ?? 0)
+        >= (selected.semanticScore ?? 0) - thresholds.semanticWindow
+      && (candidate.answerSemanticScore ?? 0)
+        >= (selected.answerSemanticScore ?? 0) - thresholds.answerSemanticWindow
+      && retrievalStrength(candidate) >= retrievalStrength(selected))
+    .sort((left, right) =>
+      right.document.authorityTier - left.document.authorityTier
+      || (right.finalScore ?? 0) - (left.finalScore ?? 0))[0];
+  const chosen = authoritative ?? selected;
+  if (context.expectedPattern !== "list" || chosen.semanticScore === undefined) return [chosen];
   const secondary = eligible.find((candidate) =>
-    candidate.passage.id !== primary.passage.id
-    && candidate.document.sourceId === primary.document.sourceId
+    candidate.passage.id !== chosen.passage.id
+    && candidate.document.sourceId === chosen.document.sourceId
     && candidate.semanticScore !== undefined
-    && candidate.semanticScore >= primarySemanticScore - semanticPatternConfig().thresholds.multiPassageWindow
+    && candidate.semanticScore >= chosen.semanticScore! - thresholds.multiPassageWindow
     && (candidate.sufficiencyScore ?? 0) > 0
     && retrievalStrength(candidate) >= RETRIEVAL_LIMITS.minimumRelevance);
-  return secondary ? [primary, secondary] : [primary];
+  return secondary ? [chosen, secondary] : [chosen];
 }
 
 export function selectCompoundAnswerCandidates(
@@ -197,11 +325,24 @@ export function selectCompoundAnswerCandidates(
       || (right.lexicalScore ?? 0) - (left.lexicalScore ?? 0)
       || (right.answerSemanticScore ?? 0) - (left.answerSemanticScore ?? 0)
       || (right.finalScore ?? retrievalStrength(right)) - (left.finalScore ?? retrievalStrength(left)));
-  const primary = candidates[0];
-  if (!primary) return [];
-  const primaryPattern = context.passagePatterns.get(primary.passage.id)?.best.id;
-  const secondary = candidates.find((candidate) =>
-    candidate.document.sourceId !== primary.document.sourceId
-    && context.passagePatterns.get(candidate.passage.id)?.best.id !== primaryPattern);
-  return secondary ? [primary, secondary] : [];
+  const pairs = candidates.flatMap((left, leftIndex) =>
+    candidates.slice(leftIndex + 1).flatMap((right) => {
+      const leftPattern = context.passagePatterns.get(left.passage.id)?.best.id;
+      const rightPattern = context.passagePatterns.get(right.passage.id)?.best.id;
+      if (
+        left.document.sourceId === right.document.sourceId
+        || (
+          context.compoundAnswerSameDomain
+          && left.document.domain !== right.document.domain
+        )
+        || leftPattern === rightPattern
+      ) return [];
+      const relevance = (candidate: RetrievalCandidate): number =>
+        (candidate.semanticScore ?? 0)
+        + (candidate.promptSemanticScore ?? 0) * 0.3
+        + (candidate.answerSemanticScore ?? 0) * 0.2;
+      return [{ candidates: [left, right] as const, score: relevance(left) + relevance(right) }];
+    }));
+  const selected = [...pairs].sort((left, right) => right.score - left.score)[0]?.candidates;
+  return selected ? [...selected] : [];
 }

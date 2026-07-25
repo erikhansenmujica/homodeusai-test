@@ -14,8 +14,10 @@ export type RoutingIntent =
   | "human_requested"
   | "gratitude"
   | "greeting"
+  | "service_capability"
   | "out_of_scope"
   | "governance_attack"
+  | "requester_context_override"
   | "contextual_followup";
 
 export type AnswerPattern =
@@ -35,6 +37,7 @@ export type RetrievalConcept =
   | "timekeeping_required_events"
   | "apprentice_schedule"
   | "overtime_compensation"
+  | "overtime_authorization_timing"
   | "payroll_statement_availability"
   | "protected_document_channel"
   | "identity_provisioning_event"
@@ -44,6 +47,7 @@ export type RetrievalConcept =
   | "intern_time_bank"
   | "employment_relationship_effect"
   | "termination_formal_start"
+  | "termination_provisional_date"
   | "termination_human_review"
   | "vacation_request_timing"
   | "request_submission_approval"
@@ -58,6 +62,13 @@ export type RetrievalConcept =
   | "individual_record_attribute"
   | "individual_request_status"
   | "provisional_state_not_payment"
+  | "restricted_compensation_reference"
+  | "restricted_access_assignment"
+  | "direct_medical_diagnosis"
+  | "trace_exfiltration"
+  | "sensitive_data_mutation"
+  | "mixed_policy_and_live_state"
+  | "multi_source_health_guidance"
   | "unsupported_employer_expense";
 
 type PatternId = RoutingIntent | AnswerPattern | CompositionPattern | RetrievalConcept;
@@ -72,15 +83,26 @@ interface PatternDefinition {
   retrievalHint?: string;
   answerPattern?: AnswerPattern;
   answerPatternFlexible?: boolean;
+  answerPatternMargin?: number;
+  answerPatternSelectionWeight?: number;
   policyGuidanceOverride?: boolean;
   liveStateOverride?: boolean;
   sensitiveTopic?: boolean;
   knownCorpusGap?: boolean;
   contextFreeMinimum?: number;
   conflictWindowMultiplier?: number;
+  semanticWindowMultiplier?: number;
+  conflictOnMultipleSources?: boolean;
+  compoundAnswer?: boolean;
+  compoundAnswerSameDomain?: boolean;
+  relationshipGapIsMissingSource?: boolean;
+  deferReason?: "sensitive_topic" | "policy_sensitive_source";
+  minimumScore?: number;
+  minimumMargin?: number;
   answerAlignmentMinimum?: number;
   preferredSourceTypes?: string[];
   requiredSourceTypes?: string[];
+  profileAffinityRelationships?: string[];
 }
 
 interface SemanticPatternConfig {
@@ -102,13 +124,36 @@ interface SemanticPatternConfig {
     answerSemanticMinimum: number;
     answerSemanticWindow: number;
     answerSemanticRankingWeight: number;
+    promptSemanticMinimum: number;
+    promptSemanticMargin: number;
+    promptSelectionMargin: number;
+    promptSemanticWindow: number;
+    promptSemanticRankingWeight: number;
+    authorityDominanceMinimum: number;
     structuralPatternMargin: number;
     semanticRankingWeight: number;
     sourceTypeRankingWeight: number;
     retrievalConceptMinimum: number;
     retrievalConceptMargin: number;
+    retrievalExpansionMinimum: number;
+    retrievalExpansionMargin: number;
     lexicalCoverageMinimum: number;
     answerPatternMargin: number;
+    answerPatternSelectionWeight: number;
+    profileConceptBoost: number;
+    genericDirectSemanticMinimum: number;
+    genericDirectAnswerMinimum: number;
+    genericDirectCoverageMinimum: number;
+    genericDirectLexicalMinimum: number;
+    genericCorroboratedSemanticMinimum: number;
+    genericCorroboratedCoverageMinimum: number;
+    safetyBoundaryMargin: number;
+    safetyBoundaryProximity: number;
+    standalonePromptSemanticMinimum: number;
+    sensitiveCapabilityCompositionMarginMaximum: number;
+    mixedScopeRoutingMargin: number;
+    degradedAuthorityLexicalRatio: number;
+    degradedAuthorityCoverageMinimum: number;
     compositionMinimum: number;
     compositionMargin: number;
   };
@@ -127,6 +172,22 @@ export interface SemanticPatternAnalysis<T extends PatternId = PatternId> {
   best: SemanticPatternMatch<T>;
   second: SemanticPatternMatch<T>;
   scores: Record<string, number>;
+}
+
+export function mergeSemanticPatternAnalyses<T extends PatternId>(
+  analyses: Array<SemanticPatternAnalysis<T>>,
+): SemanticPatternAnalysis<T> {
+  if (analyses.length === 0) throw new Error("at least one semantic pattern analysis is required");
+  const scores: Record<string, number> = {};
+  for (const analysis of analyses) {
+    for (const [id, score] of Object.entries(analysis.scores)) {
+      scores[id] = Math.max(scores[id] ?? Number.NEGATIVE_INFINITY, score);
+    }
+  }
+  const matches = Object.entries(scores)
+    .map(([id, score]) => ({ id: id as T, score }))
+    .sort((left, right) => right.score - left.score || left.id.localeCompare(right.id));
+  return { best: matches[0]!, second: matches[1]!, scores };
 }
 
 export interface SemanticEmbeddingProvider {
@@ -178,9 +239,28 @@ function parseConfig(): SemanticPatternConfig {
       pattern.liveStateOverride,
       pattern.sensitiveTopic,
       pattern.knownCorpusGap,
+      pattern.conflictOnMultipleSources,
+      pattern.compoundAnswer,
+      pattern.compoundAnswerSameDomain,
+      pattern.relationshipGapIsMissingSource,
     ].some((flag) =>
       flag !== undefined && typeof flag !== "boolean"))) {
     throw new Error("semantic retrieval policy flags are invalid");
+  }
+  if (value.retrievalPatterns.some((pattern) =>
+    pattern.deferReason !== undefined
+    && !["sensitive_topic", "policy_sensitive_source"].includes(pattern.deferReason))) {
+    throw new Error("semantic retrieval defer reason is invalid");
+  }
+  if (value.retrievalPatterns.some((pattern) =>
+    [
+      pattern.minimumScore,
+      pattern.minimumMargin,
+      pattern.answerPatternMargin,
+      pattern.answerPatternSelectionWeight,
+    ].some((threshold) =>
+      threshold !== undefined && (!Number.isFinite(threshold) || threshold < 0 || threshold > 1)))) {
+    throw new Error("semantic retrieval selection threshold is invalid");
   }
   if (value.retrievalPatterns.some((pattern) =>
     pattern.contextFreeMinimum !== undefined
@@ -192,13 +272,15 @@ function parseConfig(): SemanticPatternConfig {
     throw new Error("semantic retrieval context-free threshold is invalid");
   }
   if (value.retrievalPatterns.some((pattern) =>
-    pattern.conflictWindowMultiplier !== undefined
-    && (
-      !Number.isFinite(pattern.conflictWindowMultiplier)
-      || pattern.conflictWindowMultiplier < 1
-      || pattern.conflictWindowMultiplier > 3
-    ))) {
-    throw new Error("semantic retrieval conflict window is invalid");
+    [pattern.conflictWindowMultiplier, pattern.semanticWindowMultiplier].some((multiplier) =>
+      multiplier !== undefined
+      && (
+        !Number.isFinite(multiplier)
+        || multiplier < 1
+        || multiplier > 3
+      ))
+  )) {
+    throw new Error("semantic retrieval window multiplier is invalid");
   }
   if (value.retrievalPatterns.some((pattern) =>
     pattern.answerAlignmentMinimum !== undefined
@@ -210,7 +292,11 @@ function parseConfig(): SemanticPatternConfig {
     throw new Error("semantic retrieval answer alignment threshold is invalid");
   }
   if (value.retrievalPatterns.some((pattern) =>
-    [pattern.preferredSourceTypes, pattern.requiredSourceTypes].some((sourceTypes) =>
+    [
+      pattern.preferredSourceTypes,
+      pattern.requiredSourceTypes,
+      pattern.profileAffinityRelationships,
+    ].some((sourceTypes) =>
       sourceTypes !== undefined
       && (
         sourceTypes.length === 0
@@ -218,8 +304,16 @@ function parseConfig(): SemanticPatternConfig {
       )))) {
     throw new Error("semantic retrieval source preferences are invalid");
   }
-  if (Object.values(value.thresholds).some((threshold) =>
-    !Number.isFinite(threshold) || threshold < 0 || threshold > 1)) {
+  if (Object.entries(value.thresholds).some(([name, threshold]) =>
+    !Number.isFinite(threshold)
+    || threshold < 0
+    || (
+      name.endsWith("Weight")
+        ? threshold > 10
+        : name === "genericDirectLexicalMinimum"
+          ? threshold > 1_000
+          : threshold > 1
+    ))) {
     throw new Error("semantic pattern thresholds are invalid");
   }
   return value;

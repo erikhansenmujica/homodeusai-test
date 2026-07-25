@@ -38,6 +38,8 @@ The candidate run completed **21/21 cases**: 12 answers, 8 deferrals, and 1 conv
 
 An early probe incorrectly borrowed meal support for an internet allowance. Adding a 60% topic-coverage floor fixed it and created two permanent missing-evidence regressions. That failure is why subject coverage—not merely a high passage score—is a rollout gate.
 
+Supplemental learned-mode regressions passed **63/63 adversarial questions** and **20/20 open-world questions**. The latter includes the eight presentation probes that previously produced false handoffs or the wrong clause; they now require the expected source and byte-valid evidence. These supplemental results do not change the official 21-case candidate score.
+
 # Baseline and pilot measures
 
 The current baseline is 2,659 monthly-equivalent requests and 503.2 analyst hours, or about **11.35 analyst minutes per request** across the measured work. This is not a savings claim.

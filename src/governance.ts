@@ -70,18 +70,8 @@ export function activeSupersededSources(documents: SourceDocument[], request: De
 }
 
 function normalizedNumbers(value: string): string[] {
-  return [...value.matchAll(/\b(?:\d+(?:[.,]\d+)?|primeir[oa]|segund[oa]|terceir[oa]|quart[oa]|quint[oa]|sext[oa])\b/giu)]
-    .map((match) => match[0].toLocaleLowerCase("pt-BR"));
-}
-
-function hasNegation(value: string): boolean {
-  return /\b(?:não|nao|nunca|jamais|sem)\b/iu.test(value);
-}
-
-function hasOpposedTiming(left: string, right: string): boolean {
-  const later = /\b(?:seguinte|depois|posterior|tardia)\b/iu;
-  const earlier = /\b(?:antes|anterior|prévia|previa)\b/iu;
-  return (later.test(left) && earlier.test(right)) || (earlier.test(left) && later.test(right));
+  return [...value.normalize("NFKC").matchAll(/\p{N}+(?:[.,]\p{N}+)?/gu)]
+    .map((match) => match[0]);
 }
 
 function contentTerms(value: string): Set<string> {
@@ -114,12 +104,6 @@ export function detectConflicts(candidates: RetrievalCandidate[]): Conflict[] {
         leftNumbers.some((value) => !rightNumbers.includes(value)) &&
         rightNumbers.some((value) => !leftNumbers.includes(value))) {
         signals.push("incompatible_values");
-      }
-      if (textOverlap >= 0.42 && hasNegation(left.passage.answerText) !== hasNegation(right.passage.answerText)) {
-        signals.push("opposed_polarity");
-      }
-      if (textOverlap >= 0.24 && hasOpposedTiming(left.passage.answerText, right.passage.answerText)) {
-        signals.push("incompatible_timing");
       }
       if (signals.length > 0) {
         conflictingSourcePairs.add(sourcePair);

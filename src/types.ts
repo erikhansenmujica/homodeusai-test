@@ -43,6 +43,7 @@ export interface Passage {
   heading: string;
   text: string;
   answerText: string;
+  promptText?: string;
   startCharacter: number;
   endCharacter: number;
   startByte: number;
@@ -60,6 +61,7 @@ export interface RetrievalCandidate {
   lexicalScore?: number;
   semanticScore?: number;
   answerSemanticScore?: number;
+  promptSemanticScore?: number;
   fusionScore?: number;
   titleScore?: number;
   headingScore?: number;
@@ -237,8 +239,11 @@ export interface TraceEvidence {
   lexicalScore?: number;
   semanticScore?: number;
   answerSemanticScore?: number;
+  promptSemanticScore?: number;
   fusionScore?: number;
   finalScore?: number;
+  // Expose weighted query coverage so retrieval failures can be diagnosed from the persisted trace.
+  queryCoverage?: number;
   rejectionCodes?: EligibilityRejectionCode[];
   selectedAsEvidence?: boolean;
 }
@@ -285,6 +290,12 @@ export interface DecisionTrace {
     explicitRegion?: string;
     resolvedRegion?: string;
     answerRequirement?: string;
+    // Persist classifier rankings for early-boundary and final decisions without storing hidden reasoning.
+    classifierScores?: Record<string, {
+      best: { id: string; score: number };
+      second: { id: string; score: number };
+      scores: Record<string, number>;
+    }>;
   };
   confidence?: EvidenceConfidence;
 }

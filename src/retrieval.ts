@@ -47,6 +47,10 @@ function cleanAnswer(text: string): string {
     .trim();
 }
 
+function sourcePrompt(text: string): string | undefined {
+  return text.match(/(?:^|\n)P:\s*([^\n]+)/u)?.[1]?.trim() || undefined;
+}
+
 function passage(
   document: SourceDocument,
   heading: string,
@@ -67,6 +71,7 @@ function passage(
     heading,
     text,
     answerText,
+    promptText: sourcePrompt(text),
     startCharacter,
     endCharacter: startCharacter + text.length,
     startByte: Buffer.byteLength(document.content.slice(0, startCharacter), "utf8"),

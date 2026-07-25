@@ -69,6 +69,7 @@ jobs:
           CANDIDATE_BASE_URL=http://127.0.0.1:8080 npm run evals
           node --input-type=module -e "import report from '/tmp/candidate-eval-report.json' with { type: 'json' }; if (!report.safe) process.exit(1)"
       - run: npm run setup:model
+      - run: npm run test:extended
       - run: npm run evals:matrix
 
   submission:

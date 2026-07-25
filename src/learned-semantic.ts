@@ -13,7 +13,7 @@ const MODEL_PATH = resolve(
   process.env.LEARNED_SEMANTIC_MODEL_PATH?.trim()
     || join(ROOT, "models", ...MODEL_ID.split("/")),
 );
-const INDEX_SCHEMA = 3;
+const INDEX_SCHEMA = 4;
 
 type Extractor = (inputs: string[], options: Record<string, unknown>) => Promise<{ data: Float32Array | number[]; dims: number[] }>;
 
@@ -22,8 +22,10 @@ interface StoredEntry {
   passageId: string;
   passageHash: string;
   answerHash: string;
+  promptHash?: string;
   vector: number[];
   answerVector: number[];
+  promptVector?: number[];
 }
 interface StoredIndex { schemaVersion: number; modelId: string; revision: string; dimensions: number; entries: StoredEntry[]; }
 
@@ -38,6 +40,11 @@ function passageHash(document: SourceDocument, passage: Passage): string {
 }
 function answerHash(passage: Passage): string {
   return createHash("sha256").update(passage.answerText, "utf8").digest("hex");
+}
+function promptHash(passage: Passage): string | undefined {
+  return passage.promptText === undefined
+    ? undefined
+    : createHash("sha256").update(passage.promptText, "utf8").digest("hex");
 }
 
 export class TransformersLocalE5EmbeddingProvider {
@@ -84,6 +91,7 @@ export class LearnedSemanticIndex {
     passage: Passage;
     vector: number[];
     answerVector: number[];
+    promptVector?: number[];
   }> = [];
   private readonly queryVectors = new Map<string, number[]>();
   private readyPromise: Promise<void> | undefined;
@@ -121,19 +129,31 @@ export class LearnedSemanticIndex {
       passage,
       hash: passageHash(document, passage),
       answerHash: answerHash(passage),
+      promptHash: promptHash(passage),
     })));
     const missing = passages.filter((entry) => reusable.get(entry.passage.id)?.passageHash !== entry.hash);
     const missingAnswers = passages.filter((entry) => {
       const cached = reusable.get(entry.passage.id);
       return cached?.answerHash !== entry.answerHash || !Array.isArray(cached.answerVector);
     });
+    const missingPrompts = passages.filter((entry) => {
+      if (entry.promptHash === undefined) return false;
+      const cached = reusable.get(entry.passage.id);
+      return cached?.promptHash !== entry.promptHash || !Array.isArray(cached.promptVector);
+    });
     const vectors = new Map<string, number[]>();
     const answerVectors = new Map<string, number[]>();
+    const promptVectors = new Map<string, number[]>();
     for (const entry of passages) {
       const cached = reusable.get(entry.passage.id);
       if (cached?.passageHash === entry.hash) vectors.set(entry.passage.id, cached.vector);
       if (cached?.answerHash === entry.answerHash && Array.isArray(cached.answerVector)) {
         answerVectors.set(entry.passage.id, cached.answerVector);
+      }
+      if (entry.promptHash !== undefined
+        && cached?.promptHash === entry.promptHash
+        && Array.isArray(cached.promptVector)) {
+        promptVectors.set(entry.passage.id, cached.promptVector);
       }
     }
     for (let index = 0; index < missing.length; index += 16) {
@@ -147,19 +167,27 @@ export class LearnedSemanticIndex {
       const embedded = await this.provider.embedPassages(batch.map((entry) => entry.passage.answerText));
       batch.forEach((entry, position) => answerVectors.set(entry.passage.id, embedded[position]!));
     }
+    for (let index = 0; index < missingPrompts.length; index += 16) {
+      const batch = missingPrompts.slice(index, index + 16);
+      const embedded = await this.provider.embedPassages(batch.map((entry) => entry.passage.promptText!));
+      batch.forEach((entry, position) => promptVectors.set(entry.passage.id, embedded[position]!));
+    }
     this.entries = passages.map(({ document, passage }) => ({
       document,
       passage,
       vector: vectors.get(passage.id)!,
       answerVector: answerVectors.get(passage.id)!,
+      promptVector: promptVectors.get(passage.id),
     }));
     const payload: StoredIndex = { schemaVersion: INDEX_SCHEMA, modelId: MODEL_ID, revision: MODEL_REVISION, dimensions: this.entries[0]?.vector.length ?? 0,
-      entries: passages.map(({ passage, hash, answerHash: storedAnswerHash }) => ({
+      entries: passages.map(({ passage, hash, answerHash: storedAnswerHash, promptHash: storedPromptHash }) => ({
         passageId: passage.id,
         passageHash: hash,
         answerHash: storedAnswerHash,
+        promptHash: storedPromptHash,
         vector: vectors.get(passage.id)!,
         answerVector: answerVectors.get(passage.id)!,
+        promptVector: promptVectors.get(passage.id),
       })) };
     try { mkdirSync(dirname(path), { recursive: true }); const temporary = `${path}.tmp`; writeFileSync(temporary, JSON.stringify(payload), { mode: 0o600 }); renameSync(temporary, path); } catch { /* optional cache only */ }
   }
@@ -193,6 +221,20 @@ export class LearnedSemanticIndex {
     }
     const byPassage = new Map(this.entries.map((entry) => [entry.passage.id, entry.answerVector]));
     return passages.map((passage) => cosine(query!, byPassage.get(passage.id) ?? []));
+  }
+
+  async promptAlignments(question: string, passages: Passage[]): Promise<Array<number | undefined>> {
+    await this.ready();
+    let query = this.queryVectors.get(question);
+    if (!query) {
+      [query] = await this.provider.embedQueries([question]);
+      this.queryVectors.set(question, query!);
+    }
+    const byPassage = new Map(this.entries.map((entry) => [entry.passage.id, entry.promptVector]));
+    return passages.map((passage) => {
+      const prompt = byPassage.get(passage.id);
+      return prompt === undefined ? undefined : cosine(query!, prompt);
+    });
   }
 
   async answerEmbeddings(passages: Passage[]): Promise<number[][]> {

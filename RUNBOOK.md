@@ -69,6 +69,8 @@ Use the exact limits in `SUBMISSION.md`: numeric user `65532:65532`, read-only r
 
 Recreate the container against the same state mount and retrieve an existing handoff before declaring persistence healthy.
 
+The final validation on 2026-07-25 built without ignored local assets, reached `ready_learned` in 12.34 seconds, returned the first end-to-end decision in 1.033 seconds, and restored an open handoff after a container recreation against the same named volume.
+
 ## Corpus or index incident
 
 1. Stop decision traffic when `/readyz` fails.

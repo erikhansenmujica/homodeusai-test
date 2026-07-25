@@ -21,6 +21,13 @@ import type { RetrievalCandidate, SourceDocument } from "./types.ts";
 export type RuntimeStatus = "initializing" | "ready_learned" | "ready_degraded" | "failed";
 export type RetrievalMode = "learned" | "degraded";
 
+export class SemanticProviderUnavailableError extends Error {
+  constructor(operation: string, options?: { cause?: unknown }) {
+    super(`semantic provider failed during ${operation}`, options);
+    this.name = "SemanticProviderUnavailableError";
+  }
+}
+
 export interface RuntimeSnapshot {
   status: RuntimeStatus;
   retrievalMode?: RetrievalMode;
@@ -36,6 +43,17 @@ let initialization: Promise<RuntimeSnapshot> | undefined;
 let activeDocuments: SourceDocument[] | undefined;
 let activePatternIndex: SemanticPatternIndex | undefined;
 let activeEmbeddingProvider: SemanticEmbeddingProvider | undefined;
+
+async function learnedProviderOperation<T>(
+  operation: string,
+  run: () => Promise<T>,
+): Promise<T> {
+  try {
+    return await run();
+  } catch (error) {
+    throw new SemanticProviderUnavailableError(operation, { cause: error });
+  }
+}
 
 function corpusVersion(documents: SourceDocument[]): string {
   return createHash("sha256")
@@ -124,7 +142,11 @@ export async function runtimeSemanticSearch(
   const state = await ensureRuntimeReady();
   if (documents !== activeDocuments) throw new Error("runtime corpus identity changed after initialization");
   if (state.retrievalMode === "learned") {
-    return { candidates: await learnedSemanticIndex(documents).search(question, limit), mode: "learned" };
+    const candidates = await learnedProviderOperation(
+      "semantic retrieval",
+      () => learnedSemanticIndex(documents).search(question, limit),
+    );
+    return { candidates, mode: "learned" };
   }
   return { candidates: semanticIndex(documents).search(question, limit), mode: "degraded" };
 }
@@ -138,7 +160,10 @@ export async function runtimeSemanticSearchMany(
   if (documents !== activeDocuments) throw new Error("runtime corpus identity changed after initialization");
   if (state.retrievalMode === "learned") {
     return {
-      candidates: await learnedSemanticIndex(documents).searchMany(questions, limit),
+      candidates: await learnedProviderOperation(
+        "batched semantic retrieval",
+        () => learnedSemanticIndex(documents).searchMany(questions, limit),
+      ),
       mode: "learned",
     };
   }
@@ -151,18 +176,24 @@ export async function runtimeSemanticSearchMany(
 export async function runtimeRoutingPatterns(
   texts: string[],
 ): Promise<Array<SemanticPatternAnalysis<RoutingIntent>>> {
-  await ensureRuntimeReady();
+  const state = await ensureRuntimeReady();
   if (!activePatternIndex) throw new Error("semantic pattern index is unavailable");
-  return activePatternIndex.classify<RoutingIntent>(texts, "routing", "query");
+  const classify = () => activePatternIndex!.classify<RoutingIntent>(texts, "routing", "query");
+  return state.retrievalMode === "learned"
+    ? learnedProviderOperation("routing classification", classify)
+    : classify();
 }
 
 export async function runtimeAnswerPatterns(
   texts: string[],
   role: "query" | "passage" = "query",
 ): Promise<Array<SemanticPatternAnalysis<AnswerPattern>>> {
-  await ensureRuntimeReady();
+  const state = await ensureRuntimeReady();
   if (!activePatternIndex) throw new Error("semantic pattern index is unavailable");
-  return activePatternIndex.classify<AnswerPattern>(texts, "answer", role);
+  const classify = () => activePatternIndex!.classify<AnswerPattern>(texts, "answer", role);
+  return state.retrievalMode === "learned"
+    ? learnedProviderOperation("answer-shape classification", classify)
+    : classify();
 }
 
 export async function runtimeAnswerAlignment(
@@ -174,9 +205,12 @@ export async function runtimeAnswerAlignment(
   if (documents !== activeDocuments) throw new Error("runtime corpus identity changed after initialization");
   if (candidates.length === 0) return [];
   if (state.retrievalMode === "learned") {
-    return learnedSemanticIndex(documents).answerAlignments(
-      question,
-      candidates.map((candidate) => candidate.passage),
+    return learnedProviderOperation(
+      "answer alignment",
+      () => learnedSemanticIndex(documents).answerAlignments(
+        question,
+        candidates.map((candidate) => candidate.passage),
+      ),
     );
   }
   if (!activeEmbeddingProvider) return [];
@@ -188,6 +222,41 @@ export async function runtimeAnswerAlignment(
     passage.reduce((sum, value, index) => sum + value * (query?.[index] ?? 0), 0));
 }
 
+export async function runtimePromptAlignment(
+  documents: SourceDocument[],
+  question: string,
+  candidates: RetrievalCandidate[],
+): Promise<Array<number | undefined>> {
+  const state = await ensureRuntimeReady();
+  if (documents !== activeDocuments) throw new Error("runtime corpus identity changed after initialization");
+  if (candidates.length === 0) return [];
+  if (state.retrievalMode === "learned") {
+    return learnedProviderOperation(
+      "source prompt alignment",
+      () => learnedSemanticIndex(documents).promptAlignments(
+        question,
+        candidates.map((candidate) => candidate.passage),
+      ),
+    );
+  }
+  if (!activeEmbeddingProvider) return candidates.map(() => undefined);
+  const promptCandidates = candidates
+    .map((candidate, index) => ({ index, text: candidate.passage.promptText }))
+    .filter((candidate): candidate is { index: number; text: string } =>
+      candidate.text !== undefined);
+  if (promptCandidates.length === 0) return candidates.map(() => undefined);
+  const [[query], prompts] = await Promise.all([
+    activeEmbeddingProvider.embedQueries([question]),
+    activeEmbeddingProvider.embedPassages(promptCandidates.map((candidate) => candidate.text)),
+  ]);
+  const scores: Array<number | undefined> = candidates.map(() => undefined);
+  promptCandidates.forEach((candidate, index) => {
+    scores[candidate.index] = prompts[index]!.reduce((sum, value, dimension) =>
+      sum + value * (query?.[dimension] ?? 0), 0);
+  });
+  return scores;
+}
+
 export async function runtimeCandidateAnswerPatterns(
   documents: SourceDocument[],
   candidates: RetrievalCandidate[],
@@ -196,8 +265,11 @@ export async function runtimeCandidateAnswerPatterns(
   if (documents !== activeDocuments) throw new Error("runtime corpus identity changed after initialization");
   if (!activePatternIndex || candidates.length === 0) return [];
   const vectors = state.retrievalMode === "learned"
-    ? await learnedSemanticIndex(documents).answerEmbeddings(
-      candidates.map((candidate) => candidate.passage),
+    ? await learnedProviderOperation(
+      "candidate answer embedding",
+      () => learnedSemanticIndex(documents).answerEmbeddings(
+        candidates.map((candidate) => candidate.passage),
+      ),
     )
     : await activeEmbeddingProvider!.embedPassages(
       candidates.map((candidate) => candidate.passage.answerText),
@@ -208,15 +280,21 @@ export async function runtimeCandidateAnswerPatterns(
 export async function runtimeCompositionPatterns(
   texts: string[],
 ): Promise<Array<SemanticPatternAnalysis<CompositionPattern>>> {
-  await ensureRuntimeReady();
+  const state = await ensureRuntimeReady();
   if (!activePatternIndex) throw new Error("semantic pattern index is unavailable");
-  return activePatternIndex.classify<CompositionPattern>(texts, "composition", "query");
+  const classify = () => activePatternIndex!.classify<CompositionPattern>(texts, "composition", "query");
+  return state.retrievalMode === "learned"
+    ? learnedProviderOperation("question-composition classification", classify)
+    : classify();
 }
 
 export async function runtimeRetrievalPatterns(
   texts: string[],
 ): Promise<Array<SemanticPatternAnalysis<RetrievalConcept>>> {
-  await ensureRuntimeReady();
+  const state = await ensureRuntimeReady();
   if (!activePatternIndex) throw new Error("semantic pattern index is unavailable");
-  return activePatternIndex.classify<RetrievalConcept>(texts, "retrieval", "query");
+  const classify = () => activePatternIndex!.classify<RetrievalConcept>(texts, "retrieval", "query");
+  return state.retrievalMode === "learned"
+    ? learnedProviderOperation("retrieval-concept classification", classify)
+    : classify();
 }

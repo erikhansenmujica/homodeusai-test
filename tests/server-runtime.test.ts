@@ -100,6 +100,24 @@ test("readiness, security, metrics, and idempotency conflicts are operationally 
     assert.match(page.headers.get("content-security-policy") ?? "", /frame-ancestors 'none'/u);
     assert.equal(page.headers.get("referrer-policy"), "no-referrer");
 
+    const authorityAmbiguity = await fetch(`${service.baseUrl}/v1/decide`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        requestId: "degraded-authority-ambiguity",
+        question: "Qual é o prazo para ajuste após o fechamento?",
+        asOf: "2026-07-24T12:00:00.000Z",
+        requester,
+        history: [],
+      }),
+    });
+    const authorityDecision = await authorityAmbiguity.json() as {
+      kind?: string;
+      handoff?: { reasonCode?: string };
+    };
+    assert.equal(authorityDecision.kind, "defer");
+    assert.equal(authorityDecision.handoff?.reasonCode, "conflicting_source");
+
     const firstPayload = {
       requestId: "same-runtime-request",
       question: "Quero falar com uma pessoa.",
@@ -126,6 +144,31 @@ test("readiness, security, metrics, and idempotency conflicts are operationally 
     assert.doesNotMatch(metrics, /Quero falar|atendimento humano/u);
     assert.ok(service.logs.join("").includes('"route":"decide"'));
     assert.doesNotMatch(service.logs.join(""), /Quero falar|atendimento humano/u);
+
+    for (const invalidPayload of [
+      { ...firstPayload, requestId: "invalid-empty-question", question: "" },
+      { ...firstPayload, requestId: "invalid-date", asOf: "not-a-date" },
+      {
+        ...firstPayload,
+        requestId: "invalid-requester",
+        requester: { ...requester, role: "" },
+      },
+    ]) {
+      const invalid = await fetch(`${service.baseUrl}/v1/decide`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(invalidPayload),
+      });
+      assert.equal(invalid.status, 400);
+      assert.equal((await invalid.json() as { error?: string }).error, "invalid_request");
+    }
+
+    const unknownTrace = await fetch(`${service.baseUrl}/v1/traces/trace-unknown000`);
+    assert.equal(unknownTrace.status, 404);
+    assert.equal((await unknownTrace.json() as { error?: string }).error, "trace_not_found");
+    const unknownTicket = await fetch(`${service.baseUrl}/v1/handoffs/ticket-unknown`);
+    assert.equal(unknownTicket.status, 404);
+    assert.equal((await unknownTicket.json() as { error?: string }).error, "handoff_not_found");
   } finally {
     await stopServer(service.child);
     rmSync(statePath, { recursive: true, force: true });
