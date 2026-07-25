@@ -20,6 +20,8 @@ jobs:
       - run: npm ci
       - run: npm audit --omit=dev
       - run: npm run typecheck
+      # Learned-mode assertions require the checksum-pinned offline model before runtime initialization.
+      - run: npm run setup:model
       - run: npm test
       - run: npm run self-check
 

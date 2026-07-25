@@ -60,6 +60,8 @@ export interface RetrievalCandidate {
   score: number;
   lexicalScore?: number;
   semanticScore?: number;
+  // Keep the retrieval-concept alignment distinct from direct-question similarity.
+  conceptSemanticScore?: number;
   answerSemanticScore?: number;
   promptSemanticScore?: number;
   fusionScore?: number;

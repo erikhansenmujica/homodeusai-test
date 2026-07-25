@@ -35,4 +35,13 @@ test("evaluation counts, retrieval thresholds, and provider terminology stay con
   for (const document of documents) {
     assert.doesNotMatch(document.content, /provider\.status:\s*["`]?not_used/iu, document.path);
   }
+
+  // Prevent CI from silently exercising learned-mode assertions with the degraded fallback.
+  const workflow = await readFile(new URL("../.github/workflows/verify.yml", import.meta.url), "utf8");
+  const qualityJob = workflow.slice(workflow.indexOf("  quality:"), workflow.indexOf("  browser:"));
+  const modelSetupIndex = qualityJob.indexOf("npm run setup:model");
+  const testIndex = qualityJob.indexOf("npm test");
+  assert.ok(modelSetupIndex >= 0);
+  assert.ok(testIndex >= 0);
+  assert.ok(modelSetupIndex < testIndex);
 });

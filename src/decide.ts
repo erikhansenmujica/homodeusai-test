@@ -593,9 +593,13 @@ async function decideGoverned(input: DecideRequest): Promise<Decision> {
   const selectedRetrievalScore = selectedRetrievalPattern?.score ?? 0;
   const compoundQuestion = retrievalDefinition?.compoundAnswer === true;
   const policyBoundaries = retrievalDefinitions
+    // Route the mixed policy/live-state concept only through its explicit coordinated-clause boundary below.
     .filter((definition) =>
-      definition.deferReason !== undefined
-      || definition.sensitiveTopic === true)
+      definition.id !== "mixed_policy_and_live_state"
+      && (
+        definition.deferReason !== undefined
+        || definition.sensitiveTopic === true
+      ))
     .map((definition) => ({
       definition,
       score: retrievalPattern.scores[definition.id] ?? 0,
@@ -607,9 +611,10 @@ async function decideGoverned(input: DecideRequest): Promise<Decision> {
   const hardPolicyBoundary = policyBoundaries.find((candidate) =>
     candidate.definition.deferReason === "policy_sensitive_source");
   // Preserve a high-confidence mixed live-state boundary even when a supported policy clause scores slightly higher.
-  // A mixed policy/live-state boundary needs an explicit coordinated clause, not only embedding proximity.
-  const hasCoordinatedClause = /\b(?:e|and|y)\b/iu.test(semanticInputQuestion);
-  const mixedLiveStateBoundary = compositionSignal
+  // A mixed policy/live-state boundary needs explicit sentence or conjunction structure, not only embedding proximity.
+  const hasCoordinatedClause = sentenceSegments.length > 1
+    || /\b(?:e|and|y)\b/iu.test(semanticInputQuestion);
+  const mixedLiveStateBoundary = mixedScopeCompositionSignal
     && hasCoordinatedClause
     && !retrievalContext.usedHistory
     ? retrievalDefinitions
@@ -739,6 +744,16 @@ async function decideGoverned(input: DecideRequest): Promise<Decision> {
       .sort((left, right) => right.score - left.score || left.passage.id.localeCompare(right.passage.id)),
     mode: semanticBatch.mode,
   };
+  // Preserve retrieval-hint alignment independently from the direct-question score used by hybrid fusion.
+  const conceptSemanticScores = new Map<string, number>();
+  for (const candidates of semanticExpansionEnabled ? semanticBatch.candidates.slice(1) : []) {
+    for (const candidate of candidates) {
+      conceptSemanticScores.set(
+        candidate.passage.id,
+        Math.max(conceptSemanticScores.get(candidate.passage.id) ?? 0, candidate.score),
+      );
+    }
+  }
   const semanticProviderStatus = semantic.mode === "learned" ? "ok" : "degraded";
   const requestedRegion = routingIntentIsSupported(routing, "requester_context_override")
     ? undefined
@@ -855,7 +870,12 @@ async function decideGoverned(input: DecideRequest): Promise<Decision> {
       ?? patternThresholds.retrievalConceptMinimum
     );
   const retrieval = lexicalIndex(documents).search(retrievalContext.question, 192);
-  const hybridCandidates = fuseRetrieval(retrieval.candidates, semantic.candidates, 256);
+  // Attach the concept score after fusion so a platform-sensitive direct score cannot erase it.
+  const hybridCandidates = fuseRetrieval(retrieval.candidates, semantic.candidates, 256)
+    .map((candidate) => ({
+      ...candidate,
+      conceptSemanticScore: conceptSemanticScores.get(candidate.passage.id),
+    }));
   const retrievalMs = performance.now() - retrievalStarted;
   const topScore = hybridCandidates.reduce((strongest, candidate) =>
     Math.max(strongest, retrievalStrength(candidate)), 0);
@@ -1102,27 +1122,48 @@ async function decideGoverned(input: DecideRequest): Promise<Decision> {
   const hasSufficientCandidate = rankedEligible.some((candidate) =>
     (candidate.sufficiencyScore ?? 0) > 0);
   const conflicts = hasSufficientCandidate ? detectConflicts(conflictCandidates) : [];
+  // Retain a nearby conflict-bearing concept even when a sibling concept wins by a platform-sensitive tie.
+  const conflictRetrievalDefinition = retrievalDefinition?.conflictOnMultipleSources
+    ? retrievalDefinition
+    : requirement === "location_or_channel"
+      ? compatibleRetrievalPatterns.slice(0, 2).find((candidate) =>
+        candidate.definition.conflictOnMultipleSources === true
+        && candidate.definition.answerPattern === "location_or_channel"
+        && candidate.score >= retrievalPattern.best.score - patternThresholds.semanticWindow)
+        ?.definition
+      : undefined;
   // Require a strong conflict concept, or a channel question whose competing sources are exceptionally close.
   const strongConflictConcept =
     selectedRetrievalScore >= patternThresholds.routingDomainSignalMinimum;
   if (hasSufficientCandidate
-    && retrievalDefinition?.conflictOnMultipleSources
+    && conflictRetrievalDefinition !== undefined
     && (
       strongConflictConcept
-      || retrievalDefinition.answerPattern === "location_or_channel"
+      || conflictRetrievalDefinition.answerPattern === "location_or_channel"
     )) {
-    // Keep the wider configured window only when the conflict classifier independently supports it.
+    // Give dual-authority concepts a stable consensus window across embedding runtimes.
+    const consensusMultiplier = conflictRetrievalDefinition.conflictWindowMultiplier ?? 2;
     const consensusWindow = patternThresholds.semanticWindow
-      * (strongConflictConcept ? retrievalDefinition.conflictWindowMultiplier ?? 1 : 1);
+      * consensusMultiplier;
+    const consensusSourceTypes = conflictRetrievalDefinition.requiredSourceTypes ?? [];
     const consensusCandidates = alignedEligible.filter((candidate) =>
       candidate.semanticScore !== undefined
+      && (conflictDomain === undefined || candidate.document.domain === conflictDomain)
+      && (
+        consensusSourceTypes.length === 0
+        || consensusSourceTypes.includes(candidate.document.sourceType)
+      )
       && candidate.semanticScore >= supportContext.topSemanticScore - consensusWindow
       && (candidate.answerSemanticScore ?? 0) >= supportContext.answerSemanticMinimum
       && retrievalStrength(candidate) >= RETRIEVAL_LIMITS.minimumRelevance);
     const bySource = new Map(consensusCandidates.map((candidate) =>
       [candidate.document.sourceId, candidate] as const));
     const distinct = [...bySource.values()];
-    if (distinct.length > 1 && conflicts.length === 0) {
+    // A typed multi-authority conflict requires representation from every configured authority class.
+    const observedSourceTypes = new Set(distinct.map((candidate) => candidate.document.sourceType));
+    const hasRequiredSourceTypeConsensus = consensusSourceTypes.every((sourceType) =>
+      observedSourceTypes.has(sourceType));
+    if (distinct.length > 1 && hasRequiredSourceTypeConsensus && conflicts.length === 0) {
       conflicts.push({
         domain: distinct[0]!.document.domain,
         left: distinct[0]!,

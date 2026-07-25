@@ -232,11 +232,22 @@ export function selectAnswerCandidates(
     : eligible.filter((candidate) =>
       (candidate.sufficiencyScore ?? 0) > 0
       && context.preferredSourceTypes.includes(candidate.document.sourceType));
-  const shapePreferred = context.answerPatternFlexible
+  // Use a confident channel answer shape when no retrieval concept supplied a stricter one.
+  const shapeTarget = context.expectedPattern ?? (
+    requirement === "location_or_channel"
+      && context.queryPattern.best.score - context.queryPattern.second.score
+      >= thresholds.structuralPatternMargin
+      ? requirement
+      : undefined
+  );
+  const shapeCandidates = context.expectedPattern === undefined
+    ? eligible.filter((candidate) => (candidate.sufficiencyScore ?? 0) > 0)
+    : preferredCandidates;
+  const shapePreferred = context.answerPatternFlexible || shapeTarget === undefined
     ? undefined
-    : preferredCandidates
+    : shapeCandidates
     .filter((candidate) =>
-      context.passagePatterns.get(candidate.passage.id)?.best.id === context.expectedPattern
+      context.passagePatterns.get(candidate.passage.id)?.best.id === shapeTarget
       && (
         candidate.semanticScore === undefined
         || primary.semanticScore === undefined
@@ -256,6 +267,16 @@ export function selectAnswerCandidates(
       >= thresholds.promptSelectionMargin
     ? promptPreferredCandidates[0]
     : undefined;
+  // Prefer the passage uniquely aligned with the selected retrieval concept before direct-score tie-breaks.
+  const conceptPreferredCandidates = preferredCandidates
+    .filter((candidate) => candidate.conceptSemanticScore !== undefined)
+    .sort((left, right) =>
+      (right.conceptSemanticScore ?? 0) - (left.conceptSemanticScore ?? 0));
+  const conceptPreferred = (conceptPreferredCandidates[0]?.conceptSemanticScore ?? 0)
+      - (conceptPreferredCandidates[1]?.conceptSemanticScore ?? 0)
+      >= thresholds.promptSelectionMargin
+    ? conceptPreferredCandidates[0]
+    : undefined;
   const sourceCoherent = context.expectedPattern !== undefined
     && context.topSemanticSourceId !== undefined
     && context.topSemanticSourceShare >= thresholds.semanticClusterMinimum
@@ -268,15 +289,24 @@ export function selectAnswerCandidates(
           || context.preferredSourceTypes.includes(candidate.document.sourceType)
         )
         && (candidate.semanticScore ?? 0) >= context.topSemanticScore - thresholds.semanticWindow)
+      // Preserve raw-question relevance within a coherent source instead of amplifying synthetic distractor features.
       .sort((left, right) =>
-        (right.finalScore ?? 0) - (left.finalScore ?? 0)
-        || (right.semanticScore ?? 0) - (left.semanticScore ?? 0))[0]
+        (right.semanticScore ?? 0) - (left.semanticScore ?? 0)
+        || (right.answerSemanticScore ?? 0) - (left.answerSemanticScore ?? 0)
+        || (right.finalScore ?? 0) - (left.finalScore ?? 0))[0]
     : undefined;
   const preferred = preferredCandidates
       .sort((left, right) =>
         (right.semanticScore ?? 0) - (left.semanticScore ?? 0)
         || (right.finalScore ?? 0) - (left.finalScore ?? 0))[0];
-  const selected = promptPreferred ?? shapePreferred ?? sourceCoherent ?? (preferred !== undefined
+  // Let a materially stronger raw-question match defeat an answer-shape false positive within the same source.
+  const shapeOrSourcePreferred = shapePreferred !== undefined
+    && sourceCoherent !== undefined
+    && (sourceCoherent.semanticScore ?? 0) - (shapePreferred.semanticScore ?? 0)
+      < thresholds.promptSelectionMargin
+    ? shapePreferred
+    : sourceCoherent ?? shapePreferred;
+  const selected = promptPreferred ?? conceptPreferred ?? shapeOrSourcePreferred ?? (preferred !== undefined
     && (
       !context.preferredSourceTypes.includes(primary.document.sourceType)
       || (preferred.semanticScore ?? 0) - (primary.semanticScore ?? 0)

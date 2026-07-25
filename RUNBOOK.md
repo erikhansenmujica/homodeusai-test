@@ -38,6 +38,8 @@ LEARNED_SEMANTIC_ENABLED=true RUNTIME_STATE_PATH=/tmp/nexo-learned npm start
 
 The multi-stage Docker build downloads and verifies the pinned assets without relying on ignored local files. The runtime defaults to learned mode because the frozen suite passed 21/21 there versus 9/21 exact outcomes in degraded mode. When model initialization fails, `ready_degraded` remains available as a safe, abstention-first fallback; it is not advertised as multilingual semantic equivalence.
 
+The CI quality job runs `npm run setup:model` before `npm test`, so learned-mode assertions cannot silently execute against the degraded fallback. The evaluation job still starts a separate model-disabled runtime to verify safe degraded behavior intentionally.
+
 ## Test and evaluate
 
 ```bash
@@ -69,7 +71,7 @@ Use the exact limits in `SUBMISSION.md`: numeric user `65532:65532`, read-only r
 
 Recreate the container against the same state mount and retrieve an existing handoff before declaring persistence healthy.
 
-The final validation on 2026-07-25 built without ignored local assets, reached `ready_learned` in 12.34 seconds, returned the first end-to-end decision in 1.033 seconds, and restored an open handoff after a container recreation against the same named volume.
+The final validation on 2026-07-25 built without ignored local assets, reached `ready_learned` in 13.42 seconds, returned the first end-to-end decision in 1.351 seconds, and restored an open handoff after a container recreation against the same named volume.
 
 ## Corpus or index incident
 
