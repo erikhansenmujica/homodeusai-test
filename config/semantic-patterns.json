@@ -473,7 +473,7 @@
       "retrievalHint": "termination cases requiring human review: stability, leave, documentary conflict, or personal data",
       "answerPattern": "list",
       "answerPatternFlexible": true,
-      "answerAlignmentMinimum": 0.81,
+      "answerAlignmentMinimum": 0.8,
       "preferredSourceTypes": ["policy"],
       "examples": [
         "In which termination situations is human review mandatory?",
@@ -536,6 +536,7 @@
       "retrievalHint": "deadline after monthly closing for a time-record adjustment",
       "answerPattern": "duration",
       "conflictOnMultipleSources": true,
+      "minimumMargin": 0,
       "preferredSourceTypes": ["faq", "policy"],
       "requiredSourceTypes": ["faq", "policy"],
       "examples": [
@@ -642,7 +643,7 @@
       "id": "restricted_compensation_reference",
       "retrievalHint": "internal salary reference ranges, grades, levels, planning values, or compensation tables that are not employee-facing evidence",
       "answerPattern": "currency",
-      "answerPatternFlexible": true,
+      "compatibleAnswerPatterns": ["currency", "list", "general_rule"],
       "deferReason": "policy_sensitive_source",
       "minimumScore": 0.78,
       "preferredSourceTypes": ["salary_table"],

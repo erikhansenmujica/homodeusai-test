@@ -205,6 +205,10 @@ function deferReasonForRejected(candidates: Array<{
   if (hasPending || codes.has("approval")) {
     return "validation_pending";
   }
+  // Report the trusted-profile mismatch when every relevant source rejects that same profile.
+  const uniformlyOutOfProfile = candidates.length > 0
+    && candidates.every((item) => item.rejectionCodes.includes("scope"));
+  if (uniformlyOutOfProfile) return "profile_mismatch";
   if (codes.has("sensitivity") || codes.has("audience")) return "policy_sensitive_source";
   if (codes.has("scope")) return "profile_mismatch";
   if (codes.has("future") || codes.has("expired") || codes.has("superseded")) return "missing_source";
@@ -525,15 +529,18 @@ async function decideGoverned(input: DecideRequest): Promise<Decision> {
   const mixedScopeCompositionSignal = composition!.best.id === "compound_question"
     && composition!.best.score - composition!.second.score >= patternThresholds.compositionMargin;
   const retrievalDefinitions = semanticPatternConfig().retrievalPatterns;
+  // Accept a concept only when the classified response shape is one of its governed shapes.
   const answerPatternCompatible = (definition: typeof retrievalDefinitions[number]): boolean =>
     retrievalContext.usedHistory
     || definition.answerPattern === undefined
     || definition.answerPatternFlexible === true
-    || (queryPattern!.scores[definition.answerPattern as AnswerPattern] ?? 0)
-      >= queryPattern!.best.score - (
-        definition.answerPatternMargin
-        ?? patternThresholds.answerPatternMargin
-      );
+    || (definition.compatibleAnswerPatterns ?? [definition.answerPattern])
+      .some((answerPattern) =>
+        (queryPattern!.scores[answerPattern] ?? 0)
+          >= queryPattern!.best.score - (
+            definition.answerPatternMargin
+            ?? patternThresholds.answerPatternMargin
+          ));
   const compatibleRetrievalPatterns = retrievalDefinitions
     .map((definition) => ({
       definition,
@@ -604,12 +611,16 @@ async function decideGoverned(input: DecideRequest): Promise<Decision> {
       definition,
       score: retrievalPattern.scores[definition.id] ?? 0,
     }))
+    // A protected concept must also support the response shape requested by the question.
+    .filter((candidate) => answerPatternCompatible(candidate.definition))
     .filter((candidate) =>
       candidate.score >= (candidate.definition.minimumScore ?? 0.8)
       && candidate.score >= retrievalPattern.best.score - patternThresholds.safetyBoundaryProximity)
     .sort((left, right) => right.score - left.score);
+  // A protected-source boundary must win the classifier, not merely neighbor a public compensation concept.
   const hardPolicyBoundary = policyBoundaries.find((candidate) =>
-    candidate.definition.deferReason === "policy_sensitive_source");
+    candidate.definition.deferReason === "policy_sensitive_source"
+    && candidate.definition.id === retrievalPattern.best.id);
   // Preserve a high-confidence mixed live-state boundary even when a supported policy clause scores slightly higher.
   // A mixed policy/live-state boundary needs explicit sentence or conjunction structure, not only embedding proximity.
   const hasCoordinatedClause = sentenceSegments.length > 1
@@ -707,7 +718,16 @@ async function decideGoverned(input: DecideRequest): Promise<Decision> {
   const directSemanticScores = new Map(
     directSemanticCandidates.map((candidate) => [candidate.passage.id, candidate.score]),
   );
+  // Let strong direct FAQ evidence defeat a cross-domain concept without weakening policy or agreement expansion.
+  const directTopCandidate = directSemanticCandidates[0];
+  const conceptTopCandidate = semanticBatch.candidates[1]?.[0];
+  const conceptDomainCoherent = directTopCandidate === undefined
+    || conceptTopCandidate === undefined
+    || directTopCandidate.document.domain === conceptTopCandidate.document.domain
+    || directTopCandidate.document.sourceType !== "faq"
+    || directTopCandidate.score < patternThresholds.standalonePromptSemanticMinimum;
   const semanticExpansionEnabled = semanticExpansionCandidate
+    && conceptDomainCoherent
     && (
       selectedRetrievalScore >= patternThresholds.routingDomainSignalMinimum
       || (
@@ -1007,11 +1027,19 @@ async function decideGoverned(input: DecideRequest): Promise<Decision> {
       },
     );
   };
+  // Absorb harmless native-versus-x64 rounding drift without crossing a full selection margin.
+  const stablePromptEvidenceMinimum = patternThresholds.promptSemanticMinimum
+    - patternThresholds.promptSelectionMargin;
   const standalonePromptEvidence = alignedEligible.some((candidate) =>
-      (candidate.promptSemanticScore ?? 0) >= patternThresholds.promptSemanticMinimum
+      (candidate.promptSemanticScore ?? 0) >= stablePromptEvidenceMinimum
       && (directSemanticScores.get(candidate.passage.id) ?? 0)
         >= patternThresholds.standalonePromptSemanticMinimum
-      && (candidate.answerSemanticScore ?? 0) >= patternThresholds.genericDirectAnswerMinimum);
+      && (candidate.answerSemanticScore ?? 0) >= patternThresholds.genericDirectAnswerMinimum
+      && (
+        candidate.queryCoverage >= patternThresholds.genericDirectCoverageMinimum
+        || (candidate.lexicalScore ?? 0)
+          >= patternThresholds.genericDirectLexicalMinimum * 2
+      ));
   const sensitiveCapabilityOverride = standalonePromptEvidence
     && sensitiveBoundary?.definition.id !== "mixed_policy_and_live_state"
     && composition!.best.score - composition!.second.score
@@ -1029,13 +1057,17 @@ async function decideGoverned(input: DecideRequest): Promise<Decision> {
     return decision;
   }
   const knownGapPromptEvidence = alignedEligible.some((candidate) =>
-    (candidate.promptSemanticScore ?? 0) >= patternThresholds.promptSemanticMinimum
+    (candidate.promptSemanticScore ?? 0) >= stablePromptEvidenceMinimum
     && (directSemanticScores.get(candidate.passage.id) ?? 0)
       >= patternThresholds.genericDirectSemanticMinimum
     && (candidate.answerSemanticScore ?? 0) >= patternThresholds.genericDirectAnswerMinimum);
+  // An unusually strong exact corpus match proves a single supported capability despite composition drift.
   const knownGapCapabilityOverride = knownGapPromptEvidence
-    && composition!.best.score - composition!.second.score
-      < patternThresholds.sensitiveCapabilityCompositionMarginMaximum;
+    && (
+      composition!.best.score - composition!.second.score
+        < patternThresholds.sensitiveCapabilityCompositionMarginMaximum
+      || strongStandaloneLexicalEvidence
+    );
   if (knownGapBoundary !== undefined && !knownGapCapabilityOverride) {
     const reason: HandoffReason = "missing_source";
     // Save the retrieved passages that failed to resolve the classified corpus gap.
@@ -1046,6 +1078,7 @@ async function decideGoverned(input: DecideRequest): Promise<Decision> {
     );
     return decision;
   }
+  // Preserve static capability guidance only when direct, well-covered evidence resolves live-state ambiguity.
   const unresolvedSensitiveState = retrievalDefinitions
     .filter((definition) => definition.sensitiveTopic === true)
     .some((definition) =>
@@ -1124,6 +1157,7 @@ async function decideGoverned(input: DecideRequest): Promise<Decision> {
   const conflicts = hasSufficientCandidate ? detectConflicts(conflictCandidates) : [];
   // Retain a nearby conflict-bearing concept even when a sibling concept wins by a platform-sensitive tie.
   const conflictRetrievalDefinition = retrievalDefinition?.conflictOnMultipleSources
+    && semanticExpansionEnabled
     ? retrievalDefinition
     : requirement === "location_or_channel"
       ? compatibleRetrievalPatterns.slice(0, 2).find((candidate) =>
@@ -1146,12 +1180,21 @@ async function decideGoverned(input: DecideRequest): Promise<Decision> {
     const consensusWindow = patternThresholds.semanticWindow
       * consensusMultiplier;
     const consensusSourceTypes = conflictRetrievalDefinition.requiredSourceTypes ?? [];
+    // Keep semantic consensus anchored to the selected concept as well as the question's domain.
+    const topConceptSemanticScore = conflictRetrievalDefinition === retrievalDefinition
+      ? alignedEligible.reduce((top, candidate) =>
+        Math.max(top, candidate.conceptSemanticScore ?? 0), 0)
+      : 0;
     const consensusCandidates = alignedEligible.filter((candidate) =>
       candidate.semanticScore !== undefined
       && (conflictDomain === undefined || candidate.document.domain === conflictDomain)
       && (
         consensusSourceTypes.length === 0
         || consensusSourceTypes.includes(candidate.document.sourceType)
+      )
+      && (
+        topConceptSemanticScore === 0
+        || (candidate.conceptSemanticScore ?? 0) >= topConceptSemanticScore - consensusWindow
       )
       && candidate.semanticScore >= supportContext.topSemanticScore - consensusWindow
       && (candidate.answerSemanticScore ?? 0) >= supportContext.answerSemanticMinimum

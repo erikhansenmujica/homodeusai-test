@@ -34,7 +34,7 @@ npm run build:index
 LEARNED_SEMANTIC_ENABLED=true RUNTIME_STATE_PATH=/tmp/nexo-learned npm start
 ```
 
-`setup:model` verifies every tokenizer, configuration, SentencePiece, and int8 ONNX checksum. `build:index` records the model revision and every passage hash. A stale or incompatible index is rebuilt. If the model is missing or invalid, readiness completes as `ready_degraded`; traces expose provider state only as `ok` or `degraded`.
+`setup:model` gives each pinned asset up to three bounded download attempts for transient transport or server failures, then verifies every tokenizer, configuration, SentencePiece, and int8 ONNX checksum. Non-retryable client responses fail immediately. `build:index` records the model revision and every passage hash. A stale or incompatible index is rebuilt. If the model is missing or invalid, readiness completes as `ready_degraded`; traces expose provider state only as `ok` or `degraded`.
 
 The multi-stage Docker build downloads and verifies the pinned assets without relying on ignored local files. The runtime defaults to learned mode because the frozen suite passed 21/21 there versus 9/21 exact outcomes in degraded mode. When model initialization fails, `ready_degraded` remains available as a safe, abstention-first fallback; it is not advertised as multilingual semantic equivalence.
 

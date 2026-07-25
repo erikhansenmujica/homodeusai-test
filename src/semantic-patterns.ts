@@ -82,6 +82,8 @@ interface PatternDefinition {
   terminalMargin?: number;
   retrievalHint?: string;
   answerPattern?: AnswerPattern;
+  // Restrict a flexible governed concept to explicitly compatible response shapes.
+  compatibleAnswerPatterns?: AnswerPattern[];
   answerPatternFlexible?: boolean;
   answerPatternMargin?: number;
   answerPatternSelectionWeight?: number;
@@ -224,6 +226,18 @@ function parseConfig(): SemanticPatternConfig {
   if (value.retrievalPatterns.some((pattern) =>
     pattern.answerPattern !== undefined && !answerPatternIds.has(pattern.answerPattern))) {
     throw new Error("semantic retrieval answer pattern is invalid");
+  }
+  // Validate optional multi-shape declarations against the versioned answer-pattern family.
+  if (value.retrievalPatterns.some((pattern) =>
+    pattern.compatibleAnswerPatterns !== undefined
+    && (
+      pattern.answerPattern === undefined
+      || pattern.answerPatternFlexible === true
+      || pattern.compatibleAnswerPatterns.length === 0
+      || pattern.compatibleAnswerPatterns.some((answerPattern) =>
+        !answerPatternIds.has(answerPattern))
+    ))) {
+    throw new Error("semantic retrieval compatible answer patterns are invalid");
   }
   if (value.retrievalPatterns.some((pattern) =>
     pattern.answerPatternFlexible !== undefined

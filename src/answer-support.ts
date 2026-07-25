@@ -295,6 +295,13 @@ export function selectAnswerCandidates(
         || (right.answerSemanticScore ?? 0) - (left.answerSemanticScore ?? 0)
         || (right.finalScore ?? 0) - (left.finalScore ?? 0))[0]
     : undefined;
+  // Let materially stronger direct-question evidence defeat a concept-hint preference.
+  const conceptOrSourcePreferred = conceptPreferred !== undefined
+    && sourceCoherent !== undefined
+    && (sourceCoherent.semanticScore ?? 0) - (conceptPreferred.semanticScore ?? 0)
+      >= thresholds.semanticCandidateMargin
+    ? sourceCoherent
+    : conceptPreferred ?? sourceCoherent;
   const preferred = preferredCandidates
       .sort((left, right) =>
         (right.semanticScore ?? 0) - (left.semanticScore ?? 0)
@@ -306,7 +313,7 @@ export function selectAnswerCandidates(
       < thresholds.promptSelectionMargin
     ? shapePreferred
     : sourceCoherent ?? shapePreferred;
-  const selected = promptPreferred ?? conceptPreferred ?? shapeOrSourcePreferred ?? (preferred !== undefined
+  const selected = promptPreferred ?? conceptOrSourcePreferred ?? shapeOrSourcePreferred ?? (preferred !== undefined
     && (
       !context.preferredSourceTypes.includes(primary.document.sourceType)
       || (preferred.semanticScore ?? 0) - (primary.semanticScore ?? 0)
