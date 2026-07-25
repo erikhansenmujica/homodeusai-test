@@ -34,6 +34,8 @@ const cases = [
   ["metropolitan scale", "sudeste", "Com quantos dias úteis de antecedência uma mudança ordinária de escala deve ser comunicada?", /quatro dias úteis/iu],
   ["coast scale", "sul", "Com quantos dias úteis de antecedência uma mudança ordinária de escala deve ser comunicada?", /seis dias úteis/iu],
   ["payroll receipt", "sudeste", "Quando o comprovante mensal fica disponível?", /12h/iu],
+  // Pin the colloquial payroll wording that exposed Linux/x64 near-top semantic drift.
+  ["payroll receipt colloquial", "sudeste", "Em que momento o holerite é publicado?", /12h/iu],
 ] as const;
 
 test("governed lexical retrieval answers the named passage regressions with exact evidence", async () => {

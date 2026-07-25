@@ -707,6 +707,8 @@ async function decideGoverned(input: DecideRequest): Promise<Decision> {
 
   const documents = loadSourceDocuments();
   const retrievalStarted = performance.now();
+  // Search the raw question lexically before deciding whether a low-score concept may expand retrieval.
+  const retrieval = lexicalIndex(documents).search(retrievalContext.question, 192);
   const semanticQueries = [
     retrievalContext.question,
     ...(semanticExpansionCandidate && retrievalDefinition?.retrievalHint
@@ -721,21 +723,29 @@ async function decideGoverned(input: DecideRequest): Promise<Decision> {
   // Let strong direct FAQ evidence defeat a cross-domain concept without weakening policy or agreement expansion.
   const directTopCandidate = directSemanticCandidates[0];
   const conceptTopCandidate = semanticBatch.candidates[1]?.[0];
+  const lexicallyRetrievedPassages = new Set(
+    retrieval.candidates.map((candidate) => candidate.passage.id),
+  );
   const conceptDomainCoherent = directTopCandidate === undefined
     || conceptTopCandidate === undefined
     || directTopCandidate.document.domain === conceptTopCandidate.document.domain
     || directTopCandidate.document.sourceType !== "faq"
     || directTopCandidate.score < patternThresholds.standalonePromptSemanticMinimum;
+  // Let a domain-aligned preferred source in the stable direct window corroborate a low-score concept.
+  const preferredDirectSupport = directSemanticCandidates.some((candidate) =>
+    candidatePreferredSourceTypes.includes(candidate.document.sourceType)
+    && lexicallyRetrievedPassages.has(candidate.passage.id)
+    && candidate.score >= (directTopCandidate?.score ?? 0)
+      - patternThresholds.semanticCandidateMargin
+    && (
+      conceptTopCandidate === undefined
+      || candidate.document.domain === conceptTopCandidate.document.domain
+    ));
   const semanticExpansionEnabled = semanticExpansionCandidate
     && conceptDomainCoherent
     && (
       selectedRetrievalScore >= patternThresholds.routingDomainSignalMinimum
-      || (
-        candidatePreferredSourceTypes.length > 0
-        && candidatePreferredSourceTypes.includes(
-          directSemanticCandidates[0]?.document.sourceType ?? "",
-        )
-      )
+      || preferredDirectSupport
     );
   const expectedPattern: AnswerPattern | undefined = semanticExpansionEnabled
     ? retrievalDefinition?.answerPattern
@@ -889,7 +899,6 @@ async function decideGoverned(input: DecideRequest): Promise<Decision> {
       ?? retrievalDefinition.minimumScore
       ?? patternThresholds.retrievalConceptMinimum
     );
-  const retrieval = lexicalIndex(documents).search(retrievalContext.question, 192);
   // Attach the concept score after fusion so a platform-sensitive direct score cannot erase it.
   const hybridCandidates = fuseRetrieval(retrieval.candidates, semantic.candidates, 256)
     .map((candidate) => ({
